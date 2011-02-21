@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Tileset Name="Test" Resource="Tilesets\Test">
+  <Tile ID="0">Character</Tile>
+  <Tile ID="1">Dirt</Tile>
+  <Tile ID="2">GrassCornerNW</Tile>
+  <Tile ID="3">GrassCornerW</Tile>
+  <Tile ID="4">GrassCornerSW</Tile>
+  <Tile ID="5">GrassInnerCornerNW</Tile>
+  <Tile ID="8">GrassCornerN</Tile>
+  <Tile ID="9">Grass</Tile>
+  <Tile ID="10">GrassCornerS</Tile>
+  <Tile ID="11">GrassInnerCornerNE</Tile>
+  <Tile ID="14">GrassCornerNE</Tile>
+  <Tile ID="15">GrassCornerE</Tile>
+  <Tile ID="16">GrassCornerSE</Tile>
+  <Tile ID="17">GrassInnerCornerSE</Tile>
+  <Tile ID="23">GrassInnerCornerSW</Tile>
+</Tileset>

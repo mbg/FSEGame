@@ -42,6 +42,38 @@ namespace FSEGame.Engine
                 return this.name;
             }
         }
+        /// <summary>
+        /// Gets the size (in pixels) of each  of the tiles' edges. This
+        /// size to the power of two represents the total number of pixels
+        /// in each tile.
+        /// </summary>
+        public UInt16 Size
+        {
+            get
+            {
+                return this.size;
+            }
+        }
+        /// <summary>
+        /// Gets the number of rows in this tileset.
+        /// </summary>
+        public UInt16 Rows
+        {
+            get
+            {
+                return this.rows;
+            }
+        }
+        /// <summary>
+        /// Gets the number of columns in this tileset.
+        /// </summary>
+        public UInt16 Columns
+        {
+            get
+            {
+                return this.columns;
+            }
+        }
         #endregion
 
         #region Constructor
@@ -56,6 +88,12 @@ namespace FSEGame.Engine
         }
         #endregion
 
+        #region Load
+        /// <summary>
+        /// Loads the tileset from the game resources.
+        /// </summary>
+        /// <param name="contentManager">The content manager to use.</param>
+        /// <param name="name">The relative filename of the tileset without extension.</param>
         public void Load(ContentManager contentManager, String name)
         {
             if (contentManager == null)
@@ -63,16 +101,17 @@ namespace FSEGame.Engine
             if (String.IsNullOrEmpty(name))
                 throw new ArgumentNullException("name");
 
+            // :: We can only initialise the tileset once.
             if (this.initialised)
                 throw new InvalidOperationException("Tileset is already initialised.");
-
-            this.name = name;
 
             // :: Load the texture tileset texture.
             this.texture = contentManager.Load<Texture2D>(name);
 
+            this.name = name;
             this.initialised = true;
         }
+        #endregion
 
         #region DrawTile
         /// <summary>

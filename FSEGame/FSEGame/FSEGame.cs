@@ -20,6 +20,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using FSEGame.Engine;
+using System.IO;
 #endregion
 
 namespace FSEGame
@@ -29,12 +30,34 @@ namespace FSEGame
     /// </summary>
     public class FSEGame : Game
     {
+        private static FSEGame singleton;
+
         #region Instance Members
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
+
+        private String levelFileExtension = ".xml";
+
+        private CharacterController character = null;
+        private Level currentLevel = null;
         private Tileset tileset;
         #endregion
 
+        public static FSEGame Singleton
+        {
+            get
+            {
+                return FSEGame.singleton;
+            }
+        }
+
+        public Tileset CurrentTileset
+        {
+            get
+            {
+                return this.tileset;
+            }
+        }
 
         #region Constructor
         /// <summary>
@@ -42,11 +65,16 @@ namespace FSEGame
         /// </summary>
         public FSEGame()
         {
+            if (FSEGame.Singleton != null)
+                throw new InvalidOperationException("Can only initialise one instance of FSEGame!");
+
             this.graphics = new GraphicsDeviceManager(this);
             this.graphics.PreparingDeviceSettings += 
                 new EventHandler<PreparingDeviceSettingsEventArgs>(PrepareGraphicsSettings);
 
             this.Content.RootDirectory = "FSEGame";
+
+            FSEGame.singleton = this;
         }
         #endregion
 
@@ -85,7 +113,6 @@ namespace FSEGame
         /// </summary>
         protected override void Initialize()
         {
-
             base.Initialize();
         }
         #endregion
@@ -99,8 +126,10 @@ namespace FSEGame
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             this.spriteBatch = new SpriteBatch(this.GraphicsDevice);
-            
-            // TODO: use this.Content to load your game content here
+
+            this.LoadLevel(@"Levels\Test.xml");
+            this.character = new CharacterController();
+
             this.tileset = new Tileset(16, 6, 8);
             this.tileset.Load(this.Content, @"Tilesets\Test");
         }
@@ -151,10 +180,24 @@ namespace FSEGame
             // :: [Test]  Draws a tile from the current tileset.
             // :: [mbg]   SamplerState.PointClamp causes no filters to be applied to the scaled tiles
             this.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, null);
-            this.tileset.DrawTile(this.spriteBatch, 0, new Vector2(0, 0));
+
+            if (this.currentLevel != null)
+            {
+                this.currentLevel.DrawLevel(this.spriteBatch);
+            }
+
+            this.character.Draw(this.spriteBatch, this.tileset);
+
             this.spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+        #endregion
+
+        #region LoadLevel
+        public void LoadLevel(String name)
+        {
+            this.currentLevel = new Level(this.Content, name);
         }
         #endregion
     }

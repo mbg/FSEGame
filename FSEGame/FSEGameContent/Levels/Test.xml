@@ -1,11 +1,56 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Level Name="Test" Tileset="Test.png">
+<Level Name="TestLevel" Tileset="Test.xml">
   <EntryPoints>
-    <EntryPoint>
-      
-    </EntryPoint>
+    <EntryPoint Name="Default" X="3" Y="4" />
   </EntryPoints>
   <Cells>
-    
+    <Cell X="0" Y="0" Tile="GrassCornerNW" />
+    <Cell X="0" Y="1" Tile="GrassCornerW" />
+    <Cell X="0" Y="2" Tile="GrassCornerW" />
+    <Cell X="0" Y="3" Tile="GrassCornerW" />
+    <Cell X="0" Y="4" Tile="GrassCornerW" />
+    <Cell X="0" Y="5" Tile="GrassCornerSW" />
+
+    <Cell X="1" Y="0" Tile="GrassCornerN" />
+    <Cell X="1" Y="1" Tile="Grass" />
+    <Cell X="1" Y="2" Tile="Grass" />
+    <Cell X="1" Y="3" Tile="Grass" />
+    <Cell X="1" Y="4" Tile="Grass" />
+    <Cell X="1" Y="5" Tile="GrassCornerS" />
+
+    <Cell X="2" Y="0" Tile="GrassCornerN" />
+    <Cell X="2" Y="1" Tile="Grass" />
+    <Cell X="2" Y="2" Tile="Grass" />
+    <Cell X="2" Y="3" Tile="GrassInnerCornerSE" />
+    <Cell X="2" Y="4" Tile="GrassCornerE" />
+    <Cell X="2" Y="5" Tile="GrassCornerSE" />
+
+    <Cell X="3" Y="0" Tile="GrassCornerN" />
+    <Cell X="3" Y="1" Tile="Grass" />
+    <Cell X="3" Y="2" Tile="Grass" />
+    <Cell X="3" Y="3" Tile="GrassCornerS" />
+    <Cell X="3" Y="4" Tile="Dirt" />
+    <Cell X="3" Y="5" Tile="Dirt" />
+
+    <Cell X="4" Y="0" Tile="GrassCornerN" />
+    <Cell X="4" Y="1" Tile="Grass" />
+    <Cell X="4" Y="2" Tile="Grass" />
+    <Cell X="4" Y="3" Tile="GrassInnerCornerSW" />
+    <Cell X="4" Y="4" Tile="GrassCornerW" />
+    <Cell X="4" Y="5" Tile="GrassCornerSW" />
+
+    <Cell X="5" Y="0" Tile="GrassCornerN" />
+    <Cell X="5" Y="1" Tile="Grass" />
+    <Cell X="5" Y="2" Tile="Grass" />
+    <Cell X="5" Y="3" Tile="Grass" />
+    <Cell X="5" Y="4" Tile="Grass" />
+    <Cell X="5" Y="5" Tile="GrassCornerS" />
+
+    <Cell X="6" Y="0" Tile="GrassCornerNE" />
+    <Cell X="6" Y="1" Tile="GrassCornerE" />
+    <Cell X="6" Y="2" Tile="GrassCornerE" />
+    <Cell X="6" Y="3" Tile="GrassCornerE" />
+    <Cell X="6" Y="4" Tile="GrassCornerE" />
+    <Cell X="6" Y="5" Tile="GrassCornerSE" />
   </Cells>
 </Level>

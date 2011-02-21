@@ -9,3 +9,4 @@ E:\University\G51FSE\Coursework\Debug\FSEGame.pdb
 E:\University\G51FSE\Coursework\Debug\FSEGame\Levels\Test.xml
 E:\University\G51FSE\Coursework\Debug\FSEGame\Tilesets\Test.xnb
 E:\University\G51FSE\Coursework\Debug\FSEGame\Tilesets\Template.xnb
+E:\University\G51FSE\Coursework\Debug\FSEGame\Tilesets\Test.xml
