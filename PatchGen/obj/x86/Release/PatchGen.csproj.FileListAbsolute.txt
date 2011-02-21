@@ -1,5 +1,0 @@
-D:\Projects\State of Flux\Release\PatchGen.exe
-D:\Projects\State of Flux\Release\PatchGen.pdb
-D:\Projects\State of Flux\PatchGen\obj\x86\Release\ResolveAssemblyReference.cache
-D:\Projects\State of Flux\PatchGen\obj\x86\Release\PatchGen.exe
-D:\Projects\State of Flux\PatchGen\obj\x86\Release\PatchGen.pdb
