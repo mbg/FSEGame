@@ -123,7 +123,6 @@ namespace FSEGame.Engine
         public void DrawTile(SpriteBatch batch, UInt32 tile, Vector2 position)
         {
             this.DrawTile(batch, tile, position, 0.0f);
-            
         }
         /// <summary>
         /// Draws a single tile at the specified position with the specified rotation.
