@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Level Name="Test" Tileset="Test.png">
+  <EntryPoints>
+    <EntryPoint>
+      
+    </EntryPoint>
+  </EntryPoints>
+  <Cells>
+    
+  </Cells>
+</Level>

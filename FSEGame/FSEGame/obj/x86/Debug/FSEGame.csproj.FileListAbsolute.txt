@@ -6,3 +6,6 @@ E:\University\G51FSE\Coursework\FSEGame\FSEGame\obj\x86\Debug\FSEGame.exe
 E:\University\G51FSE\Coursework\FSEGame\FSEGame\obj\x86\Debug\FSEGame.pdb
 E:\University\G51FSE\Coursework\Debug\FSEGame.exe
 E:\University\G51FSE\Coursework\Debug\FSEGame.pdb
+E:\University\G51FSE\Coursework\Debug\FSEGame\Levels\Test.xml
+E:\University\G51FSE\Coursework\Debug\FSEGame\Tilesets\Test.xnb
+E:\University\G51FSE\Coursework\Debug\FSEGame\Tilesets\Template.xnb

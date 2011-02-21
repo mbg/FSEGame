@@ -19,6 +19,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using FSEGame.Engine;
 #endregion
 
 namespace FSEGame
@@ -31,7 +32,9 @@ namespace FSEGame
         #region Instance Members
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
+        private Tileset tileset;
         #endregion
+
 
         #region Constructor
         /// <summary>
@@ -68,9 +71,12 @@ namespace FSEGame
                         BackBufferWidth = displayMode.Width;
                 }
             }
+
+            
         }
         #endregion
 
+        #region Initialize
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -79,11 +85,12 @@ namespace FSEGame
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
 
             base.Initialize();
         }
+        #endregion
 
+        #region LoadContent
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
@@ -94,8 +101,12 @@ namespace FSEGame
             this.spriteBatch = new SpriteBatch(this.GraphicsDevice);
             
             // TODO: use this.Content to load your game content here
+            this.tileset = new Tileset(16, 6, 8);
+            this.tileset.Load(this.Content, @"Tilesets\Test");
         }
+        #endregion
 
+        #region UnloadContent
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
         /// all content.
@@ -104,6 +115,7 @@ namespace FSEGame
         {
             // TODO: Unload any non ContentManager content here
         }
+        #endregion
 
         #region Update
         /// <summary>
@@ -134,9 +146,13 @@ namespace FSEGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            base.GraphicsDevice.Clear(Color.CornflowerBlue);
+            base.GraphicsDevice.Clear(Color.Black);
 
-            // TODO: Add your drawing code here
+            // :: [Test]  Draws a tile from the current tileset.
+            // :: [mbg]   SamplerState.PointClamp causes no filters to be applied to the scaled tiles
+            this.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, null);
+            this.tileset.DrawTile(this.spriteBatch, 0, new Vector2(0, 0));
+            this.spriteBatch.End();
 
             base.Draw(gameTime);
         }
