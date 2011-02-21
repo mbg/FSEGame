@@ -40,7 +40,34 @@ namespace FSEGame
         public FSEGame()
         {
             this.graphics = new GraphicsDeviceManager(this);
+            this.graphics.PreparingDeviceSettings += 
+                new EventHandler<PreparingDeviceSettingsEventArgs>(PrepareGraphicsSettings);
+
             this.Content.RootDirectory = "FSEGame";
+        }
+        #endregion
+
+        #region PrepareGraphicsSettings
+        /// <summary>
+        /// Triggered before the graphics device is initialised so 
+        /// that we can set up the device settings, etc.
+        /// </summary>
+        /// <param name="sender">Unused.</param>
+        /// <param name="e">The device settings.</param>
+        private void PrepareGraphicsSettings(object sender, PreparingDeviceSettingsEventArgs e)
+        {
+            foreach (DisplayMode displayMode in GraphicsAdapter.DefaultAdapter.SupportedDisplayModes)
+            {
+                if (displayMode.Width == 800 && displayMode.Height == 600)
+                {
+                    e.GraphicsDeviceInformation.PresentationParameters.
+                        BackBufferFormat = displayMode.Format;
+                    e.GraphicsDeviceInformation.PresentationParameters.
+                        BackBufferHeight = displayMode.Height;
+                    e.GraphicsDeviceInformation.PresentationParameters.
+                        BackBufferWidth = displayMode.Width;
+                }
+            }
         }
         #endregion
 
@@ -54,8 +81,6 @@ namespace FSEGame
         {
             // TODO: Add your initialization logic here
 
-            
-
             base.Initialize();
         }
 
@@ -66,7 +91,7 @@ namespace FSEGame
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            this.spriteBatch = new SpriteBatch(GraphicsDevice);
+            this.spriteBatch = new SpriteBatch(this.GraphicsDevice);
             
             // TODO: use this.Content to load your game content here
         }
