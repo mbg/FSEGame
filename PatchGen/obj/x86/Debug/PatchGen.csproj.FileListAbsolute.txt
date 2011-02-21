@@ -1,0 +1,15 @@
+D:\Projects\State of Flux\Debug\PatchGen.exe
+D:\Projects\State of Flux\Debug\PatchGen.pdb
+D:\Projects\State of Flux\PatchGen\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\Projects\State of Flux\PatchGen\obj\x86\Debug\PatchGen.exe
+D:\Projects\State of Flux\PatchGen\obj\x86\Debug\PatchGen.pdb
+E:\Projects\Games\State of Flux\Debug\PatchGen.exe
+E:\Projects\Games\State of Flux\Debug\PatchGen.pdb
+E:\Projects\Games\State of Flux\PatchGen\obj\x86\Debug\ResolveAssemblyReference.cache
+E:\Projects\Games\State of Flux\PatchGen\obj\x86\Debug\PatchGen.exe
+E:\Projects\Games\State of Flux\PatchGen\obj\x86\Debug\PatchGen.pdb
+E:\University\G51FSE\Coursework\Debug\PatchGen.exe
+E:\University\G51FSE\Coursework\Debug\PatchGen.pdb
+E:\University\G51FSE\Coursework\PatchGen\obj\x86\Debug\ResolveAssemblyReference.cache
+E:\University\G51FSE\Coursework\PatchGen\obj\x86\Debug\PatchGen.exe
+E:\University\G51FSE\Coursework\PatchGen\obj\x86\Debug\PatchGen.pdb

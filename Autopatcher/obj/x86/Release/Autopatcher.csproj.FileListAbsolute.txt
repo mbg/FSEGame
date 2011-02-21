@@ -1,0 +1,8 @@
+D:\Projects\State of Flux\Release\Autopatcher.exe
+D:\Projects\State of Flux\Release\Autopatcher.pdb
+D:\Projects\State of Flux\Autopatcher\obj\x86\Release\ResolveAssemblyReference.cache
+D:\Projects\State of Flux\Autopatcher\obj\x86\Release\Origin.Autopatcher.PatcherForm.resources
+D:\Projects\State of Flux\Autopatcher\obj\x86\Release\ResGen.read.1.tlog
+D:\Projects\State of Flux\Autopatcher\obj\x86\Release\ResGen.write.1.tlog
+D:\Projects\State of Flux\Autopatcher\obj\x86\Release\Autopatcher.exe
+D:\Projects\State of Flux\Autopatcher\obj\x86\Release\Autopatcher.pdb

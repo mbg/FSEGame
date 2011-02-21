@@ -1,0 +1,24 @@
+D:\Projects\State of Flux\Debug\Autopatcher.exe
+D:\Projects\State of Flux\Debug\Autopatcher.pdb
+D:\Projects\State of Flux\Autopatcher\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\Projects\State of Flux\Autopatcher\obj\x86\Debug\Origin.Autopatcher.PatcherForm.resources
+D:\Projects\State of Flux\Autopatcher\obj\x86\Debug\ResGen.read.1.tlog
+D:\Projects\State of Flux\Autopatcher\obj\x86\Debug\ResGen.write.1.tlog
+D:\Projects\State of Flux\Autopatcher\obj\x86\Debug\Autopatcher.exe
+D:\Projects\State of Flux\Autopatcher\obj\x86\Debug\Autopatcher.pdb
+E:\Projects\Games\State of Flux\Debug\Autopatcher.exe
+E:\Projects\Games\State of Flux\Debug\Autopatcher.pdb
+E:\Projects\Games\State of Flux\Autopatcher\obj\x86\Debug\ResolveAssemblyReference.cache
+E:\Projects\Games\State of Flux\Autopatcher\obj\x86\Debug\Origin.Autopatcher.PatcherForm.resources
+E:\Projects\Games\State of Flux\Autopatcher\obj\x86\Debug\ResGen.read.1.tlog
+E:\Projects\Games\State of Flux\Autopatcher\obj\x86\Debug\ResGen.write.1.tlog
+E:\Projects\Games\State of Flux\Autopatcher\obj\x86\Debug\Autopatcher.exe
+E:\Projects\Games\State of Flux\Autopatcher\obj\x86\Debug\Autopatcher.pdb
+E:\University\G51FSE\Coursework\Autopatcher\obj\x86\Debug\Autopatcher.exe
+E:\University\G51FSE\Coursework\Autopatcher\obj\x86\Debug\Autopatcher.pdb
+E:\University\G51FSE\Coursework\Debug\Autopatcher.exe
+E:\University\G51FSE\Coursework\Debug\Autopatcher.pdb
+E:\University\G51FSE\Coursework\Autopatcher\obj\x86\Debug\ResolveAssemblyReference.cache
+E:\University\G51FSE\Coursework\Autopatcher\obj\x86\Debug\Origin.Autopatcher.PatcherForm.resources
+E:\University\G51FSE\Coursework\Autopatcher\obj\x86\Debug\ResGen.read.1.tlog
+E:\University\G51FSE\Coursework\Autopatcher\obj\x86\Debug\ResGen.write.1.tlog

@@ -1,0 +1,7 @@
+<Patch URL="NO URL YET">
+  <Directory Name="Content" />
+  <Directory Name="Setup">
+    <File Name="xnafx40_redist.msi" Hash="49efdc29f65fc8263c196338552c7009fc96c5de" Size="7054336" />
+  </Directory>
+  <File Name="FSEGame.exe" Hash="335e14edf34245dc5c6afc56476f1e6674d74eab" Size="10240" />
+</Patch>

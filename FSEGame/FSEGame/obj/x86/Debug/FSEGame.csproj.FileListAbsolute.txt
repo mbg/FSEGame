@@ -1,0 +1,8 @@
+E:\University\G51FSE\Coursework\FSEGame\FSEGame\bin\x86\Debug\FSEGame.exe
+E:\University\G51FSE\Coursework\FSEGame\FSEGame\bin\x86\Debug\FSEGame.pdb
+E:\University\G51FSE\Coursework\FSEGame\FSEGame\obj\x86\Debug\ResolveAssemblyReference.cache
+E:\University\G51FSE\Coursework\FSEGame\FSEGame\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+E:\University\G51FSE\Coursework\FSEGame\FSEGame\obj\x86\Debug\FSEGame.exe
+E:\University\G51FSE\Coursework\FSEGame\FSEGame\obj\x86\Debug\FSEGame.pdb
+E:\University\G51FSE\Coursework\Debug\FSEGame.exe
+E:\University\G51FSE\Coursework\Debug\FSEGame.pdb

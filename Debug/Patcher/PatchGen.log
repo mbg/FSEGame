@@ -1,0 +1,163 @@
+=== Running Origin PatchGen on 21/02/2011 19:55:47 ===
+
+Excluded folder: Patcher
+Excluded file: PatchGen.exe
+Excluded file: Default.cfg
+Excluded file: Autopatcher.exe
+Excluded extension: .pdb
+Excluded extension: .log
+
+Adding directory 'E:\University\G51FSE\Coursework\Debug'.
+Ignoring directory 'Patcher'.
+Adding directory 'E:\University\G51FSE\Coursework\Debug\Setup'.
+Adding file 'xnafx40_redist.msi'.
+Ignoring file 'Autopatcher.exe'.
+Ignoring file 'Autopatcher.pdb' because it has extension '.pdb'.
+Adding file 'Autopatcher.vshost.exe'.
+
+Failure: The process cannot access the file 'E:\University\G51FSE\Coursework\Debug\Autopatcher.vshost.exe' because it is being used by another process.
+
+=== Running Origin PatchGen on 21/02/2011 19:56:38 ===
+
+Excluded folder: Patcher
+Excluded file: PatchGen.exe
+Excluded file: Default.cfg
+Excluded file: Autopatcher.exe
+Excluded extension: .pdb
+Excluded extension: .log
+
+Adding directory 'E:\University\G51FSE\Coursework\Debug'.
+Ignoring directory 'Patcher'.
+Adding directory 'E:\University\G51FSE\Coursework\Debug\Setup'.
+Adding file 'xnafx40_redist.msi'.
+Ignoring file 'Autopatcher.exe'.
+Ignoring file 'Autopatcher.pdb' because it has extension '.pdb'.
+Adding file 'Autopatcher.vshost.exe'.
+
+Failure: The process cannot access the file 'E:\University\G51FSE\Coursework\Debug\Autopatcher.vshost.exe' because it is being used by another process.
+
+=== Running Origin PatchGen on 21/02/2011 19:57:22 ===
+
+Excluded folder: Patcher
+Excluded file: PatchGen.exe
+Excluded file: Default.cfg
+Excluded file: Autopatcher.exe
+Excluded file: Autopatcher.vshost.exe
+Excluded file: Autopatcher.vshost.exe.manifest
+Excluded extension: .pdb
+Excluded extension: .log
+Excluded extension: .vshost.exe
+Excluded extension: .vshost.exe.manifest
+
+Adding directory 'E:\University\G51FSE\Coursework\Debug'.
+Ignoring directory 'Patcher'.
+Adding directory 'E:\University\G51FSE\Coursework\Debug\Setup'.
+Adding file 'xnafx40_redist.msi'.
+Ignoring file 'Autopatcher.exe'.
+Ignoring file 'Autopatcher.pdb' because it has extension '.pdb'.
+Ignoring file 'Autopatcher.vshost.exe'.
+Ignoring file 'Autopatcher.vshost.exe.manifest'.
+Ignoring file 'PatchGen.exe'.
+Ignoring file 'PatchGen.pdb' because it has extension '.pdb'.
+
+The following files have changed since the last patch:
+E:\University\G51FSE\Coursework\Debug\Setup\xnafx40_redist.msi
+
+Success.
+
+=== Running Origin PatchGen on 21/02/2011 20:00:10 ===
+
+Excluded folder: Patcher
+Excluded file: PatchGen.exe
+Excluded file: Default.cfg
+Excluded file: Autopatcher.exe
+Excluded file: Autopatcher.vshost.exe
+Excluded file: Autopatcher.vshost.exe.manifest
+Excluded extension: .pdb
+Excluded extension: .log
+Excluded extension: .vshost.exe
+Excluded extension: .vshost.exe.manifest
+
+Analysing existing patchfile...
+
+Adding directory 'E:\University\G51FSE\Coursework\Debug'.
+Ignoring directory 'Patcher'.
+Adding directory 'E:\University\G51FSE\Coursework\Debug\Setup'.
+Adding file 'xnafx40_redist.msi'.
+Ignoring file 'Autopatcher.exe'.
+Ignoring file 'Autopatcher.pdb' because it has extension '.pdb'.
+Ignoring file 'Autopatcher.vshost.exe'.
+Ignoring file 'Autopatcher.vshost.exe.manifest'.
+Ignoring file 'PatchGen.exe'.
+Ignoring file 'PatchGen.pdb' because it has extension '.pdb'.
+
+The following files have changed since the last patch:
+
+Success.
+
+=== Running Origin PatchGen on 21/02/2011 20:02:09 ===
+
+Excluded folder: Patcher
+Excluded file: PatchGen.exe
+Excluded file: Default.cfg
+Excluded file: Autopatcher.exe
+Excluded file: Autopatcher.vshost.exe
+Excluded file: Autopatcher.vshost.exe.manifest
+Excluded extension: .pdb
+Excluded extension: .log
+Excluded extension: .vshost.exe
+Excluded extension: .vshost.exe.manifest
+
+Analysing existing patchfile...
+
+Adding directory 'E:\University\G51FSE\Coursework\Debug'.
+Ignoring directory 'Patcher'.
+Adding directory 'E:\University\G51FSE\Coursework\Debug\Setup'.
+Adding file 'xnafx40_redist.msi'.
+Ignoring file 'Autopatcher.exe'.
+Ignoring file 'Autopatcher.pdb' because it has extension '.pdb'.
+Ignoring file 'Autopatcher.vshost.exe'.
+Ignoring file 'Autopatcher.vshost.exe.manifest'.
+Ignoring file 'PatchGen.exe'.
+Ignoring file 'PatchGen.pdb' because it has extension '.pdb'.
+
+The following files have changed since the last patch:
+E:\University\G51FSE\Coursework\Debug\Setup\xnafx40_redist.msi
+
+Success.
+
+=== Running Origin PatchGen on 21/02/2011 20:07:12 ===
+
+Excluded folder: Patcher
+Excluded file: PatchGen.exe
+Excluded file: Default.cfg
+Excluded file: Autopatcher.exe
+Excluded file: Autopatcher.vshost.exe
+Excluded file: Autopatcher.vshost.exe.manifest
+Excluded extension: .pdb
+Excluded extension: .log
+Excluded extension: .vshost.exe
+Excluded extension: .vshost.exe.manifest
+
+Analysing existing patchfile...
+
+Adding directory 'E:\University\G51FSE\Coursework\Debug'.
+Adding directory 'E:\University\G51FSE\Coursework\Debug\Content'.
+Ignoring directory 'Patcher'.
+Adding directory 'E:\University\G51FSE\Coursework\Debug\Setup'.
+Adding file 'xnafx40_redist.msi'.
+Ignoring file 'Autopatcher.exe'.
+Ignoring file 'Autopatcher.pdb' because it has extension '.pdb'.
+Ignoring file 'Autopatcher.vshost.exe'.
+Ignoring file 'Autopatcher.vshost.exe.manifest'.
+Adding file 'FSEGame.exe'.
+Ignoring file 'FSEGame.pdb' because it has extension '.pdb'.
+Ignoring file 'PatchGen.exe'.
+Ignoring file 'PatchGen.pdb' because it has extension '.pdb'.
+
+The following files have changed since the last patch:
+E:\University\G51FSE\Coursework\Debug\Setup\xnafx40_redist.msi
+E:\University\G51FSE\Coursework\Debug\FSEGame.exe
+
+Success.
+
