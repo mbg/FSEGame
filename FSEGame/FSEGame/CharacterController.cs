@@ -30,7 +30,7 @@ namespace FSEGame
         #region Properties
         // :: [TODO]: Implement appropriate properties for the instance members.
         #endregion
-
+        
         #region Constructor
         /// <summary>
         /// Initialises a new instance of this class.

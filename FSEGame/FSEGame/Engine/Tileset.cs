@@ -5,7 +5,7 @@
 // :: Created: ---
 // ::      by: MBG20102011\Michael Gale
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-// :: Notes:   
+// :: Notes:   Manages a single tileset and allows to render individual tiles.
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 #region References
@@ -83,6 +83,17 @@ namespace FSEGame.Engine
         /// <param name="position"></param>
         public void DrawTile(SpriteBatch batch, UInt32 tile, Vector2 position)
         {
+            this.DrawTile(batch, tile, position, 0.0f);
+            
+        }
+        /// <summary>
+        /// Draws a single tile at the specified position with the specified rotation.
+        /// </summary>
+        /// <param name="batch"></param>
+        /// <param name="tile"></param>
+        /// <param name="position"></param>
+        public void DrawTile(SpriteBatch batch, UInt32 tile, Vector2 position, float rotation)
+        {
             if (!this.initialised)
                 return;
 
@@ -91,12 +102,21 @@ namespace FSEGame.Engine
             UInt32 row = tile % this.rows;
 
             Rectangle sourceRectangle = new Rectangle(
-                (Int32)(column * this.size), 
-                (Int32)(row * this.size), 
+                (Int32)(column * this.size),
+                (Int32)(row * this.size),
                 this.size, this.size);
 
-            batch.Draw(this.texture, position, sourceRectangle, Color.White, .0f, Vector2.Zero, 4.0f, SpriteEffects.None, 0.0f);
-            
+            // :: Draw the tile from the tileset.
+            batch.Draw(
+                this.texture,
+                position,
+                sourceRectangle,
+                Color.White,
+                rotation,
+                Vector2.Zero,
+                4.0f,
+                SpriteEffects.None,
+                0.0f);
         }
         #endregion
     }
