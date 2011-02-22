@@ -24,6 +24,9 @@ namespace FSEGame.Engine
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Gets the camera offset.
+        /// </summary>
         public Vector2 Offset
         {
             get

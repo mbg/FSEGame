@@ -111,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CharacterController.cs" />
+    <Compile Include="Engine\Camera.cs" />
     <Compile Include="Engine\Level.cs" />
     <Compile Include="Engine\LevelCell.cs" />
     <Compile Include="Engine\LevelEntryPoint.cs" />

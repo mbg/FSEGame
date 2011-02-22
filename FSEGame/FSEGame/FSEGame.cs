@@ -38,6 +38,7 @@ namespace FSEGame
 
         private String levelFileExtension = ".xml";
 
+        private Camera camera = null;
         private CharacterController character = null;
         private Level currentLevel = null;
         private Tileset tileset;
@@ -51,6 +52,23 @@ namespace FSEGame
             }
         }
 
+        #region Properties
+        public Camera Camera
+        {
+            get
+            {
+                return this.camera;
+            }
+        }
+
+        public CharacterController Character
+        {
+            get
+            {
+                return this.character;
+            }
+        }
+
         public Tileset CurrentTileset
         {
             get
@@ -58,6 +76,15 @@ namespace FSEGame
                 return this.tileset;
             }
         }
+
+        public Level CurrentLevel
+        {
+            get
+            {
+                return this.currentLevel;
+            }
+        }
+        #endregion
 
         #region Constructor
         /// <summary>
@@ -128,7 +155,10 @@ namespace FSEGame
             this.spriteBatch = new SpriteBatch(this.GraphicsDevice);
 
             this.LoadLevel(@"Levels\Test.xml");
+
             this.character = new CharacterController();
+            this.character.Position = new Vector2(3, 4);
+            this.camera = new Camera();
         }
         #endregion
 
@@ -172,6 +202,9 @@ namespace FSEGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            this.character.Update(gameTime);
+            this.camera.Update(GraphicsDevice.Viewport);
+
             base.GraphicsDevice.Clear(Color.Black);
 
             // :: [Test]  Draws a tile from the current tileset.
@@ -184,6 +217,8 @@ namespace FSEGame
             }
 
             this.character.Draw(this.spriteBatch, this.tileset);
+            Texture2D hud = Content.Load<Texture2D>("hud");
+            this.spriteBatch.Draw(hud, new Vector2(0, GraphicsDevice.Viewport.Height - 80), Color.White);
 
             this.spriteBatch.End();
 
