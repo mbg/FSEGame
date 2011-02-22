@@ -76,6 +76,8 @@ namespace FSEGame.Engine
 
             this.tilesetFilename = rootElement.GetAttribute("Tileset");
 
+            FSEGame.Singleton.LoadTileset(this.tilesetFilename);
+
 
             foreach (XmlNode childNode in rootElement.ChildNodes)
             {
@@ -142,6 +144,7 @@ namespace FSEGame.Engine
                 {
                     LevelCell cell = new LevelCell();
 
+                    cell.tile = FSEGame.Singleton.CurrentTileset.GetTileID(childElement.GetAttribute("Tile"));
                     cell.x = Convert.ToUInt32(childElement.GetAttribute("X"));
                     cell.y = Convert.ToUInt32(childElement.GetAttribute("Y"));
 

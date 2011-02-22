@@ -28,8 +28,23 @@ namespace FSEGame
         #endregion
 
         #region Properties
-        // :: [TODO]: Implement appropriate properties for the instance members.
-        
+        /// <summary>
+        /// Gets or sets the position of the character.
+        /// </summary>
+        public Vector2 Position
+        {
+            get
+            {
+                return this.position;
+            }
+            set
+            {
+                this.position = value;
+            }
+        }
+        /// <summary>
+        /// Gets or sets the orientation of the character.
+        /// </summary>
         public float Orientation
         {
             get
@@ -48,10 +63,8 @@ namespace FSEGame
         /// <summary>
         /// Initialises a new instance of this class.
         /// </summary>
-        public CharacterController(float orientation, Vector2 position)
+        public CharacterController()
         {
-            this.orientation = orientation;
-            this.position = position;
         }
         #endregion
 
@@ -63,41 +76,8 @@ namespace FSEGame
         /// <param name="tileset"></param>
         public void Draw(SpriteBatch spriteBatch, Tileset tileset)
         {
-            // :: [TODO]: Render the character at the correct position/rotation
-            // ::         using the tileset instance. 
-            if (/*keys.Pressed = w && */orientation == 0)
-                {
-                    tileset.DrawTile(spriteBatch, 0, this.position.X - 1, this.position.Y);
-                    //move character UP
-                }
-                else if (/*keys.Pressed = w*/)
-                {
-                    Orientation = 0;
-                }
-                else if(/*keys.Pressed = a &&*/ orientation == 270)
-                {
-                    //move character left
-                }
-                else if (/*keys.Pressed = a*/)
-                {
-                    Orientation = 270;
-                }
-                else if(/*keys.Pressed = s &&*/ orientation == 180)
-                {
-                    //move character down
-                }
-                else if (/*keys.Pressed = s*/)
-                {
-                    Orientation = 180;
-                }
-                else if(/*keys.Pressed = d &&*/ orientation == 90)
-                {
-                    //move character right
-                }
-                else if (/*keys.Pressed = d*/)
-                {
-                    Orientation = 90;
-                }
+            tileset.DrawTile(spriteBatch, 0, new Vector2(
+                this.position.X * 16 * 4, this.position.Y * 16 * 4), this.orientation);
         }
         #endregion
     }

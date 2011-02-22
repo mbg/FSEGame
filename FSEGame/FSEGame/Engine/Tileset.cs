@@ -13,6 +13,8 @@ using System;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
+using System.IO;
+using System.Xml;
 #endregion
 
 namespace FSEGame.Engine
@@ -24,7 +26,9 @@ namespace FSEGame.Engine
     {
         #region Instance Members
         private String name;
+        private String resource;
         private Texture2D texture;
+        private TileCollection tiles;
         private UInt16 size = 16;
         private UInt16 rows = 1;
         private UInt16 columns = 1;
@@ -93,7 +97,7 @@ namespace FSEGame.Engine
         /// Loads the tileset from the game resources.
         /// </summary>
         /// <param name="contentManager">The content manager to use.</param>
-        /// <param name="name">The relative filename of the tileset without extension.</param>
+        /// <param name="name">The relative filename of the XML file describing the tileset.</param>
         public void Load(ContentManager contentManager, String name)
         {
             if (contentManager == null)
@@ -101,14 +105,44 @@ namespace FSEGame.Engine
             if (String.IsNullOrEmpty(name))
                 throw new ArgumentNullException("name");
 
+            String path = Path.Combine(contentManager.RootDirectory, name);
+
+            if (!File.Exists(path))
+                throw new FileNotFoundException(null, path);
+
+            this.tiles = new TileCollection();
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(path);
+
+            XmlElement rootElement = doc.DocumentElement;
+
+            this.name = rootElement.GetAttribute("Name");
+            this.resource = rootElement.GetAttribute("Resource");
+
+            foreach (XmlNode childNode in rootElement.ChildNodes)
+            {
+                if (childNode.NodeType != XmlNodeType.Element)
+                    continue;
+
+                XmlElement childElement = (XmlElement)childNode;
+
+                if(childElement.Name.Equals("Tile"))
+                {
+                    // :: Add the tile to the index.
+                    this.tiles.Add(
+                        childElement.InnerText, 
+                        Convert.ToUInt32(childElement.GetAttribute("ID")));
+                }
+            }
+
             // :: We can only initialise the tileset once.
             if (this.initialised)
                 throw new InvalidOperationException("Tileset is already initialised.");
 
             // :: Load the texture tileset texture.
-            this.texture = contentManager.Load<Texture2D>(name);
+            this.texture = contentManager.Load<Texture2D>(this.resource);
 
-            this.name = name;
             this.initialised = true;
         }
         #endregion
@@ -157,6 +191,11 @@ namespace FSEGame.Engine
                 0.0f);
         }
         #endregion
+
+        public UInt32 GetTileID(String name)
+        {
+            return this.tiles[name];
+        }
     }
 }
 

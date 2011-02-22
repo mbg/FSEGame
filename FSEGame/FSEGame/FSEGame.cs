@@ -129,9 +129,6 @@ namespace FSEGame
 
             this.LoadLevel(@"Levels\Test.xml");
             this.character = new CharacterController();
-
-            this.tileset = new Tileset(16, 6, 8);
-            this.tileset.Load(this.Content, @"Tilesets\Test");
         }
         #endregion
 
@@ -193,6 +190,12 @@ namespace FSEGame
             base.Draw(gameTime);
         }
         #endregion
+
+        public void LoadTileset(String name)
+        {
+            this.tileset = new Tileset(16, 6, 8);
+            this.tileset.Load(this.Content, name);
+        }
 
         #region LoadLevel
         public void LoadLevel(String name)
