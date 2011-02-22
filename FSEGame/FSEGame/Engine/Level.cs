@@ -162,6 +162,17 @@ namespace FSEGame.Engine
                     batch, cell.tile, new Vector2(cell.x * 16 * 4, cell.y * 16 * 4));
             }
         }
+
+        public Boolean IsValidPosition(Vector2 position)
+        {
+            foreach (LevelCell cell in this.cells)
+            {
+                if ((cell.x == position.X) && (cell.y == position.Y))
+                    return true;
+            }
+
+            return false;
+        }
     }
 }
 

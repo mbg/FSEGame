@@ -181,7 +181,7 @@ namespace FSEGame.Engine
             // :: Draw the tile from the tileset.
             batch.Draw(
                 this.texture,
-                position,
+                position + FSEGame.Singleton.Camera.Offset,
                 sourceRectangle,
                 Color.White,
                 rotation,
