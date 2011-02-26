@@ -56,8 +56,12 @@ namespace FSEGame
         /// 
         /// </summary>
         private double blockDuration = 0.0d;
-
+        /// <summary>
+        /// Stores whether the character controller is enabled or not.
+        /// </summary>
         private Boolean enabled = false;
+
+        private Tileset tileset;
         #endregion
 
         #region Events
@@ -75,7 +79,7 @@ namespace FSEGame
         private const double MOVE_DURATION = 0.3d;
 
         private const UInt32 SPRITE_RIGHT = 0;
-        private const UInt32 SPRITE_LEFT = 6;
+        private const UInt32 SPRITE_LEFT = 1;
         #endregion
 
         #region Properties
@@ -165,6 +169,8 @@ namespace FSEGame
         /// </summary>
         public CharacterController()
         {
+            this.tileset = new Tileset(16, 1, 4);
+            this.tileset.Load(FSEGame.Singleton.Content, @"Tilesets\Character.xml");
         }
         #endregion
 
@@ -317,9 +323,9 @@ namespace FSEGame
         /// </summary>
         /// <param name="spriteBatch"></param>
         /// <param name="tileset"></param>
-        public void Draw(SpriteBatch spriteBatch, Tileset tileset)
+        public void Draw(SpriteBatch spriteBatch)
         {
-            tileset.DrawTile(spriteBatch, this.GetCurrentSpriteID(), this.absolutePosition);
+            this.tileset.DrawTile(spriteBatch, this.GetCurrentSpriteID(), this.absolutePosition);
         }
         #endregion
 

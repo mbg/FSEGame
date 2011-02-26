@@ -250,7 +250,7 @@ namespace FSEGame
                 this.currentLevel.DrawLevel(this.spriteBatch);
             }
 
-            this.character.Draw(this.spriteBatch, this.tileset);
+            this.character.Draw(this.spriteBatch);
 
             //Texture2D speechTexture = this.Content.Load<Texture2D>("SpeechBox");
             //this.spriteBatch.Draw(speechTexture, new Vector2(this.GraphicsDevice.Viewport.Width / 2 - 400, this.GraphicsDevice.Viewport.Height - 100), null, Color.White, 0.0f, Vector2.Zero, 4.0f, SpriteEffects.None, 0.0f);
