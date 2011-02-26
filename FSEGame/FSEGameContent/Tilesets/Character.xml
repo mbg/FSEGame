@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Tileset Name="Character" Resource="Tilesets\Character">
+  <Tile ID="0" Passable="False">CharacterRight</Tile>
+  <Tile ID="1" Passable="False">CharacterLeft</Tile>
+  <Tile ID="2" Passable="False">CharacterUp</Tile>
+  <Tile ID="3" Passable="False">CharacterDown</Tile>
+</Tileset>
