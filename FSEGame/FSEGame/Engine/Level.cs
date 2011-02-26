@@ -31,8 +31,7 @@ namespace FSEGame.Engine
         private UInt32 width;
         private UInt32 height;
         private List<LevelEntryPoint> entryPoints;
-        private LevelCell[][] ncells;
-        private List<LevelCell> cells;
+        private LevelCell[,] cells;
         #endregion
 
         #region Properties
@@ -62,18 +61,19 @@ namespace FSEGame.Engine
         private void Load(String filename)
         {
             this.entryPoints = new List<LevelEntryPoint>();
-            this.cells = new List<LevelCell>();
 
             XmlDocument doc = new XmlDocument();
             doc.Load(filename);
 
             XmlElement rootElement = doc.DocumentElement;
 
+            // :: Get the name of the level.
             if (!rootElement.HasAttribute("Name"))
                 throw new LevelLoadException("Trying to load a level but it has no name!");
 
             this.name = rootElement.GetAttribute("Name");
 
+            // :: Get the name of the tileset used by the level.
             if (!rootElement.HasAttribute("Tileset"))
                 throw new LevelLoadException("Trying to load a level but it has no tileset!");
 
@@ -81,6 +81,14 @@ namespace FSEGame.Engine
 
             FSEGame.Singleton.LoadTileset(this.tilesetFilename);
 
+            if (!rootElement.HasAttribute("SizeX"))
+                throw new LevelLoadException("Trying to load a level but no width was specified!");
+            if (!rootElement.HasAttribute("SizeY"))
+                throw new LevelLoadException("Trying to load a level but no height was specified!");
+
+            this.width = Convert.ToUInt32(rootElement.GetAttribute("SizeX"));
+            this.height = Convert.ToUInt32(rootElement.GetAttribute("SizeY"));
+            this.cells = new LevelCell[this.height,this.width];
 
             foreach (XmlNode childNode in rootElement.ChildNodes)
             {
@@ -162,7 +170,7 @@ namespace FSEGame.Engine
                         cell.EventID = childElement.GetAttribute("EventID");
                     }
 
-                    this.cells.Add(cell);
+                    this.cells[cell.Y, cell.X] = cell;
                 }
             }
         }
@@ -181,29 +189,28 @@ namespace FSEGame.Engine
         }
         #endregion
 
+        #region DrawLevel
+        /// <summary>
+        /// Renders the level.
+        /// </summary>
+        /// <param name="batch"></param>
         public void DrawLevel(SpriteBatch batch)
         {
-            foreach (LevelCell cell in this.cells)
+            UInt32 y = 0;
+            UInt32 x = 0;
+
+            for (; y < this.height; y++)
             {
-                FSEGame.Singleton.CurrentTileset.DrawTile(
-                    batch, cell.Tile, GridHelper.GridPositionToAbsolute(new Vector2(cell.X, cell.Y)));
-
-                /*if(cell.EventType != CellEventType.None)
+                for (x = 0; x < this.width; x++)
                 {
-                    batch.DrawString(
-                        FSEGame.Singleton.DefaultFont,
-                        cell.EventID,
-                        GridHelper.GridPositionToAbsolute(new Vector2(cell.X, cell.Y)) + FSEGame.Singleton.Camera.Offset,
-                        Color.White,
-                        0.0f,
-                        Vector2.Zero,
-                        2.0f,
-                        SpriteEffects.None,
-                        0.0f); 
-                }*/
-
+                    FSEGame.Singleton.CurrentTileset.DrawTile(
+                        batch, 
+                        this.cells[y,x].Tile, 
+                        GridHelper.GridPositionToAbsolute(new Vector2(x, y)));
+                }
             }
         }
+        #endregion
 
         public Boolean IsValidPosition(Vector2 position)
         {
