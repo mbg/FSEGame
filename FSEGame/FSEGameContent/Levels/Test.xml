@@ -32,7 +32,7 @@
     <Cell X="2" Y="3" Tile="GrassInnerCornerSE" />
     <Cell X="2" Y="4" Tile="GrassCornerE" />
     <Cell X="2" Y="5" Tile="GrassCornerSE" />
-    <Cell X="2" Y="6" Tile="Dirt" />
+    <Cell X="2" Y="6" Tile="PathHorizontal" />
     <Cell X="2" Y="7" Tile="Fence" />
     <Cell X="2" Y="8" Tile="Dirt" />
     <Cell X="2" Y="9" Tile="PathHorizontal" />
@@ -43,10 +43,10 @@
     <Cell X="3" Y="3" Tile="GrassCornerS" />
     <Cell X="3" Y="4" Tile="Dirt" />
     <Cell X="3" Y="5" Tile="Dirt" />
-    <Cell X="3" Y="6" Tile="Dirt" />
-    <Cell X="3" Y="7" Tile="Dirt" />
-    <Cell X="3" Y="8" Tile="Dirt" />
-    <Cell X="3" Y="9" Tile="PathHorizontal" />
+    <Cell X="3" Y="6" Tile="PathLRD" />
+    <Cell X="3" Y="7" Tile="PathVertical" />
+    <Cell X="3" Y="8" Tile="PathVertical" />
+    <Cell X="3" Y="9" Tile="PathLUR" />
 
     <Cell X="4" Y="0" Tile="GrassCornerN" />
     <Cell X="4" Y="1" Tile="Grass" />
@@ -54,7 +54,7 @@
     <Cell X="4" Y="3" Tile="GrassInnerCornerSW" />
     <Cell X="4" Y="4" Tile="GrassCornerW" />
     <Cell X="4" Y="5" Tile="GrassCornerSW" />
-    <Cell X="4" Y="6" Tile="Dirt" />
+    <Cell X="4" Y="6" Tile="PathHorizontal" />
     <Cell X="4" Y="7" Tile="Fence" />
     <Cell X="4" Y="8" Tile="Dirt" />
     <Cell X="4" Y="9" Tile="PathHorizontal" />
