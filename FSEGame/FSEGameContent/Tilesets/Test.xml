@@ -44,5 +44,4 @@
   <Tile ID="52" Passable="True">PathLD</Tile>
   <Tile ID="54" Passable="True">TileFloor1</Tile>
   <Tile ID="55" Passable="True">WoodFloor1</Tile>
-  <Tile ID="56" Passable="True">WoodFloor2</Tile>
 </Tileset>
