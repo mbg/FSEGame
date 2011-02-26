@@ -198,14 +198,10 @@ namespace FSEGame.Engine
 
         public UInt32 GetTileID(String name)
         {
-            try
-            {
+            if (this.tiles.ContainsKey(name))
                 return this.tiles[name].ID;
-            }
-            catch
-            {
+            else
                 return ERROR_TILE;
-            }
         }
 
         public Tile GetTile(UInt32 id)
