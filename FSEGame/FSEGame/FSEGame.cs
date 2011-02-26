@@ -175,11 +175,10 @@ namespace FSEGame
 
             this.defaultFont = this.Content.Load<SpriteFont>("Arial");
 
-            this.LoadLevel(@"Levels\Test.xml");
-
             this.character = new CharacterController();
             this.character.OnChangeLevel += new OnChangeLevelDelegate(character_OnChangeLevel);
-            this.character.CellPosition = new Vector2(3, 4);
+
+            this.LoadLevel(@"Levels\Test.xml", "Default");
             this.camera = new Camera();
         }
         #endregion
@@ -295,7 +294,8 @@ namespace FSEGame
 
             LevelEntryPoint ep = this.currentLevel.GetEntryPoint(entryPoint);
             this.character.CellPosition = new Vector2(ep.X, ep.Y);
-           
+
+            this.character.Enabled = true;
         }
         #endregion
     }

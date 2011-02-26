@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Level Name="TestLevel" Tileset="Tilesets\Test.xml" SizeX="7" SizeY="7">
+<Level Name="House1" Tileset="Tilesets\Indoor.xml" SizeX="7" SizeY="7">
   <EntryPoints>
     <EntryPoint Name="Default" X="3" Y="5" />
   </EntryPoints>

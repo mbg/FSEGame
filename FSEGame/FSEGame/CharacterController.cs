@@ -56,6 +56,8 @@ namespace FSEGame
         /// 
         /// </summary>
         private double blockDuration = 0.0d;
+
+        private Boolean enabled = false;
         #endregion
 
         #region Events
@@ -127,6 +129,20 @@ namespace FSEGame
                 return this.moving;
             }
         }
+        /// <summary>
+        /// Gets or sets a value indicating whether the character controller is enabled or not.
+        /// </summary>
+        public Boolean Enabled
+        {
+            get
+            {
+                return this.enabled;
+            }
+            set
+            {
+                this.enabled = value;
+            }
+        }
         #endregion
 
         #region Event Properties
@@ -159,7 +175,7 @@ namespace FSEGame
         /// <param name="time"></param>
         public void Update(GameTime time)
         {
-            if (!this.moving)
+            if (!this.moving && this.enabled)
             {
                 KeyboardState ks = Keyboard.GetState();
                 Vector2 newPosition = this.cellPosition;
@@ -238,7 +254,7 @@ namespace FSEGame
                     this.targetPosition = newPosition;
                 }
             }
-            else
+            else if(this.moving)
             {
                 // :: Decrease the remaining block duration by the
                 // :: total number of seconds which have elapsed since
