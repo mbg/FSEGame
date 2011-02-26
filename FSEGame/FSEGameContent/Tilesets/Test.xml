@@ -15,12 +15,13 @@
   <Tile ID="15" Passable="True">GrassCornerE</Tile>
   <Tile ID="16" Passable="True">GrassCornerSE</Tile>
   <Tile ID="17" Passable="True">GrassInnerCornerSE</Tile>
-  <Tile ID="21" Passable="True">PathHorizontal</Tile>
+  <Tile ID="20" Passable="True">PathLURD</Tile>
+  <Tile ID="21" Passable="True">PathLR</Tile>
   <Tile ID="22" Passable="False">Fence</Tile>
   <Tile ID="23" Passable="True">GrassInnerCornerSW</Tile>
   <Tile ID="25" Passable="False">TreeTopLeft</Tile>
   <Tile ID="26" Passable="False">TreeBottomLeft</Tile>
-  <Tile ID="27" Passable="True">PathVertical</Tile>
+  <Tile ID="27" Passable="True">PathUD</Tile>
   <Tile ID="31" Passable="False">TreeTopRight</Tile>
   <Tile ID="32" Passable="False">TreeBottomRight</Tile>
   <Tile ID="33" Passable="True">PathLUR</Tile>
