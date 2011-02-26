@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Level Name="TestLevel" Tileset="Tilesets\Test.xml" SizeX="7" SizeY="7">
+  <EntryPoints>
+    <EntryPoint Name="Default" X="3" Y="5" />
+  </EntryPoints>
+  <Cells>
+    <Cell X="0" Y="0" Tile="WoodFloor1" />
+    <Cell X="0" Y="1" Tile="WoodFloor1" />
+    <Cell X="0" Y="2" Tile="WoodFloor1" />
+    <Cell X="0" Y="3" Tile="WoodFloor1" />
+    <Cell X="0" Y="4" Tile="WoodFloor1" />
+    <Cell X="0" Y="5" Tile="WoodFloor1" />
+    <Cell X="0" Y="6" Tile="WoodFloor1" />
+
+    <Cell X="1" Y="0" Tile="WoodFloor1" />
+    <Cell X="1" Y="1" Tile="WoodFloor1" />
+    <Cell X="1" Y="2" Tile="WoodFloor1" />
+    <Cell X="1" Y="3" Tile="WoodFloor1" />
+    <Cell X="1" Y="4" Tile="WoodFloor1" />
+    <Cell X="1" Y="5" Tile="WoodFloor1" />
+    <Cell X="1" Y="6" Tile="WoodFloor1" />
+
+    <Cell X="2" Y="0" Tile="WoodFloor1" />
+    <Cell X="2" Y="1" Tile="WoodFloor1" />
+    <Cell X="2" Y="2" Tile="WoodFloor1" />
+    <Cell X="2" Y="3" Tile="WoodFloor1" />
+    <Cell X="2" Y="4" Tile="WoodFloor1" />
+    <Cell X="2" Y="5" Tile="WoodFloor1" />
+    <Cell X="2" Y="6" Tile="WoodFloor1" />
+
+    <Cell X="3" Y="0" Tile="WoodFloor1" />
+    <Cell X="3" Y="1" Tile="WoodFloor1" />
+    <Cell X="3" Y="2" Tile="WoodFloor1" />
+    <Cell X="3" Y="3" Tile="WoodFloor1" />
+    <Cell X="3" Y="4" Tile="WoodFloor1" />
+    <Cell X="3" Y="5" Tile="WoodFloor1" />
+    <Cell X="3" Y="6" Event="ChangeLevel" EventID="House1Exit" Tile="WoodFloor1" />
+
+    <Cell X="4" Y="0" Tile="WoodFloor1" />
+    <Cell X="4" Y="1" Tile="WoodFloor1" />
+    <Cell X="4" Y="2" Tile="WoodFloor1" />
+    <Cell X="4" Y="3" Tile="WoodFloor1" />
+    <Cell X="4" Y="4" Tile="WoodFloor1" />
+    <Cell X="4" Y="5" Tile="WoodFloor1" />
+    <Cell X="4" Y="6" Tile="WoodFloor1" />
+
+    <Cell X="5" Y="0" Tile="WoodFloor1" />
+    <Cell X="5" Y="1" Tile="WoodFloor1" />
+    <Cell X="5" Y="2" Tile="WoodFloor1" />
+    <Cell X="5" Y="3" Tile="WoodFloor1" />
+    <Cell X="5" Y="4" Tile="WoodFloor1" />
+    <Cell X="5" Y="5" Tile="WoodFloor1" />
+    <Cell X="5" Y="6" Tile="WoodFloor1" />
+
+    <Cell X="6" Y="0" Tile="WoodFloor1" />
+    <Cell X="6" Y="1" Tile="WoodFloor1" />
+    <Cell X="6" Y="2" Tile="WoodFloor1" />
+    <Cell X="6" Y="3" Tile="WoodFloor1" />
+    <Cell X="6" Y="4" Tile="WoodFloor1" />
+    <Cell X="6" Y="5" Tile="WoodFloor1" />
+    <Cell X="6" Y="6" Tile="WoodFloor1" />
+  </Cells>
+</Level>
