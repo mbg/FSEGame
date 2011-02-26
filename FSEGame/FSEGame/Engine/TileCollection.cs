@@ -18,7 +18,7 @@ namespace FSEGame.Engine
     /// <summary>
     /// 
     /// </summary>
-    public class TileCollection : Dictionary<String, UInt32>
+    public class TileCollection : Dictionary<String, Tile>
     {
         #region Instance Members
         #endregion

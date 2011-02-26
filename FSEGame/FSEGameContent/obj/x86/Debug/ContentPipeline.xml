@@ -2,13 +2,22 @@
 <XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
   <Asset Type="Pipeline:BuildItemCollection">
     <Item>
+      <Source>HUD.png</Source>
+      <Name>HUD</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\University\G51FSE\Coursework\Debug\FSEGame\HUD.xnb</Output>
+      <Time>2011-02-22T01:34:07.0690835+00:00</Time>
+    </Item>
+    <Item>
       <Source>Tilesets\Test.png</Source>
       <Name>Tilesets\Test</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>E:\University\G51FSE\Coursework\Debug\FSEGame\Tilesets\Test.xnb</Output>
-      <Time>2011-02-22T00:16:45.2576031+00:00</Time>
+      <Time>2011-02-25T00:09:44.768866+00:00</Time>
     </Item>
     <Item>
       <Source>Tilesets\Template.png</Source>
@@ -20,13 +29,22 @@
       <Time>2011-02-21T20:52:28.4232893+00:00</Time>
     </Item>
     <Item>
-      <Source>HUD.png</Source>
-      <Name>HUD</Name>
+      <Source>Arial.spritefont</Source>
+      <Name>Arial</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\University\G51FSE\Coursework\Debug\FSEGame\Arial.xnb</Output>
+      <Time>2011-02-24T10:01:27.1753515+00:00</Time>
+    </Item>
+    <Item>
+      <Source>SpeechBox.png</Source>
+      <Name>SpeechBox</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>E:\University\G51FSE\Coursework\Debug\FSEGame\HUD.xnb</Output>
-      <Time>2011-02-22T01:34:07.0690835+00:00</Time>
+      <Output>E:\University\G51FSE\Coursework\Debug\FSEGame\SpeechBox.xnb</Output>
+      <Time>2011-02-25T00:24:36.9577919+00:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

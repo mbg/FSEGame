@@ -21,9 +21,9 @@ namespace Origin.PatchGenerator
     /// </summary>
     public static class Program
     {
-	#region Data Members
+	    #region Data Members
         private static String updateURL = "NO URL YET";
-	#endregion
+	    #endregion
 
         #region Static Members
         private static List<String> excludedFolders = new List<String>();

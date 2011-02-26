@@ -1,18 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tileset Name="Test" Resource="Tilesets\Test">
-  <Tile ID="0">Character</Tile>
-  <Tile ID="1">Dirt</Tile>
-  <Tile ID="2">GrassCornerNW</Tile>
-  <Tile ID="3">GrassCornerW</Tile>
-  <Tile ID="4">GrassCornerSW</Tile>
-  <Tile ID="5">GrassInnerCornerNW</Tile>
-  <Tile ID="8">GrassCornerN</Tile>
-  <Tile ID="9">Grass</Tile>
-  <Tile ID="10">GrassCornerS</Tile>
-  <Tile ID="11">GrassInnerCornerNE</Tile>
-  <Tile ID="14">GrassCornerNE</Tile>
-  <Tile ID="15">GrassCornerE</Tile>
-  <Tile ID="16">GrassCornerSE</Tile>
-  <Tile ID="17">GrassInnerCornerSE</Tile>
-  <Tile ID="23">GrassInnerCornerSW</Tile>
+  <Tile ID="0" Passable="False">CharacterRight</Tile>
+  <Tile ID="1" Passable="True">Dirt</Tile>
+  <Tile ID="2" Passable="True">GrassCornerNW</Tile>
+  <Tile ID="3" Passable="True">GrassCornerW</Tile>
+  <Tile ID="4" Passable="True">GrassCornerSW</Tile>
+  <Tile ID="5" Passable="True">GrassInnerCornerNW</Tile>
+  <Tile ID="6" Passable="False">CharacterLeft</Tile>
+  <Tile ID="8" Passable="True">GrassCornerN</Tile>
+  <Tile ID="9" Passable="True">Grass</Tile>
+  <Tile ID="10" Passable="True">GrassCornerS</Tile>
+  <Tile ID="11" Passable="True">GrassInnerCornerNE</Tile>
+  <Tile ID="14" Passable="True">GrassCornerNE</Tile>
+  <Tile ID="15" Passable="True">GrassCornerE</Tile>
+  <Tile ID="16" Passable="True">GrassCornerSE</Tile>
+  <Tile ID="17" Passable="True">GrassInnerCornerSE</Tile>
+  <Tile ID="21" Passable="True">PathHorizontal</Tile>
+  <Tile ID="22" Passable="False">Fence</Tile>
+  <Tile ID="23" Passable="True">GrassInnerCornerSW</Tile>
+  <Tile ID="25" Passable="False">TreeTopLeft</Tile>
+  <Tile ID="26" Passable="False">TreeBottomLeft</Tile>
+  <Tile ID="31" Passable="False">TreeTopRight</Tile>
+  <Tile ID="32" Passable="False">TreeBottomRight</Tile>
+  <Tile ID="36" Passable="False">GenericHouseRoofLeftFar</Tile>
+  <Tile ID="37" Passable="False">GenericHouseRoofLeft</Tile>
+  <Tile ID="38" Passable="False">GenericHouseWallLeft</Tile>
+  <Tile ID="42" Passable="False">GenericHouseRoofCentreFar</Tile>
+  <Tile ID="43" Passable="False">GenericHouseRoofCentre</Tile>
+  <Tile ID="44" Passable="True">GenericHouseDoor</Tile>
+  <Tile ID="48" Passable="False">GenericHouseRoofRightFar</Tile>
+  <Tile ID="49" Passable="False">GenericHouseRoofRight</Tile>
+  <Tile ID="50" Passable="False">GenericHouseWallRight</Tile>
 </Tileset>

@@ -144,13 +144,37 @@ namespace FSEGame.Engine
                 {
                     LevelCell cell = new LevelCell();
 
-                    cell.tile = FSEGame.Singleton.CurrentTileset.GetTileID(childElement.GetAttribute("Tile"));
-                    cell.x = Convert.ToUInt32(childElement.GetAttribute("X"));
-                    cell.y = Convert.ToUInt32(childElement.GetAttribute("Y"));
+                    cell.Tile = FSEGame.Singleton.CurrentTileset.GetTileID(childElement.GetAttribute("Tile"));
+                    cell.X = Convert.ToUInt32(childElement.GetAttribute("X"));
+                    cell.Y = Convert.ToUInt32(childElement.GetAttribute("Y"));
+                    cell.EventType = CellEventType.None;
+                    cell.EventID = String.Empty;
+
+                    if (childElement.HasAttribute("Event"))
+                    {
+                        cell.EventType = this.ToCellEventType(childElement.GetAttribute("Event"));
+                    }
+                    if (childElement.HasAttribute("EventID"))
+                    {
+                        cell.EventID = childElement.GetAttribute("EventID");
+                    }
 
                     this.cells.Add(cell);
                 }
             }
+        }
+        #endregion
+
+        #region ToCellEventType
+        private CellEventType ToCellEventType(String name)
+        {
+            switch (name.Trim().ToUpper())
+            {
+                case "CHANGELEVEL":
+                    return CellEventType.ChangeLevel;
+            }
+
+            return CellEventType.None;
         }
         #endregion
 
@@ -159,7 +183,22 @@ namespace FSEGame.Engine
             foreach (LevelCell cell in this.cells)
             {
                 FSEGame.Singleton.CurrentTileset.DrawTile(
-                    batch, cell.tile, new Vector2(cell.x * 16 * 4, cell.y * 16 * 4));
+                    batch, cell.Tile, GridHelper.GridPositionToAbsolute(new Vector2(cell.X, cell.Y)));
+
+                /*if(cell.EventType != CellEventType.None)
+                {
+                    batch.DrawString(
+                        FSEGame.Singleton.DefaultFont,
+                        cell.EventID,
+                        GridHelper.GridPositionToAbsolute(new Vector2(cell.X, cell.Y)) + FSEGame.Singleton.Camera.Offset,
+                        Color.White,
+                        0.0f,
+                        Vector2.Zero,
+                        2.0f,
+                        SpriteEffects.None,
+                        0.0f); 
+                }*/
+
             }
         }
 
@@ -167,11 +206,22 @@ namespace FSEGame.Engine
         {
             foreach (LevelCell cell in this.cells)
             {
-                if ((cell.x == position.X) && (cell.y == position.Y))
-                    return true;
+                if ((cell.X == position.X) && (cell.Y == position.Y))
+                    return FSEGame.Singleton.CurrentTileset.GetTile(cell.Tile).Passable;
             }
 
             return false;
+        }
+
+        public CellInformation GetCellInformation(Vector2 position)
+        {
+            foreach (LevelCell cell in this.cells)
+            {
+                if ((cell.X == position.X) && (cell.Y == position.Y))
+                    return new CellInformation(FSEGame.Singleton.CurrentTileset.GetTile(cell.Tile), cell);
+            }
+
+            return null;
         }
     }
 }

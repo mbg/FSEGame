@@ -112,10 +112,14 @@
   <ItemGroup>
     <Compile Include="CharacterController.cs" />
     <Compile Include="Engine\Camera.cs" />
+    <Compile Include="Engine\CellEventType.cs" />
+    <Compile Include="Engine\CellInformation.cs" />
+    <Compile Include="Engine\GridHelper.cs" />
     <Compile Include="Engine\Level.cs" />
     <Compile Include="Engine\LevelCell.cs" />
     <Compile Include="Engine\LevelEntryPoint.cs" />
     <Compile Include="Engine\LevelLoadException.cs" />
+    <Compile Include="Engine\Tile.cs" />
     <Compile Include="Engine\TileCollection.cs" />
     <Compile Include="Engine\Tileset.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

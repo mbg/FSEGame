@@ -35,6 +35,7 @@ namespace FSEGame
         #region Instance Members
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
+        private SpriteFont defaultFont;
 
         private String levelFileExtension = ".xml";
 
@@ -53,6 +54,14 @@ namespace FSEGame
         }
 
         #region Properties
+        public SpriteFont DefaultFont
+        {
+            get
+            {
+                return this.defaultFont;
+            }
+        }
+
         public Camera Camera
         {
             get
@@ -154,10 +163,12 @@ namespace FSEGame
             // Create a new SpriteBatch, which can be used to draw textures.
             this.spriteBatch = new SpriteBatch(this.GraphicsDevice);
 
+            this.defaultFont = this.Content.Load<SpriteFont>("Arial");
+
             this.LoadLevel(@"Levels\Test.xml");
 
             this.character = new CharacterController();
-            this.character.Position = new Vector2(3, 4);
+            this.character.CellPosition = new Vector2(3, 4);
             this.camera = new Camera();
         }
         #endregion
@@ -217,8 +228,10 @@ namespace FSEGame
             }
 
             this.character.Draw(this.spriteBatch, this.tileset);
-            Texture2D hud = Content.Load<Texture2D>("hud");
-            this.spriteBatch.Draw(hud, new Vector2(0, GraphicsDevice.Viewport.Height - 80), Color.White);
+
+            Texture2D speechTexture = this.Content.Load<Texture2D>("SpeechBox");
+            this.spriteBatch.Draw(speechTexture, new Vector2(this.GraphicsDevice.Viewport.Width / 2 - 400, this.GraphicsDevice.Viewport.Height - 100), null, Color.White, 0.0f, Vector2.Zero, 4.0f, SpriteEffects.None, 0.0f);
+            this.spriteBatch.DrawString(this.defaultFont, "That's a nice binary tree you have there...\nwould be a shame if something happened to it", new Vector2(20, this.GraphicsDevice.Viewport.Height - 95), Color.Black, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
 
             this.spriteBatch.End();
 

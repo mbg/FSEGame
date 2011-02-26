@@ -129,10 +129,13 @@ namespace FSEGame.Engine
 
                 if(childElement.Name.Equals("Tile"))
                 {
+                    Tile t = new Tile();
+                    t.Name = childElement.InnerText;
+                    t.ID = Convert.ToUInt32(childElement.GetAttribute("ID"));
+                    t.Passable = Convert.ToBoolean(childElement.GetAttribute("Passable"));
+
                     // :: Add the tile to the index.
-                    this.tiles.Add(
-                        childElement.InnerText, 
-                        Convert.ToUInt32(childElement.GetAttribute("ID")));
+                    this.tiles.Add(t.Name, t);
                 }
             }
 
@@ -188,13 +191,24 @@ namespace FSEGame.Engine
                 Vector2.Zero,
                 4.0f,
                 SpriteEffects.None,
-                0.0f);
+                1.0f);
         }
         #endregion
 
         public UInt32 GetTileID(String name)
         {
-            return this.tiles[name];
+            return this.tiles[name].ID;
+        }
+
+        public Tile GetTile(UInt32 id)
+        {
+            foreach (Tile t in this.tiles.Values)
+            {
+                if (t.ID == id)
+                    return t;
+            }
+
+            throw new Exception("No Tile with specified id.");
         }
     }
 }

@@ -49,7 +49,7 @@ namespace FSEGame.Engine
         public void Update(Viewport vp)
         {
             this.offset = new Vector2((vp.Width / 2) - 32, (vp.Height / 2) - 32) 
-                - this.TileWorldToScreen(FSEGame.Singleton.Character.Position);
+                - FSEGame.Singleton.Character.AbsolutePosition;
         }
 
         public Vector2 TileWorldToScreen(Vector2 position)
