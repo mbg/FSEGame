@@ -25,7 +25,7 @@ namespace FSEGame.Engine
     public class Tileset
     {
         #region Constants
-        private const UInt32 ERROR_TILE = 7;
+        private const UInt32 ERROR_TILE = 0;
         #endregion
 
         #region Instance Members

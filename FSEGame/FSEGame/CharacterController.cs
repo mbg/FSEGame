@@ -80,6 +80,8 @@ namespace FSEGame
 
         private const UInt32 SPRITE_RIGHT = 0;
         private const UInt32 SPRITE_LEFT = 1;
+        private const UInt32 SPRITE_UP = 2;
+        private const UInt32 SPRITE_DOWN = 3;
         #endregion
 
         #region Properties
@@ -322,10 +324,10 @@ namespace FSEGame
         /// Draws the character.
         /// </summary>
         /// <param name="spriteBatch"></param>
-        /// <param name="tileset"></param>
         public void Draw(SpriteBatch spriteBatch)
         {
-            this.tileset.DrawTile(spriteBatch, this.GetCurrentSpriteID(), this.absolutePosition);
+            this.tileset.DrawTile(
+                spriteBatch, this.GetCurrentSpriteID(), this.absolutePosition);
         }
         #endregion
 
@@ -338,6 +340,10 @@ namespace FSEGame
         {
             if (this.orientation == 270.0f)
                 return SPRITE_LEFT;
+            else if (this.orientation == 0.0f)
+                return SPRITE_UP;
+            else if (this.orientation == 180.0f)
+                return SPRITE_DOWN;
             else
                 return SPRITE_RIGHT;
         }
