@@ -28,7 +28,10 @@ namespace FSEGame.Engine
         #region Instance Members
         private String name;
         private String tilesetFilename;
+        private UInt32 width;
+        private UInt32 height;
         private List<LevelEntryPoint> entryPoints;
+        private LevelCell[][] ncells;
         private List<LevelCell> cells;
         #endregion
 

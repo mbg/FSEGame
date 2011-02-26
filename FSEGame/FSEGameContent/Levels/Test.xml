@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Level Name="TestLevel" Tileset="Tilesets\Test.xml">
+<Level Name="TestLevel" Tileset="Tilesets\Test.xml" SizeX="12" SizeY="10">
   <EntryPoints>
     <EntryPoint Name="Default" X="3" Y="4" />
   </EntryPoints>
