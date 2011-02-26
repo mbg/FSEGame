@@ -24,6 +24,10 @@ namespace FSEGame.Engine
     /// </summary>
     public class Tileset
     {
+        #region Constants
+        private const UInt32 ERROR_TILE = 7;
+        #endregion
+
         #region Instance Members
         private String name;
         private String resource;
@@ -33,7 +37,6 @@ namespace FSEGame.Engine
         private UInt16 rows = 1;
         private UInt16 columns = 1;
         private Boolean initialised = false;
-        private const int ERROR_TILE = 7;
         #endregion
 
         #region Properties
@@ -196,6 +199,16 @@ namespace FSEGame.Engine
         }
         #endregion
 
+        #region GetTileID
+        /// <summary>
+        /// Gets the ID of the tile with the specified name.
+        /// </summary>
+        /// <param name="name">The name of the tile to find.</param>
+        /// <returns>
+        /// Returns the ID of the tile with the specified name or the 
+        /// ID of the error tile if no tile with the specified name could 
+        /// be found.
+        /// </returns>
         public UInt32 GetTileID(String name)
         {
             if (this.tiles.ContainsKey(name))
@@ -203,12 +216,19 @@ namespace FSEGame.Engine
             else
                 return ERROR_TILE;
         }
+        #endregion
 
+        #region GetTile
+        /// <summary>
+        /// Gets the tile with the specified ID.
+        /// </summary>
+        /// <param name="id">The ID of the tile to get.</param>
+        /// <returns>Returns the tile with the specified ID.</returns>
         public Tile GetTile(UInt32 id)
         {
             foreach (Tile t in this.tiles.Values)
             {
-                if (t.ID == id || id == ERROR_TILE)
+                if (t.ID == id)
                 {
                     return t;
                 }
@@ -216,6 +236,7 @@ namespace FSEGame.Engine
 
             throw new Exception("No Tile with specified id.");
         }
+        #endregion
     }
 }
 
