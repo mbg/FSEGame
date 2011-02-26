@@ -25,16 +25,23 @@
   <Tile ID="31" Passable="False">TreeTopRight</Tile>
   <Tile ID="32" Passable="False">TreeBottomRight</Tile>
   <Tile ID="33" Passable="True">PathLUR</Tile>
+  <Tile ID="34" Passable="True">PathLU</Tile>
   <Tile ID="36" Passable="False">GenericHouseRoofLeftFar</Tile>
   <Tile ID="37" Passable="False">GenericHouseRoofLeft</Tile>
   <Tile ID="38" Passable="False">GenericHouseWallLeft</Tile>
   <Tile ID="39" Passable="True">PathURD</Tile>
+  <Tile ID="40" Passable="True">PathUR</Tile>
   <Tile ID="42" Passable="False">GenericHouseRoofCentreFar</Tile>
   <Tile ID="43" Passable="False">GenericHouseRoofCentre</Tile>
   <Tile ID="44" Passable="True">GenericHouseDoor</Tile>
   <Tile ID="45" Passable="True">PathLRD</Tile>
+  <Tile ID="46" Passable="True">PathRD</Tile>
   <Tile ID="48" Passable="False">GenericHouseRoofRightFar</Tile>
   <Tile ID="49" Passable="False">GenericHouseRoofRight</Tile>
   <Tile ID="50" Passable="False">GenericHouseWallRight</Tile>
   <Tile ID="51" Passable="True">PathLUD</Tile>
+  <Tile ID="52" Passable="True">PathLD</Tile>
+  <Tile ID="54" Passable="True">TileFloor1</Tile>
+  <Tile ID="55" Passable="True">WoodFloor1</Tile>
+  <Tile ID="56" Passable="True">WoodFloor2</Tile>
 </Tileset>
