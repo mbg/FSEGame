@@ -26,11 +26,16 @@ using System.IO;
 namespace FSEGame
 {
     /// <summary>
-    /// This is the main type for your game
+    /// This is the main type for the FSE coursework game.
     /// </summary>
     public class FSEGame : Game
     {
+        #region Static Members
+        /// <summary>
+        /// 
+        /// </summary>
         private static FSEGame singleton;
+        #endregion
 
         #region Instance Members
         private GraphicsDeviceManager graphics;
@@ -45,6 +50,10 @@ namespace FSEGame
         private Tileset tileset;
         #endregion
 
+        #region Static Properties
+        /// <summary>
+        /// 
+        /// </summary>
         public static FSEGame Singleton
         {
             get
@@ -52,6 +61,7 @@ namespace FSEGame
                 return FSEGame.singleton;
             }
         }
+        #endregion
 
         #region Properties
         public SpriteFont DefaultFont
@@ -168,10 +178,21 @@ namespace FSEGame
             this.LoadLevel(@"Levels\Test.xml");
 
             this.character = new CharacterController();
+            this.character.OnChangeLevel += new OnChangeLevelDelegate(character_OnChangeLevel);
             this.character.CellPosition = new Vector2(3, 4);
             this.camera = new Camera();
         }
         #endregion
+
+        private void character_OnChangeLevel(string id)
+        {
+            switch (id)
+            {
+                case "TestHouseDoor":
+                    this.LoadLevel(@"Levels\House1.xml", "Default");
+                    break;
+            }
+        }
 
         #region UnloadContent
         /// <summary>
@@ -229,9 +250,9 @@ namespace FSEGame
 
             this.character.Draw(this.spriteBatch, this.tileset);
 
-            Texture2D speechTexture = this.Content.Load<Texture2D>("SpeechBox");
-            this.spriteBatch.Draw(speechTexture, new Vector2(this.GraphicsDevice.Viewport.Width / 2 - 400, this.GraphicsDevice.Viewport.Height - 100), null, Color.White, 0.0f, Vector2.Zero, 4.0f, SpriteEffects.None, 0.0f);
-            this.spriteBatch.DrawString(this.defaultFont, "That's a nice binary tree you have there...\nwould be a shame if something happened to it", new Vector2(20, this.GraphicsDevice.Viewport.Height - 95), Color.Black, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
+            //Texture2D speechTexture = this.Content.Load<Texture2D>("SpeechBox");
+            //this.spriteBatch.Draw(speechTexture, new Vector2(this.GraphicsDevice.Viewport.Width / 2 - 400, this.GraphicsDevice.Viewport.Height - 100), null, Color.White, 0.0f, Vector2.Zero, 4.0f, SpriteEffects.None, 0.0f);
+            //this.spriteBatch.DrawString(this.defaultFont, "That's a nice binary tree you have there...\nwould be a shame if something happened to it", new Vector2(20, this.GraphicsDevice.Viewport.Height - 95), Color.Black, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
 
             this.spriteBatch.End();
 
@@ -239,16 +260,35 @@ namespace FSEGame
         }
         #endregion
 
+        #region LoadTileset
+        /// <summary>
+        /// Loads the tileset with the specified name.
+        /// </summary>
+        /// <param name="name"></param>
         public void LoadTileset(String name)
         {
             this.tileset = new Tileset(16, 6, 8);
             this.tileset.Load(this.Content, name);
         }
+        #endregion
 
         #region LoadLevel
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
         public void LoadLevel(String name)
         {
             this.currentLevel = new Level(this.Content, name);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="entryPoint"></param>
+        public void LoadLevel(String name, String entryPoint)
+        {
+            this.LoadLevel(name);
         }
         #endregion
     }

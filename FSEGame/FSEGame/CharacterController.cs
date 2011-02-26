@@ -18,6 +18,8 @@ using Microsoft.Xna.Framework.Input;
 
 namespace FSEGame
 {
+    public delegate void OnChangeLevelDelegate(String id);
+
     /// <summary>
     /// Represents the player character.
     /// </summary>
@@ -54,6 +56,10 @@ namespace FSEGame
         /// 
         /// </summary>
         private double blockDuration = 0.0d;
+        #endregion
+
+        #region Events
+        private event OnChangeLevelDelegate onChangeLevel = null;
         #endregion
 
         #region Constants
@@ -122,7 +128,21 @@ namespace FSEGame
             }
         }
         #endregion
-        
+
+        #region Event Properties
+        public event OnChangeLevelDelegate OnChangeLevel
+        {
+            add
+            {
+                this.onChangeLevel += value;
+            }
+            remove
+            {
+                this.onChangeLevel -= value;
+            }
+        }
+        #endregion
+
         #region Constructor
         /// <summary>
         /// Initialises a new instance of this class.
@@ -231,6 +251,21 @@ namespace FSEGame
                     this.moving = false;
 
                     this.CellPosition = this.targetPosition;
+
+                    // :: Trigger events if applicable.
+                    CellInformation targetCell =
+                        FSEGame.Singleton.CurrentLevel.GetCellInformation(this.cellPosition);
+
+                    if (targetCell != null && targetCell.Tile.Passable)
+                    {
+                        switch (targetCell.Cell.EventType)
+                        {
+                            case CellEventType.ChangeLevel:
+                                if (this.onChangeLevel != null)
+                                    this.onChangeLevel(targetCell.Cell.EventID);
+                                break;
+                        }
+                    }
                 }
                 else if (this.cellPosition != this.targetPosition)
                 {
@@ -272,6 +307,11 @@ namespace FSEGame
         }
         #endregion
 
+        #region GetCurrentSpriteID
+        /// <summary>
+        /// Gets the ID for the current character sprite.
+        /// </summary>
+        /// <returns></returns>
         private UInt32 GetCurrentSpriteID()
         {
             if (this.orientation == 270.0f)
@@ -279,6 +319,7 @@ namespace FSEGame
             else
                 return SPRITE_RIGHT;
         }
+        #endregion
     }
 }
 

@@ -177,6 +177,11 @@ namespace FSEGame.Engine
         #endregion
 
         #region ToCellEventType
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         private CellEventType ToCellEventType(String name)
         {
             switch (name.Trim().ToUpper())
@@ -212,6 +217,12 @@ namespace FSEGame.Engine
         }
         #endregion
 
+        #region IsValidPosition
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
         public Boolean IsValidPosition(Vector2 position)
         {
             foreach (LevelCell cell in this.cells)
@@ -222,17 +233,30 @@ namespace FSEGame.Engine
 
             return false;
         }
+        #endregion
 
+        #region GetCellInformation
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
         public CellInformation GetCellInformation(Vector2 position)
         {
-            foreach (LevelCell cell in this.cells)
-            {
-                if ((cell.X == position.X) && (cell.Y == position.Y))
-                    return new CellInformation(FSEGame.Singleton.CurrentTileset.GetTile(cell.Tile), cell);
-            }
+            if (position.X < 0 || position.Y < 0)
+                return null;
 
-            return null;
+            UInt32 x = Convert.ToUInt32(position.X);
+            UInt32 y = Convert.ToUInt32(position.Y);
+
+            if (x > this.width - 1 || y > this.height - 1)
+                return null;
+
+            return new CellInformation(
+                FSEGame.Singleton.CurrentTileset.GetTile(this.cells[y, x].Tile),
+                this.cells[y, x]);
         }
+        #endregion
     }
 }
 
