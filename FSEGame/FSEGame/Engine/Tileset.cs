@@ -33,6 +33,7 @@ namespace FSEGame.Engine
         private UInt16 rows = 1;
         private UInt16 columns = 1;
         private Boolean initialised = false;
+        private const int ERROR_TILE = 7;
         #endregion
 
         #region Properties
@@ -197,15 +198,24 @@ namespace FSEGame.Engine
 
         public UInt32 GetTileID(String name)
         {
-            return this.tiles[name].ID;
+            try
+            {
+                return this.tiles[name].ID;
+            }
+            catch
+            {
+                return ERROR_TILE;
+            }
         }
 
         public Tile GetTile(UInt32 id)
         {
             foreach (Tile t in this.tiles.Values)
             {
-                if (t.ID == id)
+                if (t.ID == id || id == ERROR_TILE)
+                {
                     return t;
+                }
             }
 
             throw new Exception("No Tile with specified id.");
