@@ -2,6 +2,7 @@
 <Level Name="TestLevel" Tileset="Tilesets\Test.xml" SizeX="24" SizeY="10">
   <EntryPoints>
     <EntryPoint Name="Default" X="3" Y="4" />
+    <EntryPoint Name="House1Exit" X="8" Y="4" />
   </EntryPoints>
   <Cells>
     <Cell X="0" Y="0" Tile="GrassCornerNW" />

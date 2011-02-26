@@ -257,6 +257,17 @@ namespace FSEGame.Engine
                 this.cells[y, x]);
         }
         #endregion
+
+        public LevelEntryPoint GetEntryPoint(String name)
+        {
+            foreach (LevelEntryPoint entryPoint in this.entryPoints)
+            {
+                if(entryPoint.Name.Equals(name))
+                    return entryPoint;
+            }
+
+            throw new ArgumentException("No entry point with this name.");
+        }
     }
 }
 

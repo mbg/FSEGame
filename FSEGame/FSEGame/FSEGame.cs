@@ -191,6 +191,9 @@ namespace FSEGame
                 case "TestHouseDoor":
                     this.LoadLevel(@"Levels\House1.xml", "Default");
                     break;
+                case "House1Exit":
+                    this.LoadLevel(@"Levels\Test.xml", "House1Exit");
+                    break;
             }
         }
 
@@ -289,6 +292,10 @@ namespace FSEGame
         public void LoadLevel(String name, String entryPoint)
         {
             this.LoadLevel(name);
+
+            LevelEntryPoint ep = this.currentLevel.GetEntryPoint(entryPoint);
+            this.character.CellPosition = new Vector2(ep.X, ep.Y);
+           
         }
         #endregion
     }
