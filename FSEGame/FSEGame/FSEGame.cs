@@ -242,7 +242,7 @@ namespace FSEGame
         /// <param name="id"></param>
         private void character_OnChangeLevel(string id)
         {
-            this.luaState.DoString(String.Format("id=\"{0}\"", id));
+            this.luaState["id"] = id;
             this.luaChangeLevelFunction.Call(new Object[] {});
         }
         #endregion
