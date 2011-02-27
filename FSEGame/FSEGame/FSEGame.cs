@@ -264,6 +264,12 @@ namespace FSEGame
 
             //this.fadeScreen.Draw(this.spriteBatch);
 
+            this.spriteBatch.DrawString(
+                this.defaultFont,
+                String.Format("X: {0}\nY: {1}", this.character.CellPosition.X, this.character.CellPosition.Y),
+                new Vector2(20, 20),
+                Color.White);
+
             this.spriteBatch.End();
 
             base.Draw(gameTime);

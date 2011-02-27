@@ -108,6 +108,7 @@ namespace FSEGame
             {
                 this.cellPosition = value;
                 this.absolutePosition = GridHelper.GridPositionToAbsolute(value);
+                this.targetPosition = this.cellPosition;
             }
         }
         /// <summary>
