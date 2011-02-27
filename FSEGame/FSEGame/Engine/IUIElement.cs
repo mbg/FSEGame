@@ -11,6 +11,7 @@
 #region References
 using System;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 #endregion
 
 namespace FSEGame.Engine
@@ -24,6 +25,7 @@ namespace FSEGame.Engine
         #endregion
 
         #region Methods
+        void Update(GameTime time);
         void Draw(SpriteBatch batch);
         #endregion
     }

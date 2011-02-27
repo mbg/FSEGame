@@ -35,6 +35,13 @@ namespace FSEGame.Engine
         #endregion
 
         #region Properties
+        public String Name
+        {
+            get
+            {
+                return this.name;
+            }
+        }
         #endregion
 
         #region Constructor
@@ -208,12 +215,32 @@ namespace FSEGame.Engine
             {
                 for (x = 0; x < this.width; x++)
                 {
-                    FSEGame.Singleton.CurrentTileset.DrawTile(
-                        batch, 
-                        this.cells[y,x].Tile, 
-                        GridHelper.GridPositionToAbsolute(new Vector2(x, y)));
+                    Vector2 position = new Vector2(x, y);
+
+                    if (this.IsVisible(position))
+                    {
+                        FSEGame.Singleton.CurrentTileset.DrawTile(
+                            batch,
+                            this.cells[y, x].Tile,
+                            GridHelper.GridPositionToAbsolute(position));
+                    }
                 }
             }
+        }
+        #endregion
+
+        #region IsVisible
+        /// <summary>
+        /// Gets a value indicating whether the tile at the specified
+        /// position is visible or not.
+        /// </summary>
+        /// <param name="position">The grid position of the tile.</param>
+        /// <returns></returns>
+        public Boolean IsVisible(Vector2 position)
+        {
+            Vector2 absolute = GridHelper.GridPositionToAbsolute(position);
+
+            return true;
         }
         #endregion
 

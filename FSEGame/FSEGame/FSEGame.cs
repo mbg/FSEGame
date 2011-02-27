@@ -41,7 +41,7 @@ namespace FSEGame
         /// <summary>
         /// Stores the current state of the game.
         /// </summary>
-        private GameState gameState = GameState.Fading;
+        private GameState gameState = GameState.Exploring;
         /// <summary>
         /// The graphics device manager for this game.
         /// </summary>
@@ -62,6 +62,9 @@ namespace FSEGame
         private Level currentLevel = null;
         private Tileset tileset;
         private FadeScreen fadeScreen;
+        private MainMenuScreen mainMenu;
+        private List<IUIElement> uiElements;
+        private StaticText debugText;
         #endregion
 
         #region Static Properties
@@ -127,6 +130,8 @@ namespace FSEGame
         {
             if (FSEGame.Singleton != null)
                 throw new InvalidOperationException("Can only initialise one instance of FSEGame!");
+
+            this.uiElements = new List<IUIElement>();
 
             this.graphics = new GraphicsDeviceManager(this);
             this.graphics.PreparingDeviceSettings += 
@@ -197,9 +202,22 @@ namespace FSEGame
 
             this.LoadLevel(@"Levels\Test.xml", "Default");
             this.camera = new Camera();
+
+            this.mainMenu = new MainMenuScreen();
+            this.mainMenu.Hide();
+
+            debugText = new StaticText(this.defaultFont);
+            debugText.Position = new Vector2(20, 20);
+
+            this.uiElements.Add(debugText);
         }
         #endregion
 
+        #region OnChangeLevel
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
         private void character_OnChangeLevel(string id)
         {
             switch (id)
@@ -212,6 +230,7 @@ namespace FSEGame
                     break;
             }
         }
+        #endregion
 
         #region UnloadContent
         /// <summary>
@@ -279,11 +298,16 @@ namespace FSEGame
 
             //this.fadeScreen.Draw(this.spriteBatch);
 
-            this.spriteBatch.DrawString(
-                this.defaultFont,
-                String.Format("X: {0}\nY: {1}", this.character.CellPosition.X, this.character.CellPosition.Y),
-                new Vector2(20, 20),
-                Color.White);
+            this.mainMenu.Draw(this.spriteBatch);
+
+            this.debugText.Text = String.Format("X: {0}\nY: {1}\nLevel: {2}\nTileset: {3}\nFPS: {4}",
+                    this.character.CellPosition.X, this.character.CellPosition.Y,
+                    this.currentLevel.Name, this.tileset.Name, 0);
+
+            foreach (IUIElement uiElement in this.uiElements)
+            {
+                uiElement.Draw(this.spriteBatch);
+            }
 
             this.spriteBatch.End();
 

@@ -20,7 +20,7 @@ namespace FSEGame.Engine
     /// <summary>
     /// Represents a base class for menu screens in the game.
     /// </summary>
-    public abstract class MenuScreen
+    public abstract class MenuScreen : IUIElement
     {
         #region Instance Members
         private Texture2D backgroundTexture;

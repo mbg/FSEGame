@@ -61,6 +61,8 @@ namespace FSEGame
         /// </summary>
         private Boolean enabled = false;
 
+        private Boolean visible = true;
+
         private Tileset tileset;
         #endregion
 
@@ -148,6 +150,20 @@ namespace FSEGame
             set
             {
                 this.enabled = value;
+            }
+        }
+        /// <summary>
+        /// Gets or sets whether the character sprite is visible.
+        /// </summary>
+        public Boolean Visible
+        {
+            get
+            {
+                return this.visible;
+            }
+            set
+            {
+                this.visible = value;
             }
         }
         #endregion
@@ -330,6 +346,9 @@ namespace FSEGame
         /// <param name="spriteBatch"></param>
         public void Draw(SpriteBatch spriteBatch)
         {
+            if (!this.visible)
+                return;
+
             this.tileset.DrawTile(
                 spriteBatch, this.GetCurrentSpriteID(), this.absolutePosition);
         }
