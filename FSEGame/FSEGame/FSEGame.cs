@@ -21,6 +21,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using FSEGame.Engine;
 using System.IO;
+using LuaInterface;
 #endregion
 
 namespace FSEGame
@@ -46,6 +47,9 @@ namespace FSEGame
         /// The graphics device manager for this game.
         /// </summary>
         private GraphicsDeviceManager graphics;
+
+        private Lua luaState;
+        private LuaFunction luaChangeLevelFunction;
         /// <summary>
         /// The main sprite batch used for rendering multiple textures in one pass.
         /// </summary>
@@ -146,6 +150,10 @@ namespace FSEGame
             this.uiElements = new List<IUIElement>();
             this.fpsCounter = new FPSCounter();
 
+            this.luaState = new Lua();
+            this.luaState.RegisterFunction("LoadLevel", this, this.GetType().GetMethod("LoadLevel", new Type[] { typeof(String), typeof(String) }));
+            this.luaChangeLevelFunction = this.luaState.LoadFile(@"FSEGame\Scripts\ChangeLevel.lua");
+
             this.graphics = new GraphicsDeviceManager(this);
             this.graphics.PreparingDeviceSettings += 
                 new EventHandler<PreparingDeviceSettingsEventArgs>(PrepareGraphicsSettings);
@@ -234,21 +242,8 @@ namespace FSEGame
         /// <param name="id"></param>
         private void character_OnChangeLevel(string id)
         {
-            switch (id)
-            {
-                case "TestHouseDoor":
-                    this.LoadLevel(@"Levels\House1.xml", "Default");
-                    break;
-                case "House1Exit":
-                    this.LoadLevel(@"Levels\Test.xml", "House1Exit");
-                    break;
-                case "TestHouseDoor2":
-                    this.LoadLevel(@"Levels\House2.xml", "Default");
-                    break;
-                case "House2Exit":
-                    this.LoadLevel(@"Levels\Test.xml", "House2Exit");
-                    break;
-            }
+            this.luaState.DoString(String.Format("id=\"{0}\"", id));
+            this.luaChangeLevelFunction.Call(new Object[] {});
         }
         #endregion
 
