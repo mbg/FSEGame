@@ -3,5 +3,20 @@
   <Tile ID="0" Passable="False">ErrorTile</Tile>
   <Tile ID="6" Passable="True">WoodFloor1</Tile>
   <Tile ID="12" Passable="True">TileFloor1</Tile>
-  <Tile ID="18" Passable="True">Door1</Tile>
+  <Tile ID="18" Passable="False">WoodWallBottom</Tile>
+  <Tile ID="19" Passable="False">WoodWallTop</Tile>
+  <Tile ID="20" Passable="False">WoodWallRight</Tile>
+  <Tile ID="21" Passable="False">WoodWallLeft</Tile>
+  <Tile ID="22" Passable="False">WoodWallLtoT</Tile>
+  <Tile ID="23" Passable="False">WoodWallLtoB</Tile>
+  <Tile ID="24" Passable="False">WoodDoorBottomLeft</Tile>
+  <Tile ID="25" Passable="False">WoodDoorTopLeft</Tile>
+  <Tile ID="26" Passable="False">WoodDoorLeftTop</Tile>
+  <Tile ID="27" Passable="False">WoodDoorLeftBottom</Tile>
+  <Tile ID="28" Passable="False">WoodWallTtoR</Tile>
+  <Tile ID="29" Passable="False">WoodWallRtoB</Tile>
+  <Tile ID="30" Passable="False">WoodDoorBottomRight</Tile>
+  <Tile ID="31" Passable="False">WoodDoorTopRight</Tile>
+  <Tile ID="32" Passable="False">WoodDoorRightTop</Tile>
+  <Tile ID="33" Passable="False">WoodDoorRightBottom</Tile>
 </Tileset>
