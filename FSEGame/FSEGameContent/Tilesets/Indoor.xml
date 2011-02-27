@@ -2,7 +2,15 @@
 <Tileset Name="Indoor" Resource="Tilesets\Indoor">
   <Tile ID="0" Passable="False">ErrorTile</Tile>
   <Tile ID="6" Passable="True">WoodFloor1</Tile>
+  <Tile ID="8" Passable="True">RedCarpetFloorCheckLRRight</Tile>
+  <Tile ID="9" Passable="True">RedCarpetFloorCheckLR</Tile>
+  <Tile ID="10" Passable="True">RedCarpetFloorCheckLRLeft</Tile>
   <Tile ID="12" Passable="True">TileFloor1</Tile>
+  <Tile ID="13" Passable="True">CheckFloor</Tile>
+  <Tile ID="14" Passable="True">RedCarpetFloorCheckUDTop</Tile>
+  <Tile ID="15" Passable="True">RedCarpetFloorCheckUD</Tile>
+  <Tile ID="16" Passable="True">RedCarpetFloorCheckUDBottom</Tile>
+  <Tile ID="17" Passable="True">RedCarpetFloorCheckLURD</Tile>
   <Tile ID="18" Passable="False">WoodWallBottom</Tile>
   <Tile ID="19" Passable="False">WoodWallTop</Tile>
   <Tile ID="20" Passable="False">WoodWallRight</Tile>
