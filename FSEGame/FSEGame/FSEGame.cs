@@ -38,8 +38,21 @@ namespace FSEGame
         #endregion
 
         #region Instance Members
+        /// <summary>
+        /// Stores the current state of the game.
+        /// </summary>
+        private GameState gameState = GameState.Fading;
+        /// <summary>
+        /// The graphics device manager for this game.
+        /// </summary>
         private GraphicsDeviceManager graphics;
+        /// <summary>
+        /// The main sprite batch used for rendering multiple textures in one pass.
+        /// </summary>
         private SpriteBatch spriteBatch;
+        /// <summary>
+        /// The default game font.
+        /// </summary>
         private SpriteFont defaultFont;
 
         private String levelFileExtension = ".xml";
@@ -240,7 +253,9 @@ namespace FSEGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            this.character.Update(gameTime);
+            if(this.gameState == GameState.Exploring)
+                this.character.Update(gameTime);
+
             this.fadeScreen.Update(gameTime);
 
             this.camera.Update(GraphicsDevice.Viewport);

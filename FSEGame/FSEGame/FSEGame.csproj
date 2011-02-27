@@ -114,6 +114,7 @@
     <Compile Include="Engine\Camera.cs" />
     <Compile Include="Engine\CellEventType.cs" />
     <Compile Include="Engine\CellInformation.cs" />
+    <Compile Include="Engine\GameState.cs" />
     <Compile Include="Engine\GridHelper.cs" />
     <Compile Include="Engine\Level.cs" />
     <Compile Include="Engine\LevelCell.cs" />

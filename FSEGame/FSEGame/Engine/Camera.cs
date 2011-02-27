@@ -1,9 +1,11 @@
 ﻿// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-// :: $projectname$
-// :: Copyright 2011 Michael Gale
+// :: FSEGame
+// :: Copyright 2011 Warren Jackson, Michael Gale
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-// :: Created: 2/22/2011 12:18:27 AM
+// :: Created: ---
 // ::      by: MBG20102011\Michael Gale
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+// :: Notes:   
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 #region References
@@ -21,6 +23,7 @@ namespace FSEGame.Engine
     {
         #region Instance Members
         private Vector2 offset;
+        private Boolean attachedToPlayer = true;
         #endregion
 
         #region Properties
@@ -46,16 +49,42 @@ namespace FSEGame.Engine
         }
         #endregion
 
+        #region Update
+        /// <summary>
+        /// Updates the camera object.
+        /// </summary>
+        /// <param name="vp">The main viewport.</param>
         public void Update(Viewport vp)
         {
-            this.offset = new Vector2((vp.Width / 2) - 32, (vp.Height / 2) - 32) 
-                - FSEGame.Singleton.Character.AbsolutePosition;
+            // :: Update the camera so that the player character is in the centre
+            // :: of the screen if it is attached to the player.
+            if (this.attachedToPlayer)
+            {
+                this.offset = new Vector2((vp.Width / 2) - 32, (vp.Height / 2) - 32)
+                    - FSEGame.Singleton.Character.AbsolutePosition;
+            }
         }
+        #endregion
 
-        public Vector2 TileWorldToScreen(Vector2 position)
+        #region AttachToPlayer
+        /// <summary>
+        /// Attaches the camera to the player character.
+        /// </summary>
+        public void AttachToPlayer()
         {
-            return new Vector2(position.X * 64, position.Y * 64);
+            this.attachedToPlayer = true;
         }
+        #endregion
+
+        #region DetachFromPlayer
+        /// <summary>
+        /// Detaches the camera from the player character.
+        /// </summary>
+        public void DetachFromPlayer()
+        {
+            this.attachedToPlayer = false;
+        }
+        #endregion
     }
 }
 
