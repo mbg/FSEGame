@@ -96,11 +96,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <Compile Include="Levels\House2.xml">
+    <Content Include="Levels\House2.xml">
       <Name>House2</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
-    </Compile>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Levels\Test.xml">
       <Name>Test</Name>
       <Importer>XmlImporter</Importer>
