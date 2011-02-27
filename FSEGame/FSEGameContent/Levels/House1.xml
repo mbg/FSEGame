@@ -34,7 +34,7 @@
     <Cell X="3" Y="3" Tile="WoodFloor1" />
     <Cell X="3" Y="4" Tile="WoodFloor1" />
     <Cell X="3" Y="5" Tile="WoodFloor1" />
-    <Cell X="3" Y="6" Event="ChangeLevel" EventID="House1Exit" Tile="WoodFloor1" />
+    <Cell X="3" Y="6" Event="ChangeLevel" EventID="House1Exit" Tile="Door1" />
 
     <Cell X="4" Y="0" Tile="WoodFloor1" />
     <Cell X="4" Y="1" Tile="WoodFloor1" />
