@@ -27,6 +27,7 @@ namespace FSEGame.Engine
         private Vector2 position;
         private Color textColour;
         private Boolean shadow = true;
+        private Boolean visible = true;
         #endregion
 
         #region Properties
@@ -77,6 +78,18 @@ namespace FSEGame.Engine
                 this.shadow = value;
             }
         }
+
+        public Boolean Visible
+        {
+            get
+            {
+                return this.visible;
+            }
+            set
+            {
+                this.visible = value;
+            }
+        }
         #endregion
 
         #region Constructor
@@ -96,6 +109,9 @@ namespace FSEGame.Engine
 
         public void Draw(SpriteBatch batch)
         {
+            if (!this.visible)
+                return;
+
             if (this.shadow)
             {
                 batch.DrawString(

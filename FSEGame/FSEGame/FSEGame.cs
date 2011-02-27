@@ -65,6 +65,8 @@ namespace FSEGame
         private MainMenuScreen mainMenu;
         private List<IUIElement> uiElements;
         private StaticText debugText;
+        private FPSCounter fpsCounter;
+        private float timeSinceLastKey = 0.0f;
         #endregion
 
         #region Static Properties
@@ -120,6 +122,16 @@ namespace FSEGame
                 return this.currentLevel;
             }
         }
+        /// <summary>
+        /// Gets the list of UI elements.
+        /// </summary>
+        public List<IUIElement> UIElements
+        {
+            get
+            {
+                return this.uiElements;
+            }
+        }
         #endregion
 
         #region Constructor
@@ -132,6 +144,7 @@ namespace FSEGame
                 throw new InvalidOperationException("Can only initialise one instance of FSEGame!");
 
             this.uiElements = new List<IUIElement>();
+            this.fpsCounter = new FPSCounter();
 
             this.graphics = new GraphicsDeviceManager(this);
             this.graphics.PreparingDeviceSettings += 
@@ -206,8 +219,9 @@ namespace FSEGame
             this.mainMenu = new MainMenuScreen();
             this.mainMenu.Hide();
 
-            debugText = new StaticText(this.defaultFont);
-            debugText.Position = new Vector2(20, 20);
+            this.debugText = new StaticText(this.defaultFont);
+            this.debugText.Position = new Vector2(20, 20);
+            this.debugText.Visible = false;
 
             this.uiElements.Add(debugText);
         }
@@ -251,17 +265,41 @@ namespace FSEGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // Allows the game to exit
+            this.timeSinceLastKey += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            KeyboardState ks = Keyboard.GetState();
+            GamePadState gs = GamePad.GetState(PlayerIndex.One);
+
+            // :: [DEBUG]: Use ESC to quit.
 #if WINDOWS
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (ks.IsKeyDown(Keys.Escape))
                 this.Exit();
 #endif
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            if (gs.Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            // TODO: Add your update logic here
+#if DEBUG
+            if (ks.IsKeyDown(Keys.F2) && this.timeSinceLastKey >= 0.3f)
+            {
+                this.debugText.Visible = !this.debugText.Visible;
+                this.timeSinceLastKey = 0.0f;
+            }
+#endif
+
+            this.fpsCounter.Update(gameTime);
+
+            if (this.gameState == GameState.Exploring)
+                this.character.Update(gameTime);
+
+            this.fadeScreen.Update(gameTime);
+
+            this.camera.Update(GraphicsDevice.Viewport);
 
             base.Update(gameTime);
+
+            this.debugText.Text = String.Format("X: {0}\nY: {1}\nLevel: {2}\nTileset: {3}\nFPS: {4}",
+                    this.character.CellPosition.X, this.character.CellPosition.Y,
+                    this.currentLevel.Name, this.tileset.Name, this.fpsCounter.FPS);
         }
         #endregion
 
@@ -272,13 +310,6 @@ namespace FSEGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            if(this.gameState == GameState.Exploring)
-                this.character.Update(gameTime);
-
-            this.fadeScreen.Update(gameTime);
-
-            this.camera.Update(GraphicsDevice.Viewport);
-
             base.GraphicsDevice.Clear(Color.Black);
 
             // :: [Test]  Draws a tile from the current tileset.
@@ -299,10 +330,6 @@ namespace FSEGame
             //this.fadeScreen.Draw(this.spriteBatch);
 
             this.mainMenu.Draw(this.spriteBatch);
-
-            this.debugText.Text = String.Format("X: {0}\nY: {1}\nLevel: {2}\nTileset: {3}\nFPS: {4}",
-                    this.character.CellPosition.X, this.character.CellPosition.Y,
-                    this.currentLevel.Name, this.tileset.Name, 0);
 
             foreach (IUIElement uiElement in this.uiElements)
             {
