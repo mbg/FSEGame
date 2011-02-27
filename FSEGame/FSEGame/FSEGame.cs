@@ -228,6 +228,12 @@ namespace FSEGame
                 case "House1Exit":
                     this.LoadLevel(@"Levels\Test.xml", "House1Exit");
                     break;
+                case "TestHouseDoor2":
+                    this.LoadLevel(@"Levels\House2.xml", "Default");
+                    break;
+                case "House2Exit":
+                    this.LoadLevel(@"Levels\Test.xml", "House2Exit");
+                    break;
             }
         }
         #endregion
