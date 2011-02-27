@@ -24,10 +24,6 @@ namespace FSEGame.Engine
     /// </summary>
     public class Tileset
     {
-        #region Constants
-        private const UInt32 ERROR_TILE = 0;
-        #endregion
-
         #region Instance Members
         private String name;
         private String resource;
@@ -37,6 +33,10 @@ namespace FSEGame.Engine
         private UInt16 rows = 1;
         private UInt16 columns = 1;
         private Boolean initialised = false;
+        #endregion
+
+        #region Constants
+        private const UInt32 ERROR_TILE = 0;
         #endregion
 
         #region Properties

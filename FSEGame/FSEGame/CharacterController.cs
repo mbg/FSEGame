@@ -152,6 +152,9 @@ namespace FSEGame
         #endregion
 
         #region Event Properties
+        /// <summary>
+        /// 
+        /// </summary>
         public event OnChangeLevelDelegate OnChangeLevel
         {
             add

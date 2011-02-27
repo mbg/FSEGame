@@ -48,6 +48,7 @@ namespace FSEGame
         private CharacterController character = null;
         private Level currentLevel = null;
         private Tileset tileset;
+        private FadeScreen fadeScreen;
         #endregion
 
         #region Static Properties
@@ -175,6 +176,9 @@ namespace FSEGame
 
             this.defaultFont = this.Content.Load<SpriteFont>("Arial");
 
+            this.fadeScreen = new FadeScreen();
+            this.fadeScreen.FadeOut(1.0d);
+
             this.character = new CharacterController();
             this.character.OnChangeLevel += new OnChangeLevelDelegate(character_OnChangeLevel);
 
@@ -237,6 +241,8 @@ namespace FSEGame
         protected override void Draw(GameTime gameTime)
         {
             this.character.Update(gameTime);
+            this.fadeScreen.Update(gameTime);
+
             this.camera.Update(GraphicsDevice.Viewport);
 
             base.GraphicsDevice.Clear(Color.Black);
@@ -255,6 +261,8 @@ namespace FSEGame
             //Texture2D speechTexture = this.Content.Load<Texture2D>("SpeechBox");
             //this.spriteBatch.Draw(speechTexture, new Vector2(this.GraphicsDevice.Viewport.Width / 2 - 400, this.GraphicsDevice.Viewport.Height - 100), null, Color.White, 0.0f, Vector2.Zero, 4.0f, SpriteEffects.None, 0.0f);
             //this.spriteBatch.DrawString(this.defaultFont, "That's a nice binary tree you have there...\nwould be a shame if something happened to it", new Vector2(20, this.GraphicsDevice.Viewport.Height - 95), Color.Black, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
+
+            //this.fadeScreen.Draw(this.spriteBatch);
 
             this.spriteBatch.End();
 
@@ -290,6 +298,8 @@ namespace FSEGame
         /// <param name="entryPoint"></param>
         public void LoadLevel(String name, String entryPoint)
         {
+            this.character.Enabled = false;
+
             this.LoadLevel(name);
 
             LevelEntryPoint ep = this.currentLevel.GetEntryPoint(entryPoint);
