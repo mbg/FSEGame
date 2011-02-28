@@ -156,9 +156,9 @@
     <Cell X="13" Y="4" Tile="GenericHouseRoofLeft" />
     <Cell X="13" Y="5" Tile="GenericHouseWallLeft" />
     <Cell X="13" Y="6" Tile="PathLR" />
-    <Cell X="13" Y="7" Tile="TileFloor1" />
-    <Cell X="13" Y="8" Tile="TileFloor1" />
-    <Cell X="13" Y="9" Tile="TileFloor1" />
+    <Cell X="13" Y="7" Tile="Dirt" />
+    <Cell X="13" Y="8" Tile="Dirt" />
+    <Cell X="13" Y="9" Tile="Dirt" />
 
     <Cell X="14" Y="0" Tile="Dirt" />
     <Cell X="14" Y="1" Tile="Dirt" />
@@ -167,9 +167,9 @@
     <Cell X="14" Y="4" Tile="GenericHouseRoofCentre" />
     <Cell X="14" Y="5" Event="ChangeLevel" EventID="TestHouseDoor2" Tile="GenericHouseDoor" />
     <Cell X="14" Y="6" Tile="PathLURD" />
-    <Cell X="14" Y="7" Tile="TileFloor1" />
-    <Cell X="14" Y="8" Tile="TileFloor1" />
-    <Cell X="14" Y="9" Tile="TileFloor1" />
+    <Cell X="14" Y="7" Tile="Dirt" />
+    <Cell X="14" Y="8" Tile="Dirt" />
+    <Cell X="14" Y="9" Tile="Dirt" />
 
     <Cell X="15" Y="0" Tile="Dirt" />
     <Cell X="15" Y="1" Tile="Dirt" />
@@ -178,9 +178,9 @@
     <Cell X="15" Y="4" Tile="GenericHouseRoofRight" />
     <Cell X="15" Y="5" Tile="GenericHouseWallRight" />
     <Cell X="15" Y="6" Tile="PathLR" />
-    <Cell X="15" Y="7" Tile="TileFloor1" />
-    <Cell X="15" Y="8" Tile="TileFloor1" />
-    <Cell X="15" Y="9" Tile="TileFloor1" />
+    <Cell X="15" Y="7" Tile="Dirt" />
+    <Cell X="15" Y="8" Tile="Dirt" />
+    <Cell X="15" Y="9" Tile="Dirt" />
 
     <Cell X="16" Y="0" Tile="Dirt" />
     <Cell X="16" Y="1" Tile="Dirt" />
@@ -188,7 +188,7 @@
     <Cell X="16" Y="3" Tile="Dirt" />
     <Cell X="16" Y="4" Tile="Dirt" />
     <Cell X="16" Y="5" Tile="Dirt" />
-    <Cell X="16" Y="6" Tile="Dirt" />
+    <Cell X="16" Y="6" Tile="PathLR" />
     <Cell X="16" Y="7" Tile="Dirt" />
     <Cell X="16" Y="8" Tile="Dirt" />
     <Cell X="16" Y="9" Tile="Dirt" />
@@ -199,7 +199,7 @@
     <Cell X="17" Y="3" Tile="Dirt" />
     <Cell X="17" Y="4" Tile="Dirt" />
     <Cell X="17" Y="5" Tile="Dirt" />
-    <Cell X="17" Y="6" Tile="Dirt" />
+    <Cell X="17" Y="6" Tile="PathLR" />
     <Cell X="17" Y="7" Tile="Dirt" />
     <Cell X="17" Y="8" Tile="Dirt" />
     <Cell X="17" Y="9" Tile="Dirt" />
@@ -210,7 +210,7 @@
     <Cell X="18" Y="3" Tile="Dirt" />
     <Cell X="18" Y="4" Tile="Dirt" />
     <Cell X="18" Y="5" Tile="Dirt" />
-    <Cell X="18" Y="6" Tile="Dirt" />
+    <Cell X="18" Y="6" Tile="PathLR" />
     <Cell X="18" Y="7" Tile="Dirt" />
     <Cell X="18" Y="8" Tile="Dirt" />
     <Cell X="18" Y="9" Tile="Dirt" />
@@ -219,55 +219,55 @@
     <Cell X="19" Y="1" Tile="Dirt" />
     <Cell X="19" Y="2" Tile="Dirt" />
     <Cell X="19" Y="3" Tile="Dirt" />
-    <Cell X="19" Y="4" Tile="Dirt" />
-    <Cell X="19" Y="5" Tile="Dirt" />
-    <Cell X="19" Y="6" Tile="Dirt" />
-    <Cell X="19" Y="7" Tile="Dirt" />
-    <Cell X="19" Y="8" Tile="Dirt" />
+    <Cell X="19" Y="4" Tile="WaterCornerNW" />
+    <Cell X="19" Y="5" Tile="BridgeLeftTop" />
+    <Cell X="19" Y="6" Tile="BridgeLeft" />
+    <Cell X="19" Y="7" Tile="BridgeLeftBottom" />
+    <Cell X="19" Y="8" Tile="WaterCornerSW" />
     <Cell X="19" Y="9" Tile="Dirt" />
 
     <Cell X="20" Y="0" Tile="Dirt" />
     <Cell X="20" Y="1" Tile="Dirt" />
     <Cell X="20" Y="2" Tile="Dirt" />
     <Cell X="20" Y="3" Tile="Dirt" />
-    <Cell X="20" Y="4" Tile="Dirt" />
-    <Cell X="20" Y="5" Tile="Dirt" />
-    <Cell X="20" Y="6" Tile="Dirt" />
-    <Cell X="20" Y="7" Tile="Dirt" />
-    <Cell X="20" Y="8" Tile="Dirt" />
+    <Cell X="20" Y="4" Tile="WaterCornerN" />
+    <Cell X="20" Y="5" Tile="BridgeTop" />
+    <Cell X="20" Y="6" Tile="BridgeLR" />
+    <Cell X="20" Y="7" Tile="BridgeBottom" />
+    <Cell X="20" Y="8" Tile="WaterCornerS" />
     <Cell X="20" Y="9" Tile="Dirt" />
 
     <Cell X="21" Y="0" Tile="Dirt" />
     <Cell X="21" Y="1" Tile="Dirt" />
     <Cell X="21" Y="2" Tile="Dirt" />
     <Cell X="21" Y="3" Tile="Dirt" />
-    <Cell X="21" Y="4" Tile="Dirt" />
-    <Cell X="21" Y="5" Tile="Dirt" />
-    <Cell X="21" Y="6" Tile="Dirt" />
-    <Cell X="21" Y="7" Tile="Dirt" />
-    <Cell X="21" Y="8" Tile="Dirt" />
+    <Cell X="21" Y="4" Tile="WaterCornerN" />
+    <Cell X="21" Y="5" Tile="BridgeTop" />
+    <Cell X="21" Y="6" Tile="BridgeLR" />
+    <Cell X="21" Y="7" Tile="BridgeBottom" />
+    <Cell X="21" Y="8" Tile="WaterCornerS" />
     <Cell X="21" Y="9" Tile="Dirt" />
 
     <Cell X="22" Y="0" Tile="Dirt" />
     <Cell X="22" Y="1" Tile="Dirt" />
     <Cell X="22" Y="2" Tile="Dirt" />
     <Cell X="22" Y="3" Tile="Dirt" />
-    <Cell X="22" Y="4" Tile="Dirt" />
-    <Cell X="22" Y="5" Tile="Dirt" />
-    <Cell X="22" Y="6" Tile="Dirt" />
-    <Cell X="22" Y="7" Tile="Dirt" />
-    <Cell X="22" Y="8" Tile="Dirt" />
+    <Cell X="22" Y="4" Tile="WaterCornerN" />
+    <Cell X="22" Y="5" Tile="BridgeTop" />
+    <Cell X="22" Y="6" Tile="BridgeLR" />
+    <Cell X="22" Y="7" Tile="BridgeBottom" />
+    <Cell X="22" Y="8" Tile="WaterCornerS" />
     <Cell X="22" Y="9" Tile="Dirt" />
 
     <Cell X="23" Y="0" Tile="Dirt" />
     <Cell X="23" Y="1" Tile="Dirt" />
     <Cell X="23" Y="2" Tile="Dirt" />
     <Cell X="23" Y="3" Tile="Dirt" />
-    <Cell X="23" Y="4" Tile="Dirt" />
-    <Cell X="23" Y="5" Tile="Dirt" />
-    <Cell X="23" Y="6" Tile="Dirt" />
-    <Cell X="23" Y="7" Tile="Dirt" />
-    <Cell X="23" Y="8" Tile="Dirt" />
+    <Cell X="23" Y="4" Tile="WaterCornerNE" />
+    <Cell X="23" Y="5" Tile="WaterCornerE" />
+    <Cell X="23" Y="6" Tile="BridgeLR" />
+    <Cell X="23" Y="7" Tile="WaterCornerE" />
+    <Cell X="23" Y="8" Tile="WaterCornerSE" />
     <Cell X="23" Y="9" Tile="Dirt" />
   </Cells>
 </Level>

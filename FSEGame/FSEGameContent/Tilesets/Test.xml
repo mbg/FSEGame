@@ -42,6 +42,19 @@
   <Tile ID="50" Passable="False">GenericHouseWallRight</Tile>
   <Tile ID="51" Passable="True">PathLUD</Tile>
   <Tile ID="52" Passable="True">PathLD</Tile>
-  <Tile ID="54" Passable="True">TileFloor1</Tile>
-  <Tile ID="55" Passable="True">WoodFloor1</Tile>
+  <Tile ID="54" Passable="False">BridgeLeftTop</Tile>
+  <Tile ID="55" Passable="True">BridgeLeft</Tile>
+  <Tile ID="56" Passable="False">BridgeLeftBottom</Tile>
+  <Tile ID="57" Passable="False">WaterCornerNW</Tile>
+  <Tile ID="58" Passable="False">WaterCornerW</Tile>
+  <Tile ID="59" Passable="False">WaterCornerSW</Tile>
+  <Tile ID="60" Passable="False">BridgeTop</Tile>
+  <Tile ID="61" Passable="True">BridgeLR</Tile>
+  <Tile ID="62" Passable="False">BridgeBottom</Tile>
+  <Tile ID="63" Passable="False">WaterCornerN</Tile>
+  <Tile ID="64" Passable="False">Water</Tile>
+  <Tile ID="65" Passable="False">WaterCornerS</Tile>
+  <Tile ID="69" Passable="False">WaterCornerNE</Tile>
+  <Tile ID="70" Passable="False">WaterCornerE</Tile>
+  <Tile ID="71" Passable="False">WaterCornerSE</Tile>
 </Tileset>

@@ -7,7 +7,7 @@
     <Cell X="0" Y="0" Tile="WoodWallLtoT" />
     <Cell X="0" Y="1" Tile="WoodWallLeft" />
     <Cell X="0" Y="2" Tile="WoodDoorLeftTop" />
-    <Cell X="0" Y="3" Tile="RedCarpetFloorCheckLRLeft" />
+    <Cell X="0" Y="3" Tile="CheckFloor" />
     <Cell X="0" Y="4" Tile="WoodDoorLeftBottom" />
     <Cell X="0" Y="5" Tile="WoodWallLeft" />
     <Cell X="0" Y="6" Tile="WoodWallLtoB" />
@@ -15,7 +15,7 @@
     <Cell X="1" Y="0" Tile="WoodWallTop" />
     <Cell X="1" Y="1" Tile="CheckFloor" />
     <Cell X="1" Y="2" Tile="CheckFloor" />
-    <Cell X="1" Y="3" Tile="RedCarpetFloorCheckLR" />
+    <Cell X="1" Y="3" Tile="CheckFloor" />
     <Cell X="1" Y="4" Tile="CheckFloor" />
     <Cell X="1" Y="5" Tile="CheckFloor" />
     <Cell X="1" Y="6" Tile="WoodWallBottom" />
@@ -23,15 +23,15 @@
     <Cell X="2" Y="0" Tile="WoodDoorTopLeft" />
     <Cell X="2" Y="1" Tile="CheckFloor" />
     <Cell X="2" Y="2" Tile="CheckFloor" />
-    <Cell X="2" Y="3" Tile="RedCarpetFloorCheckLR" />
+    <Cell X="2" Y="3" Tile="CheckFloor" />
     <Cell X="2" Y="4" Tile="CheckFloor" />
     <Cell X="2" Y="5" Tile="CheckFloor" />
     <Cell X="2" Y="6" Tile="WoodDoorBottomLeft" />
 
-    <Cell X="3" Y="0" Tile="RedCarpetFloorCheckUDTop" />
-    <Cell X="3" Y="1" Tile="RedCarpetFloorCheckUD" />
-    <Cell X="3" Y="2" Tile="RedCarpetFloorCheckUD" />
-    <Cell X="3" Y="3" Tile="RedCarpetFloorCheckLURD" />
+    <Cell X="3" Y="0" Tile="CheckFloor" />
+    <Cell X="3" Y="1" Tile="CheckFloor" />
+    <Cell X="3" Y="2" Tile="CheckFloor" />
+    <Cell X="3" Y="3" Tile="RedCarpetFloorCheckRD" />
     <Cell X="3" Y="4" Tile="RedCarpetFloorCheckUD" />
     <Cell X="3" Y="5" Tile="RedCarpetFloorCheckUD" />
     <Cell X="3" Y="6" Event="ChangeLevel" EventID="House2Exit" Tile="RedCarpetFloorCheckUDBottom" />
