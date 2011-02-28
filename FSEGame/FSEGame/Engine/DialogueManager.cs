@@ -142,6 +142,7 @@ namespace FSEGame.Engine
         {
             FSEGame.Singleton.NotifyDialogueStart();
 
+            this.elapsedTime = 0.0f;
             this.currentNode = this.currentDialogue.GetFirstChild();
 
             this.screen.Visible = true;

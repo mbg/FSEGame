@@ -37,10 +37,6 @@ namespace FSEGame.Actors
         /// The time which has elapsed since the NPC last turned.
         /// </summary>
         private float timeSinceLastTurn = 0.0f;
-        /// <summary>
-        /// 
-        /// </summary>
-        private Vector2 playerInteractionPosition;
         #endregion
 
         #region Constants
@@ -91,12 +87,7 @@ namespace FSEGame.Actors
             // :: orientation.
             if (ks.IsKeyDown(Keys.Enter))
             {
-                this.playerInteractionPosition = new Vector2(
-                    this.CellPosition.X,
-                    this.CellPosition.Y + 1);
-
-                if (this.playerInteractionPosition == FSEGame.Singleton.Character.CellPosition &&
-                    FSEGame.Singleton.Character.Orientation == 0.0f)
+                if (this.IsPlayerInInteractionPosition())
                 {
                     FSEGame.Singleton.DialogueManager.PlayDialogue(
                         @"FSEGame\Dialogues\TestDialogue.xml");
@@ -104,6 +95,25 @@ namespace FSEGame.Actors
             }
         }
         #endregion
+
+        private Boolean IsPlayerInInteractionPosition()
+        {
+            Vector2 playerPosition = FSEGame.Singleton.Character.CellPosition;
+            float playerOrientation = FSEGame.Singleton.Character.Orientation;
+
+            return ((playerPosition.X == this.CellPosition.X) &&
+                (playerPosition.Y == this.CellPosition.Y + 1) &&
+                (playerOrientation == 0.0f)) ||
+                ((playerPosition.X == this.CellPosition.X) &&
+                (playerPosition.Y == this.CellPosition.Y - 1) &&
+                (playerOrientation == 180.0f)) ||
+                ((playerPosition.X == this.CellPosition.X - 1) &&
+                (playerPosition.Y == this.CellPosition.Y) &&
+                (playerOrientation == 90.0f)) ||
+                ((playerPosition.X == this.CellPosition.X + 1) &&
+                (playerPosition.Y == this.CellPosition.Y) &&
+                (playerOrientation == 270.0f));
+        }
 
         #region Draw
         /// <summary>
