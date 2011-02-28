@@ -54,6 +54,9 @@
   <Tile ID="63" Passable="False">WaterCornerN</Tile>
   <Tile ID="64" Passable="False">Water</Tile>
   <Tile ID="65" Passable="False">WaterCornerS</Tile>
+  <Tile ID="66" Passable="False">BridgeRightTop</Tile>
+  <Tile ID="67" Passable="True">BridgeRight</Tile>
+  <Tile ID="68" Passable="False">BridgeRightBottom</Tile>
   <Tile ID="69" Passable="False">WaterCornerNE</Tile>
   <Tile ID="70" Passable="False">WaterCornerE</Tile>
   <Tile ID="71" Passable="False">WaterCornerSE</Tile>
