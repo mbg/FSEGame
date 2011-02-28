@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Dialogue ID="root">
+  <Speech ID="speech#1" TextVar="string#1" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="307" Top="324">
+    <Speech ID="speech#2" TextVar="string#2" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="524" Top="323">
+      <Speech ID="speech#3" TextVar="string#3" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="733" Top="319">
+        <Speech ID="speech#4" TextVar="string#4" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="951" Top="320">
+          <Speech ID="speech#5" TextVar="string#5" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="1180" Top="319">
+            <Speech ID="speech#6" TextVar="string#6" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="1398" Top="319" />
+          </Speech>
+        </Speech>
+      </Speech>
+    </Speech>
+  </Speech>
+  <Orphans />
+  <Variables>
+    <StringVar Name="string#1" Export="False" Left="303" Top="449">The land of bridges.</StringVar>
+    <StringVar Name="string#2" Export="False" Left="500" Top="461">A long time ago, the people were hoping to turn this land into a place flourishing with trade.</StringVar>
+    <StringVar Name="string#3" Export="False" Left="725" Top="466">But then darkness overwhelmed the land.</StringVar>
+    <StringVar Name="string#4" Export="False" Left="945" Top="463">Malus, the god of shadows, sent his forces to steal the torches from the people.</StringVar>
+    <StringVar Name="string#5" Export="False" Left="1173" Top="467">Unable to cross the many bridges which are connecting the various towns, the trade routes collapsed.</StringVar>
+    <StringVar Name="string#6" Export="False" Left="1399" Top="469">But there is still hope...</StringVar>
+  </Variables>
+</Dialogue>

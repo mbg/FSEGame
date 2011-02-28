@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<Dialogue ID="root">
+  <Speech ID="speech#1" TextVar="string#1" Mode="Time" Time="0">
+    <Speech ID="speech#2" TextVar="string#2" Mode="Time" Time="0">
+      <Speech ID="speech#3" TextVar="string#3" Mode="Time" Time="0">
+        <Speech ID="speech#4" TextVar="string#4" Mode="Time" Time="0">
+          <Speech ID="speech#5" TextVar="string#5" Mode="Time" Time="0">
+            <Speech ID="speech#6" TextVar="string#6" Mode="Time" Time="0" />
+          </Speech>
+        </Speech>
+      </Speech>
+    </Speech>
+  </Speech>
+  <Variables>
+    <StringVar Name="string#1" Export="False">The land of bridges.</StringVar>
+    <StringVar Name="string#2" Export="False">A long time ago, the people were hoping to turn this land into a place flourishing with trade.</StringVar>
+    <StringVar Name="string#3" Export="False">But then darkness overwhelmed the land.</StringVar>
+    <StringVar Name="string#4" Export="False">Malus, the god of shadows, sent his forces to steal the torches from the people.</StringVar>
+    <StringVar Name="string#5" Export="False">Unable to cross the many bridges which are connecting the various towns, the trade routes collapsed.</StringVar>
+    <StringVar Name="string#6" Export="False">But there is still hope...</StringVar>
+  </Variables>
+</Dialogue>
