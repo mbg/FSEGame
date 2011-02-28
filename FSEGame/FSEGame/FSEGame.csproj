@@ -113,10 +113,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actors\GenericNPC.cs" />
     <Compile Include="CharacterController.cs" />
+    <Compile Include="Engine\Actor.cs" />
     <Compile Include="Engine\Camera.cs" />
     <Compile Include="Engine\CellEventType.cs" />
     <Compile Include="Engine\CellInformation.cs" />
+    <Compile Include="Engine\DialogueManager.cs" />
+    <Compile Include="Engine\Dialogues\Dialogue.cs" />
+    <Compile Include="Engine\Dialogues\DialogueNode.cs" />
+    <Compile Include="Engine\Dialogues\DialogueScreen.cs" />
+    <Compile Include="Engine\Dialogues\DialogueSpeechNode.cs" />
+    <Compile Include="Engine\Dialogues\DialogueStringVariable.cs" />
+    <Compile Include="Engine\Dialogues\DialogueVariable.cs" />
+    <Compile Include="Engine\Dialogues\DialogueVariableType.cs" />
     <Compile Include="Engine\FPSCounter.cs" />
     <Compile Include="Engine\GameState.cs" />
     <Compile Include="Engine\GridHelper.cs" />

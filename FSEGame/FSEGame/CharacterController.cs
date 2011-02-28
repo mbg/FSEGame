@@ -274,10 +274,7 @@ namespace FSEGame
                 }
 
                 // :: Verify that the target position exists and is passable.
-                CellInformation targetCell = 
-                    FSEGame.Singleton.CurrentLevel.GetCellInformation(newPosition);
-
-                if (targetCell != null && targetCell.Tile.Passable)
+                if (FSEGame.Singleton.CurrentLevel.CanMoveTo(newPosition))
                 {
                     this.targetPosition = newPosition;
                 }

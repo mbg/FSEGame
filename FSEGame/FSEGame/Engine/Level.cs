@@ -20,6 +20,8 @@ using Microsoft.Xna.Framework;
 
 namespace FSEGame.Engine
 {
+    public delegate Actor CreateActorDelegate(String type, Vector2 position);
+
     /// <summary>
     /// 
     /// </summary>
@@ -31,7 +33,12 @@ namespace FSEGame.Engine
         private UInt32 width;
         private UInt32 height;
         private List<LevelEntryPoint> entryPoints;
+        private List<Actor> actors;
         private LevelCell[,] cells;
+        #endregion
+
+        #region Events
+        private event CreateActorDelegate onCreateActor = null;
         #endregion
 
         #region Properties
@@ -44,11 +51,31 @@ namespace FSEGame.Engine
         }
         #endregion
 
+        #region Event Properties
+        public event CreateActorDelegate OnCreateActor
+        {
+            add
+            {
+                this.onCreateActor += value;
+            }
+            remove
+            {
+                this.onCreateActor -= value;
+            }
+        }
+        #endregion
+
         #region Constructor
         /// <summary>
         /// Initialises a new instance of this class.
         /// </summary>
-        public Level(ContentManager contentManager, String filename)
+        public Level()
+        {
+            
+        }
+        #endregion
+
+        public void Load(ContentManager contentManager, String filename)
         {
             if (contentManager == null)
                 throw new ArgumentNullException("contentManager");
@@ -60,17 +87,11 @@ namespace FSEGame.Engine
             if (!File.Exists(path))
                 throw new FileNotFoundException(null, path);
 
-            // :: Parse the XML document and load its data into memory.
-            this.Load(path);
-        }
-        #endregion
-
-        private void Load(String filename)
-        {
             this.entryPoints = new List<LevelEntryPoint>();
+            this.actors = new List<Actor>();
 
             XmlDocument doc = new XmlDocument();
-            doc.Load(filename);
+            doc.Load(path);
 
             XmlElement rootElement = doc.DocumentElement;
 
@@ -112,6 +133,10 @@ namespace FSEGame.Engine
                 else if (childElement.Name.Equals("Cells"))
                 {
                     this.LoadCells(childElement);
+                }
+                else if (childElement.Name.Equals("Actors"))
+                {
+                    this.LoadActors(childElement);
                 }
             }
         }
@@ -183,6 +208,35 @@ namespace FSEGame.Engine
         }
         #endregion
 
+        private void LoadActors(XmlElement root)
+        {
+            if (this.onCreateActor == null)
+                return;
+
+            foreach (XmlNode childNode in root.ChildNodes)
+            {
+                // :: We only care about elements.
+                if (childNode.NodeType != XmlNodeType.Element)
+                    continue;
+
+                XmlElement childElement = (XmlElement)childNode;
+
+                if (childElement.Name.Equals("Actor"))
+                {
+                    Vector2 position = new Vector2(
+                        Convert.ToUInt32(childElement.GetAttribute("X")),
+                        Convert.ToUInt32(childElement.GetAttribute("Y")));
+
+                    Actor act = this.onCreateActor(
+                        childElement.GetAttribute("Type"),
+                        position);
+
+                    if(act != null)
+                        this.actors.Add(act);
+                }
+            }
+        }
+
         #region ToCellEventType
         /// <summary>
         /// 
@@ -200,6 +254,14 @@ namespace FSEGame.Engine
             return CellEventType.None;
         }
         #endregion
+
+        public void Update(GameTime gameTime)
+        {
+            foreach (Actor a in this.actors)
+            {
+                a.Update(gameTime);
+            }
+        }
 
         #region DrawLevel
         /// <summary>
@@ -225,6 +287,11 @@ namespace FSEGame.Engine
                             GridHelper.GridPositionToAbsolute(position));
                     }
                 }
+            }
+
+            foreach (Actor a in this.actors)
+            {
+                a.Draw(batch);
             }
         }
         #endregion
@@ -294,6 +361,35 @@ namespace FSEGame.Engine
             }
 
             throw new ArgumentException("No entry point with this name.");
+        }
+
+        public Boolean CanMoveTo(Vector2 position)
+        {
+            // :: Negative coordinates are invalid.
+            if (position.X < 0 || position.Y < 0)
+                return false;
+
+            // :: Coordinates outside the level are invalid.
+            if (position.X > this.width - 1 || position.Y > this.height - 1)
+                return false;
+
+            // :: If the tile type is not passable, one cannot move to
+            // :: a cell of that tile type.
+            Tile t = FSEGame.Singleton.CurrentTileset.GetTile(
+                this.cells[(int)position.Y, (int)position.X].Tile);
+
+            if (!t.Passable)
+                return false;
+
+            // :: Lastly, if there is an entity occupying the cell,
+            // :: another entity cannot move there.
+            foreach (Actor a in this.actors)
+            {
+                if (a.CellPosition == position)
+                    return false;
+            }
+
+            return true;
         }
     }
 }

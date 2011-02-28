@@ -26,6 +26,8 @@ using LuaInterface;
 
 namespace FSEGame
 {
+    public delegate void GameEventDelegate(Game sender);
+
     /// <summary>
     /// This is the main type for the FSE coursework game.
     /// </summary>
@@ -50,6 +52,8 @@ namespace FSEGame
 
         private Lua luaState;
         private LuaFunction luaChangeLevelFunction;
+
+        private DialogueManager dialogueManager;
         /// <summary>
         /// The main sprite batch used for rendering multiple textures in one pass.
         /// </summary>
@@ -73,6 +77,10 @@ namespace FSEGame
         private float timeSinceLastKey = 0.0f;
         #endregion
 
+        #region Events
+        private event GameEventDelegate onInitialise = null;
+        #endregion
+
         #region Static Properties
         /// <summary>
         /// 
@@ -87,6 +95,16 @@ namespace FSEGame
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Gets the dialogue manager for this game.
+        /// </summary>
+        public DialogueManager DialogueManager
+        {
+            get
+            {
+                return this.dialogueManager;
+            }
+        }
         public SpriteFont DefaultFont
         {
             get
@@ -138,6 +156,23 @@ namespace FSEGame
         }
         #endregion
 
+        #region Event Properties
+        /// <summary>
+        /// 
+        /// </summary>
+        public event GameEventDelegate OnInitialise
+        {
+            add
+            {
+                this.onInitialise += value;
+            }
+            remove
+            {
+                this.onInitialise -= value;
+            }
+        }
+        #endregion
+
         #region Constructor
         /// <summary>
         /// Initialises the game.
@@ -146,6 +181,8 @@ namespace FSEGame
         {
             if (FSEGame.Singleton != null)
                 throw new InvalidOperationException("Can only initialise one instance of FSEGame!");
+
+            FSEGame.singleton = this;
 
             this.uiElements = new List<IUIElement>();
             this.fpsCounter = new FPSCounter();
@@ -157,10 +194,10 @@ namespace FSEGame
             this.graphics = new GraphicsDeviceManager(this);
             this.graphics.PreparingDeviceSettings += 
                 new EventHandler<PreparingDeviceSettingsEventArgs>(PrepareGraphicsSettings);
+
+            this.dialogueManager = new DialogueManager();
             
             this.Content.RootDirectory = "FSEGame";
-
-            FSEGame.singleton = this;
         }
         #endregion
 
@@ -199,6 +236,11 @@ namespace FSEGame
         /// </summary>
         protected override void Initialize()
         {
+            this.currentLevel = new Level();
+            
+            if (this.onInitialise != null)
+                this.onInitialise(this);
+
             base.Initialize();
         }
         #endregion
@@ -295,6 +337,10 @@ namespace FSEGame
             this.fadeScreen.Update(gameTime);
 
             this.camera.Update(GraphicsDevice.Viewport);
+            this.currentLevel.Update(gameTime);
+
+            if (this.gameState == GameState.Cutscene)
+                this.dialogueManager.Update(gameTime);
 
             base.Update(gameTime);
 
@@ -324,10 +370,6 @@ namespace FSEGame
 
             this.character.Draw(this.spriteBatch);
 
-            //Texture2D speechTexture = this.Content.Load<Texture2D>("SpeechBox");
-            //this.spriteBatch.Draw(speechTexture, new Vector2(this.GraphicsDevice.Viewport.Width / 2 - 400, this.GraphicsDevice.Viewport.Height - 100), null, Color.White, 0.0f, Vector2.Zero, 4.0f, SpriteEffects.None, 0.0f);
-            //this.spriteBatch.DrawString(this.defaultFont, "That's a nice binary tree you have there...\nwould be a shame if something happened to it", new Vector2(20, this.GraphicsDevice.Viewport.Height - 95), Color.Black, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
-
             //this.fadeScreen.Draw(this.spriteBatch);
 
             this.mainMenu.Draw(this.spriteBatch);
@@ -336,6 +378,9 @@ namespace FSEGame
             {
                 uiElement.Draw(this.spriteBatch);
             }
+
+            if (this.gameState == GameState.Cutscene)
+                this.dialogueManager.Draw(this.spriteBatch);
 
             this.spriteBatch.End();
 
@@ -362,7 +407,7 @@ namespace FSEGame
         /// <param name="name"></param>
         public void LoadLevel(String name)
         {
-            this.currentLevel = new Level(this.Content, name);
+            this.currentLevel.Load(this.Content, name);
         }
         /// <summary>
         /// 
@@ -381,6 +426,16 @@ namespace FSEGame
             this.character.Enabled = true;
         }
         #endregion
+
+        internal void NotifyDialogueStart()
+        {
+            this.gameState = GameState.Cutscene;
+        }
+
+        internal void NotifyDialogueEnd()
+        {
+            this.gameState = GameState.Exploring;
+        }
     }
 }
 
