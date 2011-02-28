@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Tileset Name="GenericNPC" Resource="Tilesets\GenericNPC">
+  <Tile ID="0" Passable="False">HideRight</Tile>
+  <Tile ID="1" Passable="False">HideLeft</Tile>
+</Tileset>
