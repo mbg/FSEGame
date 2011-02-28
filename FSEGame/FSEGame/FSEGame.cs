@@ -157,7 +157,7 @@ namespace FSEGame
             this.graphics = new GraphicsDeviceManager(this);
             this.graphics.PreparingDeviceSettings += 
                 new EventHandler<PreparingDeviceSettingsEventArgs>(PrepareGraphicsSettings);
-
+            
             this.Content.RootDirectory = "FSEGame";
 
             FSEGame.singleton = this;
