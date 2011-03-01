@@ -96,6 +96,15 @@ namespace FSEGame.Actors
         }
         #endregion
 
+        #region IsPlayerInInteractionPosition
+        /// <summary>
+        /// Checks whether the player character is in a position which allows
+        /// it to interact with this NPC.
+        /// </summary>
+        /// <returns>
+        /// Returns true if the player is allowed to interact with this NPC 
+        /// or false if not.
+        /// </returns>
         private Boolean IsPlayerInInteractionPosition()
         {
             Vector2 playerPosition = FSEGame.Singleton.Character.CellPosition;
@@ -114,6 +123,7 @@ namespace FSEGame.Actors
                 (playerPosition.Y == this.CellPosition.Y) &&
                 (playerOrientation == 270.0f));
         }
+        #endregion
 
         #region Draw
         /// <summary>
