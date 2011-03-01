@@ -154,6 +154,15 @@ namespace FSEGame.Engine
         }
         #endregion
 
+        #region ResolveStringVariable
+        /// <summary>
+        /// Resolves a string variable.
+        /// </summary>
+        /// <param name="name">The name of the variable to resolve.</param>
+        /// <returns>
+        /// Returns the value of the variable with the specified name or an 
+        /// empty string if no variable with the specified name could be found.
+        /// </returns>
         private String ResolveStringVariable(String name)
         {
             if (!this.currentDialogue.Variables.ContainsKey(name))
@@ -166,10 +175,17 @@ namespace FSEGame.Engine
 
             return String.Empty;
         }
+        #endregion
 
+        #region Update
+        /// <summary>
+        /// Updates the dialogue manager with the elapsed game time.
+        /// </summary>
+        /// <param name="gameTime"></param>
         public void Update(GameTime gameTime)
         {
-            this.elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if(this.screen.Finished)
+                this.elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (this.elapsedTime >= 2.0f)
             {
@@ -183,13 +199,17 @@ namespace FSEGame.Engine
                 }
                 else
                 {
+                    this.elapsedTime = 0.0f;
                 }
             }
         }
+        #endregion
 
+        #region Draw
         public void Draw(SpriteBatch batch)
         {
         }
+        #endregion
     }
 }
 

@@ -344,6 +344,11 @@ namespace FSEGame
 
             base.Update(gameTime);
 
+            foreach (IUIElement uiElement in this.uiElements)
+            {
+                uiElement.Update(gameTime);
+            }
+
             this.debugText.Text = String.Format("X: {0}\nY: {1}\nLevel: {2}\nTileset: {3}\nFPS: {4}",
                     this.character.CellPosition.X, this.character.CellPosition.Y,
                     this.currentLevel.Name, this.tileset.Name, this.fpsCounter.FPS);
@@ -427,15 +432,25 @@ namespace FSEGame
         }
         #endregion
 
+        #region NotifyDialogueStart
+        /// <summary>
+        /// Notifies the game of the start of a dialogue.
+        /// </summary>
         internal void NotifyDialogueStart()
         {
             this.gameState = GameState.Cutscene;
         }
+        #endregion
 
+        #region NotifyDialogueEnd
+        /// <summary>
+        /// Notifies the game of the end of a dialogue.
+        /// </summary>
         internal void NotifyDialogueEnd()
         {
             this.gameState = GameState.Exploring;
         }
+        #endregion
     }
 }
 

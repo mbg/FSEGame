@@ -61,6 +61,6 @@
     <Cell X="6" Y="6" Tile="WoodWallRtoB" />
   </Cells>
   <Actors>
-	<Actor X="4" Y="2" Type="GenericNPC" />
+	  <Actor X="4" Y="2" Type="GenericNPC" />
   </Actors>
 </Level>
