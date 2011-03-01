@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tileset Name="Indoor" Resource="Tilesets\Indoor">
   <Tile ID="0" Passable="False">ErrorTile</Tile>
+  <Tile ID="1" Passable="False">Void</Tile>
   <Tile ID="2" Passable="True">RedCarpetFloorCheckLU</Tile>
   <Tile ID="3" Passable="True">RedCarpetFloorCheckUR</Tile>
   <Tile ID="4" Passable="True">RedCarpetFloorCheckRD</Tile>
