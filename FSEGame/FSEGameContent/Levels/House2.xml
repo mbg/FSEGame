@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Level Name="House2" Tileset="Tilesets\Indoor.xml" SizeX="7" SizeY="7">
+<Level Name="House2" Tileset="Tilesets\Indoor.xml" SizeX="7" SizeY="8">
   <EntryPoints>
-    <EntryPoint Name="Default" X="3" Y="5" />
+    <EntryPoint Name="Default" X="3" Y="6" />
   </EntryPoints>
   <Cells>
     <Cell X="0" Y="0" Tile="WoodWallLtoT" />
@@ -11,6 +11,7 @@
     <Cell X="0" Y="4" Tile="WoodWallLeft" />
     <Cell X="0" Y="5" Tile="WoodWallLeft" />
     <Cell X="0" Y="6" Tile="WoodWallLtoB" />
+    <Cell X="0" Y="7" Tile="Void" />
 
     <Cell X="1" Y="0" Tile="WoodWallTop" />
     <Cell X="1" Y="1" Tile="CheckFloor" />
@@ -19,6 +20,7 @@
     <Cell X="1" Y="4" Tile="CheckFloor" />
     <Cell X="1" Y="5" Tile="CheckFloor" />
     <Cell X="1" Y="6" Tile="WoodWallBottom" />
+    <Cell X="1" Y="7" Tile="Void" />
 
     <Cell X="2" Y="0" Tile="WoodWallTop" />
     <Cell X="2" Y="1" Tile="CheckFloor" />
@@ -27,6 +29,7 @@
     <Cell X="2" Y="4" Tile="CheckFloor" />
     <Cell X="2" Y="5" Tile="CheckFloor" />
     <Cell X="2" Y="6" Tile="WoodDoorBottomLeft" />
+    <Cell X="2" Y="7" Tile="Void" />
 
     <Cell X="3" Y="0" Tile="WoodWallTop" />
     <Cell X="3" Y="1" Tile="CheckFloor" />
@@ -34,7 +37,8 @@
     <Cell X="3" Y="3" Tile="RedCarpetFloorCheckRD" />
     <Cell X="3" Y="4" Tile="RedCarpetFloorCheckUD" />
     <Cell X="3" Y="5" Tile="RedCarpetFloorCheckUD" />
-    <Cell X="3" Y="6" Event="ChangeLevel" EventID="House2Exit" Tile="RedCarpetFloorCheckUDBottom" />
+    <Cell X="3" Y="6" Tile="RedCarpetFloorCheckUD" />
+    <Cell X="3" Y="7" Event="ChangeLevel" EventID="House2Exit" Tile="RedCarpetFloorCheckUDBottom" />
 
     <Cell X="4" Y="0" Tile="WoodWallTop" />
     <Cell X="4" Y="1" Tile="CheckFloor" />
@@ -43,6 +47,7 @@
     <Cell X="4" Y="4" Tile="CheckFloor" />
     <Cell X="4" Y="5" Tile="CheckFloor" />
     <Cell X="4" Y="6" Tile="WoodDoorBottomRight" />
+    <Cell X="4" Y="7" Tile="Void" />
 
     <Cell X="5" Y="0" Tile="WoodWallTop" />
     <Cell X="5" Y="1" Tile="CheckFloor" />
@@ -51,6 +56,7 @@
     <Cell X="5" Y="4" Tile="CheckFloor" />
     <Cell X="5" Y="5" Tile="CheckFloor" />
     <Cell X="5" Y="6" Tile="WoodWallBottom" />
+    <Cell X="5" Y="7" Tile="Void" />
 
     <Cell X="6" Y="0" Tile="WoodWallTtoR" />
     <Cell X="6" Y="1" Tile="WoodWallRight" />
@@ -59,5 +65,7 @@
     <Cell X="6" Y="4" Tile="WoodWallRight" />
     <Cell X="6" Y="5" Tile="WoodWallRight" />
     <Cell X="6" Y="6" Tile="WoodWallRtoB" />
+    <Cell X="6" Y="7" Tile="Void" />
+    
   </Cells>
 </Level>

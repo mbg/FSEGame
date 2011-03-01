@@ -6,7 +6,7 @@
   <Tile ID="3" Passable="True">GrassCornerW</Tile>
   <Tile ID="4" Passable="True">GrassCornerSW</Tile>
   <Tile ID="5" Passable="True">GrassInnerCornerNW</Tile>
-  <Tile ID="6" Passable="False">CharacterLeft</Tile>
+  <Tile ID="6" Passable="False">Void</Tile>
   <Tile ID="7" Passable="False">ErrorTile</Tile>
   <Tile ID="8" Passable="True">GrassCornerN</Tile>
   <Tile ID="9" Passable="True">Grass</Tile>
