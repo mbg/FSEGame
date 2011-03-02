@@ -29,9 +29,17 @@ namespace FSEGame.Engine
         private DialogueNode currentNode;
         private DialogueScreen screen;
         private float elapsedTime = 0.0f;
+        private Boolean isPlaying = false;
         #endregion
 
         #region Properties
+        public Boolean IsPlaying
+        {
+            get
+            {
+                return this.isPlaying;
+            }
+        }
         #endregion
 
         #region Constructor
@@ -132,6 +140,9 @@ namespace FSEGame.Engine
         /// <param name="filename"></param>
         public void PlayDialogue(String filename)
         {
+            if (this.isPlaying)
+                return;
+
             this.LoadDialogue(filename);
             this.PlayDialogue();
         }
@@ -140,8 +151,12 @@ namespace FSEGame.Engine
         /// </summary>
         public void PlayDialogue()
         {
+            if (this.isPlaying)
+                return;
+
             FSEGame.Singleton.NotifyDialogueStart();
 
+            this.isPlaying = true;
             this.elapsedTime = 0.0f;
             this.currentNode = this.currentDialogue.GetFirstChild();
 
@@ -194,6 +209,7 @@ namespace FSEGame.Engine
                 if (nextNode == null)
                 {
                     this.screen.Visible = false;
+                    this.isPlaying = false;
 
                     FSEGame.Singleton.NotifyDialogueEnd();
                 }

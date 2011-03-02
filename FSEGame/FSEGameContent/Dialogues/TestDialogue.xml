@@ -2,6 +2,6 @@
 <Dialogue ID="root">
   <Speech ID="speech#1" TextVar="string#1" Mode="Time" Time="0" />
   <Variables>
-    <StringVar Name="string#1" Export="False">Where are my torches?!</StringVar>
+    <StringVar Name="string#1" Export="False">Where are my torches?! This is actually a very long message now that might take up some space... And now I go mental and add even more text!!!!!?</StringVar>
   </Variables>
 </Dialogue>

@@ -14,6 +14,7 @@
 using System;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 #endregion
 
 namespace FSEGame.Engine.Dialogues
@@ -48,6 +49,8 @@ namespace FSEGame.Engine.Dialogues
         /// The time that has elapsed since the display text was last updated.
         /// </summary>
         private float timeElapsed = 0.0f;
+
+        private float totalTimeElapsed = 0.0f;
         /// <summary>
         /// The interval at which the text should be updated.
         /// </summary>
@@ -56,6 +59,7 @@ namespace FSEGame.Engine.Dialogues
         /// The current length of the string to display.
         /// </summary>
         private Int32 currentWordEnd = 0;
+        private UInt16 visibleLines = 1;
         #endregion
 
         #region Constants
@@ -67,6 +71,8 @@ namespace FSEGame.Engine.Dialogues
 #else
         private const float DISPLAY_SPEED = 0.2f;
 #endif
+        private const float TEXT_SCALE = 3.0f;
+        private const float SCREEN_WIDTH = 750.0f;
         #endregion
 
         #region Properties
@@ -108,9 +114,12 @@ namespace FSEGame.Engine.Dialogues
                 this.text = value;
                 this.finished = false;
 
+                this.totalTimeElapsed = 0.0f;
+
 #if DISPLAY_BY_CHARACTER
                 this.visibleText = this.text[0].ToString();
                 this.currentWordEnd = 1;
+                this.visibleLines = 1;
 #else
                 this.visibleText = String.Empty;
                 this.currentWordEnd = -1;
@@ -130,6 +139,10 @@ namespace FSEGame.Engine.Dialogues
         }
         #endregion
 
+        #region DisplayNextWord
+        /// <summary>
+        /// Adds the next word (or character) to the visible text.
+        /// </summary>
         private void DisplayNextWord()
         {
             if (this.finished)
@@ -138,13 +151,34 @@ namespace FSEGame.Engine.Dialogues
 #if DISPLAY_BY_CHARACTER
             if (this.currentWordEnd + 1 > this.text.Length)
             {
-                this.visibleText = this.text;
                 this.finished = true;
             }
             else
             {
-                this.currentWordEnd++;
-                this.visibleText = this.text.Substring(0, this.currentWordEnd);
+                if (this.text[this.currentWordEnd] == '\n')
+                {
+                    this.Scroll();
+
+                    this.visibleLines++;
+                }
+
+                this.visibleText += this.text[this.currentWordEnd++];
+
+                float width = FSEGame.Singleton.DefaultFont.MeasureString(this.visibleText).X * TEXT_SCALE;
+
+                if (width > SCREEN_WIDTH)
+                {
+                    this.Scroll();
+                    
+                    Int32 lastWhitespace = this.visibleText.LastIndexOf(' ');
+                    Char[] characters = this.visibleText.ToCharArray();
+                    characters[lastWhitespace] = '\n';
+                    this.visibleText = new String(characters);
+
+                    
+                    this.visibleLines++;
+                    
+                }
             }
 #else
             this.currentWordEnd = this.text.IndexOf(' ', this.currentWordEnd + 1);
@@ -160,6 +194,21 @@ namespace FSEGame.Engine.Dialogues
             }
 #endif
         }
+        #endregion
+
+        #region Scroll
+        /// <summary>
+        /// Scrolls (removes the first line that is being displayed) if required.
+        /// </summary>
+        private void Scroll()
+        {
+            if (this.visibleLines > 1)
+            {
+                Int32 lastNewLine = this.visibleText.IndexOf('\n');
+                this.visibleText = this.visibleText.Substring(lastNewLine + 1);
+            }
+        }
+        #endregion
 
         #region Update
         /// <summary>
@@ -172,11 +221,13 @@ namespace FSEGame.Engine.Dialogues
                 return;
 
             this.timeElapsed += (float)time.ElapsedGameTime.TotalSeconds;
+            this.totalTimeElapsed += (float)time.ElapsedGameTime.TotalSeconds;
 
-            if (this.timeElapsed >= this.updateInterval)
+            if (this.timeElapsed >= this.updateInterval || 
+                (Keyboard.GetState().IsKeyDown(Keys.Enter) && this.totalTimeElapsed >= 1.0f))
             {
                 this.DisplayNextWord();
-                this.timeElapsed -= this.updateInterval;
+                this.timeElapsed = 0.0f;
             }
         }
         #endregion
