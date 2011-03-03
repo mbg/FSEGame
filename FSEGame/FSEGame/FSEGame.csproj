@@ -116,6 +116,7 @@
     <Compile Include="Actors\GenericNPC.cs" />
     <Compile Include="CharacterController.cs" />
     <Compile Include="Engine\Actor.cs" />
+    <Compile Include="Engine\ActorProperties.cs" />
     <Compile Include="Engine\Camera.cs" />
     <Compile Include="Engine\CellEventType.cs" />
     <Compile Include="Engine\CellInformation.cs" />

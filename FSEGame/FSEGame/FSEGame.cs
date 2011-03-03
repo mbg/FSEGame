@@ -337,6 +337,8 @@ namespace FSEGame
             this.fadeScreen.Update(gameTime);
 
             this.camera.Update(GraphicsDevice.Viewport);
+
+            this.tileset.Update(gameTime);
             this.currentLevel.Update(gameTime);
 
             if (this.gameState == GameState.Cutscene)

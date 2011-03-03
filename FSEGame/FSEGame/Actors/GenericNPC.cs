@@ -25,6 +25,8 @@ namespace FSEGame.Actors
     public class GenericNPC : Actor
     {
         #region Instance Members
+
+        private ActorProperties properties;
         /// <summary>
         /// The tileset used by this actor.
         /// </summary>
@@ -51,10 +53,12 @@ namespace FSEGame.Actors
         /// <summary>
         /// Initialises a new instance of this class.
         /// </summary>
-        public GenericNPC()
+        public GenericNPC(ActorProperties properties)
         {
-            this.tileset = new Tileset(16, 1, 2);
-            this.tileset.Load(FSEGame.Singleton.Content, @"Tilesets\GenericNPC.xml");
+            this.properties = properties;
+
+            this.tileset = new Tileset(16, 1, Convert.ToUInt16(properties.Properties["States"]));
+            this.tileset.Load(FSEGame.Singleton.Content, properties.Properties["Tileset"]);
         }
         #endregion
 
@@ -90,7 +94,7 @@ namespace FSEGame.Actors
                 if (this.IsPlayerInInteractionPosition())
                 {
                     FSEGame.Singleton.DialogueManager.PlayDialogue(
-                        @"FSEGame\Dialogues\TestDialogue.xml");
+                        this.properties.Properties["Dialogue"]);
                 }
             }
         }

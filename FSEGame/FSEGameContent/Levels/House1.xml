@@ -61,6 +61,10 @@
     <Cell X="6" Y="6" Tile="WoodWallRtoB" />
   </Cells>
   <Actors>
-	  <Actor X="4" Y="2" Type="GenericNPC" />
+    <Actor X="4" Y="2" Type="GenericNPC">
+      <Property Name="Dialogue">FSEGame\Dialogues\TestDialogue.xml</Property>
+      <Property Name="Tileset">Tilesets\GenericNPC.xml</Property>
+      <Property Name="States">2</Property>
+    </Actor>
   </Actors>
 </Level>

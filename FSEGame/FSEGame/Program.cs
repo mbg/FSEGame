@@ -42,14 +42,14 @@ namespace FSEGame
             game.CurrentLevel.OnCreateActor += new CreateActorDelegate(CurrentLevel_OnCreateActor);
         }
         
-        private static Actor CurrentLevel_OnCreateActor(String type, Vector2 position)
+        private static Actor CurrentLevel_OnCreateActor(ActorProperties properties)
         {
-            switch (type)
+            switch (properties.Type)
             {
                 case "GenericNPC":
                     {
-                        GenericNPC genericNPC = new GenericNPC();
-                        genericNPC.CellPosition = position;
+                        GenericNPC genericNPC = new GenericNPC(properties);
+                        genericNPC.CellPosition = new Vector2(properties.X, properties.Y);
                         return genericNPC;
                     }
             }

@@ -42,22 +42,69 @@
   <Tile ID="50" Passable="False">GenericHouseWallRight</Tile>
   <Tile ID="51" Passable="True">PathLUD</Tile>
   <Tile ID="52" Passable="True">PathLD</Tile>
-  <Tile ID="54" Passable="False">BridgeLeftTop</Tile>
+  
   <Tile ID="55" Passable="True">BridgeLeft</Tile>
-  <Tile ID="56" Passable="False">BridgeLeftBottom</Tile>
-  <Tile ID="57" Passable="False">WaterCornerNW</Tile>
-  <Tile ID="58" Passable="False">WaterCornerW</Tile>
-  <Tile ID="59" Passable="False">WaterCornerSW</Tile>
-  <Tile ID="60" Passable="False">BridgeTop</Tile>
   <Tile ID="61" Passable="True">BridgeLR</Tile>
-  <Tile ID="62" Passable="False">BridgeBottom</Tile>
-  <Tile ID="63" Passable="False">WaterCornerN</Tile>
-  <Tile ID="64" Passable="False">Water</Tile>
-  <Tile ID="65" Passable="False">WaterCornerS</Tile>
-  <Tile ID="66" Passable="False">BridgeRightTop</Tile>
   <Tile ID="67" Passable="True">BridgeRight</Tile>
-  <Tile ID="68" Passable="False">BridgeRightBottom</Tile>
-  <Tile ID="69" Passable="False">WaterCornerNE</Tile>
-  <Tile ID="70" Passable="False">WaterCornerE</Tile>
-  <Tile ID="71" Passable="False">WaterCornerSE</Tile>
+
+  <AnimatedTile Name="AnimatedBridgeLeftTop" Passable="False" Speed="0.5">
+    <Frame ID="54" />
+    <Frame ID="72" />
+  </AnimatedTile>
+  <AnimatedTile Name="AnimatedBridgeLeftBottom" Passable="False" Speed="0.5">
+    <Frame ID="56" />
+    <Frame ID="74" />
+  </AnimatedTile>
+  <AnimatedTile Name="AnimatedWaterCornerNW" Passable="False" Speed="0.5">
+    <Frame ID="57" />
+    <Frame ID="75" />
+  </AnimatedTile>
+  <AnimatedTile Name="AnimatedWaterCornerW" Passable="False" Speed="0.5">
+    <Frame ID="58" />
+    <Frame ID="76" />
+  </AnimatedTile>
+  <AnimatedTile Name="AnimatedWaterCornerSW" Passable="False" Speed="0.5">
+    <Frame ID="59" />
+    <Frame ID="77" />
+  </AnimatedTile>
+  <AnimatedTile Name="AnimatedBridgeTop" Passable="False" Speed="0.5">
+    <Frame ID="60" />
+    <Frame ID="78" />
+  </AnimatedTile>
+  <AnimatedTile Name="AnimatedBridgeBottom" Passable="False" Speed="0.5">
+    <Frame ID="62" />
+    <Frame ID="80" />
+  </AnimatedTile>
+  <AnimatedTile Name="AnimatedWaterCornerN" Passable="False" Speed="0.5">
+    <Frame ID="63" />
+    <Frame ID="81" />
+  </AnimatedTile>
+  <AnimatedTile Name="AnimatedWater" Passable="False" Speed="0.5">
+    <Frame ID="64" />
+    <Frame ID="82" />
+  </AnimatedTile>
+  <AnimatedTile Name="AnimatedWaterCornerS" Passable="False" Speed="0.5">
+    <Frame ID="65" />
+    <Frame ID="83" />
+  </AnimatedTile>
+  <AnimatedTile Name="AnimatedBridgeRightTop" Passable="False" Speed="0.5">
+    <Frame ID="66" />
+    <Frame ID="84" />
+  </AnimatedTile>
+  <AnimatedTile Name="AnimatedBridgeRightBottom" Passable="False" Speed="0.5">
+    <Frame ID="68" />
+    <Frame ID="86" />
+  </AnimatedTile>
+  <AnimatedTile Name="AnimatedWaterCornerNE" Passable="False" Speed="0.5">
+    <Frame ID="69" />
+    <Frame ID="87" />
+  </AnimatedTile>
+  <AnimatedTile Name="AnimatedWaterCornerE" Passable="False" Speed="0.5">
+    <Frame ID="70" />
+    <Frame ID="88" />
+  </AnimatedTile>
+  <AnimatedTile Name="AnimatedWaterCornerSE" Passable="False" Speed="0.5">
+    <Frame ID="71" />
+    <Frame ID="89" />
+  </AnimatedTile>
 </Tileset>

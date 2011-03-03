@@ -20,7 +20,7 @@ using Microsoft.Xna.Framework;
 
 namespace FSEGame.Engine
 {
-    public delegate Actor CreateActorDelegate(String type, Vector2 position);
+    public delegate Actor CreateActorDelegate(ActorProperties properties);
 
     /// <summary>
     /// 
@@ -187,7 +187,7 @@ namespace FSEGame.Engine
                 {
                     LevelCell cell = new LevelCell();
 
-                    cell.Tile = FSEGame.Singleton.CurrentTileset.GetTileID(childElement.GetAttribute("Tile"));
+                    cell.Tile = FSEGame.Singleton.CurrentTileset.GetTile(childElement.GetAttribute("Tile"));
                     cell.X = Convert.ToUInt32(childElement.GetAttribute("X"));
                     cell.Y = Convert.ToUInt32(childElement.GetAttribute("Y"));
                     cell.EventType = CellEventType.None;
@@ -223,13 +223,28 @@ namespace FSEGame.Engine
 
                 if (childElement.Name.Equals("Actor"))
                 {
-                    Vector2 position = new Vector2(
+                    ActorProperties properties = new ActorProperties(
+                        childElement.GetAttribute("Type"),
                         Convert.ToUInt32(childElement.GetAttribute("X")),
                         Convert.ToUInt32(childElement.GetAttribute("Y")));
 
-                    Actor act = this.onCreateActor(
-                        childElement.GetAttribute("Type"),
-                        position);
+                    foreach (XmlNode propertyNode in childElement.ChildNodes)
+                    {
+                        // :: We only care about elements.
+                        if (propertyNode.NodeType != XmlNodeType.Element)
+                            continue;
+
+                        XmlElement propertyElement = (XmlElement)propertyNode;
+
+                        if (propertyElement.Name.Equals("Property"))
+                        {
+                            properties.Properties.Add(
+                                propertyElement.GetAttribute("Name"),
+                                propertyElement.InnerText);
+                        }
+                    }
+
+                    Actor act = this.onCreateActor(properties);
 
                     if(act != null)
                         this.actors.Add(act);
@@ -283,7 +298,7 @@ namespace FSEGame.Engine
                     {
                         FSEGame.Singleton.CurrentTileset.DrawTile(
                             batch,
-                            this.cells[y, x].Tile,
+                            this.cells[y, x].Tile.ID,
                             GridHelper.GridPositionToAbsolute(position));
                     }
                 }
@@ -322,7 +337,7 @@ namespace FSEGame.Engine
             foreach (LevelCell cell in this.cells)
             {
                 if ((cell.X == position.X) && (cell.Y == position.Y))
-                    return FSEGame.Singleton.CurrentTileset.GetTile(cell.Tile).Passable;
+                    return cell.Tile.Passable;
             }
 
             return false;
@@ -347,7 +362,7 @@ namespace FSEGame.Engine
                 return null;
 
             return new CellInformation(
-                FSEGame.Singleton.CurrentTileset.GetTile(this.cells[y, x].Tile),
+                this.cells[y, x].Tile,
                 this.cells[y, x]);
         }
         #endregion
@@ -375,8 +390,7 @@ namespace FSEGame.Engine
 
             // :: If the tile type is not passable, one cannot move to
             // :: a cell of that tile type.
-            Tile t = FSEGame.Singleton.CurrentTileset.GetTile(
-                this.cells[(int)position.Y, (int)position.X].Tile);
+            Tile t = this.cells[(int)position.Y, (int)position.X].Tile;
 
             if (!t.Passable)
                 return false;

@@ -19,7 +19,7 @@ namespace FSEGame.Engine
     /// </summary>
     public struct LevelCell
     {
-        public UInt32 Tile;
+        public Tile Tile;
         public UInt32 X;
         public UInt32 Y;
         public CellEventType EventType;

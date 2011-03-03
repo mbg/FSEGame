@@ -133,12 +133,39 @@ namespace FSEGame.Engine
 
                 if(childElement.Name.Equals("Tile"))
                 {
-                    Tile t = new Tile();
-                    t.Name = childElement.InnerText;
-                    t.ID = Convert.ToUInt32(childElement.GetAttribute("ID"));
-                    t.Passable = Convert.ToBoolean(childElement.GetAttribute("Passable"));
+                    Tile t = new Tile(
+                        childElement.InnerText,
+                        Convert.ToBoolean(childElement.GetAttribute("Passable")));
+
+                    t.Frames.Enqueue(Convert.ToUInt32(childElement.GetAttribute("ID")));
 
                     // :: Add the tile to the index.
+                    this.tiles.Add(t.Name, t);
+                }
+                else if (childElement.Name.Equals("AnimatedTile"))
+                {
+                    Tile t = new Tile(
+                        childElement.GetAttribute("Name"),
+                        Convert.ToBoolean(childElement.GetAttribute("Passable")),
+                        true);
+
+                    t.Speed = Convert.ToSingle(childElement.GetAttribute("Speed"));
+
+                    foreach (XmlNode frameNode in childElement.ChildNodes)
+                    {
+                        if (frameNode.NodeType != XmlNodeType.Element)
+                            continue;
+
+                        XmlElement frameElement = (XmlElement)frameNode;
+
+                        if (frameElement.Name.Equals("Frame"))
+                        {
+                            t.Frames.Enqueue(
+                                Convert.ToUInt32(frameElement.GetAttribute("ID")));
+                        }
+                    }
+
+                    // :: Add the animated tile to the index.
                     this.tiles.Add(t.Name, t);
                 }
             }
@@ -153,6 +180,14 @@ namespace FSEGame.Engine
             this.initialised = true;
         }
         #endregion
+
+        public void Update(GameTime gameTime)
+        {
+            foreach (Tile t in this.tiles.Values)
+            {
+                t.Update(gameTime);
+            }
+        }
 
         #region DrawTile
         /// <summary>
@@ -235,6 +270,14 @@ namespace FSEGame.Engine
             }
 
             throw new Exception("No Tile with specified id.");
+        }
+
+        public Tile GetTile(String name)
+        {
+            if (this.tiles.ContainsKey(name))
+                return this.tiles[name];
+            else
+                return this.GetTile(ERROR_TILE);
         }
         #endregion
     }
