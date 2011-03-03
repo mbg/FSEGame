@@ -208,8 +208,15 @@ namespace FSEGame.Engine
         }
         #endregion
 
+        #region LoadActors
+        /// <summary>
+        /// Loads a list of actors from the specified XmlElement.
+        /// </summary>
+        /// <param name="root"></param>
         private void LoadActors(XmlElement root)
         {
+            // :: The OnCreateActor event is required to initialise actor classes,
+            // :: do not proceed if it is not set.
             if (this.onCreateActor == null)
                 return;
 
@@ -219,6 +226,9 @@ namespace FSEGame.Engine
                 if (childNode.NodeType != XmlNodeType.Element)
                     continue;
 
+                // :: This code is only responsible for parsing the actor's properties
+                // :: from the XML file. Everything else is up to the OnCreateActor
+                // :: event handler which may be defined in one of the game's classes.
                 XmlElement childElement = (XmlElement)childNode;
 
                 if (childElement.Name.Equals("Actor"))
@@ -244,6 +254,8 @@ namespace FSEGame.Engine
                         }
                     }
 
+                    // :: Call the OnCreateActor event handler to attempt to
+                    // :: initialise the actor using the given properties.
                     Actor act = this.onCreateActor(properties);
 
                     if(act != null)
@@ -251,12 +263,13 @@ namespace FSEGame.Engine
                 }
             }
         }
+        #endregion
 
         #region ToCellEventType
         /// <summary>
-        /// 
+        /// Converts a System.String into a CellEventType.
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="name">The string to convert.</param>
         /// <returns></returns>
         private CellEventType ToCellEventType(String name)
         {
@@ -270,6 +283,11 @@ namespace FSEGame.Engine
         }
         #endregion
 
+        #region Update
+        /// <summary>
+        /// Updates the actors in this level.
+        /// </summary>
+        /// <param name="gameTime"></param>
         public void Update(GameTime gameTime)
         {
             foreach (Actor a in this.actors)
@@ -277,6 +295,7 @@ namespace FSEGame.Engine
                 a.Update(gameTime);
             }
         }
+        #endregion
 
         #region DrawLevel
         /// <summary>
@@ -288,6 +307,9 @@ namespace FSEGame.Engine
             UInt32 y = 0;
             UInt32 x = 0;
 
+            // :: Firstly, render all the level tiles so they appear at the lowest
+            // :: layer - then render the actors on top of the tiles so they are
+            // :: visibile on screen.
             for (; y < this.height; y++)
             {
                 for (x = 0; x < this.width; x++)

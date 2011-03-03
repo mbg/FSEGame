@@ -25,17 +25,45 @@ namespace FSEGame.Engine
     public class Tileset
     {
         #region Instance Members
+        /// <summary>
+        /// The name of the tileset.
+        /// </summary>
         private String name;
+        /// <summary>
+        /// The filename of the tileset texture.
+        /// </summary>
         private String resource;
+        /// <summary>
+        /// The tileset texture.
+        /// </summary>
         private Texture2D texture;
+        /// <summary>
+        /// The collection of tiles in this tileset.
+        /// </summary>
         private TileCollection tiles;
+        /// <summary>
+        /// The width and height of each tile.
+        /// </summary>
         private UInt16 size = 16;
+        /// <summary>
+        /// The number of rows in the tileset.
+        /// </summary>
         private UInt16 rows = 1;
+        /// <summary>
+        /// The number of columns in the tileset.
+        /// </summary>
         private UInt16 columns = 1;
+        /// <summary>
+        /// A value indicating whether this tileset has been initialised
+        /// or not.
+        /// </summary>
         private Boolean initialised = false;
         #endregion
 
         #region Constants
+        /// <summary>
+        /// The ID of the error tile.
+        /// </summary>
         private const UInt32 ERROR_TILE = 0;
         #endregion
 
@@ -181,6 +209,11 @@ namespace FSEGame.Engine
         }
         #endregion
 
+        #region Update
+        /// <summary>
+        /// Updates the tiles in this tileset with the current game time.
+        /// </summary>
+        /// <param name="gameTime"></param>
         public void Update(GameTime gameTime)
         {
             foreach (Tile t in this.tiles.Values)
@@ -188,6 +221,7 @@ namespace FSEGame.Engine
                 t.Update(gameTime);
             }
         }
+        #endregion
 
         #region DrawTile
         /// <summary>
@@ -271,7 +305,14 @@ namespace FSEGame.Engine
 
             throw new Exception("No Tile with specified id.");
         }
-
+        /// <summary>
+        /// Gets the tile with the specified name.
+        /// </summary>
+        /// <param name="name">The name of the tile to get.</param>
+        /// <returns>
+        /// Returns the tile with the specified name or the error tile if no 
+        /// tile with the specified name could be found.
+        /// </returns>
         public Tile GetTile(String name)
         {
             if (this.tiles.ContainsKey(name))
