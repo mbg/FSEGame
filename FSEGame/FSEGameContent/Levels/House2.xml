@@ -37,8 +37,8 @@
     <Cell X="3" Y="3" Tile="RedCarpetFloorCheckRD" />
     <Cell X="3" Y="4" Tile="RedCarpetFloorCheckUD" />
     <Cell X="3" Y="5" Tile="RedCarpetFloorCheckUD" />
-    <Cell X="3" Y="6" Tile="RedCarpetFloorCheckUD" />
-    <Cell X="3" Y="7" Event="ChangeLevel" EventID="House2Exit" Tile="RedCarpetFloorCheckUDBottom" />
+    <Cell X="3" Y="6" Tile="RedCarpetFloorCheckUDBottom" />
+    <Cell X="3" Y="7" Event="ChangeLevel" EventID="House2Exit" Tile="LevelTrigger" />
 
     <Cell X="4" Y="0" Tile="WoodWallTop" />
     <Cell X="4" Y="1" Tile="CheckFloor" />
