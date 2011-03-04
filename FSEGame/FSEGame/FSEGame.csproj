@@ -141,7 +141,10 @@
     <Compile Include="Engine\Tile.cs" />
     <Compile Include="Engine\TileCollection.cs" />
     <Compile Include="Engine\Tileset.cs" />
+    <Compile Include="Engine\UI\UIButton.cs" />
+    <Compile Include="Engine\UI\UIButtonList.cs" />
     <Compile Include="Engine\UI\UIContainer.cs" />
+    <Compile Include="Engine\UI\UIElement.cs" />
     <Compile Include="FadeScreen.cs" />
     <Compile Include="MainMenuScreen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
