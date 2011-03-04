@@ -44,11 +44,10 @@ namespace FSEGame
 
         private void Run()
         {
-            using (FSEGame game = new FSEGame())
-            {
-                game.OnInitialise += new GameEventDelegate(game_OnInitialise);
-                game.Run();
-            }
+            
+            FSEGame.Singleton.OnInitialise += new GameEventDelegate(game_OnInitialise);
+            FSEGame.Singleton.Run();
+            
         }
         
         private void game_OnInitialise(Game sender)

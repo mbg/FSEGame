@@ -66,21 +66,22 @@ namespace FSEGame
         }
         #endregion
         
-        void newGameButton_OnAction(UIButton sender)
+        private void newGameButton_OnAction(UIButton sender)
         {
-            FSEGame.Singleton.LoadLevel(@"Levels\Test.xml", "Default");
-            FSEGame.Singleton.State = GameState.Exploring;
+            GameBase.Singleton.LoadLevel(@"Levels\Test.xml", "Default");
+            GameBase.Singleton.State = GameState.Exploring;
+
             this.Hide();
         }
 
-        void loadGameButton_OnAction(UIButton sender)
+        private void loadGameButton_OnAction(UIButton sender)
         {
             
         }
         
-        void exitButton_OnAction(UIButton sender)
+        private void exitButton_OnAction(UIButton sender)
         {
-            FSEGame.Singleton.Exit();
+            GameBase.Singleton.Exit();
         }
 
         public override void Update(GameTime gameTime)

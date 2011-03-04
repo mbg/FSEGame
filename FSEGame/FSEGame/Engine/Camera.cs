@@ -61,7 +61,7 @@ namespace FSEGame.Engine
             if (this.attachedToPlayer)
             {
                 this.offset = new Vector2((vp.Width / 2) - 32, (vp.Height / 2) - 32)
-                    - FSEGame.Singleton.Character.AbsolutePosition;
+                    - GameBase.Singleton.Character.AbsolutePosition;
             }
         }
         #endregion

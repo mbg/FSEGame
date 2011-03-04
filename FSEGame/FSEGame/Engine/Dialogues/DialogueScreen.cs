@@ -165,7 +165,7 @@ namespace FSEGame.Engine.Dialogues
 
                 this.visibleText += this.text[this.currentWordEnd++];
 
-                float width = FSEGame.Singleton.DefaultFont.MeasureString(this.visibleText).X * TEXT_SCALE;
+                float width = GameBase.Singleton.DefaultFont.MeasureString(this.visibleText).X * TEXT_SCALE;
 
                 if (width > SCREEN_WIDTH)
                 {
@@ -244,13 +244,13 @@ namespace FSEGame.Engine.Dialogues
                 return;
 
             if(this.texture == null)
-                this.texture = FSEGame.Singleton.Content.Load<Texture2D>("SpeechBox");
+                this.texture = GameBase.Singleton.Content.Load<Texture2D>("SpeechBox");
 
             batch.Draw(
                 this.texture, 
                 new Vector2(
-                    FSEGame.Singleton.GraphicsDevice.Viewport.Width / 2 - 400, 
-                    FSEGame.Singleton.GraphicsDevice.Viewport.Height - 100), 
+                    GameBase.Singleton.GraphicsDevice.Viewport.Width / 2 - 400, 
+                    GameBase.Singleton.GraphicsDevice.Viewport.Height - 100), 
                 null, 
                 Color.White, 
                 0.0f, 
@@ -260,11 +260,11 @@ namespace FSEGame.Engine.Dialogues
                 0.0f);
 
             batch.DrawString(
-                FSEGame.Singleton.DefaultFont, 
+                GameBase.Singleton.DefaultFont, 
                 this.visibleText, 
                 new Vector2(
                     20, 
-                    FSEGame.Singleton.GraphicsDevice.Viewport.Height - 95), 
+                    GameBase.Singleton.GraphicsDevice.Viewport.Height - 95), 
                 Color.Black, 
                 0.0f, 
                 Vector2.Zero, 

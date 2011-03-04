@@ -118,8 +118,8 @@ namespace FSEGame.Engine.UI
         /// </summary>
         public UIButton(String defaultResource, String selectedResource)
         {
-            this.defaultStateTexture = FSEGame.Singleton.Content.Load<Texture2D>(defaultResource);
-            this.selectedStateTexture = FSEGame.Singleton.Content.Load<Texture2D>(selectedResource);
+            this.defaultStateTexture = GameBase.Singleton.Content.Load<Texture2D>(defaultResource);
+            this.selectedStateTexture = GameBase.Singleton.Content.Load<Texture2D>(selectedResource);
 
             this.text = String.Empty;
             this.selected = false;
@@ -173,10 +173,10 @@ namespace FSEGame.Engine.UI
                 SpriteEffects.None,
                 0.0f);
 
-            Vector2 textSize = FSEGame.Singleton.DefaultFont.MeasureString(this.text) * 3.0f;
+            Vector2 textSize = GameBase.Singleton.DefaultFont.MeasureString(this.text) * 3.0f;
 
             batch.DrawString(
-                FSEGame.Singleton.DefaultFont,
+                GameBase.Singleton.DefaultFont,
                 this.text,
                 new Vector2(
                     (this.Position.X + ((this.width * 4.0f) / 2)) - (textSize.X / 2),

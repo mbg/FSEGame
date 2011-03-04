@@ -58,7 +58,7 @@ namespace FSEGame.Actors
             this.properties = properties;
 
             this.tileset = new Tileset(16, 1, Convert.ToUInt16(properties.Properties["States"]));
-            this.tileset.Load(FSEGame.Singleton.Content, properties.Properties["Tileset"]);
+            this.tileset.Load(GameBase.Singleton.Content, properties.Properties["Tileset"]);
         }
         #endregion
 
@@ -93,7 +93,7 @@ namespace FSEGame.Actors
             {
                 if (this.IsPlayerInInteractionPosition())
                 {
-                    FSEGame.Singleton.DialogueManager.PlayDialogue(
+                    GameBase.Singleton.DialogueManager.PlayDialogue(
                         this.properties.Properties["Dialogue"]);
                 }
             }
@@ -111,8 +111,8 @@ namespace FSEGame.Actors
         /// </returns>
         private Boolean IsPlayerInInteractionPosition()
         {
-            Vector2 playerPosition = FSEGame.Singleton.Character.CellPosition;
-            float playerOrientation = FSEGame.Singleton.Character.Orientation;
+            Vector2 playerPosition = GameBase.Singleton.Character.CellPosition;
+            float playerOrientation = GameBase.Singleton.Character.Orientation;
 
             return ((playerPosition.X == this.CellPosition.X) &&
                 (playerPosition.Y == this.CellPosition.Y + 1) &&

@@ -108,7 +108,7 @@ namespace FSEGame.Engine
 
             this.tilesetFilename = rootElement.GetAttribute("Tileset");
 
-            FSEGame.Singleton.LoadTileset(this.tilesetFilename);
+            GameBase.Singleton.LoadTileset(this.tilesetFilename);
 
             if (!rootElement.HasAttribute("SizeX"))
                 throw new LevelLoadException("Trying to load a level but no width was specified!");
@@ -190,7 +190,7 @@ namespace FSEGame.Engine
                 {
                     LevelCell cell = new LevelCell();
 
-                    cell.Tile = FSEGame.Singleton.CurrentTileset.GetTile(childElement.GetAttribute("Tile"));
+                    cell.Tile = GameBase.Singleton.CurrentTileset.GetTile(childElement.GetAttribute("Tile"));
                     cell.X = Convert.ToUInt32(childElement.GetAttribute("X"));
                     cell.Y = Convert.ToUInt32(childElement.GetAttribute("Y"));
                     cell.EventType = CellEventType.None;
@@ -327,7 +327,7 @@ namespace FSEGame.Engine
 
                     if (this.IsVisible(position))
                     {
-                        FSEGame.Singleton.CurrentTileset.DrawTile(
+                        GameBase.Singleton.CurrentTileset.DrawTile(
                             batch,
                             this.cells[y, x].Tile.ID,
                             GridHelper.GridPositionToAbsolute(position));

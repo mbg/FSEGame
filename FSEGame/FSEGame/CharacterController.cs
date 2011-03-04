@@ -192,7 +192,7 @@ namespace FSEGame
         public CharacterController()
         {
             this.tileset = new Tileset(16, 1, 4);
-            this.tileset.Load(FSEGame.Singleton.Content, @"Tilesets\Character.xml");
+            this.tileset.Load(GameBase.Singleton.Content, @"Tilesets\Character.xml");
         }
         #endregion
 
@@ -274,7 +274,7 @@ namespace FSEGame
                 }
 
                 // :: Verify that the target position exists and is passable.
-                if (FSEGame.Singleton.CurrentLevel.CanMoveTo(newPosition))
+                if (GameBase.Singleton.CurrentLevel.CanMoveTo(newPosition))
                 {
                     this.targetPosition = newPosition;
                 }
@@ -295,7 +295,7 @@ namespace FSEGame
 
                     // :: Trigger events if applicable.
                     CellInformation targetCell =
-                        FSEGame.Singleton.CurrentLevel.GetCellInformation(this.cellPosition);
+                        GameBase.Singleton.CurrentLevel.GetCellInformation(this.cellPosition);
 
                     if (targetCell != null && targetCell.Tile.Passable)
                     {

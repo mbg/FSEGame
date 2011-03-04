@@ -12,6 +12,7 @@
 using System;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using FSEGame.Engine;
 #endregion
 
 namespace FSEGame
@@ -52,7 +53,7 @@ namespace FSEGame
         /// </summary>
         public FadeScreen()
         {
-            this.texture = FSEGame.Singleton.Content.Load<Texture2D>("black");
+            this.texture = GameBase.Singleton.Content.Load<Texture2D>("black");
         }
         #endregion
 

@@ -50,7 +50,7 @@ namespace FSEGame.Engine
         {
             this.screen = new DialogueScreen();
 
-            FSEGame.Singleton.UIElements.Add(this.screen);
+            GameBase.Singleton.UIElements.Add(this.screen);
         }
         #endregion
 
@@ -154,7 +154,7 @@ namespace FSEGame.Engine
             if (this.isPlaying)
                 return;
 
-            FSEGame.Singleton.NotifyDialogueStart();
+            GameBase.Singleton.NotifyDialogueStart();
 
             this.isPlaying = true;
             this.elapsedTime = 0.0f;
@@ -211,7 +211,7 @@ namespace FSEGame.Engine
                     this.screen.Visible = false;
                     this.isPlaying = false;
 
-                    FSEGame.Singleton.NotifyDialogueEnd();
+                    GameBase.Singleton.NotifyDialogueEnd();
                 }
                 else
                 {

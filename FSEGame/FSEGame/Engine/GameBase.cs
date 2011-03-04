@@ -1,0 +1,464 @@
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+// :: FSEGame
+// :: Copyright 2011 Warren Jackson, Michael Gale
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+// :: Created: ---
+// ::      by: MBG20102011\Michael Gale
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+// :: Notes:   
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+#region References
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using FSEGame.Engine;
+using System.IO;
+using LuaInterface;
+using FSEGame.Engine.UI;
+#endregion
+
+namespace FSEGame.Engine
+{
+    public delegate void GameEventDelegate(Game sender);
+
+    /// <summary>
+    /// This is the main type for the FSE coursework game.
+    /// </summary>
+    public abstract class GameBase : Game
+    {
+        #region Static Members
+        /// <summary>
+        /// 
+        /// </summary>
+        private static GameBase singleton;
+        #endregion
+
+        #region Instance Members
+        /// <summary>
+        /// Stores the current state of the game.
+        /// </summary>
+        private GameState gameState = GameState.Exploring;
+        /// <summary>
+        /// The graphics device manager for this game.
+        /// </summary>
+        private GraphicsDeviceManager graphics;
+
+        private Lua luaState;
+        private LuaFunction luaChangeLevelFunction;
+
+        private DialogueManager dialogueManager;
+        /// <summary>
+        /// The main sprite batch used for rendering multiple textures in one pass.
+        /// </summary>
+        private SpriteBatch spriteBatch;
+        /// <summary>
+        /// The default game font.
+        /// </summary>
+        private SpriteFont defaultFont;
+
+        private Camera camera = null;
+        private CharacterController character = null;
+        private Level currentLevel = null;
+        private Tileset tileset;
+        private FadeScreen fadeScreen;
+        private List<IUIElement> uiElements;
+        private StaticText debugText;
+        private FPSCounter fpsCounter;
+        private float timeSinceLastKey = 0.0f;
+        #endregion
+
+        #region Events
+        private event GameEventDelegate onInitialise = null;
+        #endregion
+
+        #region Static Properties
+        /// <summary>
+        /// 
+        /// </summary>
+        public static GameBase Singleton
+        {
+            get
+            {
+                return singleton;
+            }
+        }
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// Gets the dialogue manager for this game.
+        /// </summary>
+        public DialogueManager DialogueManager
+        {
+            get
+            {
+                return this.dialogueManager;
+            }
+        }
+        public SpriteFont DefaultFont
+        {
+            get
+            {
+                return this.defaultFont;
+            }
+        }
+
+        public Camera Camera
+        {
+            get
+            {
+                return this.camera;
+            }
+        }
+
+        public CharacterController Character
+        {
+            get
+            {
+                return this.character;
+            }
+        }
+
+        public Tileset CurrentTileset
+        {
+            get
+            {
+                return this.tileset;
+            }
+        }
+
+        public Level CurrentLevel
+        {
+            get
+            {
+                return this.currentLevel;
+            }
+        }
+        /// <summary>
+        /// Gets the list of UI elements.
+        /// </summary>
+        public List<IUIElement> UIElements
+        {
+            get
+            {
+                return this.uiElements;
+            }
+        }
+
+        public GameState State
+        {
+            get
+            {
+                return this.gameState;
+            }
+            set
+            {
+                this.gameState = value;
+            }
+        }
+        #endregion
+
+        #region Event Properties
+        /// <summary>
+        /// 
+        /// </summary>
+        public event GameEventDelegate OnInitialise
+        {
+            add
+            {
+                this.onInitialise += value;
+            }
+            remove
+            {
+                this.onInitialise -= value;
+            }
+        }
+        #endregion
+
+        #region Constructor
+        /// <summary>
+        /// Initialises the game.
+        /// </summary>
+        protected GameBase()
+        {
+            GameBase.singleton = this;
+
+            this.uiElements = new List<IUIElement>();
+            this.fpsCounter = new FPSCounter();
+
+            this.luaState = new Lua();
+            this.luaState.RegisterFunction("LoadLevel", this, this.GetType().GetMethod("LoadLevel", new Type[] { typeof(String), typeof(String) }));
+            this.luaChangeLevelFunction = this.luaState.LoadFile(@"FSEGame\Scripts\ChangeLevel.lua");
+
+            this.graphics = new GraphicsDeviceManager(this);
+            this.graphics.PreparingDeviceSettings += 
+                new EventHandler<PreparingDeviceSettingsEventArgs>(PrepareGraphicsSettings);
+
+            this.dialogueManager = new DialogueManager();
+            
+            this.Content.RootDirectory = "FSEGame";
+        }
+        #endregion
+
+        #region PrepareGraphicsSettings
+        /// <summary>
+        /// Triggered before the graphics device is initialised so 
+        /// that we can set up the device settings, etc.
+        /// </summary>
+        /// <param name="sender">Unused.</param>
+        /// <param name="e">The device settings.</param>
+        private void PrepareGraphicsSettings(object sender, PreparingDeviceSettingsEventArgs e)
+        {
+            foreach (DisplayMode displayMode in GraphicsAdapter.DefaultAdapter.SupportedDisplayModes)
+            {
+                if (displayMode.Width == 800 && displayMode.Height == 600)
+                {
+                    e.GraphicsDeviceInformation.PresentationParameters.
+                        BackBufferFormat = displayMode.Format;
+                    e.GraphicsDeviceInformation.PresentationParameters.
+                        BackBufferHeight = displayMode.Height;
+                    e.GraphicsDeviceInformation.PresentationParameters.
+                        BackBufferWidth = displayMode.Width;
+                }
+            }
+
+            
+        }
+        #endregion
+
+        #region Initialize
+        /// <summary>
+        /// Allows the game to perform any initialization it needs to before starting to run.
+        /// This is where it can query for any required services and load any non-graphic
+        /// related content.  Calling base.Initialize will enumerate through any components
+        /// and initialize them as well.
+        /// </summary>
+        protected override void Initialize()
+        {
+            this.currentLevel = new Level();
+            
+            if (this.onInitialise != null)
+                this.onInitialise(this);
+
+            base.Initialize();
+        }
+        #endregion
+
+        #region LoadContent
+        /// <summary>
+        /// LoadContent will be called once per game and is the place to load
+        /// all of your content.
+        /// </summary>
+        protected override void LoadContent()
+        {
+            // Create a new SpriteBatch, which can be used to draw textures.
+            this.spriteBatch = new SpriteBatch(this.GraphicsDevice);
+
+            this.defaultFont = this.Content.Load<SpriteFont>("Arial");
+
+            this.fadeScreen = new FadeScreen();
+            this.fadeScreen.FadeOut(1.0d);
+
+            this.character = new CharacterController();
+            this.character.OnChangeLevel += new OnChangeLevelDelegate(character_OnChangeLevel);
+
+            this.camera = new Camera();
+
+            this.debugText = new StaticText(this.defaultFont);
+            this.debugText.Position = new Vector2(20, 20);
+            this.debugText.Visible = false;
+
+            this.uiElements.Add(debugText);
+        }
+        #endregion
+
+        #region OnChangeLevel
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        private void character_OnChangeLevel(string id)
+        {
+            this.luaState["id"] = id;
+            this.luaChangeLevelFunction.Call(new Object[] {});
+        }
+        #endregion
+
+        #region UnloadContent
+        /// <summary>
+        /// UnloadContent will be called once per game and is the place to unload
+        /// all content.
+        /// </summary>
+        protected override void UnloadContent()
+        {
+            // TODO: Unload any non ContentManager content here
+        }
+        #endregion
+
+        #region Update
+        /// <summary>
+        /// Allows the game to run logic such as updating the world,
+        /// checking for collisions, gathering input, and playing audio.
+        /// </summary>
+        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        protected override void Update(GameTime gameTime)
+        {
+            this.timeSinceLastKey += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            KeyboardState ks = Keyboard.GetState();
+            GamePadState gs = GamePad.GetState(PlayerIndex.One);
+
+            // :: [DEBUG]: Use ESC to quit.
+#if WINDOWS
+            if (ks.IsKeyDown(Keys.Escape))
+                this.Exit();
+#endif
+            if (gs.Buttons.Back == ButtonState.Pressed)
+                this.Exit();
+
+#if DEBUG
+            if (ks.IsKeyDown(Keys.F2) && this.timeSinceLastKey >= 0.3f)
+            {
+                this.debugText.Visible = !this.debugText.Visible;
+                this.timeSinceLastKey = 0.0f;
+            }
+#endif
+
+            this.fpsCounter.Update(gameTime);
+
+            if (this.gameState == GameState.Exploring)
+                this.character.Update(gameTime);
+
+            this.fadeScreen.Update(gameTime);
+
+            this.camera.Update(GraphicsDevice.Viewport);
+
+            if(this.tileset != null)
+                this.tileset.Update(gameTime);
+
+            this.currentLevel.Update(gameTime);
+
+            if (this.gameState == GameState.Cutscene)
+                this.dialogueManager.Update(gameTime);
+
+            base.Update(gameTime);
+
+            foreach (IUIElement uiElement in this.uiElements)
+            {
+                uiElement.Update(gameTime);
+            }
+
+            this.debugText.Text = String.Format("X: {0}\nY: {1}\nLevel: {2}\nTileset: {3}\nFPS: {4}",
+                    this.character.CellPosition.X, this.character.CellPosition.Y,
+                    this.currentLevel.Name, (this.tileset == null) ? "" : this.tileset.Name, this.fpsCounter.FPS);
+        }
+        #endregion
+
+        #region Draw
+        /// <summary>
+        /// This is called when the game should draw itself.
+        /// </summary>
+        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        protected override void Draw(GameTime gameTime)
+        {
+            base.GraphicsDevice.Clear(Color.Black);
+
+            // :: [Test]  Draws a tile from the current tileset.
+            // :: [mbg]   SamplerState.PointClamp causes no filters to be applied to the scaled tiles
+            this.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, null);
+
+            if (this.currentLevel != null)
+            {
+                this.currentLevel.DrawLevel(this.spriteBatch);
+            }
+
+            this.character.Draw(this.spriteBatch);
+
+            //this.fadeScreen.Draw(this.spriteBatch);
+
+            foreach (IUIElement uiElement in this.uiElements)
+            {
+                uiElement.Draw(this.spriteBatch);
+            }
+
+            if (this.gameState == GameState.Cutscene)
+                this.dialogueManager.Draw(this.spriteBatch);
+
+            this.spriteBatch.End();
+
+            base.Draw(gameTime);
+        }
+        #endregion
+
+        #region LoadTileset
+        /// <summary>
+        /// Loads the tileset with the specified name.
+        /// </summary>
+        /// <param name="name"></param>
+        public void LoadTileset(String name)
+        {
+            this.tileset = new Tileset(16, 6, 8);
+            this.tileset.Load(this.Content, name);
+        }
+        #endregion
+
+        #region LoadLevel
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        public void LoadLevel(String name)
+        {
+            this.currentLevel.Load(this.Content, name);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="entryPoint"></param>
+        public void LoadLevel(String name, String entryPoint)
+        {
+            this.character.Enabled = false;
+
+            this.LoadLevel(name);
+
+            LevelEntryPoint ep = this.currentLevel.GetEntryPoint(entryPoint);
+            this.character.CellPosition = new Vector2(ep.X, ep.Y);
+
+            this.character.Enabled = true;
+        }
+        #endregion
+
+        #region NotifyDialogueStart
+        /// <summary>
+        /// Notifies the game of the start of a dialogue.
+        /// </summary>
+        internal void NotifyDialogueStart()
+        {
+            this.gameState = GameState.Cutscene;
+        }
+        #endregion
+
+        #region NotifyDialogueEnd
+        /// <summary>
+        /// Notifies the game of the end of a dialogue.
+        /// </summary>
+        internal void NotifyDialogueEnd()
+        {
+            this.gameState = GameState.Exploring;
+        }
+        #endregion
+    }
+}
+
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+// :: End of File
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::

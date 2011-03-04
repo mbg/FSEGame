@@ -146,10 +146,11 @@
     <Compile Include="Engine\UI\UIContainer.cs" />
     <Compile Include="Engine\UI\UIElement.cs" />
     <Compile Include="FadeScreen.cs" />
+    <Compile Include="FSEGame.cs" />
     <Compile Include="MainMenuScreen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="FSEGame.cs" />
+    <Compile Include="Engine\GameBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

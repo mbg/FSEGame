@@ -36,7 +36,7 @@ namespace FSEGame.Engine.UI
         /// </summary>
         public MenuScreen(String resource)
         {
-            this.backgroundTexture = FSEGame.Singleton.Content.Load<Texture2D>(resource);
+            this.backgroundTexture = GameBase.Singleton.Content.Load<Texture2D>(resource);
         }
         #endregion
 
