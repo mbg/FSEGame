@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<Dialogue ID="root">
+  <Speech ID="speech#1" TextVar="string#1" Text="[MISSING TEXT]" Mode="Time" Time="3" Audio="" Left="377" Top="153" />
+  <Orphans />
+  <Variables>
+    <StringVar Name="string#1" Export="False" Left="379" Top="295">You cannot cross a bridge without a torch. That's why we are all stuck here.</StringVar>
+  </Variables>
+</Dialogue>
