@@ -32,10 +32,39 @@ namespace FSEGame.Engine.UI
         #endregion
 
         #region Constants
-        private const float DEFAULT_TIMEOUT = 0.5f;
+        private const float DEFAULT_TIMEOUT = 0.3f;
         #endregion
 
         #region Properties
+        public List<UIButton> Buttons
+        {
+            get
+            {
+                return this.buttons;
+            }
+        }
+        public float Timeout
+        {
+            get
+            {
+                return this.timeout;
+            }
+            set
+            {
+                this.timeout = value;
+            }
+        }
+        public Boolean ScrollThrough
+        {
+            get
+            {
+                return this.scrollThrough;
+            }
+            set
+            {
+                this.scrollThrough = value;
+            }
+        }
         #endregion
 
         #region Constructor
@@ -60,7 +89,7 @@ namespace FSEGame.Engine.UI
             // :: then select the first button in the list.
             if (this.buttons.Count > 0 && this.selectedIndex == -1)
             {
-                this.selectedIndex = 0;
+                this.Select(0);
             }
 
             // :: Update the buttons, this is may be required if the list contains instances
@@ -82,12 +111,12 @@ namespace FSEGame.Engine.UI
                 {
                     if (this.selectedIndex == 0 && this.scrollThrough)
                     {
-                        this.selectedIndex = this.buttons.Count - 1;
+                        this.Select(this.buttons.Count - 1);
                         this.timeElapsed = 0.0f;
                     }
                     else if(this.selectedIndex != 0)
                     {
-                        this.selectedIndex--;
+                        this.Select(this.selectedIndex - 1);
                         this.timeElapsed = 0.0f;
                     }
                 }
@@ -95,12 +124,12 @@ namespace FSEGame.Engine.UI
                 {
                     if (this.selectedIndex == (this.buttons.Count - 1) && this.scrollThrough)
                     {
-                        this.selectedIndex = 0;
+                        this.Select(0);
                         this.timeElapsed = 0.0f;
                     }
                     else if (this.selectedIndex != (this.buttons.Count - 1))
                     {
-                        this.selectedIndex++;
+                        this.Select(this.selectedIndex + 1);
                         this.timeElapsed = 0.0f;
                     }
                 }
@@ -113,6 +142,14 @@ namespace FSEGame.Engine.UI
             {
                 button.Draw(batch);
             }
+        }
+
+        private void Select(Int32 index)
+        {
+            this.Deselect();
+
+            this.selectedIndex = index;
+            this.buttons[index].Selected = true;
         }
 
         #region Deselect

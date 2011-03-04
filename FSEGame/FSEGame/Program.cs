@@ -18,13 +18,31 @@ using FSEGame.Actors;
 namespace FSEGame
 {
 #if WINDOWS || XBOX
-    static class Program
+    public class Program
     {
+        private MainMenuScreen mainMenu;
+
+        public Program()
+        {
+            
+        }
+
         #region Entry Point
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         static void Main(string[] args)
+        {
+            Program app = null;
+
+            app = new Program();
+            app.Run();
+        }
+
+        
+        #endregion
+
+        private void Run()
         {
             using (FSEGame game = new FSEGame())
             {
@@ -32,17 +50,20 @@ namespace FSEGame
                 game.Run();
             }
         }
-
         
-        #endregion
-        
-        private static void game_OnInitialise(Game sender)
+        private void game_OnInitialise(Game sender)
         {
             FSEGame game = (FSEGame)sender;
+            game.State = GameState.Menu;
+
             game.CurrentLevel.OnCreateActor += new CreateActorDelegate(CurrentLevel_OnCreateActor);
+
+            this.mainMenu = new MainMenuScreen();
+
+            game.UIElements.Add(this.mainMenu);
         }
         
-        private static Actor CurrentLevel_OnCreateActor(ActorProperties properties)
+        private Actor CurrentLevel_OnCreateActor(ActorProperties properties)
         {
             switch (properties.Type)
             {

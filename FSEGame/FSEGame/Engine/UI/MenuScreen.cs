@@ -25,20 +25,9 @@ namespace FSEGame.Engine.UI
     {
         #region Instance Members
         private Texture2D backgroundTexture;
-        private Boolean visible = true;
         #endregion
 
         #region Properties
-        /// <summary>
-        /// Gets a value indicating whether the menu screen is visible.
-        /// </summary>
-        public Boolean IsVisible
-        {
-            get
-            {
-                return this.visible;
-            }
-        }
         #endregion
 
         #region Constructor
@@ -71,7 +60,7 @@ namespace FSEGame.Engine.UI
         {
             // :: Don't draw the menu screen and its children if its
             // :: visibility is set to false.
-            if (!this.visible)
+            if (!this.Visible)
                 return;
 
             // :: Draw the menu screen background texture first and then
@@ -83,26 +72,6 @@ namespace FSEGame.Engine.UI
                 Color.White);
 
             base.Draw(batch);
-        }
-        #endregion
-
-        #region Show
-        /// <summary>
-        /// Shows the menu screen.
-        /// </summary>
-        public virtual void Show()
-        {
-            this.visible = true;
-        }
-        #endregion
-
-        #region Hide
-        /// <summary>
-        /// Hides the menu screen.
-        /// </summary>
-        public virtual void Hide()
-        {
-            this.visible = false;
         }
         #endregion
     }

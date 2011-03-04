@@ -87,6 +87,26 @@ namespace FSEGame.Engine.UI
         /// <param name="batch"></param>
         public abstract void Draw(SpriteBatch batch);
         #endregion
+
+        #region Show
+        /// <summary>
+        /// Shows the menu screen.
+        /// </summary>
+        public virtual void Show()
+        {
+            this.visible = true;
+        }
+        #endregion
+
+        #region Hide
+        /// <summary>
+        /// Hides the menu screen.
+        /// </summary>
+        public virtual void Hide()
+        {
+            this.visible = false;
+        }
+        #endregion
     }
 }
 

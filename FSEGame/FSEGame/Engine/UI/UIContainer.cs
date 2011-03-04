@@ -20,7 +20,7 @@ namespace FSEGame.Engine.UI
     /// <summary>
     /// 
     /// </summary>
-    public abstract class UIContainer : IUIElement
+    public abstract class UIContainer : UIElement
     {
         #region Instance Members
         /// <summary>
@@ -57,7 +57,7 @@ namespace FSEGame.Engine.UI
         /// Updates the UI container and its children.
         /// </summary>
         /// <param name="time"></param>
-        public virtual void Update(GameTime time)
+        public override void Update(GameTime time)
         {
             foreach (IUIElement element in this.children)
             {
@@ -71,7 +71,7 @@ namespace FSEGame.Engine.UI
         /// Draws the UI container and its children.
         /// </summary>
         /// <param name="batch"></param>
-        public virtual void Draw(SpriteBatch batch)
+        public override void Draw(SpriteBatch batch)
         {
             foreach (IUIElement element in this.children)
             {

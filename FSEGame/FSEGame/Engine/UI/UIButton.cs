@@ -160,12 +160,33 @@ namespace FSEGame.Engine.UI
             // :: Draw the button in the current sprite batch.
             batch.Draw(
                 textureToDraw,
+                this.Position,
                 new Rectangle(
-                    (int)this.Position.X,
-                    (int)this.Position.Y,
+                    0,
+                    0,
                     this.width,
                     this.height),
-                Color.White);
+                Color.White,
+                0.0f,
+                Vector2.Zero,
+                4.0f,
+                SpriteEffects.None,
+                0.0f);
+
+            Vector2 textSize = FSEGame.Singleton.DefaultFont.MeasureString(this.text) * 3.0f;
+
+            batch.DrawString(
+                FSEGame.Singleton.DefaultFont,
+                this.text,
+                new Vector2(
+                    (this.Position.X + ((this.width * 4.0f) / 2)) - (textSize.X / 2),
+                    (this.Position.Y + ((this.height * 4.0f) / 2)) - (textSize.Y / 2)),
+                Color.Black,
+                0.0f,
+                Vector2.Zero,
+                3.0f,
+                SpriteEffects.None,
+                0.0f);
         }
 
         #endregion

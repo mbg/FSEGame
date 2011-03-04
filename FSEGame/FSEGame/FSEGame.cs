@@ -64,14 +64,11 @@ namespace FSEGame
         /// </summary>
         private SpriteFont defaultFont;
 
-        private String levelFileExtension = ".xml";
-
         private Camera camera = null;
         private CharacterController character = null;
         private Level currentLevel = null;
         private Tileset tileset;
         private FadeScreen fadeScreen;
-        private MainMenuScreen mainMenu;
         private List<IUIElement> uiElements;
         private StaticText debugText;
         private FPSCounter fpsCounter;
@@ -153,6 +150,18 @@ namespace FSEGame
             get
             {
                 return this.uiElements;
+            }
+        }
+
+        public GameState State
+        {
+            get
+            {
+                return this.gameState;
+            }
+            set
+            {
+                this.gameState = value;
             }
         }
         #endregion
@@ -264,11 +273,7 @@ namespace FSEGame
             this.character = new CharacterController();
             this.character.OnChangeLevel += new OnChangeLevelDelegate(character_OnChangeLevel);
 
-            this.LoadLevel(@"Levels\Test.xml", "Default");
             this.camera = new Camera();
-
-            this.mainMenu = new MainMenuScreen();
-            this.mainMenu.Hide();
 
             this.debugText = new StaticText(this.defaultFont);
             this.debugText.Position = new Vector2(20, 20);
@@ -339,7 +344,9 @@ namespace FSEGame
 
             this.camera.Update(GraphicsDevice.Viewport);
 
-            this.tileset.Update(gameTime);
+            if(this.tileset != null)
+                this.tileset.Update(gameTime);
+
             this.currentLevel.Update(gameTime);
 
             if (this.gameState == GameState.Cutscene)
@@ -354,7 +361,7 @@ namespace FSEGame
 
             this.debugText.Text = String.Format("X: {0}\nY: {1}\nLevel: {2}\nTileset: {3}\nFPS: {4}",
                     this.character.CellPosition.X, this.character.CellPosition.Y,
-                    this.currentLevel.Name, this.tileset.Name, this.fpsCounter.FPS);
+                    this.currentLevel.Name, (this.tileset == null) ? "" : this.tileset.Name, this.fpsCounter.FPS);
         }
         #endregion
 
@@ -379,8 +386,6 @@ namespace FSEGame
             this.character.Draw(this.spriteBatch);
 
             //this.fadeScreen.Draw(this.spriteBatch);
-
-            this.mainMenu.Draw(this.spriteBatch);
 
             foreach (IUIElement uiElement in this.uiElements)
             {

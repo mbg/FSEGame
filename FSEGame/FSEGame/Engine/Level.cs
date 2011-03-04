@@ -35,6 +35,7 @@ namespace FSEGame.Engine
         private List<LevelEntryPoint> entryPoints;
         private List<Actor> actors;
         private LevelCell[,] cells;
+        private Boolean levelLoaded = false;
         #endregion
 
         #region Events
@@ -139,6 +140,8 @@ namespace FSEGame.Engine
                     this.LoadActors(childElement);
                 }
             }
+
+            this.levelLoaded = true;
         }
 
         #region LoadEntryPoints
@@ -290,6 +293,9 @@ namespace FSEGame.Engine
         /// <param name="gameTime"></param>
         public void Update(GameTime gameTime)
         {
+            if (!this.levelLoaded)
+                return;
+
             foreach (Actor a in this.actors)
             {
                 a.Update(gameTime);
@@ -304,6 +310,9 @@ namespace FSEGame.Engine
         /// <param name="batch"></param>
         public void DrawLevel(SpriteBatch batch)
         {
+            if (!this.levelLoaded)
+                return;
+
             UInt32 y = 0;
             UInt32 x = 0;
 
