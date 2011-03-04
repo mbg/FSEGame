@@ -281,4 +281,11 @@
     <Cell X="24" Y="8" Tile="PathUD" />
     <Cell X="24" Y="9" Tile="PathLU" />
   </Cells>
+  <Actors>
+    <Actor X="18" Y="5" Type="GenericNPC">
+      <Property Name="Dialogue">FSEGame\Dialogues\BridgeExplanation.xml</Property>
+      <Property Name="Tileset">Tilesets\GenericNPC.xml</Property>
+      <Property Name="States">2</Property>
+    </Actor>
+  </Actors>
 </Level>

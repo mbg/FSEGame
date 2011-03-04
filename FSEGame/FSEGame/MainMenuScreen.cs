@@ -13,6 +13,7 @@ using System;
 using FSEGame.Engine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using FSEGame.Engine.UI;
 #endregion
 
 namespace FSEGame

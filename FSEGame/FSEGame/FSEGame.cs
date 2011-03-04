@@ -22,6 +22,7 @@ using Microsoft.Xna.Framework.Media;
 using FSEGame.Engine;
 using System.IO;
 using LuaInterface;
+using FSEGame.Engine.UI;
 #endregion
 
 namespace FSEGame

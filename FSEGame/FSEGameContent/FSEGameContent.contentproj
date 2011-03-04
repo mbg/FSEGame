@@ -89,6 +89,12 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+    <Content Include="Dialogues\BridgeExplanation.xml">
+      <Name>BridgeExplanation</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Dialogues\Intro.xml">
       <Name>Intro</Name>
       <Importer>XmlImporter</Importer>
