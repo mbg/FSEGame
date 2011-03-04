@@ -147,6 +147,7 @@
     <Compile Include="Engine\UI\UIElement.cs" />
     <Compile Include="FadeScreen.cs" />
     <Compile Include="FSEGame.cs" />
+    <Compile Include="LoadScreen.cs" />
     <Compile Include="MainMenuScreen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />

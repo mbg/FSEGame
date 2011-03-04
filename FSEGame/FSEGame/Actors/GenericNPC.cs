@@ -111,8 +111,8 @@ namespace FSEGame.Actors
         /// </returns>
         private Boolean IsPlayerInInteractionPosition()
         {
-            Vector2 playerPosition = GameBase.Singleton.Character.CellPosition;
-            float playerOrientation = GameBase.Singleton.Character.Orientation;
+            Vector2 playerPosition = FSEGame.Singleton.Character.CellPosition;
+            float playerOrientation = FSEGame.Singleton.Character.Orientation;
 
             return ((playerPosition.X == this.CellPosition.X) &&
                 (playerPosition.Y == this.CellPosition.Y + 1) &&

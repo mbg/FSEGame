@@ -68,8 +68,8 @@ namespace FSEGame
         
         private void newGameButton_OnAction(UIButton sender)
         {
-            GameBase.Singleton.LoadLevel(@"Levels\Test.xml", "Default");
-            GameBase.Singleton.State = GameState.Exploring;
+            FSEGame.Singleton.LoadLevel(@"Levels\Test.xml", "Default");
+            FSEGame.Singleton.State = GameState.Exploring;
 
             this.Hide();
         }
@@ -86,6 +86,9 @@ namespace FSEGame
 
         public override void Update(GameTime gameTime)
         {
+            if (!this.Visible)
+                return;
+
             base.Update(gameTime);
         }
 

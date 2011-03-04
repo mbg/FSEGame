@@ -28,6 +28,7 @@ using FSEGame.Engine.UI;
 namespace FSEGame.Engine
 {
     public delegate void GameEventDelegate(Game sender);
+    public delegate void GameDrawDelegate(SpriteBatch batch);
 
     /// <summary>
     /// This is the main type for the FSE coursework game.
@@ -43,16 +44,11 @@ namespace FSEGame.Engine
 
         #region Instance Members
         /// <summary>
-        /// Stores the current state of the game.
-        /// </summary>
-        private GameState gameState = GameState.Exploring;
-        /// <summary>
         /// The graphics device manager for this game.
         /// </summary>
         private GraphicsDeviceManager graphics;
 
         private Lua luaState;
-        private LuaFunction luaChangeLevelFunction;
 
         private DialogueManager dialogueManager;
         /// <summary>
@@ -64,19 +60,17 @@ namespace FSEGame.Engine
         /// </summary>
         private SpriteFont defaultFont;
 
-        private Camera camera = null;
-        private CharacterController character = null;
         private Level currentLevel = null;
         private Tileset tileset;
         private FadeScreen fadeScreen;
         private List<IUIElement> uiElements;
-        private StaticText debugText;
         private FPSCounter fpsCounter;
-        private float timeSinceLastKey = 0.0f;
+        private Vector2 offset;
         #endregion
 
         #region Events
         private event GameEventDelegate onInitialise = null;
+        private event GameDrawDelegate onDraw = null;
         #endregion
 
         #region Static Properties
@@ -111,22 +105,6 @@ namespace FSEGame.Engine
             }
         }
 
-        public Camera Camera
-        {
-            get
-            {
-                return this.camera;
-            }
-        }
-
-        public CharacterController Character
-        {
-            get
-            {
-                return this.character;
-            }
-        }
-
         public Tileset CurrentTileset
         {
             get
@@ -153,15 +131,31 @@ namespace FSEGame.Engine
             }
         }
 
-        public GameState State
+        public FPSCounter FPSCounter
         {
             get
             {
-                return this.gameState;
+                return this.fpsCounter;
+            }
+        }
+
+        public Lua LuaState
+        {
+            get
+            {
+                return this.luaState;
+            }
+        }
+
+        public Vector2 Offset
+        {
+            get
+            {
+                return this.offset;
             }
             set
             {
-                this.gameState = value;
+                this.offset = value;
             }
         }
         #endregion
@@ -181,6 +175,18 @@ namespace FSEGame.Engine
                 this.onInitialise -= value;
             }
         }
+
+        public event GameDrawDelegate OnDraw
+        {
+            add
+            {
+                this.onDraw += value;
+            }
+            remove
+            {
+                this.onDraw -= value;
+            }
+        }
         #endregion
 
         #region Constructor
@@ -196,7 +202,6 @@ namespace FSEGame.Engine
 
             this.luaState = new Lua();
             this.luaState.RegisterFunction("LoadLevel", this, this.GetType().GetMethod("LoadLevel", new Type[] { typeof(String), typeof(String) }));
-            this.luaChangeLevelFunction = this.luaState.LoadFile(@"FSEGame\Scripts\ChangeLevel.lua");
 
             this.graphics = new GraphicsDeviceManager(this);
             this.graphics.PreparingDeviceSettings += 
@@ -266,29 +271,6 @@ namespace FSEGame.Engine
 
             this.fadeScreen = new FadeScreen();
             this.fadeScreen.FadeOut(1.0d);
-
-            this.character = new CharacterController();
-            this.character.OnChangeLevel += new OnChangeLevelDelegate(character_OnChangeLevel);
-
-            this.camera = new Camera();
-
-            this.debugText = new StaticText(this.defaultFont);
-            this.debugText.Position = new Vector2(20, 20);
-            this.debugText.Visible = false;
-
-            this.uiElements.Add(debugText);
-        }
-        #endregion
-
-        #region OnChangeLevel
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        private void character_OnChangeLevel(string id)
-        {
-            this.luaState["id"] = id;
-            this.luaChangeLevelFunction.Call(new Object[] {});
         }
         #endregion
 
@@ -311,7 +293,6 @@ namespace FSEGame.Engine
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            this.timeSinceLastKey += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             KeyboardState ks = Keyboard.GetState();
             GamePadState gs = GamePad.GetState(PlayerIndex.One);
@@ -324,30 +305,15 @@ namespace FSEGame.Engine
             if (gs.Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-#if DEBUG
-            if (ks.IsKeyDown(Keys.F2) && this.timeSinceLastKey >= 0.3f)
-            {
-                this.debugText.Visible = !this.debugText.Visible;
-                this.timeSinceLastKey = 0.0f;
-            }
-#endif
-
             this.fpsCounter.Update(gameTime);
 
-            if (this.gameState == GameState.Exploring)
-                this.character.Update(gameTime);
-
             this.fadeScreen.Update(gameTime);
-
-            this.camera.Update(GraphicsDevice.Viewport);
 
             if(this.tileset != null)
                 this.tileset.Update(gameTime);
 
             this.currentLevel.Update(gameTime);
-
-            if (this.gameState == GameState.Cutscene)
-                this.dialogueManager.Update(gameTime);
+            this.dialogueManager.Update(gameTime);
 
             base.Update(gameTime);
 
@@ -355,10 +321,6 @@ namespace FSEGame.Engine
             {
                 uiElement.Update(gameTime);
             }
-
-            this.debugText.Text = String.Format("X: {0}\nY: {1}\nLevel: {2}\nTileset: {3}\nFPS: {4}",
-                    this.character.CellPosition.X, this.character.CellPosition.Y,
-                    this.currentLevel.Name, (this.tileset == null) ? "" : this.tileset.Name, this.fpsCounter.FPS);
         }
         #endregion
 
@@ -380,7 +342,8 @@ namespace FSEGame.Engine
                 this.currentLevel.DrawLevel(this.spriteBatch);
             }
 
-            this.character.Draw(this.spriteBatch);
+            if (this.onDraw != null)
+                this.onDraw(this.spriteBatch);
 
             //this.fadeScreen.Draw(this.spriteBatch);
 
@@ -388,9 +351,6 @@ namespace FSEGame.Engine
             {
                 uiElement.Draw(this.spriteBatch);
             }
-
-            if (this.gameState == GameState.Cutscene)
-                this.dialogueManager.Draw(this.spriteBatch);
 
             this.spriteBatch.End();
 
@@ -424,36 +384,9 @@ namespace FSEGame.Engine
         /// </summary>
         /// <param name="name"></param>
         /// <param name="entryPoint"></param>
-        public void LoadLevel(String name, String entryPoint)
+        public virtual void LoadLevel(String name, String entryPoint)
         {
-            this.character.Enabled = false;
-
             this.LoadLevel(name);
-
-            LevelEntryPoint ep = this.currentLevel.GetEntryPoint(entryPoint);
-            this.character.CellPosition = new Vector2(ep.X, ep.Y);
-
-            this.character.Enabled = true;
-        }
-        #endregion
-
-        #region NotifyDialogueStart
-        /// <summary>
-        /// Notifies the game of the start of a dialogue.
-        /// </summary>
-        internal void NotifyDialogueStart()
-        {
-            this.gameState = GameState.Cutscene;
-        }
-        #endregion
-
-        #region NotifyDialogueEnd
-        /// <summary>
-        /// Notifies the game of the end of a dialogue.
-        /// </summary>
-        internal void NotifyDialogueEnd()
-        {
-            this.gameState = GameState.Exploring;
         }
         #endregion
     }

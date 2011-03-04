@@ -19,6 +19,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace FSEGame.Engine
 {
+    public delegate void DialogueEventDelegate(DialogueManager sender);
+
     /// <summary>
     /// 
     /// </summary>
@@ -32,6 +34,9 @@ namespace FSEGame.Engine
         private Boolean isPlaying = false;
         #endregion
 
+        private event DialogueEventDelegate onStart = null;
+        private event DialogueEventDelegate onEnd = null;
+
         #region Properties
         public Boolean IsPlaying
         {
@@ -41,6 +46,30 @@ namespace FSEGame.Engine
             }
         }
         #endregion
+
+        public event DialogueEventDelegate OnStart
+        {
+            add
+            {
+                this.onStart += value;
+            }
+            remove
+            {
+                this.onStart -= value;
+            }
+        }
+
+        public event DialogueEventDelegate OnEnd
+        {
+            add
+            {
+                this.onEnd += value;
+            }
+            remove
+            {
+                this.onEnd -= value;
+            }
+        }
 
         #region Constructor
         /// <summary>
@@ -154,7 +183,8 @@ namespace FSEGame.Engine
             if (this.isPlaying)
                 return;
 
-            GameBase.Singleton.NotifyDialogueStart();
+            if (this.onStart != null)
+                this.onStart(this);
 
             this.isPlaying = true;
             this.elapsedTime = 0.0f;
@@ -199,6 +229,9 @@ namespace FSEGame.Engine
         /// <param name="gameTime"></param>
         public void Update(GameTime gameTime)
         {
+            if (!this.isPlaying)
+                return;
+
             if(this.screen.Finished)
                 this.elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -211,7 +244,8 @@ namespace FSEGame.Engine
                     this.screen.Visible = false;
                     this.isPlaying = false;
 
-                    GameBase.Singleton.NotifyDialogueEnd();
+                    if (this.onEnd != null)
+                        this.onEnd(this);
                 }
                 else
                 {

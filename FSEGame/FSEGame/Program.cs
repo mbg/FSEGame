@@ -20,8 +20,6 @@ namespace FSEGame
 #if WINDOWS || XBOX
     public class Program
     {
-        private MainMenuScreen mainMenu;
-
         public Program()
         {
             
@@ -53,13 +51,8 @@ namespace FSEGame
         private void game_OnInitialise(Game sender)
         {
             FSEGame game = (FSEGame)sender;
-            game.State = GameState.Menu;
 
             game.CurrentLevel.OnCreateActor += new CreateActorDelegate(CurrentLevel_OnCreateActor);
-
-            this.mainMenu = new MainMenuScreen();
-
-            game.UIElements.Add(this.mainMenu);
         }
         
         private Actor CurrentLevel_OnCreateActor(ActorProperties properties)

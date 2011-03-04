@@ -22,21 +22,10 @@ namespace FSEGame.Engine
     public class Camera
     {
         #region Instance Members
-        private Vector2 offset;
         private Boolean attachedToPlayer = true;
         #endregion
 
         #region Properties
-        /// <summary>
-        /// Gets the camera offset.
-        /// </summary>
-        public Vector2 Offset
-        {
-            get
-            {
-                return this.offset;
-            }
-        }
         #endregion
 
         #region Constructor
@@ -45,7 +34,6 @@ namespace FSEGame.Engine
         /// </summary>
         public Camera()
         {
-            this.offset = Vector2.Zero;
         }
         #endregion
 
@@ -60,8 +48,9 @@ namespace FSEGame.Engine
             // :: of the screen if it is attached to the player.
             if (this.attachedToPlayer)
             {
-                this.offset = new Vector2((vp.Width / 2) - 32, (vp.Height / 2) - 32)
-                    - GameBase.Singleton.Character.AbsolutePosition;
+                FSEGame.Singleton.Offset = 
+                    new Vector2((vp.Width / 2) - 32, (vp.Height / 2) - 32)
+                        - FSEGame.Singleton.Character.AbsolutePosition;
             }
         }
         #endregion
