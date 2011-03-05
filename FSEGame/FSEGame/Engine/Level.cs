@@ -29,6 +29,7 @@ namespace FSEGame.Engine
     {
         #region Instance Members
         private String name;
+        private String levelFilename;
         private String tilesetFilename;
         private UInt32 width;
         private UInt32 height;
@@ -48,6 +49,14 @@ namespace FSEGame.Engine
             get
             {
                 return this.name;
+            }
+        }
+
+        public String LevelFilename
+        {
+            get
+            {
+                return this.levelFilename;
             }
         }
         #endregion
@@ -83,16 +92,16 @@ namespace FSEGame.Engine
 
             // :: Generate the full pathname and verify that a file
             // :: with the specified name exists.
-            String path = Path.Combine(contentManager.RootDirectory, filename);
+            this.levelFilename = Path.Combine(contentManager.RootDirectory, filename);
 
-            if (!File.Exists(path))
-                throw new FileNotFoundException(null, path);
+            if (!File.Exists(this.levelFilename))
+                throw new FileNotFoundException(null, this.levelFilename);
 
             this.entryPoints = new List<LevelEntryPoint>();
             this.actors = new List<Actor>();
 
             XmlDocument doc = new XmlDocument();
-            doc.Load(path);
+            doc.Load(this.levelFilename);
 
             XmlElement rootElement = doc.DocumentElement;
 

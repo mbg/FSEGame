@@ -21,6 +21,7 @@ namespace FSEGame.Engine
     public enum GameState
     {
         Menu,
+        Intro,
         Cutscene,
         Fading,
         LevelTransition,

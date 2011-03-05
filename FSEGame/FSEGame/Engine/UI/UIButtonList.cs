@@ -79,6 +79,11 @@ namespace FSEGame.Engine.UI
         }
         #endregion
 
+        #region Update
+        /// <summary>
+        /// Updates the button list.
+        /// </summary>
+        /// <param name="time"></param>
         public override void Update(GameTime time)
         {
             KeyboardState ks = Keyboard.GetState();
@@ -135,7 +140,13 @@ namespace FSEGame.Engine.UI
                 }
             }
         }
+        #endregion
 
+        #region Draw
+        /// <summary>
+        /// Draws the buttons in this list.
+        /// </summary>
+        /// <param name="batch"></param>
         public override void Draw(SpriteBatch batch)
         {
             foreach (UIButton button in this.buttons)
@@ -143,14 +154,24 @@ namespace FSEGame.Engine.UI
                 button.Draw(batch);
             }
         }
+        #endregion
 
-        private void Select(Int32 index)
+        #region Select
+        /// <summary>
+        /// Selects the button with the specified index.
+        /// </summary>
+        /// <param name="index">The index of the button to select.</param>
+        public void Select(Int32 index)
         {
+            if (index < 0 || index >= this.buttons.Count)
+                throw new ArgumentOutOfRangeException("index");
+
             this.Deselect();
 
             this.selectedIndex = index;
             this.buttons[index].Selected = true;
         }
+        #endregion
 
         #region Deselect
         /// <summary>

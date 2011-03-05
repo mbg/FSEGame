@@ -15,6 +15,7 @@ using Microsoft.Xna.Framework;
 using LuaInterface;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
+using System.IO;
 #endregion
 
 namespace FSEGame
@@ -36,6 +37,11 @@ namespace FSEGame
         private LuaFunction luaChangeLevelFunction;
         private StaticText debugText;
         private float timeSinceLastKey = 0.0f;
+        private String savesFolder = null;
+        private KeyboardState currentKeyboardState;
+        private KeyboardState lastKeyboardState;
+        private DialogueEventDelegate dialogueStartDelegate;
+        private DialogueEventDelegate dialogueEndDelegate;
 
         #region Static Properties
         public static new FSEGame Singleton
@@ -78,12 +84,46 @@ namespace FSEGame
             }
         }
 
+        public String SavesFolder
+        {
+            get
+            {
+                return this.savesFolder;
+            }
+        }
+
+        public KeyboardState CurrentKeyboardState
+        {
+            get
+            {
+                return this.currentKeyboardState;
+            }
+        }
+
+        public KeyboardState LastKeyboardState
+        {
+            get
+            {
+                return this.lastKeyboardState;
+            }
+        }
+
         #region Constructor
         /// <summary>
         /// Initialises a new instance of this class.
         /// </summary>
         private FSEGame()
         {
+            // :: Generate the path to the user's save games folder and create it
+            // :: if it doesn't exist yet.
+            this.savesFolder = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), 
+                @"FSEGame\Saves\");
+
+            if (!Directory.Exists(this.savesFolder))
+                Directory.CreateDirectory(this.savesFolder);
+
+            // :: Pre-load the level change script.
             this.luaChangeLevelFunction = this.LuaState.LoadFile(@"FSEGame\Scripts\ChangeLevel.lua");
         }
         #endregion
@@ -96,13 +136,17 @@ namespace FSEGame
 
             this.OnDraw += new GameDrawDelegate(Draw);
 
-            this.DialogueManager.OnStart += new DialogueEventDelegate(DialogueStart);
-            this.DialogueManager.OnEnd += new DialogueEventDelegate(DialogueEnd);
+            this.dialogueStartDelegate = new DialogueEventDelegate(DialogueStart);
+            this.dialogueEndDelegate = new DialogueEventDelegate(DialogueEnd);
+
+            this.DialogueManager.OnStart += this.dialogueStartDelegate;
+            this.DialogueManager.OnEnd += this.dialogueEndDelegate;
         }
 
         void Draw(SpriteBatch batch)
         {
-            this.character.Draw(batch);
+            if(this.state != GameState.Intro)
+                this.character.Draw(batch);
         }
 
         void DialogueStart(DialogueManager sender)
@@ -145,17 +189,23 @@ namespace FSEGame
             this.luaChangeLevelFunction.Call(new Object[] { });
         }
 
+        #region Update
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="gameTime"></param>
         protected override void Update(GameTime gameTime)
         {
-            this.timeSinceLastKey += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            this.currentKeyboardState = Keyboard.GetState();
 
-            KeyboardState ks = Keyboard.GetState();
+            if (this.IsKeyPressed(Keys.Escape))
+            {
+            }
 
 #if DEBUG
-            if (ks.IsKeyDown(Keys.F2) && this.timeSinceLastKey >= 0.3f)
+            if (this.IsKeyPressed(Keys.F2))
             {
                 this.debugText.Visible = !this.debugText.Visible;
-                this.timeSinceLastKey = 0.0f;
             }
 #endif
 
@@ -170,7 +220,10 @@ namespace FSEGame
             this.debugText.Text = String.Format("X: {0}\nY: {1}\nLevel: {2}\nTileset: {3}\nFPS: {4}",
                     this.character.CellPosition.X, this.character.CellPosition.Y,
                     this.CurrentLevel.Name, (this.CurrentTileset == null) ? "" : this.CurrentTileset.Name, this.FPSCounter.FPS);
+
+            this.lastKeyboardState = this.currentKeyboardState;
         }
+        #endregion
 
         public override void LoadLevel(string name, string entryPoint)
         {
@@ -182,6 +235,75 @@ namespace FSEGame
             this.character.CellPosition = new Vector2(ep.X, ep.Y);
 
             this.character.Enabled = true;
+        }
+
+        public void OpenMainMenu()
+        {
+            this.loadScreen.Hide();
+            this.mainMenu.Show();
+        }
+
+        #region OpenLoadScreen
+        /// <summary>
+        /// Opens the load game menu screen.
+        /// </summary>
+        public void OpenLoadScreen()
+        {
+            this.mainMenu.Hide();
+            this.loadScreen.Show();
+        }
+        #endregion
+
+        #region NewGame
+        public void NewGame()
+        {
+            this.state = GameState.Intro;
+
+            this.mainMenu.Hide();
+
+            DialogueEventDelegate introEndDelegate = null;
+
+            introEndDelegate = new DialogueEventDelegate(delegate
+             {
+                 this.DialogueManager.OnEnd -= introEndDelegate;
+                 this.DialogueManager.OnStart += this.dialogueStartDelegate;
+                 this.DialogueManager.OnEnd += this.dialogueEndDelegate;
+
+                 this.LoadLevel(@"Levels\Test.xml", "Default");
+                 this.state = GameState.Exploring;
+             });
+
+            this.DialogueManager.OnStart -= this.dialogueStartDelegate;
+            this.DialogueManager.OnEnd -= this.dialogueEndDelegate;
+            this.DialogueManager.OnEnd += introEndDelegate;
+            this.DialogueManager.PlayDialogue(@"FSEGame\Dialogues\Intro.xml");
+        }
+        #endregion
+
+        public void LoadGame(Byte slot)
+        {
+        }
+
+        public void SaveGame(Byte slot)
+        {
+            String path = Path.Combine(
+                this.savesFolder, String.Format("Slot{0}.sav", slot));
+
+            using (FileStream fs = new FileStream(path, FileMode.Create, FileAccess.Write))
+            using (BinaryWriter bw = new BinaryWriter(fs))
+            {
+                bw.Write((Byte)0x01);
+                bw.Write(this.CurrentLevel.LevelFilename); // todo
+                bw.Write(this.character.CellPosition.X);
+                bw.Write(this.character.CellPosition.Y);
+                bw.Write(this.character.Orientation);
+            }
+        }
+
+        public Boolean IsKeyPressed(Keys key)
+        {
+            return this.currentKeyboardState.IsKeyDown(key) &&
+                !this.lastKeyboardState.IsKeyDown(key);
         }
     }
 }

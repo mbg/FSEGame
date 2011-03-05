@@ -129,7 +129,7 @@
     <Compile Include="Engine\Dialogues\DialogueVariable.cs" />
     <Compile Include="Engine\Dialogues\DialogueVariableType.cs" />
     <Compile Include="Engine\FPSCounter.cs" />
-    <Compile Include="Engine\GameState.cs" />
+    <Compile Include="GameState.cs" />
     <Compile Include="Engine\GridHelper.cs" />
     <Compile Include="Engine\UI\IUIElement.cs" />
     <Compile Include="Engine\Level.cs" />

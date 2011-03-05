@@ -293,18 +293,6 @@ namespace FSEGame.Engine
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-
-            KeyboardState ks = Keyboard.GetState();
-            GamePadState gs = GamePad.GetState(PlayerIndex.One);
-
-            // :: [DEBUG]: Use ESC to quit.
-#if WINDOWS
-            if (ks.IsKeyDown(Keys.Escape))
-                this.Exit();
-#endif
-            if (gs.Buttons.Back == ButtonState.Pressed)
-                this.Exit();
-
             this.fpsCounter.Update(gameTime);
 
             this.fadeScreen.Update(gameTime);

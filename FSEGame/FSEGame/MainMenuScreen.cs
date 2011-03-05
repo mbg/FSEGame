@@ -14,6 +14,7 @@ using FSEGame.Engine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using FSEGame.Engine.UI;
+using Microsoft.Xna.Framework.Input;
 #endregion
 
 namespace FSEGame
@@ -68,15 +69,12 @@ namespace FSEGame
         
         private void newGameButton_OnAction(UIButton sender)
         {
-            FSEGame.Singleton.LoadLevel(@"Levels\Test.xml", "Default");
-            FSEGame.Singleton.State = GameState.Exploring;
-
-            this.Hide();
+            FSEGame.Singleton.NewGame();
         }
 
         private void loadGameButton_OnAction(UIButton sender)
         {
-            
+            FSEGame.Singleton.OpenLoadScreen();
         }
         
         private void exitButton_OnAction(UIButton sender)
@@ -89,12 +87,13 @@ namespace FSEGame
             if (!this.Visible)
                 return;
 
-            base.Update(gameTime);
-        }
+            if (FSEGame.Singleton.IsKeyPressed(Keys.Escape))
+            {
+                FSEGame.Singleton.Exit();
+                return;
+            }
 
-        public override void Draw(SpriteBatch batch)
-        {
-            base.Draw(batch);
+            base.Update(gameTime);
         }
     }
 }

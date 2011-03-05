@@ -249,7 +249,10 @@ namespace FSEGame.Engine
                 }
                 else
                 {
+                    this.currentNode = nextNode;
                     this.elapsedTime = 0.0f;
+
+                    this.screen.Text = this.ResolveStringVariable((this.currentNode as DialogueSpeechNode).StringVariable);
                 }
             }
         }
