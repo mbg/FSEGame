@@ -16,6 +16,7 @@ using LuaInterface;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
+using FSEGame.Engine.Effects;
 #endregion
 
 namespace FSEGame
@@ -32,11 +33,12 @@ namespace FSEGame
         private GameState state;
         private MainMenuScreen mainMenu;
         private LoadScreen loadScreen;
+        private IngameMenu ingameMenu;
+        private SaveScreen saveScreen;
         private CharacterController character;
         private Camera camera = null;
         private LuaFunction luaChangeLevelFunction;
         private StaticText debugText;
-        private float timeSinceLastKey = 0.0f;
         private String savesFolder = null;
         private KeyboardState currentKeyboardState;
         private KeyboardState lastKeyboardState;
@@ -165,11 +167,17 @@ namespace FSEGame
 
             this.mainMenu = new MainMenuScreen();
             this.loadScreen = new LoadScreen();
+            this.ingameMenu = new IngameMenu();
+            this.saveScreen = new SaveScreen();
 
             this.loadScreen.Visible = false;
+            this.ingameMenu.Visible = false;
+            this.saveScreen.Visible = false;
 
             this.UIElements.Add(this.mainMenu);
             this.UIElements.Add(this.loadScreen);
+            this.UIElements.Add(this.ingameMenu);
+            this.UIElements.Add(this.saveScreen);
 
             this.character = new CharacterController();
             this.character.OnChangeLevel += new OnChangeLevelDelegate(ChangeLevel);
@@ -198,8 +206,13 @@ namespace FSEGame
         {
             this.currentKeyboardState = Keyboard.GetState();
 
-            if (this.IsKeyPressed(Keys.Escape))
+            if (this.IsKeyPressed(Keys.Escape) && this.state == GameState.Exploring &&
+                !this.character.Moving)
             {
+                this.EnableBlur = true;
+                this.state = GameState.Menu;
+
+                this.ingameMenu.Show();
             }
 
 #if DEBUG
@@ -241,6 +254,8 @@ namespace FSEGame
         {
             this.loadScreen.Hide();
             this.mainMenu.Show();
+
+            this.CurrentLevel.Unload();
         }
 
         #region OpenLoadScreen
@@ -253,6 +268,30 @@ namespace FSEGame
             this.loadScreen.Show();
         }
         #endregion
+
+        public void OpenIngameMenu()
+        {
+            this.state = GameState.Menu;
+            this.EnableBlur = true;
+
+            this.ingameMenu.Show();
+            this.saveScreen.Hide();
+        }
+
+        public void OpenSaveScreen()
+        {
+            this.saveScreen.Show();
+            this.ingameMenu.Hide();
+        }
+
+        public void CloseIngameMenu()
+        {
+            this.ingameMenu.Hide();
+            this.saveScreen.Hide();
+
+            this.EnableBlur = false;
+            this.state = GameState.Exploring;
+        }
 
         #region NewGame
         public void NewGame()
@@ -276,14 +315,49 @@ namespace FSEGame
             this.DialogueManager.OnStart -= this.dialogueStartDelegate;
             this.DialogueManager.OnEnd -= this.dialogueEndDelegate;
             this.DialogueManager.OnEnd += introEndDelegate;
-            this.DialogueManager.PlayDialogue(@"FSEGame\Dialogues\Intro.xml");
+            this.DialogueManager.PlayDialogue(@"FSEGame\Dialogues\TestDialogue.xml");
         }
         #endregion
 
         public void LoadGame(Byte slot)
         {
+            String path = Path.Combine(
+                this.savesFolder, String.Format("Slot{0}.sav", slot));
+
+            using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
+            using (BinaryReader br = new BinaryReader(fs))
+            {
+                Byte version = br.ReadByte();
+
+                if (version != 0x01)
+                    throw new Exception("!!! Invalid save file");
+
+                String levelFilename = br.ReadString();
+
+                this.CurrentLevel.Load(this.Content, levelFilename);
+
+                this.character.CellPosition = new Vector2(
+                    br.ReadSingle(), br.ReadSingle());
+                this.character.Orientation = br.ReadSingle();
+
+                this.PersistentStorage.Load(br);
+
+                this.mainMenu.Hide();
+                this.loadScreen.Hide();
+
+                this.state = GameState.Exploring;
+                this.character.Enabled = true;
+            }
         }
 
+        #region SaveGame
+        /// <summary>
+        /// Saves the current state of the game to the slot with the 
+        /// specified ID.
+        /// </summary>
+        /// <param name="slot">
+        /// The ID of the slot to which the state of the game should be saved to.
+        /// </param>
         public void SaveGame(Byte slot)
         {
             String path = Path.Combine(
@@ -293,18 +367,34 @@ namespace FSEGame
             using (BinaryWriter bw = new BinaryWriter(fs))
             {
                 bw.Write((Byte)0x01);
-                bw.Write(this.CurrentLevel.LevelFilename); // todo
+                bw.Write(this.CurrentLevel.LevelFilename);
                 bw.Write(this.character.CellPosition.X);
                 bw.Write(this.character.CellPosition.Y);
                 bw.Write(this.character.Orientation);
+
+                this.PersistentStorage.Save(bw);
             }
         }
+        #endregion
 
+        #region IsKeyPressed
+        /// <summary>
+        /// Returns a value indicating whether the specified key has been
+        /// pressed and whether it wasn't pressed during the previous frame.
+        /// </summary>
+        /// <param name="key">The key to look up.</param>
+        /// <returns>
+        /// Returns true if the specified key was pressed during the current, 
+        /// but not the previous frame.
+        /// </returns>
         public Boolean IsKeyPressed(Keys key)
         {
+            // :: lastKeyboardState contains the state of the keyboard from
+            // :: the previous frame.
             return this.currentKeyboardState.IsKeyDown(key) &&
                 !this.lastKeyboardState.IsKeyDown(key);
         }
+        #endregion
     }
 }
 

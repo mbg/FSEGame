@@ -17,7 +17,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace FSEGame.Engine.UI
 {
     /// <summary>
-    /// 
+    /// Represents an abstract base class for UI elements.
     /// </summary>
     public abstract class UIElement : IUIElement
     {

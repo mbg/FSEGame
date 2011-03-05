@@ -90,18 +90,20 @@ namespace FSEGame.Engine
             if (contentManager == null)
                 throw new ArgumentNullException("contentManager");
 
+            this.levelFilename = filename;
+
             // :: Generate the full pathname and verify that a file
             // :: with the specified name exists.
-            this.levelFilename = Path.Combine(contentManager.RootDirectory, filename);
+            String path = Path.Combine(contentManager.RootDirectory, filename);
 
-            if (!File.Exists(this.levelFilename))
-                throw new FileNotFoundException(null, this.levelFilename);
+            if (!File.Exists(path))
+                throw new FileNotFoundException(null, path);
 
             this.entryPoints = new List<LevelEntryPoint>();
             this.actors = new List<Actor>();
 
             XmlDocument doc = new XmlDocument();
-            doc.Load(this.levelFilename);
+            doc.Load(path);
 
             XmlElement rootElement = doc.DocumentElement;
 
@@ -151,6 +153,20 @@ namespace FSEGame.Engine
             }
 
             this.levelLoaded = true;
+        }
+
+        public void Unload()
+        {
+            if (!this.levelLoaded)
+                return;
+
+            this.levelFilename = String.Empty;
+
+            this.width = 0;
+            this.height = 0;
+            this.cells = new LevelCell[1, 1];
+
+            this.levelLoaded = false;
         }
 
         #region LoadEntryPoints
@@ -418,8 +434,24 @@ namespace FSEGame.Engine
             throw new ArgumentException("No entry point with this name.");
         }
 
+        #region CanMoveTo
+        /// <summary>
+        /// Returns a value indicating whether an entity may move to the
+        /// tile with the specified coordinates.
+        /// </summary>
+        /// <param name="position">
+        /// The coordinates of the tile whose status should be queried.
+        /// </param>
+        /// <returns>
+        /// Returns true if an entity may move to the tile with the specified 
+        /// coordinates or false if not.
+        /// </returns>
         public Boolean CanMoveTo(Vector2 position)
         {
+            // :: Can't move anywhere if no level is loaded.
+            if (!this.levelLoaded)
+                return false;
+
             // :: Negative coordinates are invalid.
             if (position.X < 0 || position.Y < 0)
                 return false;
@@ -445,6 +477,7 @@ namespace FSEGame.Engine
 
             return true;
         }
+        #endregion
     }
 }
 

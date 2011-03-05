@@ -23,6 +23,7 @@ using FSEGame.Engine;
 using System.IO;
 using LuaInterface;
 using FSEGame.Engine.UI;
+using FSEGame.Engine.Effects;
 #endregion
 
 namespace FSEGame.Engine
@@ -51,6 +52,8 @@ namespace FSEGame.Engine
         private Lua luaState;
 
         private DialogueManager dialogueManager;
+
+        private PersistentStorage persistentStorage;
         /// <summary>
         /// The main sprite batch used for rendering multiple textures in one pass.
         /// </summary>
@@ -66,6 +69,11 @@ namespace FSEGame.Engine
         private List<IUIElement> uiElements;
         private FPSCounter fpsCounter;
         private Vector2 offset;
+
+        private Blur blurEffect;
+        private RenderTarget2D renderTarget;
+        private Texture2D frameBuffer;
+        private Boolean enableBlur = false;
         #endregion
 
         #region Events
@@ -97,6 +105,19 @@ namespace FSEGame.Engine
                 return this.dialogueManager;
             }
         }
+        /// <summary>
+        /// Gets the persistent storage manager.
+        /// </summary>
+        public PersistentStorage PersistentStorage
+        {
+            get
+            {
+                return this.persistentStorage;
+            }
+        }
+        /// <summary>
+        /// Gets the default sprite font.
+        /// </summary>
         public SpriteFont DefaultFont
         {
             get
@@ -104,7 +125,10 @@ namespace FSEGame.Engine
                 return this.defaultFont;
             }
         }
-
+        /// <summary>
+        /// Gets the tileset which is currently being used to
+        /// render the current level.
+        /// </summary>
         public Tileset CurrentTileset
         {
             get
@@ -112,7 +136,9 @@ namespace FSEGame.Engine
                 return this.tileset;
             }
         }
-
+        /// <summary>
+        /// Gets the current level.
+        /// </summary>
         public Level CurrentLevel
         {
             get
@@ -158,6 +184,18 @@ namespace FSEGame.Engine
                 this.offset = value;
             }
         }
+
+        public Boolean EnableBlur
+        {
+            get
+            {
+                return this.enableBlur;
+            }
+            set
+            {
+                this.enableBlur = value;
+            }
+        }
         #endregion
 
         #region Event Properties
@@ -199,6 +237,8 @@ namespace FSEGame.Engine
 
             this.uiElements = new List<IUIElement>();
             this.fpsCounter = new FPSCounter();
+
+            this.persistentStorage = new PersistentStorage();
 
             this.luaState = new Lua();
             this.luaState.RegisterFunction("LoadLevel", this, this.GetType().GetMethod("LoadLevel", new Type[] { typeof(String), typeof(String) }));
@@ -253,6 +293,9 @@ namespace FSEGame.Engine
             if (this.onInitialise != null)
                 this.onInitialise(this);
 
+            this.blurEffect = new Blur(this);
+            this.blurEffect.ComputeKernel(7, 2.0f);
+
             base.Initialize();
         }
         #endregion
@@ -271,6 +314,14 @@ namespace FSEGame.Engine
 
             this.fadeScreen = new FadeScreen();
             this.fadeScreen.FadeOut(1.0d);
+
+            PresentationParameters pp = this.GraphicsDevice.PresentationParameters;
+            this.renderTarget = new RenderTarget2D(this.GraphicsDevice, pp.BackBufferWidth, pp.BackBufferHeight);
+
+            this.rt1 = new RenderTarget2D(this.GraphicsDevice, 400, 300, false, pp.BackBufferFormat, DepthFormat.None);
+            this.rt2 = new RenderTarget2D(this.GraphicsDevice, 400, 600, false, pp.BackBufferFormat, DepthFormat.None);
+
+            this.blurEffect.ComputeOffsets(400, 300);
         }
         #endregion
 
@@ -312,6 +363,9 @@ namespace FSEGame.Engine
         }
         #endregion
 
+        private RenderTarget2D rt1;
+        private RenderTarget2D rt2;
+
         #region Draw
         /// <summary>
         /// This is called when the game should draw itself.
@@ -319,6 +373,9 @@ namespace FSEGame.Engine
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            if(this.enableBlur)
+                this.GraphicsDevice.SetRenderTarget(this.renderTarget);
+
             base.GraphicsDevice.Clear(Color.Black);
 
             // :: [Test]  Draws a tile from the current tileset.
@@ -333,7 +390,23 @@ namespace FSEGame.Engine
             if (this.onDraw != null)
                 this.onDraw(this.spriteBatch);
 
-            //this.fadeScreen.Draw(this.spriteBatch);
+            if (this.enableBlur)
+            {
+                this.spriteBatch.End();
+
+                this.GraphicsDevice.SetRenderTarget(null);
+                this.frameBuffer = (Texture2D)this.renderTarget;
+
+                GraphicsDevice.Clear(Color.White);
+
+                Texture2D result = this.blurEffect.PerformGaussianBlur(this.frameBuffer, this.rt1, this.rt2, this.spriteBatch);
+
+                this.spriteBatch.Begin();
+                this.spriteBatch.Draw(result, new Rectangle(0, 0, 800, 600), Color.White);
+                this.spriteBatch.End();
+
+                this.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, null);
+            }
 
             foreach (IUIElement uiElement in this.uiElements)
             {

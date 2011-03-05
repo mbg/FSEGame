@@ -8,24 +8,25 @@
 // :: Notes:   
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-
 #region References
 using System;
 #endregion
 
-namespace FSEGame
+namespace FSEGame.Engine
 {
     /// <summary>
-    /// 
+    /// Enumerates item types for the persistent storage.
     /// </summary>
-    public enum GameState
+    public enum PersistentStorageItemType : byte
     {
-        Menu,
-        Intro,
-        Cutscene,
-        Fading,
-        LevelTransition,
-        Exploring
+        /// <summary>
+        /// The item is a string.
+        /// </summary>
+        String = 0x00,
+        /// <summary>
+        /// The item is an unsigned integer.
+        /// </summary>
+        Number = 0x01
     }
 }
 

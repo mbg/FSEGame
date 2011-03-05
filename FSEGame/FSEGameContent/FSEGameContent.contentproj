@@ -213,6 +213,11 @@
       <Processor>PassThroughProcessor</Processor>
       <SubType>Designer</SubType>
     </Content>
+    <Compile Include="Shaders\Blur.fx">
+      <Name>Blur</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arial.spritefont">
