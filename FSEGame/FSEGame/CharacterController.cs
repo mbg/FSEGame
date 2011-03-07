@@ -18,8 +18,6 @@ using Microsoft.Xna.Framework.Input;
 
 namespace FSEGame
 {
-    public delegate void OnChangeLevelDelegate(String id);
-
     /// <summary>
     /// Represents the player character.
     /// </summary>
@@ -64,10 +62,6 @@ namespace FSEGame
         private Boolean visible = true;
 
         private Tileset tileset;
-        #endregion
-
-        #region Events
-        private event OnChangeLevelDelegate onChangeLevel = null;
         #endregion
 
         #region Constants
@@ -168,23 +162,6 @@ namespace FSEGame
         }
         #endregion
 
-        #region Event Properties
-        /// <summary>
-        /// 
-        /// </summary>
-        public event OnChangeLevelDelegate OnChangeLevel
-        {
-            add
-            {
-                this.onChangeLevel += value;
-            }
-            remove
-            {
-                this.onChangeLevel -= value;
-            }
-        }
-        #endregion
-
         #region Constructor
         /// <summary>
         /// Initialises a new instance of this class.
@@ -208,7 +185,7 @@ namespace FSEGame
                 KeyboardState ks = Keyboard.GetState();
                 Vector2 newPosition = this.cellPosition;
 
-                if (ks.IsKeyDown(Keys.W))
+                if (ks.IsKeyDown(Keys.W) || ks.IsKeyDown(Keys.Up))
                 {
                     if (this.orientation == 0.0f)
                     {
@@ -224,7 +201,7 @@ namespace FSEGame
                     this.blockDuration = this.block;
                     this.moving = true;
                 }
-                else if (ks.IsKeyDown(Keys.S))
+                else if (ks.IsKeyDown(Keys.S) || ks.IsKeyDown(Keys.Down))
                 {
                     if (this.orientation == 180.0f)
                     {
@@ -240,7 +217,7 @@ namespace FSEGame
                     this.blockDuration = this.block;
                     this.moving = true;
                 }
-                else if (ks.IsKeyDown(Keys.D))
+                else if (ks.IsKeyDown(Keys.D) || ks.IsKeyDown(Keys.Right))
                 {
                     if (this.orientation == 90.0f)
                     {
@@ -256,7 +233,7 @@ namespace FSEGame
                     this.blockDuration = this.block;
                     this.moving = true;
                 }
-                else if (ks.IsKeyDown(Keys.A))
+                else if (ks.IsKeyDown(Keys.A) || ks.IsKeyDown(Keys.Left))
                 {
                     if (this.orientation == 270.0f)
                     {
@@ -299,12 +276,11 @@ namespace FSEGame
 
                     if (targetCell != null && targetCell.Tile.Passable)
                     {
-                        switch (targetCell.Cell.EventType)
+                        // :: If the target cell has an event associated to it, then EventID
+                        // :: will be set to the name of the event. Otherwise it will be null.
+                        if (targetCell.Cell.EventID != null)
                         {
-                            case CellEventType.ChangeLevel:
-                                if (this.onChangeLevel != null)
-                                    this.onChangeLevel(targetCell.Cell.EventID);
-                                break;
+                            FSEGame.Singleton.CurrentLevel.TriggerEvent(targetCell.Cell.EventID);
                         }
                     }
                 }

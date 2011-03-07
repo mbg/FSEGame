@@ -15,7 +15,7 @@ using Microsoft.Xna.Framework;
 using FSEGame.Engine.UI;
 #endregion
 
-namespace FSEGame.Engine
+namespace FSEGame.Engine.UI
 {
     /// <summary>
     /// 

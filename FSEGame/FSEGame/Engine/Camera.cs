@@ -22,10 +22,25 @@ namespace FSEGame.Engine
     public class Camera
     {
         #region Instance Members
+        /// <summary>
+        /// A value indicating whether the camera is attached to the player
+        /// controller or not.
+        /// </summary>
         private Boolean attachedToPlayer = true;
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Gets a value indicating whether the camera is attached to the player
+        /// controller.
+        /// </summary>
+        public Boolean IsAttachedToPlayer
+        {
+            get
+            {
+                return this.attachedToPlayer;
+            }
+        }
         #endregion
 
         #region Constructor

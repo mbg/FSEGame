@@ -94,6 +94,11 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+    <Compile Include="BattleUI.png">
+      <Name>BattleUI</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <Content Include="Dialogues\BridgeExplanation.xml">
       <Name>BridgeExplanation</Name>
       <Importer>XmlImporter</Importer>
@@ -170,12 +175,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <None Include="Scripts\ChangeLevel.lua">
-      <Name>ChangeLevel</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <Compile Include="SelectedButton.png">
       <Name>SelectedButton</Name>
       <Importer>TextureImporter</Importer>
@@ -218,6 +217,10 @@
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
     </Compile>
+    <Content Include="Scripts\Test.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>Test</Name>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arial.spritefont">
@@ -225,6 +228,18 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\House1.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>House1</Name>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\House2.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>House2</Name>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 

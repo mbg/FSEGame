@@ -17,6 +17,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using FSEGame.Engine.Effects;
+using FSEGame.Engine.UI;
 #endregion
 
 namespace FSEGame
@@ -35,9 +36,9 @@ namespace FSEGame
         private LoadScreen loadScreen;
         private IngameMenu ingameMenu;
         private SaveScreen saveScreen;
+        private BattleUI battleUI;
         private CharacterController character;
         private Camera camera = null;
-        private LuaFunction luaChangeLevelFunction;
         private StaticText debugText;
         private String savesFolder = null;
         private KeyboardState currentKeyboardState;
@@ -125,8 +126,7 @@ namespace FSEGame
             if (!Directory.Exists(this.savesFolder))
                 Directory.CreateDirectory(this.savesFolder);
 
-            // :: Pre-load the level change script.
-            this.luaChangeLevelFunction = this.LuaState.LoadFile(@"FSEGame\Scripts\ChangeLevel.lua");
+            this.RegisterClass(this);
         }
         #endregion
 
@@ -169,18 +169,20 @@ namespace FSEGame
             this.loadScreen = new LoadScreen();
             this.ingameMenu = new IngameMenu();
             this.saveScreen = new SaveScreen();
+            this.battleUI = new BattleUI();
 
             this.loadScreen.Visible = false;
             this.ingameMenu.Visible = false;
             this.saveScreen.Visible = false;
+            this.battleUI.Visible = false;
 
             this.UIElements.Add(this.mainMenu);
             this.UIElements.Add(this.loadScreen);
             this.UIElements.Add(this.ingameMenu);
             this.UIElements.Add(this.saveScreen);
+            this.UIElements.Add(this.battleUI);
 
             this.character = new CharacterController();
-            this.character.OnChangeLevel += new OnChangeLevelDelegate(ChangeLevel);
 
             this.camera = new Camera();
 
@@ -189,12 +191,6 @@ namespace FSEGame
             this.debugText.Visible = false;
 
             this.UIElements.Add(debugText);
-        }
-
-        void ChangeLevel(string id)
-        {
-            this.LuaState["id"] = id;
-            this.luaChangeLevelFunction.Call(new Object[] { });
         }
 
         #region Update
@@ -238,9 +234,16 @@ namespace FSEGame
         }
         #endregion
 
+        #region LoadLevel
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="entryPoint"></param>
         public override void LoadLevel(string name, string entryPoint)
         {
             this.character.Enabled = false;
+            this.character.Visible = false;
 
             base.LoadLevel(name, entryPoint);
 
@@ -248,7 +251,9 @@ namespace FSEGame
             this.character.CellPosition = new Vector2(ep.X, ep.Y);
 
             this.character.Enabled = true;
+            this.character.Visible = true;
         }
+        #endregion
 
         public void OpenMainMenu()
         {
@@ -256,6 +261,7 @@ namespace FSEGame
             this.mainMenu.Show();
 
             this.CurrentLevel.Unload();
+            this.character.Enabled = false;
         }
 
         #region OpenLoadScreen
@@ -294,12 +300,20 @@ namespace FSEGame
         }
 
         #region NewGame
+        /// <summary>
+        /// Starts a new game.
+        /// </summary>
         public void NewGame()
         {
+            // :: Change the game state and make sure that no level
+            // :: is loaded so that we have a black background.
             this.state = GameState.Intro;
 
+            this.CurrentLevel.Unload();
             this.mainMenu.Hide();
 
+            // :: Temporarily change the dialogue event handlers so that
+            // :: they don't change the game state to Exploring / Cutscene.
             DialogueEventDelegate introEndDelegate = null;
 
             introEndDelegate = new DialogueEventDelegate(delegate
@@ -315,7 +329,9 @@ namespace FSEGame
             this.DialogueManager.OnStart -= this.dialogueStartDelegate;
             this.DialogueManager.OnEnd -= this.dialogueEndDelegate;
             this.DialogueManager.OnEnd += introEndDelegate;
-            this.DialogueManager.PlayDialogue(@"FSEGame\Dialogues\TestDialogue.xml");
+
+            //this.DialogueManager.PlayDialogue(@"FSEGame\Dialogues\TestDialogue.xml");
+            this.DialogueManager.PlayDialogue(@"FSEGame\Dialogues\Intro.xml");
         }
         #endregion
 
@@ -393,6 +409,17 @@ namespace FSEGame
             // :: the previous frame.
             return this.currentKeyboardState.IsKeyDown(key) &&
                 !this.lastKeyboardState.IsKeyDown(key);
+        }
+        #endregion
+
+        #region BeginBattle
+        /// <summary>
+        /// 
+        /// </summary>
+        [ScriptFunction("BeginBattle")]
+        public void BeginBattle(String configuration)
+        {
+            this.battleUI.Show();
         }
         #endregion
     }

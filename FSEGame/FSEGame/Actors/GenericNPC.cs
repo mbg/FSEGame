@@ -89,7 +89,7 @@ namespace FSEGame.Actors
             // :: pressed, verify that the player is in the right position
             // :: to interact with this actor and that it has the right 
             // :: orientation.
-            if (ks.IsKeyDown(Keys.Enter))
+            if (ks.IsKeyDown(Keys.Enter) || ks.IsKeyDown(Keys.Space))
             {
                 if (this.IsPlayerInInteractionPosition())
                 {

@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actors\GenericNPC.cs" />
+    <Compile Include="BattleUI.cs" />
     <Compile Include="CharacterController.cs" />
     <Compile Include="Engine\Actor.cs" />
     <Compile Include="Engine\ActorProperties.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="Engine\PersistentStorage.cs" />
     <Compile Include="Engine\PersistentStorageItem.cs" />
     <Compile Include="Engine\PersistentStorageItemType.cs" />
+    <Compile Include="Engine\ScriptFunctionAttribute.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="Engine\GridHelper.cs" />
     <Compile Include="Engine\UI\IUIElement.cs" />
@@ -141,7 +143,7 @@
     <Compile Include="Engine\LevelEntryPoint.cs" />
     <Compile Include="Engine\LevelLoadException.cs" />
     <Compile Include="Engine\UI\MenuScreen.cs" />
-    <Compile Include="Engine\StaticText.cs" />
+    <Compile Include="Engine\UI\StaticText.cs" />
     <Compile Include="Engine\Tile.cs" />
     <Compile Include="Engine\TileCollection.cs" />
     <Compile Include="Engine\Tileset.cs" />

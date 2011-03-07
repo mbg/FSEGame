@@ -15,12 +15,18 @@ using System;
 namespace FSEGame.Engine
 {
     /// <summary>
-    /// 
+    /// Represents a single item in the persistent storage.
     /// </summary>
     public sealed class PersistentStorageItem
     {
         #region Instance Members
+        /// <summary>
+        /// The type of this item.
+        /// </summary>
         private PersistentStorageItemType itemType;
+        /// <summary>
+        /// The data stored in this item.
+        /// </summary>
         private Object item;
         #endregion
 

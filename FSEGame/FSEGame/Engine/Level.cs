@@ -16,6 +16,7 @@ using System.Xml;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using LuaInterface;
 #endregion
 
 namespace FSEGame.Engine
@@ -37,6 +38,7 @@ namespace FSEGame.Engine
         private List<Actor> actors;
         private LevelCell[,] cells;
         private Boolean levelLoaded = false;
+        private LuaFunction levelScript = null;
         #endregion
 
         #region Events
@@ -85,6 +87,12 @@ namespace FSEGame.Engine
         }
         #endregion
 
+        #region Load
+        /// <summary>
+        /// Loads a level from the file with the specified name.
+        /// </summary>
+        /// <param name="contentManager">The main content manager of the game.</param>
+        /// <param name="filename">The path to the level file.</param>
         public void Load(ContentManager contentManager, String filename)
         {
             if (contentManager == null)
@@ -121,6 +129,15 @@ namespace FSEGame.Engine
 
             GameBase.Singleton.LoadTileset(this.tilesetFilename);
 
+            // :: Load and store the script which is associated with the level (if available).
+            if (rootElement.HasAttribute("Script"))
+            {
+                this.levelScript = GameBase.Singleton.LuaState.LoadFile(
+                    Path.Combine(GameBase.Singleton.Content.RootDirectory, rootElement.GetAttribute("Script")));
+            }
+
+            // :: Verify that the size attributes are available and then initialise the cell array
+            // :: using the dimensions obtained from the XML file.
             if (!rootElement.HasAttribute("SizeX"))
                 throw new LevelLoadException("Trying to load a level but no width was specified!");
             if (!rootElement.HasAttribute("SizeY"))
@@ -154,13 +171,21 @@ namespace FSEGame.Engine
 
             this.levelLoaded = true;
         }
+        #endregion
 
+        #region Unload
+        /// <summary>
+        /// Unloads the current level.
+        /// </summary>
         public void Unload()
         {
+            // :: If no level is loaded, we don't have to do
+            // :: anything at all.
             if (!this.levelLoaded)
                 return;
 
             this.levelFilename = String.Empty;
+            this.levelScript = null;
 
             this.width = 0;
             this.height = 0;
@@ -168,6 +193,7 @@ namespace FSEGame.Engine
 
             this.levelLoaded = false;
         }
+        #endregion
 
         #region LoadEntryPoints
         /// <summary>
@@ -218,16 +244,11 @@ namespace FSEGame.Engine
                     cell.Tile = GameBase.Singleton.CurrentTileset.GetTile(childElement.GetAttribute("Tile"));
                     cell.X = Convert.ToUInt32(childElement.GetAttribute("X"));
                     cell.Y = Convert.ToUInt32(childElement.GetAttribute("Y"));
-                    cell.EventType = CellEventType.None;
-                    cell.EventID = String.Empty;
+                    cell.EventID = null;
 
                     if (childElement.HasAttribute("Event"))
                     {
-                        cell.EventType = this.ToCellEventType(childElement.GetAttribute("Event"));
-                    }
-                    if (childElement.HasAttribute("EventID"))
-                    {
-                        cell.EventID = childElement.GetAttribute("EventID");
+                        cell.EventID = childElement.GetAttribute("Event");
                     }
 
                     this.cells[cell.Y, cell.X] = cell;
@@ -423,6 +444,17 @@ namespace FSEGame.Engine
         }
         #endregion
 
+        #region GetEntryPoint
+        /// <summary>
+        /// Gets the entry point with the specified name.
+        /// </summary>
+        /// <param name="name">
+        /// The name of the level entry point to find.
+        /// </param>
+        /// <returns>
+        /// Returns information about the entry point with the
+        /// specified name.
+        /// </returns>
         public LevelEntryPoint GetEntryPoint(String name)
         {
             foreach (LevelEntryPoint entryPoint in this.entryPoints)
@@ -433,6 +465,7 @@ namespace FSEGame.Engine
 
             throw new ArgumentException("No entry point with this name.");
         }
+        #endregion
 
         #region CanMoveTo
         /// <summary>
@@ -478,6 +511,16 @@ namespace FSEGame.Engine
             return true;
         }
         #endregion
+
+        public void TriggerEvent(String name)
+        {
+            if (this.levelScript == null)
+                return;
+
+            GameBase.Singleton.LuaState["id"] = name;
+
+            this.levelScript.Call();
+        }
     }
 }
 

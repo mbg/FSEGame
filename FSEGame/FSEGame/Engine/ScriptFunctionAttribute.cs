@@ -17,12 +17,32 @@ namespace FSEGame.Engine
     /// <summary>
     /// 
     /// </summary>
-    public struct LevelCell
+    [AttributeUsage(AttributeTargets.Method)]
+    public class ScriptFunctionAttribute : Attribute
     {
-        public Tile Tile;
-        public UInt32 X;
-        public UInt32 Y;
-        public String EventID;
+        #region Instance Members
+        private String name;
+        #endregion
+
+        #region Properties
+        public String Name
+        {
+            get
+            {
+                return this.name;
+            }
+        }
+        #endregion
+
+        #region Constructor
+        /// <summary>
+        /// Initialises a new instance of this class.
+        /// </summary>
+        public ScriptFunctionAttribute(String name)
+        {
+            this.name = name;
+        }
+        #endregion
     }
 }
 

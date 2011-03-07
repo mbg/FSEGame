@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Level Name="TestLevel" Tileset="Tilesets\Test.xml" SizeX="25" SizeY="10">
+<Level Name="TestLevel" Tileset="Tilesets\Test.xml" Script="Scripts\Test.lua" SizeX="25" SizeY="10">
   <EntryPoints>
     <EntryPoint Name="Default" X="3" Y="4" />
     <EntryPoint Name="House1Exit" X="8" Y="4" />
@@ -97,7 +97,7 @@
     <Cell X="8" Y="0" Tile="Dirt" />
     <Cell X="8" Y="1" Tile="GenericHouseRoofCentreFar" />
     <Cell X="8" Y="2" Tile="GenericHouseRoofCentre" />
-    <Cell X="8" Y="3" Event="ChangeLevel" EventID="TestHouseDoor" Tile="GenericHouseDoor" />
+    <Cell X="8" Y="3" Event="TestHouseDoor" Tile="GenericHouseDoor" />
     <Cell X="8" Y="4" Tile="PathUD" />
     <Cell X="8" Y="5" Tile="PathUD" />
     <Cell X="8" Y="6" Tile="PathURD" />
@@ -165,7 +165,7 @@
     <Cell X="14" Y="2" Tile="Dirt" />
     <Cell X="14" Y="3" Tile="GenericHouseRoofCentreFar" />
     <Cell X="14" Y="4" Tile="GenericHouseRoofCentre" />
-    <Cell X="14" Y="5" Event="ChangeLevel" EventID="TestHouseDoor2" Tile="GenericHouseDoor" />
+    <Cell X="14" Y="5" Event="TestHouseDoor2" Tile="GenericHouseDoor" />
     <Cell X="14" Y="6" Tile="PathLURD" />
     <Cell X="14" Y="7" Tile="PathUD" />
     <Cell X="14" Y="8" Tile="PathUD" />
@@ -221,7 +221,7 @@
     <Cell X="19" Y="3" Tile="WaterCornerNW" />
     <Cell X="19" Y="4" Tile="WaterCornerW" />
     <Cell X="19" Y="5" Tile="BridgeLeftTop" />
-    <Cell X="19" Y="6" Tile="BridgeLeft" />
+    <Cell X="19" Y="6" Event="BridgeBattle" Tile="BridgeLeft" />
     <Cell X="19" Y="7" Tile="BridgeLeftBottom" />
     <Cell X="19" Y="8" Tile="WaterCornerSW" />
     <Cell X="19" Y="9" Tile="PathLR" />

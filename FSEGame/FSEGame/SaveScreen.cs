@@ -116,24 +116,36 @@ namespace FSEGame
         }
         #endregion
 
+        #region PropagateButtons
+        /// <summary>
+        /// Propagates the buttons.
+        /// </summary>
         private void PropagateButtons()
         {
-            if (this.DoesSaveFilExist(1))
+            if (this.DoesSaveFileExist(1))
                 this.slot1.Text = "Game 1";
-            if (this.DoesSaveFilExist(2))
+            if (this.DoesSaveFileExist(2))
                 this.slot2.Text = "Game 2";
-            if (this.DoesSaveFilExist(3))
+            if (this.DoesSaveFileExist(3))
                 this.slot3.Text = "Game 3";
-            if (this.DoesSaveFilExist(4))
+            if (this.DoesSaveFileExist(4))
                 this.slot4.Text = "Game 4";
         }
+        #endregion
 
-        private Boolean DoesSaveFilExist(Byte id)
+        #region DoesSaveFileExist
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        private Boolean DoesSaveFileExist(Byte id)
         {
             return File.Exists(Path.Combine(
                 FSEGame.Singleton.SavesFolder,
                 String.Format("Slot{0}.sav", id)));
         }
+        #endregion
 
         public override void Update(GameTime gameTime)
         {

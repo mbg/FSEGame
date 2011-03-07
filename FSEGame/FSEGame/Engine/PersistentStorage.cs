@@ -17,7 +17,8 @@ using System.IO;
 namespace FSEGame.Engine
 {
     /// <summary>
-    /// 
+    /// Represents a place where variables may be stored in such a way that they
+    /// are saved when the game is saved and restored when a game state is loaded.
     /// </summary>
     public sealed class PersistentStorage : Dictionary<String, PersistentStorageItem>
     {
@@ -37,6 +38,12 @@ namespace FSEGame.Engine
         }
         #endregion
 
+        #region Save
+        /// <summary>
+        /// Saves the items which are currently stored in the persistent
+        /// storage to the specified binary writer.
+        /// </summary>
+        /// <param name="bw"></param>
         public void Save(BinaryWriter bw)
         {
             bw.Write(this.Count);
@@ -58,7 +65,15 @@ namespace FSEGame.Engine
                 }
             }
         }
+        #endregion
 
+        #region Load
+        /// <summary>
+        /// Loads persistent storage items from the specified binary reader.
+        /// Items that are currently stored are being removed from the
+        /// persistent storage.
+        /// </summary>
+        /// <param name="br"></param>
         public void Load(BinaryReader br)
         {
             this.Clear();
@@ -83,6 +98,7 @@ namespace FSEGame.Engine
                 this.Add(key, item);
             }
         }
+        #endregion
     }
 }
 

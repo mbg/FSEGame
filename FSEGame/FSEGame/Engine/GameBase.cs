@@ -24,6 +24,7 @@ using System.IO;
 using LuaInterface;
 using FSEGame.Engine.UI;
 using FSEGame.Engine.Effects;
+using System.Reflection;
 #endregion
 
 namespace FSEGame.Engine
@@ -241,7 +242,7 @@ namespace FSEGame.Engine
             this.persistentStorage = new PersistentStorage();
 
             this.luaState = new Lua();
-            this.luaState.RegisterFunction("LoadLevel", this, this.GetType().GetMethod("LoadLevel", new Type[] { typeof(String), typeof(String) }));
+            this.RegisterClass(this);
 
             this.graphics = new GraphicsDeviceManager(this);
             this.graphics.PreparingDeviceSettings += 
@@ -318,8 +319,8 @@ namespace FSEGame.Engine
             PresentationParameters pp = this.GraphicsDevice.PresentationParameters;
             this.renderTarget = new RenderTarget2D(this.GraphicsDevice, pp.BackBufferWidth, pp.BackBufferHeight);
 
-            this.rt1 = new RenderTarget2D(this.GraphicsDevice, 400, 300, false, pp.BackBufferFormat, DepthFormat.None);
-            this.rt2 = new RenderTarget2D(this.GraphicsDevice, 400, 600, false, pp.BackBufferFormat, DepthFormat.None);
+            this.rt1 = new RenderTarget2D(this.GraphicsDevice, 200, 150, false, pp.BackBufferFormat, DepthFormat.None); // 400, 300
+            this.rt2 = new RenderTarget2D(this.GraphicsDevice, 200, 150, false, pp.BackBufferFormat, DepthFormat.None); // 400, 600
 
             this.blurEffect.ComputeOffsets(400, 300);
         }
@@ -445,11 +446,33 @@ namespace FSEGame.Engine
         /// </summary>
         /// <param name="name"></param>
         /// <param name="entryPoint"></param>
+        [ScriptFunction("LoadLevel")]
         public virtual void LoadLevel(String name, String entryPoint)
         {
             this.LoadLevel(name);
         }
         #endregion
+
+        public void RegisterClass(Object obj)
+        {
+            foreach (MethodBase method in obj.GetType().GetMethods())
+            {
+                foreach (Attribute attribute in method.GetCustomAttributes(true))
+                {
+                    if (attribute.GetType() == typeof(ScriptFunctionAttribute))
+                    {
+                        ScriptFunctionAttribute scriptFunctionAttribute =
+                            (ScriptFunctionAttribute)attribute;
+
+                        this.luaState.RegisterFunction(
+                            scriptFunctionAttribute.Name,
+                            obj,
+                            method);
+
+                    }
+                }
+            }
+        }
     }
 }
 

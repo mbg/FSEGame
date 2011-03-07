@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Level Name="House1" Tileset="Tilesets\Indoor.xml" SizeX="7" SizeY="7">
+<Level Name="House1" Tileset="Tilesets\Indoor.xml" Script="Scripts\House1.lua" SizeX="7" SizeY="7">
   <EntryPoints>
     <EntryPoint Name="Default" X="3" Y="5" />
   </EntryPoints>
@@ -34,7 +34,7 @@
     <Cell X="3" Y="3" Tile="WoodFloor1" />
     <Cell X="3" Y="4" Tile="WoodFloor1" />
     <Cell X="3" Y="5" Tile="WoodFloor1" />
-    <Cell X="3" Y="6" Event="ChangeLevel" EventID="House1Exit" Tile="WoodFloor1" />
+    <Cell X="3" Y="6" Event="House1Exit" Tile="WoodFloor1" />
 
     <Cell X="4" Y="0" Tile="WoodDoorTopRight" />
     <Cell X="4" Y="1" Tile="WoodFloor1" />

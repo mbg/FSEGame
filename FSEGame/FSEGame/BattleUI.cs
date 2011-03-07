@@ -10,19 +10,34 @@
 
 #region References
 using System;
+using FSEGame.Engine.UI;
+using FSEGame.Engine;
 #endregion
 
-namespace FSEGame.Engine
+namespace FSEGame
 {
     /// <summary>
     /// 
     /// </summary>
-    public struct LevelCell
+    public sealed class BattleUI : MenuScreen
     {
-        public Tile Tile;
-        public UInt32 X;
-        public UInt32 Y;
-        public String EventID;
+        #region Instance Members
+        private StaticText opponentName;
+        #endregion
+
+        #region Properties
+        #endregion
+
+        #region Constructor
+        /// <summary>
+        /// Initialises a new instance of this class.
+        /// </summary>
+        public BattleUI()
+            : base("BattleUI")
+        {
+            this.opponentName = new StaticText(FSEGame.Singleton.DefaultFont);
+        }
+        #endregion
     }
 }
 
