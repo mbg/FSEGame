@@ -66,7 +66,6 @@ namespace FSEGame.Engine
 
         private Level currentLevel = null;
         private Tileset tileset;
-        private FadeScreen fadeScreen;
         private List<IUIElement> uiElements;
         private FPSCounter fpsCounter;
         private Vector2 offset;
@@ -241,9 +240,11 @@ namespace FSEGame.Engine
 
             this.persistentStorage = new PersistentStorage();
 
+            // :: Initialise Lua and register the Engine's functions.
             this.luaState = new Lua();
             this.RegisterClass(this);
 
+            // :: Initialise the graphics device manager and register some events.
             this.graphics = new GraphicsDeviceManager(this);
             this.graphics.PreparingDeviceSettings += 
                 new EventHandler<PreparingDeviceSettingsEventArgs>(PrepareGraphicsSettings);
@@ -313,9 +314,6 @@ namespace FSEGame.Engine
 
             this.defaultFont = this.Content.Load<SpriteFont>("Arial");
 
-            this.fadeScreen = new FadeScreen();
-            this.fadeScreen.FadeOut(1.0d);
-
             PresentationParameters pp = this.GraphicsDevice.PresentationParameters;
             this.renderTarget = new RenderTarget2D(this.GraphicsDevice, pp.BackBufferWidth, pp.BackBufferHeight);
 
@@ -346,8 +344,6 @@ namespace FSEGame.Engine
         protected override void Update(GameTime gameTime)
         {
             this.fpsCounter.Update(gameTime);
-
-            this.fadeScreen.Update(gameTime);
 
             if(this.tileset != null)
                 this.tileset.Update(gameTime);

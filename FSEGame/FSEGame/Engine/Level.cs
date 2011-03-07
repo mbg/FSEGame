@@ -185,6 +185,7 @@ namespace FSEGame.Engine
                 return;
 
             this.levelFilename = String.Empty;
+            this.name = String.Empty;
             this.levelScript = null;
 
             this.width = 0;

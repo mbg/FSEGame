@@ -114,6 +114,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actors\GenericNPC.cs" />
+    <Compile Include="BattleSystem\Battle.cs" />
+    <Compile Include="BattleSystem\BattleManager.cs" />
+    <Compile Include="BattleSystem\CharacterAttributes.cs" />
+    <Compile Include="BattleSystem\IMove.cs" />
+    <Compile Include="BattleSystem\Moves\BridgeGuard.cs" />
+    <Compile Include="BattleSystem\Moves\BasicAttack.cs" />
+    <Compile Include="BattleSystem\Opponent.cs" />
     <Compile Include="BattleUI.cs" />
     <Compile Include="CharacterController.cs" />
     <Compile Include="Engine\Actor.cs" />

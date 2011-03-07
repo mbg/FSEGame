@@ -18,6 +18,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using FSEGame.Engine.Effects;
 using FSEGame.Engine.UI;
+using FSEGame.BattleSystem;
 #endregion
 
 namespace FSEGame
@@ -37,8 +38,10 @@ namespace FSEGame
         private IngameMenu ingameMenu;
         private SaveScreen saveScreen;
         private BattleUI battleUI;
+        private FadeScreen fadeScreen;
         private CharacterController character;
         private Camera camera = null;
+        private BattleManager battleManager;
         private StaticText debugText;
         private String savesFolder = null;
         private KeyboardState currentKeyboardState;
@@ -126,10 +129,16 @@ namespace FSEGame
             if (!Directory.Exists(this.savesFolder))
                 Directory.CreateDirectory(this.savesFolder);
 
+            this.battleManager = new BattleManager();
+
             this.RegisterClass(this);
         }
         #endregion
 
+        #region Initialise
+        /// <summary>
+        /// Initialises the game.
+        /// </summary>
         protected override void Initialize()
         {
             base.Initialize();
@@ -144,23 +153,35 @@ namespace FSEGame
             this.DialogueManager.OnStart += this.dialogueStartDelegate;
             this.DialogueManager.OnEnd += this.dialogueEndDelegate;
         }
+        #endregion
 
-        void Draw(SpriteBatch batch)
+        #region Draw
+        /// <summary>
+        /// Draws additional sprites after the level tiles and entities have been
+        /// drawn to the frame buffer, but before the UI elements are drawn.
+        /// </summary>
+        /// <param name="batch"></param>
+        private void Draw(SpriteBatch batch)
         {
             if(this.state != GameState.Intro)
                 this.character.Draw(batch);
         }
+        #endregion
 
-        void DialogueStart(DialogueManager sender)
+        private void DialogueStart(DialogueManager sender)
         {
             this.state = GameState.Cutscene;
         }
         
-        void DialogueEnd(DialogueManager sender)
+        private void DialogueEnd(DialogueManager sender)
         {
             this.state = GameState.Exploring;
         }
 
+        #region LoadContent
+        /// <summary>
+        /// Loads content for the game.
+        /// </summary>
         protected override void LoadContent()
         {
             base.LoadContent();
@@ -170,17 +191,20 @@ namespace FSEGame
             this.ingameMenu = new IngameMenu();
             this.saveScreen = new SaveScreen();
             this.battleUI = new BattleUI();
+            this.fadeScreen = new FadeScreen();
 
             this.loadScreen.Visible = false;
             this.ingameMenu.Visible = false;
             this.saveScreen.Visible = false;
             this.battleUI.Visible = false;
+            this.fadeScreen.Visible = false;
 
             this.UIElements.Add(this.mainMenu);
             this.UIElements.Add(this.loadScreen);
             this.UIElements.Add(this.ingameMenu);
             this.UIElements.Add(this.saveScreen);
             this.UIElements.Add(this.battleUI);
+            this.UIElements.Add(this.fadeScreen);
 
             this.character = new CharacterController();
 
@@ -192,6 +216,7 @@ namespace FSEGame
 
             this.UIElements.Add(debugText);
         }
+        #endregion
 
         #region Update
         /// <summary>
@@ -419,7 +444,23 @@ namespace FSEGame
         [ScriptFunction("BeginBattle")]
         public void BeginBattle(String configuration)
         {
-            this.battleUI.Show();
+            this.state = GameState.Battle;
+
+            FadeScreenEventDelegate fadeEndEvent = null;
+            fadeEndEvent = new FadeScreenEventDelegate(delegate
+            {
+                this.fadeScreen.Finished -= fadeEndEvent;
+                this.fadeScreen.Enabled = false;
+                this.fadeScreen.Visible = false;
+
+                this.battleManager.Load(configuration);
+                this.battleUI.Show();
+            });
+
+            this.fadeScreen.Visible = true;
+            this.fadeScreen.Enabled = true;
+            this.fadeScreen.Finished += fadeEndEvent;
+            this.fadeScreen.FadeIn(1.0d);
         }
         #endregion
     }

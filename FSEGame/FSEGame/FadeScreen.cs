@@ -13,22 +13,28 @@ using System;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using FSEGame.Engine;
+using FSEGame.Engine.UI;
 #endregion
 
 namespace FSEGame
 {
+    public delegate void FadeScreenEventDelegate();
+
     /// <summary>
     /// 
     /// </summary>
-    public class FadeScreen
+    public class FadeScreen : UIElement
     {
         #region Instance Members
         private Texture2D texture;
-        private Int32 opacity = 0;
+        private float opacity = 0.0f;
         private Boolean fadingIn = false;
         private Boolean fadingOut = false;
         private Double timeRemaining = 0.0d;
+        private Boolean enabled = false;
         #endregion
+
+        private event FadeScreenEventDelegate onFinished = null;
 
         #region Properties
         public Boolean IsFadingIn
@@ -45,7 +51,33 @@ namespace FSEGame
                 return this.fadingOut;
             }
         }
+        /// <summary>
+        /// Gets or sets whether the FadeScreen is enabled.
+        /// </summary>
+        public Boolean Enabled
+        {
+            get
+            {
+                return this.enabled;
+            }
+            set
+            {
+                this.enabled = value;
+            }
+        }
         #endregion
+
+        public event FadeScreenEventDelegate Finished
+        {
+            add
+            {
+                this.onFinished += value;
+            }
+            remove
+            {
+                this.onFinished -= value;
+            }
+        }
 
         #region Constructor
         /// <summary>
@@ -62,26 +94,26 @@ namespace FSEGame
         /// 
         /// </summary>
         /// <param name="time"></param>
-        public void Update(GameTime time)
+        public override void Update(GameTime time)
         {
-            Double factor = 0.0d;
+            if (!this.enabled)
+                return;
 
             if (this.fadingIn)
             {
-                this.timeRemaining -= time.ElapsedGameTime.TotalSeconds;
-            }
-            else if (this.fadingOut)
-            {
-                factor = (this.opacity / 100) * this.timeRemaining;
-                this.timeRemaining -= time.ElapsedGameTime.TotalSeconds;
+                float change = (float)time.ElapsedGameTime.TotalSeconds;
 
-                this.opacity -= (Int32)Math.Ceiling(Math.Ceiling(factor) * time.ElapsedGameTime.TotalSeconds);
-
-                // ::
-                if (this.opacity <= 0 || this.timeRemaining <= 0.0d)
+                if (this.opacity + change > 1.0f)
                 {
-                    this.opacity = 0;
-                    this.fadingOut = false;
+                    this.opacity = 1.0f;
+                    this.fadingIn = false;
+
+                    if (this.onFinished != null)
+                        this.onFinished();
+                }
+                else
+                {
+                    this.opacity += change;
                 }
             }
         }
@@ -92,12 +124,15 @@ namespace FSEGame
         /// Draws the fade screen.
         /// </summary>
         /// <param name="batch"></param>
-        public void Draw(SpriteBatch batch)
+        public override void Draw(SpriteBatch batch)
         {
+            if (!this.Visible)
+                return;
+
             batch.Draw(
                 this.texture,
                 new Rectangle(0, 0, 800, 600),
-                new Color(255, 255, 255, this.opacity));
+                new Color(1.0f, 1.0f, 1.0f, this.opacity));
         }
         #endregion
 

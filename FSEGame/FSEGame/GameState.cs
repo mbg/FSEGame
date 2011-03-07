@@ -16,16 +16,16 @@ using System;
 namespace FSEGame
 {
     /// <summary>
-    /// 
+    /// Enumerates game states.
     /// </summary>
     public enum GameState
     {
         Menu,
         Intro,
         Cutscene,
-        Fading,
         LevelTransition,
-        Exploring
+        Exploring,
+        Battle
     }
 }
 
