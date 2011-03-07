@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Battle>
+  <Opponent Name="Bridge Guardian" IsBoss="True">
+    <Attributes>
+      <Attribute Type="Health">50</Attribute>
+      <Attribute Type="Strength">10</Attribute>
+      <Attribute Type="Defence">1</Attribute>
+      <Attribute Type="Magic">20</Attribute>
+    </Attributes>
+    <Moves>
+      <Move Type="BasicAttack" /> <!-- Basic attack which deals Origin.Strength - Target.Defence (but at least 1) damage -->
+      <Move Type="BridgeGuard" /> <!-- Increases Origin.Strength by 1 (up to Origin.Base.Strength + 5) -->
+    </Moves>
+  </Opponent>
+</Battle>
