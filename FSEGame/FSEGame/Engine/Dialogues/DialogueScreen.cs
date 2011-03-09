@@ -281,7 +281,7 @@ namespace FSEGame.Engine.Dialogues
                 this.visibleText, 
                 new Vector2(
                     20, 
-                    GameBase.Singleton.GraphicsDevice.Viewport.Height - 95), 
+                    GameBase.Singleton.GraphicsDevice.Viewport.Height - 103), 
                 Color.Black, 
                 0.0f, 
                 Vector2.Zero, 

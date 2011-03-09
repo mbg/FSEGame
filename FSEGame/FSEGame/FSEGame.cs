@@ -462,6 +462,8 @@ namespace FSEGame
             FadeScreenEventDelegate fadeEndEvent = null;
             fadeEndEvent = new FadeScreenEventDelegate(delegate
             {
+                this.LoadLevel(@"Levels\Battle\Bridge.xml", "Default", false);
+
                 this.fadeScreen.Finished -= fadeEndEvent;
                 this.fadeScreen.Enabled = false;
                 this.fadeScreen.Visible = false;

@@ -297,7 +297,7 @@ namespace FSEGame.Engine
         /// <param name="e">The device settings.</param>
         private void PrepareGraphicsSettings(object sender, PreparingDeviceSettingsEventArgs e)
         {
-            foreach (DisplayMode displayMode in GraphicsAdapter.DefaultAdapter.SupportedDisplayModes)
+            /*foreach (DisplayMode displayMode in GraphicsAdapter.DefaultAdapter.SupportedDisplayModes)
             {
                 if (displayMode.Width == 800 && displayMode.Height == 600)
                 {
@@ -308,9 +308,10 @@ namespace FSEGame.Engine
                     e.GraphicsDeviceInformation.PresentationParameters.
                         BackBufferWidth = displayMode.Width;
                 }
-            }
+            }*/
 
-            
+            e.GraphicsDeviceInformation.PresentationParameters.BackBufferWidth = 800;
+            e.GraphicsDeviceInformation.PresentationParameters.BackBufferHeight = 600;
         }
         #endregion
 
