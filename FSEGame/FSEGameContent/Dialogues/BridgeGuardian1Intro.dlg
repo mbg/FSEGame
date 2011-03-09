@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<Dialogue ID="root">
+  <Speech ID="speech#1" TextVar="string#1" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="279" Top="84">
+    <Speech ID="speech#2" TextVar="string#2" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="505" Top="83">
+      <Speech ID="speech#3" TextVar="string#3" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="728" Top="82" />
+    </Speech>
+  </Speech>
+  <Orphans />
+  <Variables>
+    <StringVar Name="string#1" Export="False" Left="381" Top="383">A Bridge Guardian blocks the way ahead.</StringVar>
+    <StringVar Name="string#2" Export="False" Left="485" Top="384">Bridge Guardian: No one crosses this bridge.</StringVar>
+    <StringVar Name="string#3" Export="False" Left="588" Top="386">Bridge Guardian: I will send you back where you belong, boy.</StringVar>
+  </Variables>
+</Dialogue>
