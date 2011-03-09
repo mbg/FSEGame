@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Tileset Name="Guardian" Resource="Tilesets\Guardian">
+  <Tile ID="0" Passable="False">Guardian</Tile>
+</Tileset>
