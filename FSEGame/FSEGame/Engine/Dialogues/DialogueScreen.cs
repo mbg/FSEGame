@@ -21,7 +21,7 @@ using FSEGame.Engine.UI;
 namespace FSEGame.Engine.Dialogues
 {
     /// <summary>
-    /// 
+    /// Represents the main UI component for the dialogue engine.
     /// </summary>
     public class DialogueScreen : IUIElement
     {
@@ -30,6 +30,10 @@ namespace FSEGame.Engine.Dialogues
         /// The background texture for the UI screen.
         /// </summary>
         private Texture2D texture = null;
+        /// <summary>
+        /// The alternate texture for the UI screen.
+        /// </summary>
+        private Texture2D alternateTexture = null;
         /// <summary>
         /// Indicates whether the screen should be rendered or not.
         /// </summary>
@@ -68,7 +72,7 @@ namespace FSEGame.Engine.Dialogues
         /// The text display speed.
         /// </summary>
 #if DISPLAY_BY_CHARACTER
-        private const float DISPLAY_SPEED = 0.1f;
+        private const float DISPLAY_SPEED = 0.05f;
 #else
         private const float DISPLAY_SPEED = 0.2f;
 #endif
@@ -127,6 +131,16 @@ namespace FSEGame.Engine.Dialogues
 
                 this.DisplayNextWord();
 #endif
+            }
+        }
+        /// <summary>
+        /// Gets or sets the layer of the dialogue screen.
+        /// </summary>
+        public UInt32 Layer
+        {
+            get
+            {
+                return 100;
             }
         }
         #endregion
@@ -243,14 +257,17 @@ namespace FSEGame.Engine.Dialogues
             if (!this.visible)
                 return;
 
+            // :: Load textures if they have not yet been loaded.
             if(this.texture == null)
                 this.texture = GameBase.Singleton.Content.Load<Texture2D>("SpeechBox");
+            if (this.alternateTexture == null)
+                this.alternateTexture = GameBase.Singleton.Content.Load<Texture2D>("SpeechBoxFinished");
 
             batch.Draw(
-                this.texture, 
+                this.finished ? this.alternateTexture : this.texture, 
                 new Vector2(
                     GameBase.Singleton.GraphicsDevice.Viewport.Width / 2 - 400, 
-                    GameBase.Singleton.GraphicsDevice.Viewport.Height - 100), 
+                    GameBase.Singleton.GraphicsDevice.Viewport.Height - 108), 
                 null, 
                 Color.White, 
                 0.0f, 

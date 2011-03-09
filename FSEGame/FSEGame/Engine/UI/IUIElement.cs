@@ -22,6 +22,10 @@ namespace FSEGame.Engine.UI
     public interface IUIElement
     {
         #region Properties
+        UInt32 Layer
+        {
+            get;
+        }
         #endregion
 
         #region Methods

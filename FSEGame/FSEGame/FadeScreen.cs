@@ -103,7 +103,7 @@ namespace FSEGame
             {
                 float change = (float)time.ElapsedGameTime.TotalSeconds;
 
-                if (this.opacity + change > 1.0f)
+                if (this.opacity + change >= 1.0f)
                 {
                     this.opacity = 1.0f;
                     this.fadingIn = false;
@@ -114,6 +114,23 @@ namespace FSEGame
                 else
                 {
                     this.opacity += change;
+                }
+            }
+            else if (this.fadingOut)
+            {
+                float change = (float)time.ElapsedGameTime.TotalSeconds;
+
+                if (this.opacity - change <= 0.0f)
+                {
+                    this.opacity = 0.0f;
+                    this.fadingOut = false;
+
+                    if (this.onFinished != null)
+                        this.onFinished();
+                }
+                else
+                {
+                    this.opacity -= change;
                 }
             }
         }
@@ -138,14 +155,14 @@ namespace FSEGame
 
         public void FadeIn(Double time)
         {
-            this.opacity = 0;
+            this.opacity = 0.0f;
             this.fadingIn = true;
             this.timeRemaining = time;
         }
 
         public void FadeOut(Double time)
         {
-            this.opacity = 255;
+            this.opacity = 1.0f;
             this.fadingOut = true;
             this.timeRemaining = time;
         }

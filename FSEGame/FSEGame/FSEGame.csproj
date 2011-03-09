@@ -142,6 +142,8 @@
     <Compile Include="Engine\PersistentStorageItem.cs" />
     <Compile Include="Engine\PersistentStorageItemType.cs" />
     <Compile Include="Engine\ScriptFunctionAttribute.cs" />
+    <Compile Include="Engine\UI\UIElementCollection.cs" />
+    <Compile Include="Engine\UI\UIProgressBar.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="Engine\GridHelper.cs" />
     <Compile Include="Engine\UI\IUIElement.cs" />

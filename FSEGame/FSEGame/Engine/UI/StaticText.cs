@@ -29,6 +29,7 @@ namespace FSEGame.Engine.UI
         private Color textColour;
         private Boolean shadow = true;
         private Boolean visible = true;
+        private UInt32 layer = 50;
         #endregion
 
         #region Properties
@@ -89,6 +90,18 @@ namespace FSEGame.Engine.UI
             set
             {
                 this.visible = value;
+            }
+        }
+
+        public UInt32 Layer
+        {
+            get
+            {
+                return this.layer;
+            }
+            set
+            {
+                this.layer = value;
             }
         }
         #endregion

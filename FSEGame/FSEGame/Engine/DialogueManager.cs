@@ -15,6 +15,7 @@ using System.Xml;
 using FSEGame.Engine.Dialogues;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 #endregion
 
 namespace FSEGame.Engine
@@ -30,7 +31,6 @@ namespace FSEGame.Engine
         private Dialogue currentDialogue;
         private DialogueNode currentNode;
         private DialogueScreen screen;
-        private float elapsedTime = 0.0f;
         private Boolean isPlaying = false;
         #endregion
 
@@ -187,7 +187,6 @@ namespace FSEGame.Engine
                 this.onStart(this);
 
             this.isPlaying = true;
-            this.elapsedTime = 0.0f;
             this.currentNode = this.currentDialogue.GetFirstChild();
 
             this.screen.Visible = true;
@@ -232,10 +231,8 @@ namespace FSEGame.Engine
             if (!this.isPlaying)
                 return;
 
-            if(this.screen.Finished)
-                this.elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            if (this.elapsedTime >= 2.0f)
+            if (this.screen.Finished && 
+                (GameBase.Singleton.IsKeyPressed(Keys.Space) || GameBase.Singleton.IsKeyPressed(Keys.Enter)))
             {
                 DialogueNode nextNode = this.currentNode.GetFirstChild();
 
@@ -250,7 +247,6 @@ namespace FSEGame.Engine
                 else
                 {
                     this.currentNode = nextNode;
-                    this.elapsedTime = 0.0f;
 
                     this.screen.Text = this.ResolveStringVariable((this.currentNode as DialogueSpeechNode).StringVariable);
                 }
@@ -263,6 +259,15 @@ namespace FSEGame.Engine
         {
         }
         #endregion
+
+        public void ShowSingleMessage(String message, float time)
+        {
+            if (this.isPlaying)
+                return;
+
+            this.screen.Text = message;
+            this.screen.Visible = true;
+        }
     }
 }
 

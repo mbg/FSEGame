@@ -44,8 +44,6 @@ namespace FSEGame
         private BattleManager battleManager;
         private StaticText debugText;
         private String savesFolder = null;
-        private KeyboardState currentKeyboardState;
-        private KeyboardState lastKeyboardState;
         private DialogueEventDelegate dialogueStartDelegate;
         private DialogueEventDelegate dialogueEndDelegate;
 
@@ -98,21 +96,7 @@ namespace FSEGame
             }
         }
 
-        public KeyboardState CurrentKeyboardState
-        {
-            get
-            {
-                return this.currentKeyboardState;
-            }
-        }
-
-        public KeyboardState LastKeyboardState
-        {
-            get
-            {
-                return this.lastKeyboardState;
-            }
-        }
+        
 
         #region Constructor
         /// <summary>
@@ -146,6 +130,7 @@ namespace FSEGame
             this.state = GameState.Menu;
 
             this.OnDraw += new GameDrawDelegate(Draw);
+            this.OnUpdate += new GameUpdateDelegate(Update);
 
             this.dialogueStartDelegate = new DialogueEventDelegate(DialogueStart);
             this.dialogueEndDelegate = new DialogueEventDelegate(DialogueEnd);
@@ -198,7 +183,7 @@ namespace FSEGame
             this.saveScreen.Visible = false;
             this.battleUI.Visible = false;
             this.fadeScreen.Visible = false;
-
+            
             this.UIElements.Add(this.mainMenu);
             this.UIElements.Add(this.loadScreen);
             this.UIElements.Add(this.ingameMenu);
@@ -223,9 +208,8 @@ namespace FSEGame
         /// 
         /// </summary>
         /// <param name="gameTime"></param>
-        protected override void Update(GameTime gameTime)
+        private new void Update(GameTime gameTime)
         {
-            this.currentKeyboardState = Keyboard.GetState();
 
             if (this.IsKeyPressed(Keys.Escape) && this.state == GameState.Exploring &&
                 !this.character.Moving)
@@ -243,8 +227,6 @@ namespace FSEGame
             }
 #endif
 
-            base.Update(gameTime);
-
             if(this.camera != null && this.CurrentTileset != null)
                 this.camera.Update(this.GraphicsDevice.Viewport);
 
@@ -255,7 +237,7 @@ namespace FSEGame
                     this.character.CellPosition.X, this.character.CellPosition.Y,
                     this.CurrentLevel.Name, (this.CurrentTileset == null) ? "" : this.CurrentTileset.Name, this.FPSCounter.FPS);
 
-            this.lastKeyboardState = this.currentKeyboardState;
+            
         }
         #endregion
 
@@ -267,16 +249,52 @@ namespace FSEGame
         /// <param name="entryPoint"></param>
         public override void LoadLevel(string name, string entryPoint)
         {
-            this.character.Enabled = false;
-            this.character.Visible = false;
+            this.LoadLevel(name, entryPoint, true);
+        }
 
-            base.LoadLevel(name, entryPoint);
+        public void LoadLevel(String name, String entryPoint, Boolean fade)
+        {
+            if (fade)
+            {
+                this.character.Enabled = false;
 
-            LevelEntryPoint ep = this.CurrentLevel.GetEntryPoint(entryPoint);
-            this.character.CellPosition = new Vector2(ep.X, ep.Y);
+                FadeScreenEventDelegate cleanupDelegate = null;
+                cleanupDelegate = new FadeScreenEventDelegate(delegate
+                {
+                    this.fadeScreen.Visible = false;
+                    this.fadeScreen.Enabled = false;
+                    this.fadeScreen.Finished -= cleanupDelegate;
 
-            this.character.Enabled = true;
-            this.character.Visible = true;
+                    this.character.Enabled = true;
+                });
+
+                FadeScreenEventDelegate loadDelegate = null;
+                loadDelegate = new FadeScreenEventDelegate(delegate
+                {
+                    base.LoadLevel(name, entryPoint);
+
+                    LevelEntryPoint ep = this.CurrentLevel.GetEntryPoint(entryPoint);
+                    this.character.CellPosition = new Vector2(ep.X, ep.Y);
+
+                    this.fadeScreen.Finished -= loadDelegate;
+                    this.fadeScreen.Finished += cleanupDelegate;
+                    this.fadeScreen.FadeOut(1.0d);
+                });
+
+                this.fadeScreen.Enabled = true;
+                this.fadeScreen.Visible = true;
+                this.fadeScreen.Finished += loadDelegate;
+                this.fadeScreen.FadeIn(1.0d);
+            }
+            else
+            {
+                base.LoadLevel(name, entryPoint);
+
+                LevelEntryPoint ep = this.CurrentLevel.GetEntryPoint(entryPoint);
+                this.character.CellPosition = new Vector2(ep.X, ep.Y);
+
+                this.character.Enabled = true;
+            }
         }
         #endregion
 
@@ -342,20 +360,33 @@ namespace FSEGame
             DialogueEventDelegate introEndDelegate = null;
 
             introEndDelegate = new DialogueEventDelegate(delegate
-             {
-                 this.DialogueManager.OnEnd -= introEndDelegate;
-                 this.DialogueManager.OnStart += this.dialogueStartDelegate;
-                 this.DialogueManager.OnEnd += this.dialogueEndDelegate;
+            {
+                this.DialogueManager.OnEnd -= introEndDelegate;
+                this.DialogueManager.OnStart += this.dialogueStartDelegate;
+                this.DialogueManager.OnEnd += this.dialogueEndDelegate;
 
-                 this.LoadLevel(@"Levels\Test.xml", "Default");
-                 this.state = GameState.Exploring;
-             });
+                this.LoadLevel(@"Levels\Test.xml", "Default", false);
+
+                FadeScreenEventDelegate fadeEndEvent = null;
+                fadeEndEvent = new FadeScreenEventDelegate(delegate
+                {
+                    this.fadeScreen.Finished -= fadeEndEvent;
+                    this.fadeScreen.Enabled = false;
+                    this.fadeScreen.Visible = false;
+
+                    this.state = GameState.Exploring;
+                });
+
+                this.fadeScreen.Finished += fadeEndEvent;
+                this.fadeScreen.Visible = true;
+                this.fadeScreen.Enabled = true;
+                this.fadeScreen.FadeOut(1.0d);
+            });
 
             this.DialogueManager.OnStart -= this.dialogueStartDelegate;
             this.DialogueManager.OnEnd -= this.dialogueEndDelegate;
             this.DialogueManager.OnEnd += introEndDelegate;
 
-            //this.DialogueManager.PlayDialogue(@"FSEGame\Dialogues\TestDialogue.xml");
             this.DialogueManager.PlayDialogue(@"FSEGame\Dialogues\Intro.xml");
         }
         #endregion
@@ -418,28 +449,10 @@ namespace FSEGame
         }
         #endregion
 
-        #region IsKeyPressed
-        /// <summary>
-        /// Returns a value indicating whether the specified key has been
-        /// pressed and whether it wasn't pressed during the previous frame.
-        /// </summary>
-        /// <param name="key">The key to look up.</param>
-        /// <returns>
-        /// Returns true if the specified key was pressed during the current, 
-        /// but not the previous frame.
-        /// </returns>
-        public Boolean IsKeyPressed(Keys key)
-        {
-            // :: lastKeyboardState contains the state of the keyboard from
-            // :: the previous frame.
-            return this.currentKeyboardState.IsKeyDown(key) &&
-                !this.lastKeyboardState.IsKeyDown(key);
-        }
-        #endregion
-
         #region BeginBattle
         /// <summary>
-        /// 
+        /// Loads battle data from the specified configuration file and then
+        /// initiates a battle using the battle data from the configuration file.
         /// </summary>
         [ScriptFunction("BeginBattle")]
         public void BeginBattle(String configuration)
@@ -455,6 +468,8 @@ namespace FSEGame
 
                 this.battleManager.Load(configuration);
                 this.battleUI.Show();
+
+                this.DialogueManager.ShowSingleMessage("A Bridge Guardian blocks the path ahead.", 1.0f);
             });
 
             this.fadeScreen.Visible = true;

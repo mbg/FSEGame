@@ -31,6 +31,7 @@ namespace FSEGame.Engine
 {
     public delegate void GameEventDelegate(Game sender);
     public delegate void GameDrawDelegate(SpriteBatch batch);
+    public delegate void GameUpdateDelegate(GameTime time);
 
     /// <summary>
     /// This is the main type for the FSE coursework game.
@@ -66,7 +67,7 @@ namespace FSEGame.Engine
 
         private Level currentLevel = null;
         private Tileset tileset;
-        private List<IUIElement> uiElements;
+        private UIElementCollection uiElements;
         private FPSCounter fpsCounter;
         private Vector2 offset;
 
@@ -74,11 +75,15 @@ namespace FSEGame.Engine
         private RenderTarget2D renderTarget;
         private Texture2D frameBuffer;
         private Boolean enableBlur = false;
+
+        private KeyboardState currentKeyboardState;
+        private KeyboardState lastKeyboardState;
         #endregion
 
         #region Events
         private event GameEventDelegate onInitialise = null;
         private event GameDrawDelegate onDraw = null;
+        private event GameUpdateDelegate onUpdate = null;
         #endregion
 
         #region Static Properties
@@ -149,7 +154,7 @@ namespace FSEGame.Engine
         /// <summary>
         /// Gets the list of UI elements.
         /// </summary>
-        public List<IUIElement> UIElements
+        public UIElementCollection UIElements
         {
             get
             {
@@ -196,6 +201,22 @@ namespace FSEGame.Engine
                 this.enableBlur = value;
             }
         }
+
+        public KeyboardState CurrentKeyboardState
+        {
+            get
+            {
+                return this.currentKeyboardState;
+            }
+        }
+
+        public KeyboardState LastKeyboardState
+        {
+            get
+            {
+                return this.lastKeyboardState;
+            }
+        }
         #endregion
 
         #region Event Properties
@@ -225,6 +246,18 @@ namespace FSEGame.Engine
                 this.onDraw -= value;
             }
         }
+
+        public event GameUpdateDelegate OnUpdate
+        {
+            add
+            {
+                this.onUpdate += value;
+            }
+            remove
+            {
+                this.onUpdate -= value;
+            }
+        }
         #endregion
 
         #region Constructor
@@ -235,7 +268,7 @@ namespace FSEGame.Engine
         {
             GameBase.singleton = this;
 
-            this.uiElements = new List<IUIElement>();
+            this.uiElements = new UIElementCollection();
             this.fpsCounter = new FPSCounter();
 
             this.persistentStorage = new PersistentStorage();
@@ -343,6 +376,8 @@ namespace FSEGame.Engine
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            this.currentKeyboardState = Keyboard.GetState();
+
             this.fpsCounter.Update(gameTime);
 
             if(this.tileset != null)
@@ -353,10 +388,15 @@ namespace FSEGame.Engine
 
             base.Update(gameTime);
 
+            if (this.onUpdate != null)
+                this.onUpdate(gameTime);
+
             foreach (IUIElement uiElement in this.uiElements)
             {
                 uiElement.Update(gameTime);
             }
+
+            this.lastKeyboardState = this.currentKeyboardState;
         }
         #endregion
 
@@ -449,8 +489,43 @@ namespace FSEGame.Engine
         }
         #endregion
 
+        #region IsKeyPressed
+        /// <summary>
+        /// Returns a value indicating whether the specified key has been
+        /// pressed and whether it wasn't pressed during the previous frame.
+        /// </summary>
+        /// <param name="key">The key to look up.</param>
+        /// <returns>
+        /// Returns true if the specified key was pressed during the current, 
+        /// but not the previous frame.
+        /// </returns>
+        public Boolean IsKeyPressed(Keys key)
+        {
+            // :: lastKeyboardState contains the state of the keyboard from
+            // :: the previous frame.
+            Boolean pressed = this.currentKeyboardState.IsKeyDown(key) &&
+                !this.lastKeyboardState.IsKeyDown(key);
+
+            return pressed;
+        }
+        #endregion
+
+        #region RegisterClass
+        /// <summary>
+        /// Registers methods which have been marked with the ScriptFunction
+        /// attribute with the Lua state.
+        /// </summary>
+        /// <param name="obj">
+        /// An instance of the type whose methods should be registered with the 
+        /// Lua state. Note that the specified instance will be used to call
+        /// the functions.
+        /// </param>
         public void RegisterClass(Object obj)
         {
+            // :: Iterate through all methods in the type of the specified
+            // :: object, then iterate through all attributes to find the
+            // :: ScriptFunction attribute and register methods where
+            // :: appropriate.
             foreach (MethodBase method in obj.GetType().GetMethods())
             {
                 foreach (Attribute attribute in method.GetCustomAttributes(true))
@@ -469,6 +544,7 @@ namespace FSEGame.Engine
                 }
             }
         }
+        #endregion
     }
 }
 

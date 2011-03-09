@@ -12,6 +12,7 @@
 using System;
 using System.IO;
 using FSEGame.Engine;
+using System.Collections.Generic;
 #endregion
 
 namespace FSEGame.BattleSystem
@@ -26,6 +27,8 @@ namespace FSEGame.BattleSystem
         /// The current battle data.
         /// </summary>
         private Battle currentBattle;
+
+        private Queue<String> messageQueue;
         #endregion
 
         #region Properties
@@ -37,7 +40,7 @@ namespace FSEGame.BattleSystem
         /// </summary>
         public BattleManager()
         {
-
+            this.messageQueue = new Queue<String>();
         }
         #endregion
 

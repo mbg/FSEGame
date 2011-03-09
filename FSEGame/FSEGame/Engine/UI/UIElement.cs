@@ -30,6 +30,10 @@ namespace FSEGame.Engine.UI
         /// A value indicating whether this UI element is visible or not.
         /// </summary>
         private Boolean visible;
+        /// <summary>
+        /// The layer of the UI element.
+        /// </summary>
+        private UInt32 layer = 50;
         #endregion
 
         #region Properties
@@ -60,6 +64,20 @@ namespace FSEGame.Engine.UI
             set
             {
                 this.visible = value;
+            }
+        }
+        /// <summary>
+        /// Gets or sets the layer of this UI element.
+        /// </summary>
+        public UInt32 Layer
+        {
+            get
+            {
+                return this.layer;
+            }
+            set
+            {
+                this.layer = value;
             }
         }
         #endregion

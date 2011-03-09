@@ -72,7 +72,7 @@ namespace FSEGame
         /// <summary>
         /// The time it takes for the character to move by one tile.
         /// </summary>
-        private const double MOVE_DURATION = 0.3d;
+        private const double MOVE_DURATION = 0.3d; // used to be 0.3
 
         private const UInt32 SPRITE_RIGHT = 0;
         private const UInt32 SPRITE_LEFT = 1;

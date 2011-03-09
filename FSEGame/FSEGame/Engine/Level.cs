@@ -24,7 +24,7 @@ namespace FSEGame.Engine
     public delegate Actor CreateActorDelegate(ActorProperties properties);
 
     /// <summary>
-    /// 
+    /// Represents a level.
     /// </summary>
     public class Level
     {
@@ -513,15 +513,21 @@ namespace FSEGame.Engine
         }
         #endregion
 
+        #region TriggerEvent
+        /// <summary>
+        /// Triggers an event in the current level.
+        /// </summary>
+        /// <param name="name">The name of the event to trigger.</param>
         public void TriggerEvent(String name)
         {
-            if (this.levelScript == null)
+            if (this.levelScript == null || !this.levelLoaded)
                 return;
 
             GameBase.Singleton.LuaState["id"] = name;
 
             this.levelScript.Call();
         }
+        #endregion
     }
 }
 
