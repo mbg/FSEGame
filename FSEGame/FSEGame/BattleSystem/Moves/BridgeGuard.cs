@@ -80,6 +80,10 @@ namespace FSEGame.BattleSystem.Moves
             {
                 score = 0;
             }
+            else if (origin.CurrentAttributes.Magic < 10)
+            {
+                score = 0;
+            }
 
             return score;
         }
@@ -93,10 +97,19 @@ namespace FSEGame.BattleSystem.Moves
         /// <param name="target">The target actor of this move.</param>
         public void Perform(Opponent origin, Opponent target)
         {
-            if (origin.CurrentAttributes.Defence + 1 
+            if (origin.CurrentAttributes.Defence + 1
                 <= origin.BaseAttributes.Defence + 5)
             {
                 origin.CurrentAttributes.Defence++;
+                origin.CurrentAttributes.Magic -= 10;
+
+                FSEGame.Singleton.BattleManager.AddToMessageQueue(String.Format(
+                    "{0}'s defence has increased!", origin.Name));
+            }
+            else
+            {
+                FSEGame.Singleton.BattleManager.AddToMessageQueue(String.Format(
+                    "It has no effect."));
             }
         }
         #endregion
@@ -115,6 +128,12 @@ namespace FSEGame.BattleSystem.Moves
                 origin.Name);
         }
         #endregion
+
+        public void PrePerform(Opponent origin, Opponent target)
+        {
+            FSEGame.Singleton.BattleManager.AddToMessageQueue(String.Format(
+                "{0} surrounds the bridge with shadows!", origin.Name));
+        }
     }
 }
 

@@ -30,6 +30,7 @@ namespace FSEGame.Engine.UI
         private Boolean shadow = true;
         private Boolean visible = true;
         private UInt32 layer = 50;
+        private float size = 2.0f;
         #endregion
 
         #region Properties
@@ -104,6 +105,18 @@ namespace FSEGame.Engine.UI
                 this.layer = value;
             }
         }
+
+        public float Size
+        {
+            get
+            {
+                return this.size;
+            }
+            set
+            {
+                this.size = value;
+            }
+        }
         #endregion
 
         #region Constructor
@@ -135,7 +148,7 @@ namespace FSEGame.Engine.UI
                     new Color(0.0f, 0.0f, 0.0f, 1.0f),
                     0.0f,
                     Vector2.Zero,
-                    2.0f,
+                    this.size,
                     SpriteEffects.None,
                     0.0f);
             }
@@ -147,7 +160,7 @@ namespace FSEGame.Engine.UI
                 this.textColour,
                 0.0f,
                 Vector2.Zero,
-                2.0f,
+                this.size,
                 SpriteEffects.None,
                 0.0f);
         }

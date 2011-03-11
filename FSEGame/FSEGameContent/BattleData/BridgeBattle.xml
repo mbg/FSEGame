@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Battle Intro="A Bridge Guardian blocks the way ahead.">
-  <Opponent Name="Bridge Guardian" IsBoss="True">
+<Battle Level="Levels\Battle\Bridge.xml" Position="Default" Intro="FSEGame\Dialogues\BridgeGuardian1Intro.xml">
+  <Opponent Name="Bridge Guardian" IsBoss="True" Tileset="Tilesets\Guardian.xml" Position="Opponent">
     <Attributes>
-      <Attribute Type="Health">50</Attribute>
+      <Attribute Type="Health">150</Attribute>
       <Attribute Type="Strength">10</Attribute>
       <Attribute Type="Defence">1</Attribute>
       <Attribute Type="Magic">20</Attribute>

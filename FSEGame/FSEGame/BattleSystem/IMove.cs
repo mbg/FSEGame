@@ -66,6 +66,8 @@ namespace FSEGame.BattleSystem
         /// <param name="target"></param>
         /// <returns></returns>
         String GetBattleMessage(Opponent origin, Opponent target);
+
+        void PrePerform(Opponent origin, Opponent target);
         #endregion
     }
 }

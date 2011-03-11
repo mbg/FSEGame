@@ -61,6 +61,14 @@ namespace FSEGame.Engine
                 return this.levelFilename;
             }
         }
+
+        public List<Actor> Actors
+        {
+            get
+            {
+                return this.actors;
+            }
+        }
         #endregion
 
         #region Event Properties

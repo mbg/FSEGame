@@ -64,6 +64,7 @@ namespace FSEGame.Engine
         /// The default game font.
         /// </summary>
         private SpriteFont defaultFont;
+        private SpriteFont boldFont;
 
         private Level currentLevel = null;
         private Tileset tileset;
@@ -128,6 +129,14 @@ namespace FSEGame.Engine
             get
             {
                 return this.defaultFont;
+            }
+        }
+
+        public SpriteFont BoldFont
+        {
+            get
+            {
+                return this.boldFont;
             }
         }
         /// <summary>
@@ -347,6 +356,7 @@ namespace FSEGame.Engine
             this.spriteBatch = new SpriteBatch(this.GraphicsDevice);
 
             this.defaultFont = this.Content.Load<SpriteFont>("Arial");
+            this.boldFont = this.Content.Load<SpriteFont>("ArialBold");
 
             PresentationParameters pp = this.GraphicsDevice.PresentationParameters;
             this.renderTarget = new RenderTarget2D(this.GraphicsDevice, pp.BackBufferWidth, pp.BackBufferHeight);

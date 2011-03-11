@@ -79,7 +79,7 @@ namespace FSEGame.BattleSystem.Moves
 
             // :: If this move deals enough damage to kill the opponent,
             // :: then this move is slightly more favorable. 
-            if (this.CalculateDamage(origin, target) 
+            if (this.CalculateBaseDamage(origin, target) 
                 >= target.CurrentAttributes.Health)
             {
                 score += 5;
@@ -97,13 +97,20 @@ namespace FSEGame.BattleSystem.Moves
         /// <param name="target">The target actor of this move.</param>
         public void Perform(Opponent origin, Opponent target)
         {
-            UInt16 damage = this.CalculateDamage(origin, target);
+            Boolean isCrtical = false;
+            UInt16 damage = this.CalculateDamage(origin, target, out isCrtical);
 
             // :: Perform the action by reducing the target's health points.
             if (target.CurrentAttributes.Health - damage < 0)
                 target.CurrentAttributes.Health = 0;
             else
                 target.CurrentAttributes.Health -= damage;
+
+            if (isCrtical)
+            {
+                FSEGame.Singleton.BattleManager.AddToMessageQueue(
+                    "It's a critical hit!");
+            }
         }
         #endregion
 
@@ -122,14 +129,7 @@ namespace FSEGame.BattleSystem.Moves
         }
         #endregion
 
-        #region CalculateDamage
-        /// <summary>
-        /// Calculates the damage.
-        /// </summary>
-        /// <param name="origin"></param>
-        /// <param name="target"></param>
-        /// <returns></returns>
-        private UInt16 CalculateDamage(Opponent origin, Opponent target)
+        private UInt16 CalculateBaseDamage(Opponent origin, Opponent target)
         {
             // :: The base damage inflicted by this move is the performing
             // :: actor's current strength minus the target's defence value.
@@ -142,7 +142,28 @@ namespace FSEGame.BattleSystem.Moves
 
             return (UInt16)damage;
         }
+
+        #region CalculateDamage
+        /// <summary>
+        /// Calculates the damage.
+        /// </summary>
+        /// <param name="origin"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        private UInt16 CalculateDamage(Opponent origin, Opponent target, out Boolean critical)
+        {
+            Random r = new Random();
+            critical = r.Next(10) == 5;
+
+            return (UInt16)(this.CalculateBaseDamage(origin, target) * (critical ? 2 : 1));
+        }
         #endregion
+
+        public void PrePerform(Opponent origin, Opponent target)
+        {
+            FSEGame.Singleton.BattleManager.AddToMessageQueue(String.Format(
+                "{0} hits {1} with a torch!", origin.Name, target.Name));
+        }
     }
 }
 

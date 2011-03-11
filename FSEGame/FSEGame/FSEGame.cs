@@ -19,6 +19,7 @@ using System.IO;
 using FSEGame.Engine.Effects;
 using FSEGame.Engine.UI;
 using FSEGame.BattleSystem;
+using FSEGame.BattleSystem.Moves;
 #endregion
 
 namespace FSEGame
@@ -40,6 +41,7 @@ namespace FSEGame
         private BattleUI battleUI;
         private FadeScreen fadeScreen;
         private CharacterController character;
+        private PlayerCharacter playerCharacter;
         private Camera camera = null;
         private BattleManager battleManager;
         private StaticText debugText;
@@ -80,6 +82,14 @@ namespace FSEGame
             }
         }
 
+        public PlayerCharacter PlayerCharacter
+        {
+            get
+            {
+                return this.playerCharacter;
+            }
+        }
+
         public Camera Camera
         {
             get
@@ -96,7 +106,21 @@ namespace FSEGame
             }
         }
 
-        
+        public BattleUI BattleUI
+        {
+            get
+            {
+                return this.battleUI;
+            }
+        }
+
+        public BattleManager BattleManager
+        {
+            get
+            {
+                return this.battleManager;
+            }
+        }
 
         #region Constructor
         /// <summary>
@@ -355,6 +379,16 @@ namespace FSEGame
             this.CurrentLevel.Unload();
             this.mainMenu.Hide();
 
+            // :: Initialise a new player character.
+            CharacterAttributes playerAttributes = new CharacterAttributes();
+            playerAttributes.Health = 100;
+            playerAttributes.Defence = 2;
+            playerAttributes.Strength = 15;
+            playerAttributes.Magic = 50;
+
+            this.playerCharacter = new PlayerCharacter(playerAttributes);
+            this.playerCharacter.Moves.Add(new BasicAttack());
+
             // :: Temporarily change the dialogue event handlers so that
             // :: they don't change the game state to Exploring / Cutscene.
             DialogueEventDelegate introEndDelegate = null;
@@ -391,6 +425,11 @@ namespace FSEGame
         }
         #endregion
 
+        #region LoadGame
+        /// <summary>
+        /// Loads the game state from the slot with the specified ID.
+        /// </summary>
+        /// <param name="slot">The ID of the save slot to load the game state from.</param>
         public void LoadGame(Byte slot)
         {
             String path = Path.Combine(
@@ -412,8 +451,32 @@ namespace FSEGame
                     br.ReadSingle(), br.ReadSingle());
                 this.character.Orientation = br.ReadSingle();
 
+                // :: Load the player character's attributes.
+                CharacterAttributes baseAttributes = new CharacterAttributes();
+                CharacterAttributes currentAttributes = new CharacterAttributes();
+
+                baseAttributes.LoadFromBinary(br);
+                currentAttributes.LoadFromBinary(br);
+
+                // :: Initialise the player character using the attributes obtained
+                // :: previously.
+                this.playerCharacter = new PlayerCharacter(baseAttributes);
+                this.playerCharacter.CurrentAttributes = currentAttributes;
+
+                // ::
+                Int32 moveCount = br.ReadInt32();
+
+                for (Int32 i = 0; i < moveCount; i++)
+                {
+                    this.playerCharacter.Moves.Add(new BasicAttack());
+                    br.ReadString();
+                }
+
+                // :: Load the persistent storage data. The persistent storage
+                // :: contains quest status information, etc.
                 this.PersistentStorage.Load(br);
 
+                // :: Hide the menues and enable the character controller.
                 this.mainMenu.Hide();
                 this.loadScreen.Hide();
 
@@ -421,6 +484,7 @@ namespace FSEGame
                 this.character.Enabled = true;
             }
         }
+        #endregion
 
         #region SaveGame
         /// <summary>
@@ -444,6 +508,17 @@ namespace FSEGame
                 bw.Write(this.character.CellPosition.Y);
                 bw.Write(this.character.Orientation);
 
+                this.playerCharacter.BaseAttributes.SaveToBinary(bw);
+                this.playerCharacter.CurrentAttributes.SaveToBinary(bw);
+
+                // :: Save the player's moves.
+                bw.Write(this.playerCharacter.Moves.Count);
+
+                foreach (IMove move in this.playerCharacter.Moves)
+                {
+                    bw.Write(move.Name);
+                }
+
                 this.PersistentStorage.Save(bw);
             }
         }
@@ -462,16 +537,15 @@ namespace FSEGame
             FadeScreenEventDelegate fadeEndEvent = null;
             fadeEndEvent = new FadeScreenEventDelegate(delegate
             {
-                this.LoadLevel(@"Levels\Battle\Bridge.xml", "Default", false);
-
                 this.fadeScreen.Finished -= fadeEndEvent;
                 this.fadeScreen.Enabled = false;
                 this.fadeScreen.Visible = false;
 
-                this.battleManager.Load(configuration);
-                this.battleUI.Show();
+                this.DialogueManager.OnStart -= this.dialogueStartDelegate;
+                this.DialogueManager.OnEnd -= this.dialogueEndDelegate;
 
-                this.DialogueManager.ShowSingleMessage("A Bridge Guardian blocks the path ahead.", 1.0f);
+                this.battleManager.Load(configuration);
+                this.battleManager.Start();
             });
 
             this.fadeScreen.Visible = true;

@@ -71,11 +71,17 @@ namespace FSEGame.Engine.UI
         /// <param name="time"></param>
         public override void Update(GameTime time)
         {
-            if (this.maximum == 0.0f)
+            if (this.maximum == 0)
                 return;
 
-            float percentage = this.value / this.maximum;
-            this.visibleWidth = (Int32)Math.Floor(percentage * this.backgroundTexture.Width);
+            if (this.value > this.maximum)
+            {
+                throw new ArgumentOutOfRangeException(
+                    "The current value cannot be greater than the maximum value.");
+            }
+
+            float percentage = (float)this.value / (float)this.maximum;
+            this.visibleWidth = (Int32)Math.Ceiling(percentage * this.backgroundTexture.Width);
         }
         #endregion
 

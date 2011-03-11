@@ -113,6 +113,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actors\OpponentNPC.cs" />
     <Compile Include="Actors\GenericNPC.cs" />
     <Compile Include="BattleSystem\Battle.cs" />
     <Compile Include="BattleSystem\BattleManager.cs" />
@@ -120,7 +121,11 @@
     <Compile Include="BattleSystem\IMove.cs" />
     <Compile Include="BattleSystem\Moves\BridgeGuard.cs" />
     <Compile Include="BattleSystem\Moves\BasicAttack.cs" />
+    <Compile Include="BattleSystem\Moves\MoveHelper.cs" />
     <Compile Include="BattleSystem\Opponent.cs" />
+    <Compile Include="BattleSystem\PlayerCharacter.cs" />
+    <Compile Include="BattleSystem\ScoredMove.cs" />
+    <Compile Include="BattleSystem\ScoredMoveCollection.cs" />
     <Compile Include="BattleUI.cs" />
     <Compile Include="CharacterController.cs" />
     <Compile Include="Engine\Actor.cs" />
@@ -142,7 +147,10 @@
     <Compile Include="Engine\PersistentStorageItem.cs" />
     <Compile Include="Engine\PersistentStorageItemType.cs" />
     <Compile Include="Engine\ScriptFunctionAttribute.cs" />
+    <Compile Include="Engine\UI\StaticImage.cs" />
+    <Compile Include="Engine\UI\UIButtonGrid.cs" />
     <Compile Include="Engine\UI\UIElementCollection.cs" />
+    <Compile Include="Engine\UI\UIGridButton.cs" />
     <Compile Include="Engine\UI\UIProgressBar.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="Engine\GridHelper.cs" />

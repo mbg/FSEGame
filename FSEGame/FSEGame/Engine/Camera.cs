@@ -89,6 +89,21 @@ namespace FSEGame.Engine
             this.attachedToPlayer = false;
         }
         #endregion
+
+        #region LookAtCell
+        /// <summary>
+        /// Causes the camera to look at the specified cell coordinates. The camera
+        /// must be detached from the player.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        public void LookAtCell(Int32 x, Int32 y)
+        {
+            FSEGame.Singleton.Offset =
+                new Vector2((800 / 2) - 32, (600 / 2) - 32)
+                        - GridHelper.GridPositionToAbsolute(new Vector2(x, y));
+        }
+        #endregion
     }
 }
 

@@ -2,6 +2,7 @@
 <Level Name="BridgeBattleGround" Tileset="Tilesets\ShadowWorld.xml" SizeX="15" SizeY="11">
   <EntryPoints>
     <EntryPoint Name="Default" X="6" Y="5" />
+    <EntryPoint Name="Opponent" X="9" Y="5" />
   </EntryPoints>
   <Cells>
     <Cell X="0" Y="0" Tile="Grass" />

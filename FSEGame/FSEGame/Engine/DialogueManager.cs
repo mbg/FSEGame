@@ -260,13 +260,23 @@ namespace FSEGame.Engine
         }
         #endregion
 
-        public void ShowSingleMessage(String message, float time)
+        public void ShowSingleMessage(String message)
         {
             if (this.isPlaying)
                 return;
 
-            this.screen.Text = message;
-            this.screen.Visible = true;
+            this.currentDialogue = new Dialogue();
+
+            DialogueStringVariable textVar = new DialogueStringVariable("singleMessage");
+            textVar.Value = message;
+
+            DialogueSpeechNode speechNode = new DialogueSpeechNode("single");
+            speechNode.StringVariable = "singleMessage";
+
+            this.currentDialogue.Variables.Add("singleMessage", textVar);
+            this.currentDialogue.Nodes.Add(speechNode);
+
+            this.PlayDialogue();
         }
     }
 }
