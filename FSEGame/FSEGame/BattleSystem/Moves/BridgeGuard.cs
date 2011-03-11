@@ -114,21 +114,6 @@ namespace FSEGame.BattleSystem.Moves
         }
         #endregion
 
-        #region GetBattleMessage
-        /// <summary>
-        /// Gets a user-friendly message for the UI.
-        /// </summary>
-        /// <param name="origin"></param>
-        /// <param name="target"></param>
-        /// <returns></returns>
-        public String GetBattleMessage(Opponent origin, Opponent target)
-        {
-            return String.Format(
-                "{0} surrounds the bridge with darkness to increase his defence.",
-                origin.Name);
-        }
-        #endregion
-
         public void PrePerform(Opponent origin, Opponent target)
         {
             FSEGame.Singleton.BattleManager.AddToMessageQueue(String.Format(

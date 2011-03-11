@@ -59,13 +59,6 @@ namespace FSEGame.BattleSystem
         /// <param name="origin">The actor who is performing this move.</param>
         /// <param name="target">The target actor of this move.</param>
         void Perform(Opponent origin, Opponent target);
-        /// <summary>
-        /// Gets a user-friendly message for the UI.
-        /// </summary>
-        /// <param name="origin"></param>
-        /// <param name="target"></param>
-        /// <returns></returns>
-        String GetBattleMessage(Opponent origin, Opponent target);
 
         void PrePerform(Opponent origin, Opponent target);
         #endregion

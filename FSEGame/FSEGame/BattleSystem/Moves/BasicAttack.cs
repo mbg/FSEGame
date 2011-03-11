@@ -114,21 +114,6 @@ namespace FSEGame.BattleSystem.Moves
         }
         #endregion
 
-        #region GetBattleMessage
-        /// <summary>
-        /// Gets a user-friendly message for the UI.
-        /// </summary>
-        /// <param name="origin"></param>
-        /// <param name="target"></param>
-        /// <returns></returns>
-        public String GetBattleMessage(Opponent origin, Opponent target)
-        {
-            return String.Format(
-                "{0} attacks {1}.",
-                origin.Name, target.Name);
-        }
-        #endregion
-
         private UInt16 CalculateBaseDamage(Opponent origin, Opponent target)
         {
             // :: The base damage inflicted by this move is the performing
