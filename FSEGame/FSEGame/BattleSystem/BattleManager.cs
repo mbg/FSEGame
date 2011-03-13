@@ -140,6 +140,8 @@ namespace FSEGame.BattleSystem
             if (this.currentBattle.Opponents.Count == 0)
                 return;
 
+            GameBase.Singleton.CurrentLevel.Actors.Clear();
+
             this.currentOpponent = this.currentBattle.Opponents.Dequeue();
 
             LevelEntryPoint ep = GameBase.Singleton.CurrentLevel.GetEntryPoint(this.currentOpponent.PositionName);
@@ -185,7 +187,8 @@ namespace FSEGame.BattleSystem
 
         #region RunAI
         /// <summary>
-        /// 
+        /// Runs the battle AI for the current opponent to compute which move it
+        /// should perform.
         /// </summary>
         private void RunAI()
         {
@@ -283,7 +286,7 @@ namespace FSEGame.BattleSystem
                         }
                         else
                         {
-                            // todo: player has won at this point
+                            this.EndBattle(true);
                         }
                     }));
                 }
@@ -301,7 +304,7 @@ namespace FSEGame.BattleSystem
                             this.messageQueue.Enqueue("Landor was defeated!");
                             this.ProcessMessageQueue(new MessageQueueFinishedDelegate(delegate
                             {
-                                // todo: player has lost at this point
+                                this.EndBattle(false);
                             }));
                         }
                         else
@@ -324,6 +327,19 @@ namespace FSEGame.BattleSystem
             }));
         }
         #endregion
+
+        private void EndBattle(Boolean victory)
+        {
+            if (victory)
+                this.messageQueue.Enqueue("Landor is victorious!");
+
+            this.ProcessMessageQueue(new MessageQueueFinishedDelegate(delegate
+            {
+                FSEGame g = FSEGame.Singleton;
+
+                g.BattleUI.Hide();
+            }));
+        }
 
         public void AddToMessageQueue(String message)
         {

@@ -18,9 +18,9 @@ namespace Origin.Autopatcher
     internal static class Autopatcher
     {
         #region Static Members
-        private static String patchInformationFile = "NO URL YET";
-        private static String applicationName = "NO NAME YET";
-        private static String applicationExecutable = "Game.exe";
+        private static String patchInformationFile = "http://people.syngate.co.uk/~mbg/FSEGame/Patch.xml";
+        private static String applicationName = "FSEGame";
+        private static String applicationExecutable = "FSEGame.exe";
         #endregion
 
         #region Properties

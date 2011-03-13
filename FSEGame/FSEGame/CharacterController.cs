@@ -39,7 +39,7 @@ namespace FSEGame
         /// <summary>
         /// Stores the orientation of the character.
         /// </summary>
-        private float orientation = 0.0f;
+        private float orientation = 180.0f;
         /// <summary>
         /// Stores a value which indicates whether the character is
         /// currently moving or not.

@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Level Name="PlayerHouse" Tileset="Tilesets\Indoor.xml" Script="Scripts\PlayerHouse.lua" SizeX="8" SizeY="7">
+  <EntryPoints>
+    <EntryPoint Name="Default" X="2" Y="1" />
+    <EntryPoint Name="Entrance" X="3" Y="5" />
+  </EntryPoints>
+  <Cells>
+    <Cell X="0" Y="0" Tile="WoodWallLtoT" />
+    <Cell X="0" Y="1" Tile="WoodWallLeft" />
+    <Cell X="0" Y="2" Tile="WoodWallLeft" />
+    <Cell X="0" Y="3" Tile="WoodWallLeft" />
+    <Cell X="0" Y="4" Tile="WoodWallLeft" />
+    <Cell X="0" Y="5" Tile="WoodWallLeft" />
+    <Cell X="0" Y="6" Tile="WoodWallLtoB" />
+
+    <Cell X="1" Y="0" Tile="WoodWallTop" />
+    <Cell X="1" Y="1" Tile="BedTop" />
+    <Cell X="1" Y="2" Tile="BedBottom" />
+    <Cell X="1" Y="3" Tile="WoodFloor1" />
+    <Cell X="1" Y="4" Tile="WoodFloor1" />
+    <Cell X="1" Y="5" Tile="WoodFloor1" />
+    <Cell X="1" Y="6" Tile="WoodWallBottom" />
+
+    <Cell X="2" Y="0" Tile="WoodWallTop" />
+    <Cell X="2" Y="1" Tile="WoodFloor1" />
+    <Cell X="2" Y="2" Tile="WoodFloor1" />
+    <Cell X="2" Y="3" Tile="WoodFloor1" />
+    <Cell X="2" Y="4" Tile="WoodFloor1" />
+    <Cell X="2" Y="5" Tile="WoodFloor1" />
+    <Cell X="2" Y="6" Tile="WoodDoorBottomLeft" />
+
+    <Cell X="3" Y="0" Tile="WoodWallTop" />
+    <Cell X="3" Y="1" Tile="WoodFloor1" />
+    <Cell X="3" Y="2" Tile="WoodFloor1" />
+    <Cell X="3" Y="3" Tile="WoodFloor1" />
+    <Cell X="3" Y="4" Tile="WoodFloor1" />
+    <Cell X="3" Y="5" Tile="WoodFloor1" />
+    <Cell X="3" Y="6" Event="Exit" Tile="WoodFloor1" />
+
+    <Cell X="4" Y="0" Tile="WoodWallTop" />
+    <Cell X="4" Y="1" Tile="WoodFloor1" />
+    <Cell X="4" Y="2" Tile="WoodFloor1" />
+    <Cell X="4" Y="3" Tile="WoodFloor1" />
+    <Cell X="4" Y="4" Tile="WoodFloor1" />
+    <Cell X="4" Y="5" Tile="WoodFloor1" />
+    <Cell X="4" Y="6" Tile="WoodDoorBottomRight" />
+
+    <Cell X="5" Y="0" Tile="Bookshelf2" />
+    <Cell X="5" Y="1" Tile="WoodFloor1" />
+    <Cell X="5" Y="2" Tile="WoodFloor1" />
+    <Cell X="5" Y="3" Tile="WoodFloor1" />
+    <Cell X="5" Y="4" Tile="WoodFloor1" />
+    <Cell X="5" Y="5" Tile="WoodFloor1" />
+    <Cell X="5" Y="6" Tile="WoodWallBottom" />
+
+    <Cell X="6" Y="0" Tile="WoodWallTop" />
+    <Cell X="6" Y="1" Tile="WoodFloor1" />
+    <Cell X="6" Y="2" Tile="WoodFloor1" />
+    <Cell X="6" Y="3" Tile="WoodFloor1" />
+    <Cell X="6" Y="4" Tile="WoodFloor1" />
+    <Cell X="6" Y="5" Tile="WoodFloor1" />
+    <Cell X="6" Y="6" Tile="WoodWallBottom" />
+
+    <Cell X="7" Y="0" Tile="WoodWallTtoR" />
+    <Cell X="7" Y="1" Tile="WoodWallRight" />
+    <Cell X="7" Y="2" Tile="WoodWallRight" />
+    <Cell X="7" Y="3" Tile="WoodWallRight" />
+    <Cell X="7" Y="4" Tile="WoodWallRight" />
+    <Cell X="7" Y="5" Tile="WoodWallRight" />
+    <Cell X="7" Y="6" Tile="WoodWallRtoB" />
+  </Cells>
+  <Actors>
+    <!--<Actor X="4" Y="2" Type="GenericNPC">
+      <Property Name="Dialogue">FSEGame\Dialogues\TestDialogue.xml</Property>
+      <Property Name="Tileset">Tilesets\GenericNPC.xml</Property>
+      <Property Name="States">2</Property>
+    </Actor>-->
+  </Actors>
+</Level>

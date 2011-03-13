@@ -14,12 +14,12 @@
     </Speech>
   </Speech>
   <Variables>
-    <StringVar Name="string#1" Export="False">The land of bridges.</StringVar>
-    <StringVar Name="string#2" Export="False">A long time ago, the people were hoping to turn this land into a place flourishing with trade.</StringVar>
-    <StringVar Name="string#3" Export="False">But then darkness overwhelmed the land and took it from the settlers.</StringVar>
-    <StringVar Name="string#4" Export="False">Malus, the god of shadows, sent his minions to steal the torches from the people.</StringVar>
+    <StringVar Name="string#1" Export="False">The kingdom of bridges.</StringVar>
+    <StringVar Name="string#2" Export="False">A long time ago, the first settlers were hoping to turn this land into a place flourishing with trade.</StringVar>
+    <StringVar Name="string#3" Export="False">But then darkness overwhelmed the new settlements and shattered the people's dreams.</StringVar>
+    <StringVar Name="string#4" Export="False">Malus, the god of shadows, had sent his minions to steal the torches from the people.</StringVar>
     <StringVar Name="string#5" Export="False">Unable to cross the many bridges which were connecting the market towns, the trade routes collapsed within days.</StringVar>
-    <StringVar Name="string#6" Export="False">Years have passed without change.</StringVar>
-    <StringVar Name="string#7" Export="False">But there may still be hope...</StringVar>
+    <StringVar Name="string#6" Export="False">Years and generations passed without change.</StringVar>
+    <StringVar Name="string#7" Export="False">But there may yet be hope...</StringVar>
   </Variables>
 </Dialogue>

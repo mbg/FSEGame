@@ -399,7 +399,8 @@ namespace FSEGame
                 this.DialogueManager.OnStart += this.dialogueStartDelegate;
                 this.DialogueManager.OnEnd += this.dialogueEndDelegate;
 
-                this.LoadLevel(@"Levels\Test.xml", "Default", false);
+                this.LoadLevel(@"Levels\PlayerHouse.xml", "Default", false);
+                this.character.Enabled = false;
 
                 FadeScreenEventDelegate fadeEndEvent = null;
                 fadeEndEvent = new FadeScreenEventDelegate(delegate
@@ -408,6 +409,7 @@ namespace FSEGame
                     this.fadeScreen.Enabled = false;
                     this.fadeScreen.Visible = false;
 
+                    this.character.Enabled = true;
                     this.state = GameState.Exploring;
                 });
 
@@ -415,6 +417,8 @@ namespace FSEGame
                 this.fadeScreen.Visible = true;
                 this.fadeScreen.Enabled = true;
                 this.fadeScreen.FadeOut(1.0d);
+
+                this.state = GameState.LevelTransition;
             });
 
             this.DialogueManager.OnStart -= this.dialogueStartDelegate;

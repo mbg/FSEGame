@@ -33,4 +33,9 @@
   <Tile ID="31" Passable="False">WoodDoorTopRight</Tile>
   <Tile ID="32" Passable="False">WoodDoorRightTop</Tile>
   <Tile ID="33" Passable="False">WoodDoorRightBottom</Tile>
+  <Tile ID="34" Passable="False">BedTop</Tile>
+  <Tile ID="35" Passable="False">BedBottom</Tile>
+  <Tile ID="36" Passable="False">Window</Tile>
+  <Tile ID="37" Passable="False">Bookshelf</Tile>
+  <Tile ID="38" Passable="False">Bookshelf2</Tile>
 </Tileset>

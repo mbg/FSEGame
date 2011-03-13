@@ -3,7 +3,7 @@
   <Opponent Name="Bridge Guardian" IsBoss="True" Tileset="Tilesets\Guardian.xml" Position="Opponent">
     <Attributes>
       <Attribute Type="Health">150</Attribute>
-      <Attribute Type="Strength">10</Attribute>
+      <Attribute Type="Strength">12</Attribute>
       <Attribute Type="Defence">1</Attribute>
       <Attribute Type="Magic">20</Attribute>
     </Attributes>

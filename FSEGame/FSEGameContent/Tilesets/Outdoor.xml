@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Tileset Name="Test" Resource="Tilesets\Test">
+  <Tile ID="0" Passable="False">CharacterRight</Tile>
+  <Tile ID="1" Passable="True">Dirt</Tile>
+  <Tile ID="2" Passable="True">GrassCornerNW</Tile>
+  <Tile ID="3" Passable="True">GrassCornerW</Tile>
+  <Tile ID="4" Passable="True">GrassCornerSW</Tile>
+  <Tile ID="5" Passable="True">GrassInnerCornerNW</Tile>
+  <Tile ID="6" Passable="False">Void</Tile>
+  <Tile ID="6" Passable="True">LevelTrigger</Tile>
+  <Tile ID="7" Passable="False">ErrorTile</Tile>
+  <Tile ID="8" Passable="True">GrassCornerN</Tile>
+  <Tile ID="9" Passable="True">Grass</Tile>
+  <Tile ID="10" Passable="True">GrassCornerS</Tile>
+  <Tile ID="11" Passable="True">GrassInnerCornerNE</Tile>
+  <Tile ID="14" Passable="True">GrassCornerNE</Tile>
+  <Tile ID="15" Passable="True">GrassCornerE</Tile>
+  <Tile ID="16" Passable="True">GrassCornerSE</Tile>
+  <Tile ID="17" Passable="True">GrassInnerCornerSE</Tile>
+  <Tile ID="20" Passable="True">PathLURD</Tile>
+  <Tile ID="21" Passable="True">PathLR</Tile>
+  <Tile ID="22" Passable="False">Fence</Tile>
+  <Tile ID="23" Passable="True">GrassInnerCornerSW</Tile>
+  <Tile ID="25" Passable="False">TreeTopLeft</Tile>
+  <Tile ID="26" Passable="False">TreeBottomLeft</Tile>
+  <Tile ID="27" Passable="True">PathUD</Tile>
+  <Tile ID="31" Passable="False">TreeTopRight</Tile>
+  <Tile ID="32" Passable="False">TreeBottomRight</Tile>
+  <Tile ID="33" Passable="True">PathLUR</Tile>
+  <Tile ID="34" Passable="True">PathLU</Tile>
+  <Tile ID="36" Passable="False">GenericHouseRoofLeftFar</Tile>
+  <Tile ID="37" Passable="False">GenericHouseRoofLeft</Tile>
+  <Tile ID="38" Passable="False">GenericHouseWallLeft</Tile>
+  <Tile ID="39" Passable="True">PathURD</Tile>
+  <Tile ID="40" Passable="True">PathUR</Tile>
+  <Tile ID="42" Passable="False">GenericHouseRoofCentreFar</Tile>
+  <Tile ID="43" Passable="False">GenericHouseRoofCentre</Tile>
+  <Tile ID="44" Passable="True">GenericHouseDoor</Tile>
+  <Tile ID="45" Passable="True">PathLRD</Tile>
+  <Tile ID="46" Passable="True">PathRD</Tile>
+  <Tile ID="48" Passable="False">GenericHouseRoofRightFar</Tile>
+  <Tile ID="49" Passable="False">GenericHouseRoofRight</Tile>
+  <Tile ID="50" Passable="False">GenericHouseWallRight</Tile>
+  <Tile ID="51" Passable="True">PathLUD</Tile>
+  <Tile ID="52" Passable="True">PathLD</Tile>
+  
+  <Tile ID="55" Passable="True">BridgeLeft</Tile>
+  <Tile ID="61" Passable="True">BridgeLR</Tile>
+  <Tile ID="67" Passable="True">BridgeRight</Tile>
+
+  <AnimatedTile Name="BridgeLeftTop" Passable="False" Speed="0.5">
+    <Frame ID="54" />
+    <Frame ID="72" />
+  </AnimatedTile>
+  <AnimatedTile Name="BridgeLeftBottom" Passable="False" Speed="0.5">
+    <Frame ID="56" />
+    <Frame ID="74" />
+  </AnimatedTile>
+  <AnimatedTile Name="WaterCornerNW" Passable="False" Speed="0.5">
+    <Frame ID="57" />
+    <Frame ID="75" />
+  </AnimatedTile>
+  <AnimatedTile Name="WaterCornerW" Passable="False" Speed="0.5">
+    <Frame ID="58" />
+    <Frame ID="76" />
+  </AnimatedTile>
+  <AnimatedTile Name="WaterCornerSW" Passable="False" Speed="0.5">
+    <Frame ID="59" />
+    <Frame ID="77" />
+  </AnimatedTile>
+  <AnimatedTile Name="BridgeTop" Passable="False" Speed="0.5">
+    <Frame ID="60" />
+    <Frame ID="78" />
+  </AnimatedTile>
+  <AnimatedTile Name="BridgeBottom" Passable="False" Speed="0.5">
+    <Frame ID="62" />
+    <Frame ID="80" />
+  </AnimatedTile>
+  <AnimatedTile Name="WaterCornerN" Passable="False" Speed="0.5">
+    <Frame ID="63" />
+    <Frame ID="81" />
+  </AnimatedTile>
+  <AnimatedTile Name="Water" Passable="False" Speed="0.5">
+    <Frame ID="64" />
+    <Frame ID="82" />
+  </AnimatedTile>
+  <AnimatedTile Name="WaterCornerS" Passable="False" Speed="0.5">
+    <Frame ID="65" />
+    <Frame ID="83" />
+  </AnimatedTile>
+  <AnimatedTile Name="BridgeRightTop" Passable="False" Speed="0.5">
+    <Frame ID="66" />
+    <Frame ID="84" />
+  </AnimatedTile>
+  <AnimatedTile Name="BridgeRightBottom" Passable="False" Speed="0.5">
+    <Frame ID="68" />
+    <Frame ID="86" />
+  </AnimatedTile>
+  <AnimatedTile Name="WaterCornerNE" Passable="False" Speed="0.5">
+    <Frame ID="69" />
+    <Frame ID="87" />
+  </AnimatedTile>
+  <AnimatedTile Name="WaterCornerE" Passable="False" Speed="0.5">
+    <Frame ID="70" />
+    <Frame ID="88" />
+  </AnimatedTile>
+  <AnimatedTile Name="WaterCornerSE" Passable="False" Speed="0.5">
+    <Frame ID="71" />
+    <Frame ID="89" />
+  </AnimatedTile>
+</Tileset>
