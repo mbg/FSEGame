@@ -549,7 +549,7 @@
     <Cell X="16" Y="12" Tile="GenericHouseRoofLeft" />
     <Cell X="16" Y="13" Tile="GenericHouseWallLeft" />
     <Cell X="16" Y="14" Tile="Dirt" />
-    <Cell X="16" Y="15" Tile="PathLR" />
+    <Cell X="16" Y="15" Tile="PathR" />
     <Cell X="16" Y="16" Tile="Dirt" />
     <Cell X="16" Y="17" Tile="Dirt" />
     <Cell X="16" Y="18" Tile="TreeTopLeft" />
@@ -741,13 +741,13 @@
     <Cell X="22" Y="6" Tile="GenericHouseRoofRight" />
     <Cell X="22" Y="7" Tile="GenericHouseWallRight" />
     <Cell X="22" Y="8" Tile="Dirt" />
-    <Cell X="22" Y="9" Tile="PathLR" />
+    <Cell X="22" Y="9" Tile="PathL" />
     <Cell X="22" Y="10" Tile="Dirt" />
     <Cell X="22" Y="11" Tile="GenericHouseRoofRightFar" />
     <Cell X="22" Y="12" Tile="GenericHouseRoofRight" />
     <Cell X="22" Y="13" Tile="GenericHouseWallRight" />
     <Cell X="22" Y="14" Tile="Dirt" />
-    <Cell X="22" Y="15" Tile="PathLR" />
+    <Cell X="22" Y="15" Tile="PathL" />
     <Cell X="22" Y="16" Tile="Dirt" />
     <Cell X="22" Y="17" Tile="Dirt" />
     <Cell X="22" Y="18" Tile="TreeTopLeft" />
@@ -801,7 +801,7 @@
     <Cell X="24" Y="0" Tile="TreeTopLeft" />
     <Cell X="24" Y="1" Tile="TreeBottomLeft" />
     <Cell X="24" Y="2" Tile="WaterCornerN" />
-    <Cell X="24" Y="3" Tile="TreeBottomLeft" />
+    <Cell X="24" Y="3" Tile="WaterLD" />
     <Cell X="24" Y="4" Tile="WaterCornerW" />
     <Cell X="24" Y="5" Tile="WaterCornerW" />
     <Cell X="24" Y="6" Tile="WaterCornerW" />
