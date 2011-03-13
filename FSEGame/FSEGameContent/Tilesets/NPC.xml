@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Tileset Name="GenericNPC" Resource="Tilesets\GenericNPC">
+  <Tile ID="0" Passable="False">NPC1Right</Tile>
+  <Tile ID="1" Passable="False">NPC1Left</Tile>
+  <Tile ID="2" Passable="False">NPC2Right</Tile>
+  <Tile ID="3" Passable="False">NPC2Left</Tile>
+</Tileset>
