@@ -17,12 +17,18 @@ using Microsoft.Xna.Framework.Graphics;
 namespace FSEGame.Engine
 {
     /// <summary>
-    /// 
+    /// Represents a base class for actors.
     /// </summary>
     public abstract class Actor
     {
         #region Instance Members
+        /// <summary>
+        /// The cell position of the actor.
+        /// </summary>
         private Vector2 cellPosition;
+        /// <summary>
+        /// The absolute rendering position of the actor.
+        /// </summary>
         private Vector2 absolutePosition;
         #endregion
 
@@ -52,6 +58,13 @@ namespace FSEGame.Engine
                 this.absolutePosition = GridHelper.GridPositionToAbsolute(value);
             }
         }
+        /// <summary>
+        /// Gets a value indicating whether the actor is passable or not.
+        /// </summary>
+        public abstract Boolean Passable
+        {
+            get;
+        }
         #endregion
 
         #region Constructor
@@ -64,13 +77,27 @@ namespace FSEGame.Engine
         }
         #endregion
 
+        #region Update
+        /// <summary>
+        /// If overriden, this method updates the actor with the current 
+        /// game time.
+        /// </summary>
+        /// <param name="gameTime"></param>
         public virtual void Update(GameTime gameTime)
         {
         }
+        #endregion
 
+        #region Draw
+        /// <summary>
+        /// If overriden, this method draws the actor in the specified 
+        /// sprite batch.
+        /// </summary>
+        /// <param name="batch"></param>
         public virtual void Draw(SpriteBatch batch)
         {
         }
+        #endregion
     }
 }
 

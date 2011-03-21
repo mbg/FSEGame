@@ -21,6 +21,7 @@ using FSEGame.Engine.UI;
 namespace FSEGame.BattleSystem
 {
     public delegate void MessageQueueFinishedDelegate();
+    public delegate void BattleEndedDelegate(Boolean victory);
 
     /// <summary>
     /// 
@@ -41,8 +42,22 @@ namespace FSEGame.BattleSystem
         private IMove opponentMove = null;
         #endregion
 
+        private event BattleEndedDelegate ended = null;
+
         #region Properties
         #endregion
+
+        public event BattleEndedDelegate Ended
+        {
+            add
+            {
+                this.ended += value;
+            }
+            remove
+            {
+                this.ended -= value;
+            }
+        }
 
         #region Constructor
         /// <summary>
@@ -112,6 +127,7 @@ namespace FSEGame.BattleSystem
             LevelEntryPoint ep = 
                 GameBase.Singleton.CurrentLevel.GetEntryPoint(this.currentBattle.PlayerPosition);
             g.Character.CellPosition = new Vector2(ep.X, ep.Y);
+            g.Character.Orientation = 90.0f;
 
             g.Camera.DetachFromPlayer();
             g.Camera.LookAtCell(7, 5); // todo: move to xml
@@ -338,6 +354,11 @@ namespace FSEGame.BattleSystem
                 FSEGame g = FSEGame.Singleton;
 
                 g.BattleUI.Hide();
+                g.Camera.AttachToPlayer();
+
+                if (this.ended != null)
+                    this.ended(victory);
+
             }));
         }
 

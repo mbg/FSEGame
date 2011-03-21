@@ -2,8 +2,10 @@
 <Level Name="Village" Tileset="Tilesets\Outdoor.xml" Script="Scripts\Village.lua" SizeX="32" SizeY="32">
   <EntryPoints>
     <EntryPoint Name="PlayerHouseExit" X="7" Y="7" />
-    <EntryPoint Name="House1Exit" X="8" Y="4" />
-    <EntryPoint Name="House2Exit" X="14" Y="6" />
+    <EntryPoint Name="House1Exit" X="17" Y="8" />
+    <EntryPoint Name="House2Exit" X="21" Y="8" />
+    <EntryPoint Name="House3Exit" X="17" Y="14" />
+    <EntryPoint Name="House4Exit" X="21" Y="14" />
   </EntryPoints>
   <Cells>
     <Cell X="0" Y="0" Tile="TreeTopLeft" />
@@ -180,7 +182,7 @@
     <Cell X="5" Y="6" Tile="Fence" />
     <Cell X="5" Y="7" Tile="Fence" />
     <Cell X="5" Y="8" Tile="Fence" />
-    <Cell X="5" Y="9" Tile="Dirt" />
+    <Cell X="5" Y="9" Tile="Fence" />
     <Cell X="5" Y="10" Tile="Fence" />
     <Cell X="5" Y="11" Tile="Fence" />
     <Cell X="5" Y="12" Tile="TreeTopRight" />
@@ -574,13 +576,13 @@
     <Cell X="17" Y="4" Tile="Dirt" />
     <Cell X="17" Y="5" Tile="GenericHouseRoofCentreFar" />
     <Cell X="17" Y="6" Tile="GenericHouseRoofCentre" />
-    <Cell X="17" Y="7" Tile="GenericHouseDoor" />
+    <Cell X="17" Y="7" Event="EnterHouse1" Tile="GenericHouseDoor" />
     <Cell X="17" Y="8" Tile="PathUD" />
     <Cell X="17" Y="9" Tile="PathLUR" />
     <Cell X="17" Y="10" Tile="Dirt" />
     <Cell X="17" Y="11" Tile="GenericHouseRoofCentreFar" />
     <Cell X="17" Y="12" Tile="GenericHouseRoofCentre" />
-    <Cell X="17" Y="13" Tile="GenericHouseDoor" />
+    <Cell X="17" Y="13" Event="EnterHouse3" Tile="GenericHouseDoor" />
     <Cell X="17" Y="14" Tile="PathUD" />
     <Cell X="17" Y="15" Tile="PathLUR" />
     <Cell X="17" Y="16" Tile="Dirt" />
@@ -706,13 +708,13 @@
     <Cell X="21" Y="4" Tile="Dirt" />
     <Cell X="21" Y="5" Tile="GenericHouseRoofCentreFar" />
     <Cell X="21" Y="6" Tile="GenericHouseRoofCentre" />
-    <Cell X="21" Y="7" Tile="GenericHouseDoor" />
+    <Cell X="21" Y="7" Event="EnterHouse2" Tile="GenericHouseDoor" />
     <Cell X="21" Y="8" Tile="PathUD" />
     <Cell X="21" Y="9" Tile="PathLUR" />
     <Cell X="21" Y="10" Tile="Dirt" />
     <Cell X="21" Y="11" Tile="GenericHouseRoofCentreFar" />
     <Cell X="21" Y="12" Tile="GenericHouseRoofCentre" />
-    <Cell X="21" Y="13" Tile="GenericHouseDoor" />
+    <Cell X="21" Y="13" Event="EnterHouse4" Tile="GenericHouseDoor" />
     <Cell X="21" Y="14" Tile="PathUD" />
     <Cell X="21" Y="15" Tile="PathLUR" />
     <Cell X="21" Y="16" Tile="Dirt" />
@@ -856,7 +858,7 @@
     <Cell X="25" Y="22" Tile="Water" />
     <Cell X="25" Y="23" Tile="Water" />
     <Cell X="25" Y="24" Tile="BridgeTop" />
-    <Cell X="25" Y="25" Tile="BridgeLR" />
+    <Cell X="25" Y="25" Event="BridgeBattle" Tile="BridgeLR" />
     <Cell X="25" Y="26" Tile="BridgeBottom" />
     <Cell X="25" Y="27" Tile="Water" />
     <Cell X="25" Y="28" Tile="Water" />
@@ -1063,10 +1065,11 @@
     <Cell X="31" Y="31" Tile="TreeBottomRight" />
   </Cells>
   <Actors>
-    <Actor X="24" Y="25" Type="GenericNPC">
+    <Actor X="24" Y="25" Type="BridgeNPC">
       <Property Name="Dialogue">FSEGame\Dialogues\BridgeExplanation.xml</Property>
       <Property Name="Tileset">Tilesets\GenericNPC.xml</Property>
       <Property Name="States">2</Property>
+      <Property Name="TorchID">T_Village</Property>
     </Actor>
   </Actors>
 </Level>

@@ -113,8 +113,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actors\BridgeNPC.cs" />
+    <Compile Include="Actors\Markus.cs" />
     <Compile Include="Actors\OpponentNPC.cs" />
     <Compile Include="Actors\GenericNPC.cs" />
+    <Compile Include="Actors\Vernado.cs" />
     <Compile Include="BattleSystem\Battle.cs" />
     <Compile Include="BattleSystem\BattleManager.cs" />
     <Compile Include="BattleSystem\CharacterAttributes.cs" />

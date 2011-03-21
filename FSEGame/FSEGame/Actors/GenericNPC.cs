@@ -39,6 +39,8 @@ namespace FSEGame.Actors
         /// The time which has elapsed since the NPC last turned.
         /// </summary>
         private float timeSinceLastTurn = 0.0f;
+
+        private Boolean passable = false;
         #endregion
 
         #region Constants
@@ -47,6 +49,20 @@ namespace FSEGame.Actors
         #endregion
 
         #region Properties
+        public ActorProperties Properties
+        {
+            get
+            {
+                return this.properties;
+            }
+        }
+        public override Boolean Passable
+        {
+            get
+            {
+                return this.passable;
+            }
+        }
         #endregion
 
         #region Constructor
@@ -69,8 +85,6 @@ namespace FSEGame.Actors
         /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
-            KeyboardState ks = Keyboard.GetState();
-
             // :: This actor has a basic animation consisting of two states. Every
             // :: 1.5 seconds, the NPC will turn either left or right.
             this.timeSinceLastTurn += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -85,6 +99,9 @@ namespace FSEGame.Actors
                     this.currentTile = LOOK_RIGHT;
             }
 
+            if (FSEGame.Singleton.State != GameState.Exploring)
+                return;
+
             // :: The player may interact with this actor. If enter has been
             // :: pressed, verify that the player is in the right position
             // :: to interact with this actor and that it has the right 
@@ -93,12 +110,22 @@ namespace FSEGame.Actors
             {
                 if (this.IsPlayerInInteractionPosition())
                 {
-                    GameBase.Singleton.DialogueManager.PlayDialogue(
-                        this.properties.Properties["Dialogue"]);
+                    this.PerformAction();
                 }
             }
         }
         #endregion
+
+        protected virtual String GetDialogueName()
+        {
+            return this.properties.Properties["Dialogue"];
+        }
+
+        protected virtual void PerformAction()
+        {
+            GameBase.Singleton.DialogueManager.PlayDialogue(
+                        this.GetDialogueName());
+        }
 
         #region IsPlayerInInteractionPosition
         /// <summary>

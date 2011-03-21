@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Level Name="House2" Tileset="Tilesets\Indoor.xml" Script="Scripts\House2.lua" SizeX="7" SizeY="8">
+<Level Name="House2" Tileset="Tilesets\Indoor.xml" Script="Scripts\House2.lua" SizeX="7" SizeY="7">
   <EntryPoints>
-    <EntryPoint Name="Default" X="3" Y="6" />
+    <EntryPoint Name="Entrance" X="3" Y="5" />
   </EntryPoints>
   <Cells>
     <Cell X="0" Y="0" Tile="WoodWallLtoT" />
@@ -11,7 +11,6 @@
     <Cell X="0" Y="4" Tile="WoodWallLeft" />
     <Cell X="0" Y="5" Tile="WoodWallLeft" />
     <Cell X="0" Y="6" Tile="WoodWallLtoB" />
-    <Cell X="0" Y="7" Tile="Void" />
 
     <Cell X="1" Y="0" Tile="WoodWallTop" />
     <Cell X="1" Y="1" Tile="CheckFloor" />
@@ -20,7 +19,6 @@
     <Cell X="1" Y="4" Tile="CheckFloor" />
     <Cell X="1" Y="5" Tile="CheckFloor" />
     <Cell X="1" Y="6" Tile="WoodWallBottom" />
-    <Cell X="1" Y="7" Tile="Void" />
 
     <Cell X="2" Y="0" Tile="WoodWallTop" />
     <Cell X="2" Y="1" Tile="CheckFloor" />
@@ -29,34 +27,30 @@
     <Cell X="2" Y="4" Tile="CheckFloor" />
     <Cell X="2" Y="5" Tile="CheckFloor" />
     <Cell X="2" Y="6" Tile="WoodDoorBottomLeft" />
-    <Cell X="2" Y="7" Tile="Void" />
 
     <Cell X="3" Y="0" Tile="WoodWallTop" />
     <Cell X="3" Y="1" Tile="CheckFloor" />
-    <Cell X="3" Y="2" Tile="CheckFloor" />
-    <Cell X="3" Y="3" Tile="RedCarpetFloorCheckRD" />
+    <Cell X="3" Y="2" Tile="RedCarpetFloorCheckUDTop" />
+    <Cell X="3" Y="3" Tile="RedCarpetFloorCheckUD" />
     <Cell X="3" Y="4" Tile="RedCarpetFloorCheckUD" />
     <Cell X="3" Y="5" Tile="RedCarpetFloorCheckUD" />
-    <Cell X="3" Y="6" Tile="RedCarpetFloorCheckUDBottom" />
-    <Cell X="3" Y="7" Event="House2Exit" Tile="LevelTrigger" />
+    <Cell X="3" Y="6" Event="Exit" Tile="RedCarpetFloorCheckUDBottom" />
 
     <Cell X="4" Y="0" Tile="WoodWallTop" />
     <Cell X="4" Y="1" Tile="CheckFloor" />
     <Cell X="4" Y="2" Tile="CheckFloor" />
-    <Cell X="4" Y="3" Tile="RedCarpetFloorCheckLR" />
+    <Cell X="4" Y="3" Tile="CheckFloor" />
     <Cell X="4" Y="4" Tile="CheckFloor" />
     <Cell X="4" Y="5" Tile="CheckFloor" />
     <Cell X="4" Y="6" Tile="WoodDoorBottomRight" />
-    <Cell X="4" Y="7" Tile="Void" />
 
     <Cell X="5" Y="0" Tile="WoodWallTop" />
-    <Cell X="5" Y="1" Tile="CheckFloor" />
-    <Cell X="5" Y="2" Tile="CheckFloor" />
-    <Cell X="5" Y="3" Tile="RedCarpetFloorCheckLR" />
+    <Cell X="5" Y="1" Tile="BedTop" />
+    <Cell X="5" Y="2" Tile="BedBottom" />
+    <Cell X="5" Y="3" Tile="CheckFloor" />
     <Cell X="5" Y="4" Tile="CheckFloor" />
     <Cell X="5" Y="5" Tile="CheckFloor" />
     <Cell X="5" Y="6" Tile="WoodWallBottom" />
-    <Cell X="5" Y="7" Tile="Void" />
 
     <Cell X="6" Y="0" Tile="WoodWallTtoR" />
     <Cell X="6" Y="1" Tile="WoodWallRight" />
@@ -65,7 +59,13 @@
     <Cell X="6" Y="4" Tile="WoodWallRight" />
     <Cell X="6" Y="5" Tile="WoodWallRight" />
     <Cell X="6" Y="6" Tile="WoodWallRtoB" />
-    <Cell X="6" Y="7" Tile="Void" />
-    
   </Cells>
+  <Actors>
+    <Actor X="3" Y="2" Type="Vernado">
+      <Property Name="DefaultDialogue">FSEGame\Dialogues\Vernado.xml</Property>
+      <Property Name="PostTorchDialogue">FSEGame\Dialogues\VernadoPostTorch.xml</Property>
+      <Property Name="Tileset">Tilesets\GenericNPC.xml</Property>
+      <Property Name="States">2</Property>
+    </Actor>
+  </Actors>
 </Level>

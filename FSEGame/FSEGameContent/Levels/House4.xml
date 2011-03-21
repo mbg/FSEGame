@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Level Name="House1" Tileset="Tilesets\Indoor.xml" Script="Scripts\House1.lua" SizeX="7" SizeY="7">
+<Level Name="House4" Tileset="Tilesets\Indoor.xml" Script="Scripts\House4.lua" SizeX="7" SizeY="7">
   <EntryPoints>
     <EntryPoint Name="Entrance" X="3" Y="5" />
   </EntryPoints>

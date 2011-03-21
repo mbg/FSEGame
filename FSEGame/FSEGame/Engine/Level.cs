@@ -513,7 +513,7 @@ namespace FSEGame.Engine
             // :: another entity cannot move there.
             foreach (Actor a in this.actors)
             {
-                if (a.CellPosition == position)
+                if (a.CellPosition == position && !a.Passable)
                     return false;
             }
 

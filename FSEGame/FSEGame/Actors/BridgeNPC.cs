@@ -11,33 +11,29 @@
 #region References
 using System;
 using FSEGame.Engine;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Graphics;
 #endregion
 
 namespace FSEGame.Actors
 {
     /// <summary>
-    /// Represents a non-interactive NPC in a battle.
+    /// 
     /// </summary>
-    public class OpponentNPC : Actor
+    public class BridgeNPC : Actor
     {
         #region Instance Members
-
         private ActorProperties properties;
-        /// <summary>
-        /// The tileset used by this actor.
-        /// </summary>
         private Tileset tileset;
+        private Boolean torchAcquired = false;
         #endregion
 
         #region Properties
-        public override Boolean Passable
+        public override bool Passable
         {
             get
             {
-                return false;
+                return this.torchAcquired;
             }
         }
         #endregion
@@ -46,38 +42,37 @@ namespace FSEGame.Actors
         /// <summary>
         /// Initialises a new instance of this class.
         /// </summary>
-        public OpponentNPC(ActorProperties properties)
+        public BridgeNPC(ActorProperties properties)
         {
             this.properties = properties;
 
-            this.tileset = new Tileset(16, 1, 1);
+            this.tileset = new Tileset(16, 1, Convert.ToUInt16(properties.Properties["States"]));
             this.tileset.Load(GameBase.Singleton.Content, properties.Properties["Tileset"]);
         }
         #endregion
 
-        #region Update
-        /// <summary>
-        /// Updates the NPC actor.
-        /// </summary>
-        /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
-        }
-        #endregion
+            if (FSEGame.Singleton.PersistentStorage.ContainsKey(
+                this.properties.Properties["TorchID"]))
+            {
+                PersistentStorageItem item =
+                    FSEGame.Singleton.PersistentStorage[this.properties.Properties["TorchID"]];
 
-        #region Draw
-        /// <summary>
-        /// Draws the NPC.
-        /// </summary>
-        /// <param name="batch">The current sprite batch.</param>
+                if (item.ItemType == PersistentStorageItemType.Number)
+                {
+                    this.torchAcquired = false;
+                }
+            }
+        }
+
         public override void Draw(SpriteBatch batch)
         {
-            this.tileset.DrawTile(
-                batch, 
-                0, 
-                GridHelper.GridPositionToAbsolute(base.CellPosition));
+            if (this.torchAcquired)
+                return;
+
+            this.tileset.DrawTile(batch, 0, this.AbsolutePosition);
         }
-        #endregion
     }
 }
 

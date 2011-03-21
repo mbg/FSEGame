@@ -65,6 +65,24 @@ namespace FSEGame
                         genericNPC.CellPosition = new Vector2(properties.X, properties.Y);
                         return genericNPC;
                     }
+                case "BridgeNPC":
+                    {
+                        BridgeNPC bridgeNPC = new BridgeNPC(properties);
+                        bridgeNPC.CellPosition = new Vector2(properties.X, properties.Y);
+                        return bridgeNPC;
+                    }
+                case "Vernado":
+                    {
+                        Vernado vernado = new Vernado(properties);
+                        vernado.CellPosition = new Vector2(properties.X, properties.Y);
+                        return vernado;
+                    }
+                case "Markus":
+                    {
+                        Markus markus = new Markus(properties);
+                        markus.CellPosition = new Vector2(properties.X, properties.Y);
+                        return markus;
+                    }
             }
 
             return null;

@@ -159,10 +159,21 @@ namespace FSEGame
             this.dialogueStartDelegate = new DialogueEventDelegate(DialogueStart);
             this.dialogueEndDelegate = new DialogueEventDelegate(DialogueEnd);
 
+            this.RegisterDefaultDialogueHandlers();
+        }
+        #endregion
+
+        public void RegisterDefaultDialogueHandlers()
+        {
             this.DialogueManager.OnStart += this.dialogueStartDelegate;
             this.DialogueManager.OnEnd += this.dialogueEndDelegate;
         }
-        #endregion
+
+        public void UnregisterDefaultDialogueHandlers()
+        {
+            this.DialogueManager.OnStart -= this.dialogueStartDelegate;
+            this.DialogueManager.OnEnd -= this.dialogueEndDelegate;
+        }
 
         #region Draw
         /// <summary>
@@ -545,8 +556,7 @@ namespace FSEGame
                 this.fadeScreen.Enabled = false;
                 this.fadeScreen.Visible = false;
 
-                this.DialogueManager.OnStart -= this.dialogueStartDelegate;
-                this.DialogueManager.OnEnd -= this.dialogueEndDelegate;
+                this.UnregisterDefaultDialogueHandlers();
 
                 this.battleManager.Load(configuration);
                 this.battleManager.Start();

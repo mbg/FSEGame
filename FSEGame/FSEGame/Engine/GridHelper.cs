@@ -63,6 +63,11 @@ namespace FSEGame.Engine
                 position.Y / SCALE / CELL_SIZE);
         }
         #endregion
+
+        public static Double Distance(Vector2 p1, Vector2 p2)
+        {
+            return Math.Sqrt(Math.Pow(p1.X - p2.X, 2) + Math.Pow(p1.Y - p2.Y, 2));
+        }
     }
 }
 

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Dialogue ID="root">
+  <Speech ID="speech#1" TextVar="string#1" Mode="Time" Time="0">
+    <Speech ID="speech#2" TextVar="string#2" Mode="Time" Time="0">
+      <Speech ID="speech#3" TextVar="string#3" Mode="Time" Time="0" />
+    </Speech>
+  </Speech>
+  <Variables>
+    <StringVar Name="string#1" Export="False">Maro: You need some coal?</StringVar>
+    <StringVar Name="string#2" Export="False">Maro: Sure you can have some, I got more than enough.</StringVar>
+    <StringVar Name="string#3" Export="False">Lando has received a piece of coal!</StringVar>
+  </Variables>
+</Dialogue>

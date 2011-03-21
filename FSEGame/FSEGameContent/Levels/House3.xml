@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Level Name="House1" Tileset="Tilesets\Indoor.xml" Script="Scripts\House1.lua" SizeX="7" SizeY="7">
+<Level Name="House3" Tileset="Tilesets\Indoor.xml" Script="Scripts\House3.lua" SizeX="7" SizeY="7">
   <EntryPoints>
     <EntryPoint Name="Entrance" X="3" Y="5" />
+    <EntryPoint Name="TutorialEnd" X="4" Y="3" />
   </EntryPoints>
   <Cells>
     <Cell X="0" Y="0" Tile="WoodWallLtoT" />
@@ -61,8 +62,7 @@
     <Cell X="6" Y="6" Tile="WoodWallRtoB" />
   </Cells>
   <Actors>
-    <Actor X="4" Y="2" Type="GenericNPC">
-      <Property Name="Dialogue">FSEGame\Dialogues\Villager1.xml</Property>
+    <Actor X="4" Y="2" Type="Markus">
       <Property Name="Tileset">Tilesets\GenericNPC.xml</Property>
       <Property Name="States">2</Property>
     </Actor>

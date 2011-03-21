@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Battle Level="Levels\Battle\House.xml" Position="Default" Intro="FSEGame\Dialogues\Tutorial1Intro.xml">
+  <Opponent Name="Markus" IsBoss="True" Tileset="Tilesets\GenericNPC.xml" Position="Opponent">
+    <Attributes>
+      <Attribute Type="Health">50</Attribute>
+      <Attribute Type="Strength">20</Attribute>
+      <Attribute Type="Defence">1</Attribute>
+      <Attribute Type="Magic">0</Attribute>
+    </Attributes>
+    <Moves>
+      <Move Type="BasicAttack" />
+    </Moves>
+  </Opponent>
+</Battle>

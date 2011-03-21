@@ -4,6 +4,6 @@
 -- triggered by the character controller.
 -- "id" will be set to the name of the event
 
-if id == "House2Exit" then
-	LoadLevel("Levels\\Test.xml", "House2Exit")
+if id == "Exit" then
+	LoadLevel("Levels\\Village.xml", "House2Exit")
 end

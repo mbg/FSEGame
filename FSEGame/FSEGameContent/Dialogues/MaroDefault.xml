@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<Dialogue ID="root">
+  <Speech ID="speech#1" TextVar="string#1" Mode="Time" Time="0">
+    <Speech ID="speech#2" TextVar="string#2" Mode="Time" Time="0" />
+  </Speech>
+  <Variables>
+    <StringVar Name="string#1" Export="False">Maro: Back in the old days I used to be a smith...</StringVar>
+    <StringVar Name="string#2" Export="False">Maro: I wish I had some use for all this coal...</StringVar>
+  </Variables>
+</Dialogue>

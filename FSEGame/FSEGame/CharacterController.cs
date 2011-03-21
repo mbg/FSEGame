@@ -78,6 +78,8 @@ namespace FSEGame
         private const UInt32 SPRITE_LEFT = 1;
         private const UInt32 SPRITE_UP = 2;
         private const UInt32 SPRITE_DOWN = 3;
+        private const UInt32 SPRITE_RIGHT_ANIMATED = 4;
+        private const UInt32 SPRITE_LEFT_ANIMATED = 5;
         #endregion
 
         #region Properties
@@ -293,19 +295,31 @@ namespace FSEGame
 
                     if (difference.Y < 0)
                     {
-                        this.absolutePosition.Y -= movement;
+                        if (this.absolutePosition.Y - movement < this.targetPosition.Y)
+                            this.absolutePosition.Y = this.targetPosition.Y;
+                        else
+                            this.absolutePosition.Y -= movement;
                     }
                     else if (difference.Y > 0)
                     {
-                        this.absolutePosition.Y += movement;
+                        /*if (this.absolutePosition.Y + movement > this.targetPosition.Y)
+                            this.absolutePosition.Y = this.targetPosition.Y;
+                        else*/
+                            this.absolutePosition.Y += movement;
                     }
                     else if (difference.X < 0)
                     {
-                        this.absolutePosition.X -= movement;
+                        if (this.absolutePosition.X - movement < this.targetPosition.X)
+                            this.absolutePosition.X = this.targetPosition.X;
+                        else
+                            this.absolutePosition.X -= movement;
                     }
                     else if (difference.X > 0)
                     {
-                        this.absolutePosition.X += movement;
+                        /*if (this.absolutePosition.X + movement > this.targetPosition.X)
+                            this.absolutePosition.X = this.targetPosition.X;
+                        else*/
+                            this.absolutePosition.X += movement;
                     }
                 }
             }
@@ -314,7 +328,7 @@ namespace FSEGame
 
         #region Draw
         /// <summary>
-        /// Draws the character.
+        /// Draws the character pawn.
         /// </summary>
         /// <param name="spriteBatch"></param>
         public void Draw(SpriteBatch spriteBatch)
