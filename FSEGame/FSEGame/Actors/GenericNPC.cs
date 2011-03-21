@@ -25,7 +25,9 @@ namespace FSEGame.Actors
     public class GenericNPC : Actor
     {
         #region Instance Members
-
+        /// <summary>
+        /// The properties of this actor.
+        /// </summary>
         private ActorProperties properties;
         /// <summary>
         /// The tileset used by this actor.
@@ -39,7 +41,9 @@ namespace FSEGame.Actors
         /// The time which has elapsed since the NPC last turned.
         /// </summary>
         private float timeSinceLastTurn = 0.0f;
-
+        /// <summary>
+        /// A value indicating whether this actor is passable or not.
+        /// </summary>
         private Boolean passable = false;
         #endregion
 
@@ -49,6 +53,9 @@ namespace FSEGame.Actors
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Gets the properties of this actor.
+        /// </summary>
         public ActorProperties Properties
         {
             get
@@ -56,11 +63,18 @@ namespace FSEGame.Actors
                 return this.properties;
             }
         }
+        /// <summary>
+        /// Gets or sets a value indicating whether this actor is passable or not.
+        /// </summary>
         public override Boolean Passable
         {
             get
             {
                 return this.passable;
+            }
+            set
+            {
+                this.passable = value;
             }
         }
         #endregion

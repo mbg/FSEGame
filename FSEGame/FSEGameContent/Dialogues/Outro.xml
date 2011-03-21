@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<Dialogue ID="root">
+  <Speech ID="speech#1" TextVar="string#1" Mode="Time" Time="0">
+    <Speech ID="speech#2" TextVar="string#2" Mode="Time" Time="0">
+      <Speech ID="speech#3" TextVar="string#3" Mode="Time" Time="0">
+        <Speech ID="speech#4" TextVar="string#4" Mode="Time" Time="0" />
+      </Speech>
+    </Speech>
+  </Speech>
+  <Variables>
+    <StringVar Name="string#1" Export="False">And thus was it that Landor began his journey away from his home...</StringVar>
+    <StringVar Name="string#2" Export="False">Unknowingly to him, this was only the beginning of his quest to free the land of bridges from the shadows which had occupied it for far too long.</StringVar>
+    <StringVar Name="string#3" Export="False">But that is a story for another time...</StringVar>
+    <StringVar Name="string#4" Export="False">To be continued.</StringVar>
+  </Variables>
+</Dialogue>

@@ -20,22 +20,12 @@ namespace FSEGame.Actors
     /// <summary>
     /// 
     /// </summary>
-    public class BridgeNPC : Actor
+    public class BridgeNPC : GenericNPC
     {
         #region Instance Members
-        private ActorProperties properties;
-        private Tileset tileset;
-        private Boolean torchAcquired = false;
         #endregion
 
         #region Properties
-        public override bool Passable
-        {
-            get
-            {
-                return this.torchAcquired;
-            }
-        }
         #endregion
 
         #region Constructor
@@ -43,35 +33,42 @@ namespace FSEGame.Actors
         /// Initialises a new instance of this class.
         /// </summary>
         public BridgeNPC(ActorProperties properties)
+            : base(properties)
         {
-            this.properties = properties;
+        }
+        #endregion
 
-            this.tileset = new Tileset(16, 1, Convert.ToUInt16(properties.Properties["States"]));
-            this.tileset.Load(GameBase.Singleton.Content, properties.Properties["Tileset"]);
+        #region HasAcquiredCoal
+        /// <summary>
+        /// Gets a value indicating whether the player has acquired the coal.
+        /// </summary>
+        /// <returns>Returns true if the coal has been acquired.</returns>
+        protected Boolean HasAcquiredTorch()
+        {
+            FSEGame game = FSEGame.Singleton;
+
+            // :: The coal was acquired if the I_Coal game state variable is set to 10.
+            if (game.PersistentStorage.ContainsKey("T_Village"))
+            {
+                UInt32 questProgress = (UInt32)game.PersistentStorage["T_Village"].Item;
+
+                return questProgress == 10;
+            }
+
+            return false;
         }
         #endregion
 
         public override void Update(GameTime gameTime)
         {
-            if (FSEGame.Singleton.PersistentStorage.ContainsKey(
-                this.properties.Properties["TorchID"]))
-            {
-                PersistentStorageItem item =
-                    FSEGame.Singleton.PersistentStorage[this.properties.Properties["TorchID"]];
-
-                if (item.ItemType == PersistentStorageItemType.Number)
-                {
-                    this.torchAcquired = false;
-                }
-            }
+            this.Passable = this.HasAcquiredTorch();
+            base.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch batch)
         {
-            if (this.torchAcquired)
-                return;
-
-            this.tileset.DrawTile(batch, 0, this.AbsolutePosition);
+            if(!this.Passable)
+                base.Draw(batch);
         }
     }
 }

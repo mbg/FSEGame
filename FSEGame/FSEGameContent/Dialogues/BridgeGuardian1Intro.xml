@@ -7,7 +7,7 @@
   </Speech>
   <Variables>
     <StringVar Name="string#1" Export="False">A Bridge Guardian blocks the way ahead.</StringVar>
-    <StringVar Name="string#2" Export="False">Bridge Guardian: No one crosses this bridge.</StringVar>
-    <StringVar Name="string#3" Export="False">Bridge Guardian: I will send you back where you belong, boy.</StringVar>
+    <StringVar Name="string#2" Export="False">Bridge Guardian: No one has dared crossing this bridge in almost 100 years.</StringVar>
+    <StringVar Name="string#3" Export="False">Bridge Guardian: Who are you to try and cross my bridge?</StringVar>
   </Variables>
 </Dialogue>

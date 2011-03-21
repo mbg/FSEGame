@@ -179,6 +179,12 @@
       <Processor>PassThroughProcessor</Processor>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Dialogues\Outro.xml">
+      <Name>Outro</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Dialogues\TestDialogue.xml">
       <Name>TestDialogue</Name>
       <Importer>XmlImporter</Importer>
@@ -330,6 +336,11 @@
     </Compile>
     <Compile Include="ProgressBarFilled.png">
       <Name>ProgressBarFilled</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="GameOver.png">
+      <Name>GameOver</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

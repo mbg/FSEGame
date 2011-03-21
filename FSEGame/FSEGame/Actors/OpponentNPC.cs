@@ -39,6 +39,9 @@ namespace FSEGame.Actors
             {
                 return false;
             }
+            set
+            {
+            }
         }
         #endregion
 

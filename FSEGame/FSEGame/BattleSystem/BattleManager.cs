@@ -40,6 +40,9 @@ namespace FSEGame.BattleSystem
 
         private IMove playerMove = null;
         private IMove opponentMove = null;
+
+        private UIGridButtonEventDelegate openAttackMenuDelegate;
+        private UIGridButtonEventDelegate performMoveDelegate;
         #endregion
 
         private event BattleEndedDelegate ended = null;
@@ -67,7 +70,8 @@ namespace FSEGame.BattleSystem
         {
             this.messageQueue = new Queue<String>();
 
-            
+            this.openAttackMenuDelegate = new UIGridButtonEventDelegate(this.OpenAttackMenu);
+            this.performMoveDelegate = new UIGridButtonEventDelegate(this.PerformMove);
         }
         #endregion
 
@@ -111,13 +115,13 @@ namespace FSEGame.BattleSystem
                     displayName = g.PlayerCharacter.Moves[i].DisplayName;
 
                     g.BattleUI.AttackMenu.Buttons[row, column].Tag = g.PlayerCharacter.Moves[i];
-                    g.BattleUI.AttackMenu.Buttons[row, column].Triggered += new UIGridButtonEventDelegate(PerformMove);
+                    g.BattleUI.AttackMenu.Buttons[row, column].Triggered += this.performMoveDelegate;
                 }
 
                 g.BattleUI.AttackMenu.Buttons[row, column].Text = displayName;
             }
 
-            g.BattleUI.MainMenu.Buttons[0, 0].Triggered += new UIGridButtonEventDelegate(OpenAttackMenu);
+            g.BattleUI.MainMenu.Buttons[0, 0].Triggered += this.openAttackMenuDelegate;
 
             g.BattleUI.Show();
 
@@ -346,13 +350,24 @@ namespace FSEGame.BattleSystem
 
         private void EndBattle(Boolean victory)
         {
+            FSEGame g = FSEGame.Singleton;
+
             if (victory)
                 this.messageQueue.Enqueue("Landor is victorious!");
 
+            // :: Uninitialise the attack menu for the player.
+            for (Int32 i = 0; i < 4; i++)
+            {
+                Int32 row = i / 2;
+                Int32 column = i % 2;
+
+                g.BattleUI.AttackMenu.Buttons[row, column].Triggered -= this.performMoveDelegate;
+            }
+
+            g.BattleUI.MainMenu.Buttons[0, 0].Triggered -= this.openAttackMenuDelegate;
+
             this.ProcessMessageQueue(new MessageQueueFinishedDelegate(delegate
             {
-                FSEGame g = FSEGame.Singleton;
-
                 g.BattleUI.Hide();
                 g.Camera.AttachToPlayer();
 

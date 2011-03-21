@@ -64,6 +64,7 @@ namespace FSEGame.Engine
         public abstract Boolean Passable
         {
             get;
+            set;
         }
         #endregion
 

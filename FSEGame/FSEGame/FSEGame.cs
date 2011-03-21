@@ -35,6 +35,7 @@ namespace FSEGame
 
         private GameState state;
         private MainMenuScreen mainMenu;
+        private GameOverScreen gameOverScreen;
         private LoadScreen loadScreen;
         private IngameMenu ingameMenu;
         private SaveScreen saveScreen;
@@ -207,12 +208,14 @@ namespace FSEGame
             base.LoadContent();
 
             this.mainMenu = new MainMenuScreen();
+            this.gameOverScreen = new GameOverScreen();
             this.loadScreen = new LoadScreen();
             this.ingameMenu = new IngameMenu();
             this.saveScreen = new SaveScreen();
             this.battleUI = new BattleUI();
             this.fadeScreen = new FadeScreen();
 
+            this.gameOverScreen.Visible = false;
             this.loadScreen.Visible = false;
             this.ingameMenu.Visible = false;
             this.saveScreen.Visible = false;
@@ -220,6 +223,7 @@ namespace FSEGame
             this.fadeScreen.Visible = false;
             
             this.UIElements.Add(this.mainMenu);
+            this.UIElements.Add(this.gameOverScreen);
             this.UIElements.Add(this.loadScreen);
             this.UIElements.Add(this.ingameMenu);
             this.UIElements.Add(this.saveScreen);
@@ -335,6 +339,7 @@ namespace FSEGame
 
         public void OpenMainMenu()
         {
+            this.gameOverScreen.Hide();
             this.loadScreen.Hide();
             this.mainMenu.Show();
 
@@ -549,6 +554,37 @@ namespace FSEGame
         {
             this.state = GameState.Battle;
 
+            DialogueEventDelegate outroDelegate = null;
+            outroDelegate = new DialogueEventDelegate(delegate
+            {
+                this.DialogueManager.OnEnd -= outroDelegate;
+                this.RegisterDefaultDialogueHandlers();
+                this.state = GameState.Menu;
+                this.OpenMainMenu();
+            });
+
+            BattleEndedDelegate battleDelegate = null;
+            battleDelegate = new BattleEndedDelegate(delegate(Boolean victory)
+            {
+                this.battleManager.Ended -= battleDelegate;
+
+                if (victory)
+                {
+                    this.CurrentLevel.Unload();
+
+                    this.character.Orientation = 180.0f;
+
+                    this.UnregisterDefaultDialogueHandlers();
+                    this.DialogueManager.OnEnd += outroDelegate;
+                    this.DialogueManager.PlayDialogue(@"FSEGame\Dialogues\Outro.xml");
+                }
+                else
+                {
+                    this.state = GameState.Menu;
+                    this.gameOverScreen.Show();
+                }
+            });
+
             FadeScreenEventDelegate fadeEndEvent = null;
             fadeEndEvent = new FadeScreenEventDelegate(delegate
             {
@@ -558,6 +594,7 @@ namespace FSEGame
 
                 this.UnregisterDefaultDialogueHandlers();
 
+                this.battleManager.Ended += battleDelegate;
                 this.battleManager.Load(configuration);
                 this.battleManager.Start();
             });
