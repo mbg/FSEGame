@@ -115,6 +115,7 @@
   <ItemGroup>
     <Compile Include="Actors\BridgeNPC.cs" />
     <Compile Include="Actors\Markus.cs" />
+    <Compile Include="Actors\Maro.cs" />
     <Compile Include="Actors\OpponentNPC.cs" />
     <Compile Include="Actors\GenericNPC.cs" />
     <Compile Include="Actors\Vernado.cs" />

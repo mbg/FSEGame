@@ -83,6 +83,12 @@ namespace FSEGame
                         markus.CellPosition = new Vector2(properties.X, properties.Y);
                         return markus;
                     }
+                case "Maro":
+                    {
+                        Maro markus = new Maro(properties);
+                        markus.CellPosition = new Vector2(properties.X, properties.Y);
+                        return markus;
+                    }
             }
 
             return null;

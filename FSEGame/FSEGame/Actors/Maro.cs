@@ -11,17 +11,15 @@
 #region References
 using System;
 using FSEGame.Engine;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using FSEGame.BattleSystem;
 #endregion
 
 namespace FSEGame.Actors
 {
     /// <summary>
-    /// Represents the NPC named 'Markus' in the Village level.
+    /// Represents the NPC named 'Maro' in the Village level.
     /// </summary>
-    public class Markus : GenericNPC
+    public class Maro : GenericNPC
     {
         #region Instance Members
         #endregion
@@ -33,7 +31,7 @@ namespace FSEGame.Actors
         /// <summary>
         /// Initialises a new instance of this class.
         /// </summary>
-        public Markus(ActorProperties properties)
+        public Maro(ActorProperties properties)
             : base(properties)
         {
 
@@ -42,15 +40,15 @@ namespace FSEGame.Actors
 
         #region CanAcquireStick
         /// <summary>
-        /// Gets a value indicating whether the player can acquire a stick from Markus
+        /// Gets a value indicating whether the player can acquire coal from Maro
         /// or not.
         /// </summary>
-        /// <returns>Returns true if the stick may be acquired at this time.</returns>
-        private Boolean CanAcquireStick()
+        /// <returns>Returns true if the coal may be acquired at this time.</returns>
+        private Boolean CanAcquireCoal()
         {
             FSEGame game = FSEGame.Singleton;
 
-            // :: The stick may be acquired if the BuildTorch quest is in stage 10.
+            // :: The coal may be acquired if the BuildTorch quest is in stage 10.
             if (game.PersistentStorage.ContainsKey("Q_BuildTorch"))
             {
                 UInt32 questProgress = (UInt32)game.PersistentStorage["Q_BuildTorch"].Item;
@@ -106,106 +104,61 @@ namespace FSEGame.Actors
 
         #region PerformAction
         /// <summary>
-        /// Performs Markus' action based on the current state of the game.
+        /// Performs Maro's action based on the current state of the game.
         /// </summary>
         protected override void PerformAction()
         {
-            if (this.HasAcquiredStick())
+            if (this.HasAcquiredCoal())
             {
                 GameBase.Singleton.DialogueManager.PlayDialogue(
-                    @"FSEGame\Dialogues\MarkusPostStick.xml");
+                    @"FSEGame\Dialogues\MaroPostCoal.xml");
             }
-            else if (this.CanAcquireStick())
+            else if (this.CanAcquireCoal())
             {
                 FSEGame.Singleton.UnregisterDefaultDialogueHandlers();
-
-                DialogueEventDelegate stickDelegate = null;
-                stickDelegate = new DialogueEventDelegate(delegate
-                {
-                    FSEGame.Singleton.DialogueManager.OnEnd -= stickDelegate;
-                    FSEGame.Singleton.RegisterDefaultDialogueHandlers();
-
-                    FSEGame.Singleton.State = GameState.Exploring;
-
-                    this.GiveStick();
-                });
-
-                // :: Declare the event handler for the end of the combat sequence. This
-                // :: delegate will be called when the battle has ended and the outcome
-                // :: will be supplied as argument.
-                BattleEndedDelegate battleEndedDelegate = null;
-                battleEndedDelegate = new BattleEndedDelegate(delegate(Boolean victory)
-                {
-                    FSEGame.Singleton.BattleManager.Ended -= battleEndedDelegate;
-
-                    FSEGame.Singleton.LoadLevel(@"Levels\House3.xml", "TutorialEnd", false);
-                    FSEGame.Singleton.Character.Orientation = 0.0f;
-                    FSEGame.Singleton.PlayerCharacter.CurrentAttributes.Health =
-                        FSEGame.Singleton.PlayerCharacter.BaseAttributes.Health;
-
-                    // :: If the player is victorious, give him the stick and play
-                    // :: a short dialogue - however, if the player has lost, don't
-                    // :: give him the stick.
-                    if (victory)
-                    {
-                        FSEGame.Singleton.UnregisterDefaultDialogueHandlers();
-                        FSEGame.Singleton.DialogueManager.OnEnd += stickDelegate;
-
-                        FSEGame.Singleton.State = GameState.Cutscene;
-
-                        GameBase.Singleton.DialogueManager.PlayDialogue(
-                            @"FSEGame\Dialogues\MarkusPostTutorial.xml");
-                    }
-                    else
-                    {
-                        FSEGame.Singleton.RegisterDefaultDialogueHandlers();
-
-                        GameBase.Singleton.DialogueManager.PlayDialogue(
-                            @"FSEGame\Dialogues\MarkusPostTutorialLoss.xml");
-                    }
-                });
 
                 DialogueEventDelegate endDelegate = null;
                 endDelegate = new DialogueEventDelegate(delegate
                 {
                     FSEGame.Singleton.DialogueManager.OnEnd -= endDelegate;
                     FSEGame.Singleton.RegisterDefaultDialogueHandlers();
+                    
+                    FSEGame.Singleton.State = GameState.Exploring;
 
-                    FSEGame.Singleton.BattleManager.Ended += battleEndedDelegate;
-                    FSEGame.Singleton.BeginBattle(@"BattleData\Tutorial1.xml");
+                    this.GiveCoal();
                 });
 
                 FSEGame.Singleton.DialogueManager.OnEnd += endDelegate;
                 FSEGame.Singleton.State = GameState.Cutscene;
 
                 GameBase.Singleton.DialogueManager.PlayDialogue(
-                    @"FSEGame\Dialogues\MarkusStick.xml");
+                    @"FSEGame\Dialogues\MaroCoal.xml");
             }
             else
             {
                 GameBase.Singleton.DialogueManager.PlayDialogue(
-                    @"FSEGame\Dialogues\MarkusDefault.xml");
+                    @"FSEGame\Dialogues\MaroDefault.xml");
             }
         }
         #endregion
 
         #region GiveStick
         /// <summary>
-        /// Sets the I_Stick game state variable to 10 (indicating its availability) and
+        /// Sets the I_Coal game state variable to 10 (indicating its availability) and
         /// verifies whether the player owns both the coal and stick.
         /// </summary>
-        private void GiveStick()
+        private void GiveCoal()
         {
             FSEGame game = FSEGame.Singleton;
 
-            if (!game.PersistentStorage.ContainsKey("I_Stick"))
+            if (!game.PersistentStorage.ContainsKey("I_Coal"))
             {
-                game.PersistentStorage.Add("I_Stick", new PersistentStorageItem((UInt32)10));
+                game.PersistentStorage.Add("I_Coal", new PersistentStorageItem((UInt32)10));
             }
 
             // :: If the player has both the stick and the piece of coal,
             // :: give them the finished torch.
-            if (this.HasAcquiredCoal())
+            if (this.HasAcquiredStick())
             {
                 this.GiveTorch();
             }
