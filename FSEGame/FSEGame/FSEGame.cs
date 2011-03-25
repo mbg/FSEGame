@@ -33,6 +33,7 @@ namespace FSEGame
         private static FSEGame singleton;
         #endregion
 
+        #region Instance Members
         private GameState state;
         private MainMenuScreen mainMenu;
         private GameOverScreen gameOverScreen;
@@ -49,6 +50,7 @@ namespace FSEGame
         private String savesFolder = null;
         private DialogueEventDelegate dialogueStartDelegate;
         private DialogueEventDelegate dialogueEndDelegate;
+        #endregion
 
         #region Static Properties
         public static new FSEGame Singleton
@@ -63,6 +65,7 @@ namespace FSEGame
         }
         #endregion
 
+        #region Properties
         public GameState State
         {
             get
@@ -122,6 +125,7 @@ namespace FSEGame
                 return this.battleManager;
             }
         }
+        #endregion
 
         #region Constructor
         /// <summary>
@@ -403,7 +407,7 @@ namespace FSEGame
             playerAttributes.Magic = 50;
 
             this.playerCharacter = new PlayerCharacter(playerAttributes);
-            this.playerCharacter.Moves.Add(new BasicAttack());
+            this.playerCharacter.Moves.Add(new MeleeAttack());
 
             // :: Temporarily change the dialogue event handlers so that
             // :: they don't change the game state to Exploring / Cutscene.
@@ -488,8 +492,8 @@ namespace FSEGame
 
                 for (Int32 i = 0; i < moveCount; i++)
                 {
-                    this.playerCharacter.Moves.Add(new BasicAttack());
-                    br.ReadString();
+                    this.playerCharacter.Moves.Add(
+                        MoveHelper.CreateFromName(br.ReadString()));
                 }
 
                 // :: Load the persistent storage data. The persistent storage
@@ -552,8 +556,6 @@ namespace FSEGame
         [ScriptFunction("BeginBattle")]
         public void BeginBattle(String configuration)
         {
-            this.state = GameState.Battle;
-
             DialogueEventDelegate outroDelegate = null;
             outroDelegate = new DialogueEventDelegate(delegate
             {
@@ -583,6 +585,21 @@ namespace FSEGame
                     this.state = GameState.Menu;
                     this.gameOverScreen.Show();
                 }
+            });
+
+            this.BeginBattle(configuration, battleDelegate);
+        }
+
+        public void BeginBattle(String configuration, BattleEndedDelegate ended)
+        {
+            this.state = GameState.Battle;
+
+            BattleEndedDelegate battleDelegate = null;
+            battleDelegate = new BattleEndedDelegate(delegate(Boolean victory)
+            {
+                this.battleManager.Ended -= battleDelegate;
+
+                ended(victory);
             });
 
             FadeScreenEventDelegate fadeEndEvent = null;

@@ -1,9 +1,11 @@
 ﻿// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-// :: $projectname$
-// :: Copyright 2011 Michael Gale
+// :: FSEGame
+// :: Copyright 2011 Warren Jackson, Michael Gale
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-// :: Created: 3/11/2011 6:08:53 AM
+// :: Created: ---
 // ::      by: MBG20102011\Michael Gale
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+// :: Notes:   
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 #region References
@@ -25,6 +27,10 @@ namespace FSEGame.BattleSystem.Moves
                     return new BasicAttack();
                 case "BridgeGuard":
                     return new BridgeGuard();
+                case "TentacleAttack":
+                    return new TentacleAttack();
+                case "MeleeAttack":
+                    return new MeleeAttack();
             }
 
             return null;

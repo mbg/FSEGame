@@ -17,60 +17,41 @@ namespace FSEGame.BattleSystem.Moves
     /// <summary>
     /// 
     /// </summary>
-    public class BasicAttack : IMove
+    class TentacleAttack : IMove
     {
         #region Instance Members
         #endregion
 
         #region Properties
-        /// <summary>
-        /// Gets the name of this move.
-        /// </summary>
-        public String Name
-        {
-            get
-            {
-                return "BasicAttack";
-            }
-        }
-        /// <summary>
-        /// Gets a user-friendly name for this move.
-        /// </summary>
-        public String DisplayName
-        {
-            get
-            {
-                return "Basic Attack";
-            }
-        }
         #endregion
 
         #region Constructor
         /// <summary>
         /// Initialises a new instance of this class.
         /// </summary>
-        public BasicAttack()
+        public TentacleAttack()
         {
 
         }
         #endregion
 
+        public string Name
+        {
+            get 
+            {
+                return "TentacleAttack"; 
+            }
+        }
+
+        public string DisplayName
+        {
+            get 
+            {
+                return "Tentacle Attack"; 
+            }
+        }
+
         #region Score
-        /// <summary>
-        /// Evaluates the current game state and returns a score for this
-        /// move.
-        /// </summary>
-        /// <param name="origin">
-        /// The actor who is trying to evaluate this move.
-        /// </param>
-        /// <param name="target">
-        /// The target of this move.
-        /// </param>
-        /// <returns>
-        /// Returns a score for this move based on the current state of the
-        /// battle. A score of 0 means that the move cannot be performed. The
-        /// higher the score the better.
-        /// </returns>
         public UInt16 Score(Opponent origin, Opponent target)
         {
             // :: The base score for this move is 1. This move is not very
@@ -79,7 +60,7 @@ namespace FSEGame.BattleSystem.Moves
 
             // :: If this move deals enough damage to kill the opponent,
             // :: then this move is slightly more favourable. 
-            if (this.CalculateBaseDamage(origin, target) 
+            if (this.CalculateBaseDamage(origin, target)
                 >= target.CurrentAttributes.Health)
             {
                 score += 5;
@@ -89,16 +70,12 @@ namespace FSEGame.BattleSystem.Moves
         }
         #endregion
 
-        #region Perform
-        /// <summary>
-        /// Performs the move.
-        /// </summary>
-        /// <param name="origin">The actor who is performing this move.</param>
-        /// <param name="target">The target actor of this move.</param>
         public void Perform(Opponent origin, Opponent target)
         {
             Boolean isCrtical = false;
-            UInt16 damage = this.CalculateDamage(origin, target, out isCrtical);
+            Boolean isMiss = false;
+
+            UInt16 damage = this.CalculateDamage(origin, target, out isCrtical, out isMiss);
 
             // :: Perform the action by reducing the target's health points.
             if (target.CurrentAttributes.Health - damage < 0)
@@ -111,9 +88,20 @@ namespace FSEGame.BattleSystem.Moves
                 FSEGame.Singleton.BattleManager.AddToMessageQueue(
                     "It's a critical hit!");
             }
+            else if(isMiss)
+            {
+                FSEGame.Singleton.BattleManager.AddToMessageQueue(
+                    "But it misses!");
+            }
         }
-        #endregion
 
+        #region CalculateBaseDamage
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="origin"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
         private UInt16 CalculateBaseDamage(Opponent origin, Opponent target)
         {
             // :: The base damage inflicted by this move is the performing
@@ -127,6 +115,7 @@ namespace FSEGame.BattleSystem.Moves
 
             return (UInt16)damage;
         }
+        #endregion
 
         #region CalculateDamage
         /// <summary>
@@ -135,20 +124,35 @@ namespace FSEGame.BattleSystem.Moves
         /// <param name="origin"></param>
         /// <param name="target"></param>
         /// <returns></returns>
-        private UInt16 CalculateDamage(Opponent origin, Opponent target, out Boolean critical)
+        private UInt16 CalculateDamage(Opponent origin, Opponent target, out Boolean critical, out Boolean miss)
         {
             Random r = new Random();
             critical = r.Next(10) == 5;
+            miss = r.Next(20) == 10;
 
-            return (UInt16)(this.CalculateBaseDamage(origin, target) * (critical ? 2 : 1));
+            if (miss)
+            {
+                return 0;
+            }
+            else
+            {
+                return (UInt16)(this.CalculateBaseDamage(origin, target) * (critical ? 2 : 1));
+            }
         }
         #endregion
 
+        #region PrePerform
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="origin"></param>
+        /// <param name="target"></param>
         public void PrePerform(Opponent origin, Opponent target)
         {
             FSEGame.Singleton.BattleManager.AddToMessageQueue(String.Format(
-                "{0} hits {1} with a torch!", origin.Name, target.Name));
+                "{0} uses its tentacles to suffocate {1}!", origin.Name, target.Name));
         }
+        #endregion
     }
 }
 

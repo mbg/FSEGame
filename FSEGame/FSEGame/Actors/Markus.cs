@@ -14,6 +14,7 @@ using FSEGame.Engine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using FSEGame.BattleSystem;
+using FSEGame.BattleSystem.Moves;
 #endregion
 
 namespace FSEGame.Actors
@@ -136,8 +137,6 @@ namespace FSEGame.Actors
                 BattleEndedDelegate battleEndedDelegate = null;
                 battleEndedDelegate = new BattleEndedDelegate(delegate(Boolean victory)
                 {
-                    FSEGame.Singleton.BattleManager.Ended -= battleEndedDelegate;
-
                     FSEGame.Singleton.LoadLevel(@"Levels\House3.xml", "TutorialEnd", false);
                     FSEGame.Singleton.Character.Orientation = 0.0f;
                     FSEGame.Singleton.PlayerCharacter.CurrentAttributes.Health =
@@ -171,8 +170,7 @@ namespace FSEGame.Actors
                     FSEGame.Singleton.DialogueManager.OnEnd -= endDelegate;
                     FSEGame.Singleton.RegisterDefaultDialogueHandlers();
 
-                    FSEGame.Singleton.BattleManager.Ended += battleEndedDelegate;
-                    FSEGame.Singleton.BeginBattle(@"BattleData\Tutorial1.xml");
+                    FSEGame.Singleton.BeginBattle(@"BattleData\Tutorial1.xml", battleEndedDelegate);
                 });
 
                 FSEGame.Singleton.DialogueManager.OnEnd += endDelegate;
@@ -223,6 +221,7 @@ namespace FSEGame.Actors
             if (!game.PersistentStorage.ContainsKey("T_Village"))
             {
                 game.PersistentStorage.Add("T_Village", new PersistentStorageItem((UInt32)10));
+                game.PlayerCharacter.Moves.Add(new BasicAttack());
             }
 
             GameBase.Singleton.DialogueManager.PlayDialogue(

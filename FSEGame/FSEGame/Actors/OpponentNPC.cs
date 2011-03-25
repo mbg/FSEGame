@@ -33,6 +33,9 @@ namespace FSEGame.Actors
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Returns false.
+        /// </summary>
         public override Boolean Passable
         {
             get

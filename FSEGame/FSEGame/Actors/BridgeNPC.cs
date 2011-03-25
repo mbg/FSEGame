@@ -18,7 +18,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace FSEGame.Actors
 {
     /// <summary>
-    /// 
+    /// Represents an actor class whose pawn disappears once a torch is acquired.
     /// </summary>
     public class BridgeNPC : GenericNPC
     {
@@ -38,16 +38,16 @@ namespace FSEGame.Actors
         }
         #endregion
 
-        #region HasAcquiredCoal
+        #region HasAcquiredTorch
         /// <summary>
-        /// Gets a value indicating whether the player has acquired the coal.
+        /// Gets a value indicating whether the player has acquired the torch.
         /// </summary>
-        /// <returns>Returns true if the coal has been acquired.</returns>
+        /// <returns>Returns true if the torch has been acquired.</returns>
         protected Boolean HasAcquiredTorch()
         {
             FSEGame game = FSEGame.Singleton;
 
-            // :: The coal was acquired if the I_Coal game state variable is set to 10.
+            // :: The torch was acquired if the T_Village game state variable is set to 10.
             if (game.PersistentStorage.ContainsKey("T_Village"))
             {
                 UInt32 questProgress = (UInt32)game.PersistentStorage["T_Village"].Item;
@@ -59,17 +59,29 @@ namespace FSEGame.Actors
         }
         #endregion
 
+        #region Update
+        /// <summary>
+        /// Updates the actor.
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
             this.Passable = this.HasAcquiredTorch();
             base.Update(gameTime);
         }
+        #endregion
 
+        #region Draw
+        /// <summary>
+        /// Draws the actor.
+        /// </summary>
+        /// <param name="batch"></param>
         public override void Draw(SpriteBatch batch)
         {
             if(!this.Passable)
                 base.Draw(batch);
         }
+        #endregion
     }
 }
 

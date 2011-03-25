@@ -16,14 +16,19 @@ using FSEGame.Engine;
 namespace FSEGame.Actors
 {
     /// <summary>
-    /// 
+    /// Represents the 'Vernado' NPC.
     /// </summary>
     public class Vernado : GenericNPC
     {
         #region Instance Members
         #endregion
 
+        #region Constants
+        /// <summary>
+        /// The ID of the torch.
+        /// </summary>
         private const String TORCH_ID = "T_Village";
+        #endregion
 
         #region Properties
         #endregion
@@ -39,6 +44,13 @@ namespace FSEGame.Actors
         }
         #endregion
 
+        #region GetDialogueName
+        /// <summary>
+        /// Overrides the default dialogue behaviour. Depending on whether or not
+        /// the player has obtained the torch, a different dialogue file path will
+        /// be returned.
+        /// </summary>
+        /// <returns></returns>
         protected override String GetDialogueName()
         {
             if (this.IsPostTorchConstruction())
@@ -46,7 +58,14 @@ namespace FSEGame.Actors
             else
                 return base.Properties.Properties["DefaultDialogue"];
         }
+        #endregion
 
+        #region PerformAction
+        /// <summary>
+        /// Overrides the default action behaviour. If the player has not yet
+        /// acquired the torch and the BuildTorch quest has not yet been started,
+        /// then start the quest.
+        /// </summary>
         protected override void PerformAction()
         {
             if (!this.IsPostTorchConstruction())
@@ -59,7 +78,13 @@ namespace FSEGame.Actors
 
             base.PerformAction();
         }
+        #endregion
 
+        #region IsPostTorchConstruction
+        /// <summary>
+        /// Gets a value indicating whether the player has obtained the torch.
+        /// </summary>
+        /// <returns></returns>
         private Boolean IsPostTorchConstruction()
         {
             FSEGame game = FSEGame.Singleton;
@@ -73,6 +98,7 @@ namespace FSEGame.Actors
 
             return false;
         }
+        #endregion
     }
 }
 

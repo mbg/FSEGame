@@ -22,7 +22,7 @@ namespace Origin.PatchGenerator
     public static class Program
     {
 	    #region Data Members
-        private static String updateURL = "http://people.syngate.co.uk/~mbg/FSEGame/GameFiles/";
+        private static String updateURL = "http://download.syngate.co.uk/FSEGame/GameFiles/";
 	    #endregion
 
         #region Static Members

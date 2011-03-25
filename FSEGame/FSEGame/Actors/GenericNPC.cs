@@ -130,16 +130,32 @@ namespace FSEGame.Actors
         }
         #endregion
 
+        #region GetDialogueName
+        /// <summary>
+        /// Returns the file path of the dialogue which should be played when
+        /// the player interacts with this NPC. By default, this method will only
+        /// return the path to a dialogue specified in the actor properties. 
+        /// If more complex dialogue behaviour is desired, this method may be overriden.
+        /// </summary>
+        /// <returns></returns>
         protected virtual String GetDialogueName()
         {
             return this.properties.Properties["Dialogue"];
         }
+        #endregion
 
+        #region PerformAction
+        /// <summary>
+        /// Performs the NPC's action. By default, this will play the current
+        /// dialogue (see GetDialogueName). If a different or more advanced
+        /// action is required, this method may be overriden.
+        /// </summary>
         protected virtual void PerformAction()
         {
             GameBase.Singleton.DialogueManager.PlayDialogue(
                         this.GetDialogueName());
         }
+        #endregion
 
         #region IsPlayerInInteractionPosition
         /// <summary>

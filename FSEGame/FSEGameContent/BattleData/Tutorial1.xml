@@ -8,7 +8,7 @@
       <Attribute Type="Magic">0</Attribute>
     </Attributes>
     <Moves>
-      <Move Type="BasicAttack" />
+      <Move Type="MeleeAttack" />
     </Moves>
   </Opponent>
 </Battle>

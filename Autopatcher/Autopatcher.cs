@@ -18,7 +18,7 @@ namespace Origin.Autopatcher
     internal static class Autopatcher
     {
         #region Static Members
-        private static String patchInformationFile = "http://people.syngate.co.uk/~mbg/FSEGame/Patch.xml";
+        private static String patchInformationFile = "http://download.syngate.co.uk/FSEGame/Patch.xml";
         private static String applicationName = "FSEGame";
         private static String applicationExecutable = "FSEGame.exe";
         #endregion

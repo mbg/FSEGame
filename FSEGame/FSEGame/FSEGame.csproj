@@ -125,7 +125,9 @@
     <Compile Include="BattleSystem\IMove.cs" />
     <Compile Include="BattleSystem\Moves\BridgeGuard.cs" />
     <Compile Include="BattleSystem\Moves\BasicAttack.cs" />
+    <Compile Include="BattleSystem\Moves\MeleeAttack.cs" />
     <Compile Include="BattleSystem\Moves\MoveHelper.cs" />
+    <Compile Include="BattleSystem\Moves\TentacleAttack.cs" />
     <Compile Include="BattleSystem\Opponent.cs" />
     <Compile Include="BattleSystem\PlayerCharacter.cs" />
     <Compile Include="BattleSystem\ScoredMove.cs" />
@@ -189,8 +191,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FSEGameContent\FSEGameContent.contentproj">
-      <Name>FSEGameContent</Name>
+      <Name>FSEGameContent %28FSEGame%29</Name>
       <XnaReferenceType>Content</XnaReferenceType>
+      <Project>{4FB2B012-78E7-4095-A4AE-8096B4935F93}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -222,6 +225,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />

@@ -239,7 +239,8 @@ namespace FSEGame.Engine.Dialogues
             this.totalTimeElapsed += (float)time.ElapsedGameTime.TotalSeconds;
 
             if (this.timeElapsed >= this.updateInterval || 
-                (Keyboard.GetState().IsKeyDown(Keys.Enter) && this.totalTimeElapsed >= 1.0f))
+                ((GameBase.Singleton.IsKeyPressed(Keys.Enter) || GameBase.Singleton.IsKeyPressed(Keys.Space)) 
+                && this.totalTimeElapsed >= 1.0f))
             {
                 this.DisplayNextWord();
                 this.timeElapsed = 0.0f;

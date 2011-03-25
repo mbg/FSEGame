@@ -12,6 +12,7 @@
 using System;
 using FSEGame.Engine;
 using FSEGame.BattleSystem;
+using FSEGame.BattleSystem.Moves;
 #endregion
 
 namespace FSEGame.Actors
@@ -176,6 +177,7 @@ namespace FSEGame.Actors
             if (!game.PersistentStorage.ContainsKey("T_Village"))
             {
                 game.PersistentStorage.Add("T_Village", new PersistentStorageItem((UInt32)10));
+                game.PlayerCharacter.Moves.Add(new BasicAttack());
             }
 
             GameBase.Singleton.DialogueManager.PlayDialogue(
