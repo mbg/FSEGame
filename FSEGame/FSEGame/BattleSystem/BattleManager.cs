@@ -263,7 +263,7 @@ namespace FSEGame.BattleSystem
 
         #region PerformMove
         /// <summary>
-        /// 
+        /// Triggered when the player selected a move.
         /// </summary>
         /// <param name="sender"></param>
         private void PerformMove(UIGridButton sender)
@@ -302,7 +302,7 @@ namespace FSEGame.BattleSystem
                         {
                             this.UpdateUI();
 
-                            FSEGame.Singleton.BattleUI.MainMenu.Show();
+                            this.EndRound();
                         }
                         else
                         {
@@ -331,7 +331,7 @@ namespace FSEGame.BattleSystem
                         {
                             this.ProcessMessageQueue(new MessageQueueFinishedDelegate(delegate
                             {
-                                FSEGame.Singleton.BattleUI.MainMenu.Show();
+                                this.EndRound();
                             }));
                         }
                     }));
@@ -341,7 +341,7 @@ namespace FSEGame.BattleSystem
                     this.messageQueue.Enqueue(String.Format("{0} can't move!", this.currentOpponent.Name));
                     this.ProcessMessageQueue(new MessageQueueFinishedDelegate(delegate
                     {
-                        FSEGame.Singleton.BattleUI.MainMenu.Show();
+                        this.EndRound();
                     }));
                 }
             }));
@@ -381,6 +381,52 @@ namespace FSEGame.BattleSystem
         {
             this.messageQueue.Enqueue(message);
         }
+
+        #region EndMove
+        /// <summary>
+        /// Ends a round.
+        /// </summary>
+        private void EndRound()
+        {
+            this.RegenerateStats();
+
+            FSEGame.Singleton.BattleUI.MainMenu.Show();
+        }
+        #endregion
+
+        #region RegenerateStats
+        /// <summary>
+        /// Regenerates the player's and opponent's stats at the end of a round.
+        /// </summary>
+        private void RegenerateStats()
+        {
+            FSEGame game = FSEGame.Singleton;
+
+            // :: Regenerate the player's mana.
+            if (game.PlayerCharacter.CurrentAttributes.Magic <
+                game.PlayerCharacter.BaseAttributes.Magic)
+            {
+                UInt16 newMana = (UInt16)(game.PlayerCharacter.CurrentAttributes.Magic + 5);
+
+                if (newMana > game.PlayerCharacter.BaseAttributes.Magic)
+                    newMana = game.PlayerCharacter.BaseAttributes.Magic;
+
+                game.PlayerCharacter.CurrentAttributes.Magic = newMana;
+            }
+
+            // :: Regenerate the opponent's mana.
+            if (this.currentOpponent.CurrentAttributes.Magic <
+                this.currentOpponent.BaseAttributes.Magic)
+            {
+                UInt16 newMana = (UInt16)(this.currentOpponent.CurrentAttributes.Magic + 5);
+
+                if (newMana > this.currentOpponent.BaseAttributes.Magic)
+                    newMana = this.currentOpponent.BaseAttributes.Magic;
+
+                this.currentOpponent.CurrentAttributes.Magic = newMana;
+            }
+        }
+        #endregion
     }
 }
 

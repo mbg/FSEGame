@@ -31,6 +31,8 @@ namespace FSEGame.BattleSystem.Moves
                     return new TentacleAttack();
                 case "MeleeAttack":
                     return new MeleeAttack();
+                case "Heal":
+                    return new Heal();
             }
 
             return null;

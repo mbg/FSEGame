@@ -75,14 +75,19 @@ namespace FSEGame.BattleSystem.Moves
         {
             UInt16 score = 5;
 
-            if (origin.CurrentAttributes.Defence + 1
-                > origin.BaseAttributes.Defence + 5)
+            if (origin.CurrentAttributes.Defence + 1 >
+                origin.BaseAttributes.Defence + 5)
             {
                 score = 0;
             }
             else if (origin.CurrentAttributes.Magic < 10)
             {
                 score = 0;
+            }
+            else if (origin.CurrentAttributes.Health <
+                target.CurrentAttributes.Health)
+            {
+                score -= 2;
             }
 
             return score;

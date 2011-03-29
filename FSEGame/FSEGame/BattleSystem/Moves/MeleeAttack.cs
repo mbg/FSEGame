@@ -1,9 +1,11 @@
 ﻿// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-// :: $projectname$
-// :: Copyright 2011 Remote User
+// :: FSEGame
+// :: Copyright 2011 Warren Jackson, Michael Gale
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-// :: Created: 3/22/2011 1:55:30 PM
-// ::      by: MBG20102011\Remote User
+// :: Created: ---
+// ::      by: MBG20102011\Michael Gale
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+// :: Notes:   
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 #region References
@@ -33,6 +35,10 @@ namespace FSEGame.BattleSystem.Moves
         }
         #endregion
 
+        #region Properties
+        /// <summary>
+        /// Gets the name of the move.
+        /// </summary>
         public string Name
         {
             get 
@@ -40,7 +46,9 @@ namespace FSEGame.BattleSystem.Moves
                 return "MeleeAttack"; 
             }
         }
-
+        /// <summary>
+        /// Gets the display name of the move.
+        /// </summary>
         public string DisplayName
         {
             get 
@@ -48,6 +56,7 @@ namespace FSEGame.BattleSystem.Moves
                 return "Melee Attack"; 
             }
         }
+        #endregion
 
         #region Score
         public UInt16 Score(Opponent origin, Opponent target)

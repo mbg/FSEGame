@@ -127,8 +127,8 @@ namespace FSEGame.BattleSystem.Moves
         private UInt16 CalculateDamage(Opponent origin, Opponent target, out Boolean critical, out Boolean miss)
         {
             Random r = new Random();
-            critical = r.Next(10) == 5;
-            miss = r.Next(20) == 10;
+            critical = r.Next(20) == 5;
+            miss = r.Next(10) == 10;
 
             if (miss)
             {
