@@ -46,6 +46,14 @@ namespace FSELevelEditor
             {
                 this.tilesetComboBox.SelectedIndex = 0;
             }
+
+            Application.Idle += delegate 
+            {
+                if (this.Visible)
+                {
+                    this.tilesetExplorer1.Invalidate();
+                }
+            };
         }
 
         private void tilsetComboBox_SelectedIndexChanged(object sender, EventArgs e)

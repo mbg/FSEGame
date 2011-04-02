@@ -29,6 +29,9 @@ namespace FSEGameEditorEngine
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Gets a list of all tilesets that have been loaded.
+        /// </summary>
         public List<Tileset> Tilesets
         {
             get
@@ -49,19 +52,33 @@ namespace FSEGameEditorEngine
         }
         #endregion
 
+        #region LoadTilesets
+        /// <summary>
+        /// Loads all tilesets from the "Tilesets" subdirectory.
+        /// </summary>
         public void LoadTilesets()
         {
             String path = Path.Combine(this.contentManager.RootDirectory, @"Tilesets\");
             DirectoryInfo dir = new DirectoryInfo(path);
 
+            this.tilesets.Clear();
+
             foreach (FileInfo file in dir.GetFiles("*.xml"))
             {
-                Tileset tileset = new Tileset(16, 6, 8);
-                tileset.Load(this.contentManager, Path.Combine(@"Tilesets\", file.Name));
+                try
+                {
+                    Tileset tileset = new Tileset(16, 6, 8);
+                    tileset.Load(this.contentManager, Path.Combine(@"Tilesets\", file.Name));
 
-                this.tilesets.Add(tileset);
+                    this.tilesets.Add(tileset);
+                }
+                catch (Exception ex)
+                {
+                    // todo: handle error
+                }
             }
         }
+        #endregion
     }
 }
 

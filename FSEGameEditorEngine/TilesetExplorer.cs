@@ -28,6 +28,9 @@ namespace FSEGameEditorEngine
         private SpriteBatch batch;
         private float offset = 0.0f;
         private List<Tile> tiles;
+        private DateTime gameStarted;
+        private DateTime lastFrameEnded;
+        private GameTime time;
         #endregion 
 
         #region Properties
@@ -59,6 +62,10 @@ namespace FSEGameEditorEngine
         public TilesetExplorer()
         {
             this.tiles = new List<Tile>();
+            this.time = new GameTime();
+            this.gameStarted = DateTime.Now;
+            this.lastFrameEnded = DateTime.Now;
+
             this.SetStyle(ControlStyles.Selectable, true);
             this.UpdateStyles();
         }
@@ -77,6 +84,12 @@ namespace FSEGameEditorEngine
 
             if (this.activeTileset == null)
                 return;
+
+            this.time = new GameTime(
+                DateTime.Now.Subtract(this.gameStarted),
+                DateTime.Now.Subtract(this.lastFrameEnded));
+
+            this.activeTileset.Update(this.time);
 
             this.batch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, null);
 
@@ -100,6 +113,8 @@ namespace FSEGameEditorEngine
             }
 
             this.batch.End();
+
+            this.lastFrameEnded = DateTime.Now;
         }
 
         protected override void OnClick(EventArgs e)
