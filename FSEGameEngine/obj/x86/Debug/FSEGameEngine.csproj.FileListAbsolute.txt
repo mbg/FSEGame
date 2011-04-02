@@ -6,3 +6,10 @@ E:\University\G51FSE\Coursework\FSEGameEngine\obj\x86\Debug\FSEGameEngine.dll
 E:\University\G51FSE\Coursework\FSEGameEngine\obj\x86\Debug\FSEGameEngine.pdb
 E:\University\G51FSE\Coursework\FSEGameEngine\bin\x86\Debug\LuaInterface.dll
 E:\University\G51FSE\Coursework\FSEGameEngine\bin\x86\Debug\lua51.dll
+C:\Users\Warren\Documents\University\FSEGame\FSEGameEngine\bin\x86\Debug\FSEGameEngine.dll
+C:\Users\Warren\Documents\University\FSEGame\FSEGameEngine\bin\x86\Debug\FSEGameEngine.pdb
+C:\Users\Warren\Documents\University\FSEGame\FSEGameEngine\bin\x86\Debug\lua51.dll
+C:\Users\Warren\Documents\University\FSEGame\FSEGameEngine\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Warren\Documents\University\FSEGame\FSEGameEngine\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\Warren\Documents\University\FSEGame\FSEGameEngine\obj\x86\Debug\FSEGameEngine.dll
+C:\Users\Warren\Documents\University\FSEGame\FSEGameEngine\obj\x86\Debug\FSEGameEngine.pdb
