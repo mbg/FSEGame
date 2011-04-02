@@ -79,6 +79,16 @@ namespace FSEGame.Engine
             }
         }
         /// <summary>
+        /// Gets the name of the tileset's resource.
+        /// </summary>
+        public String Resource
+        {
+            get
+            {
+                return this.resource;
+            }
+        }
+        /// <summary>
         /// Gets the size (in pixels) of each  of the tiles' edges. This
         /// size to the power of two represents the total number of pixels
         /// in each tile.
@@ -108,6 +118,16 @@ namespace FSEGame.Engine
             get
             {
                 return this.columns;
+            }
+        }
+        /// <summary>
+        /// Gets a collection of all tiles in this tileset.
+        /// </summary>
+        public TileCollection Tiles
+        {
+            get
+            {
+                return this.tiles;
             }
         }
         #endregion
@@ -255,9 +275,16 @@ namespace FSEGame.Engine
                 this.size, this.size);
 
             // :: Draw the tile from the tileset.
+            Vector2 offset = Vector2.Zero;
+
+            if (GameBase.Singleton != null)
+            {
+                offset = GameBase.Singleton.Offset;
+            }
+
             batch.Draw(
                 this.texture,
-                position + GameBase.Singleton.Offset,
+                position + offset,
                 sourceRectangle,
                 Color.White,
                 rotation,
