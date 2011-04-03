@@ -42,7 +42,11 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.levelEditorControl = new FSEGameEditorEngine.LevelEditorControl();
+            this.levelEditor = new FSEGameEditorEngine.LevelEditor();
+            this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.springLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.positionLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -52,6 +56,10 @@
             // statusStrip1
             // 
             this.statusStrip1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.statusLabel,
+            this.springLabel,
+            this.positionLabel});
             this.statusStrip1.Location = new System.Drawing.Point(0, 540);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
@@ -96,6 +104,7 @@
             this.openLevelToolStripMenuItem.Name = "openLevelToolStripMenuItem";
             this.openLevelToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.openLevelToolStripMenuItem.Text = "Open Level";
+            this.openLevelToolStripMenuItem.Click += new System.EventHandler(this.openLevelToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -131,7 +140,7 @@
             // 
             // toolStripContainer1.ContentPanel
             // 
-            this.toolStripContainer1.ContentPanel.Controls.Add(this.levelEditorControl);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.levelEditor);
             this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(784, 491);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 24);
@@ -153,14 +162,33 @@
             this.toolStrip1.Size = new System.Drawing.Size(111, 25);
             this.toolStrip1.TabIndex = 0;
             // 
-            // levelEditorControl
+            // levelEditor
             // 
-            this.levelEditorControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.levelEditorControl.Location = new System.Drawing.Point(0, 0);
-            this.levelEditorControl.Name = "levelEditorControl";
-            this.levelEditorControl.Size = new System.Drawing.Size(784, 491);
-            this.levelEditorControl.TabIndex = 0;
-            this.levelEditorControl.Text = "levelEditorControl1";
+            this.levelEditor.AllowDrop = true;
+            this.levelEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.levelEditor.Location = new System.Drawing.Point(0, 0);
+            this.levelEditor.Name = "levelEditor";
+            this.levelEditor.Size = new System.Drawing.Size(784, 491);
+            this.levelEditor.TabIndex = 0;
+            this.levelEditor.Text = "levelEditor1";
+            // 
+            // statusLabel
+            // 
+            this.statusLabel.Name = "statusLabel";
+            this.statusLabel.Size = new System.Drawing.Size(39, 17);
+            this.statusLabel.Text = "Ready";
+            // 
+            // springLabel
+            // 
+            this.springLabel.Name = "springLabel";
+            this.springLabel.Size = new System.Drawing.Size(677, 17);
+            this.springLabel.Spring = true;
+            // 
+            // positionLabel
+            // 
+            this.positionLabel.Name = "positionLabel";
+            this.positionLabel.Size = new System.Drawing.Size(22, 17);
+            this.positionLabel.Text = "0,0";
             // 
             // MainWindow
             // 
@@ -174,6 +202,8 @@
             this.Name = "MainWindow";
             this.Text = "Level Editor";
             this.Shown += new System.EventHandler(this.MainWindow_Shown);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);
@@ -201,7 +231,10 @@
         private System.Windows.Forms.ToolStripMenuItem levelToolStripMenuItem;
         private System.Windows.Forms.ToolStripContainer toolStripContainer1;
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private FSEGameEditorEngine.LevelEditorControl levelEditorControl;
+        private FSEGameEditorEngine.LevelEditor levelEditor;
+        private System.Windows.Forms.ToolStripStatusLabel statusLabel;
+        private System.Windows.Forms.ToolStripStatusLabel springLabel;
+        private System.Windows.Forms.ToolStripStatusLabel positionLabel;
     }
 }
 

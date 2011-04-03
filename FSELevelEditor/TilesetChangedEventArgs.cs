@@ -10,29 +10,43 @@
 
 #region References
 using System;
+using FSEGame.Engine;
 #endregion
 
-namespace FSEGame.Engine
+namespace FSELevelEditor
 {
     /// <summary>
     /// 
     /// </summary>
-    public class LevelLoadException : Exception
+    public class TilesetChangedEventArgs : EventArgs
     {
         #region Instance Members
+        /// <summary>
+        /// Stores a handle to a tileset.
+        /// </summary>
+        private Tileset tileset;
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Gets the handle of the new tileset.
+        /// </summary>
+        public Tileset Tileset
+        {
+            get
+            {
+                return this.tileset;
+            }
+        }
         #endregion
 
         #region Constructor
         /// <summary>
         /// Initialises a new instance of this class.
         /// </summary>
-        /// <param name="message">The message of this exception</param>
-        public LevelLoadException(String message) : base(message)
+        public TilesetChangedEventArgs(Tileset tileset)
         {
-
+            this.tileset = tileset;
         }
         #endregion
     }

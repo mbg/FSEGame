@@ -94,10 +94,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CellPosition.cs" />
+    <Compile Include="EditorLevel.cs" />
     <Compile Include="GraphicsDeviceControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="GraphicsDeviceService.cs" />
+    <Compile Include="LevelEditor.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="LevelEditorControl.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -80,6 +80,9 @@ namespace FSEGameEditorEngine
 
             this.device = new GraphicsDevice(GraphicsAdapter.DefaultAdapter,
                 GraphicsProfile.HiDef, parameters);
+
+            if (this.DeviceCreated != null)
+                this.DeviceCreated(this, EventArgs.Empty);
         }
         #endregion
 
@@ -129,6 +132,13 @@ namespace FSEGameEditorEngine
         }
         #endregion
 
+        #region ResetDevice
+        /// <summary>
+        /// Resets the graphics device using the specified back buffer
+        /// width and height.
+        /// </summary>
+        /// <param name="width">The new width for the back buffer.</param>
+        /// <param name="height">The new height for the back buffer.</param>
         public void ResetDevice(int width, int height)
         {
             if (this.DeviceResetting != null)
@@ -142,6 +152,7 @@ namespace FSEGameEditorEngine
             if (this.DeviceReset != null)
                 this.DeviceReset(this, EventArgs.Empty);
         }
+        #endregion
     }
 }
 

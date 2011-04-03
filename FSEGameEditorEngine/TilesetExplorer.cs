@@ -7,6 +7,7 @@
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 // :: Notes:   
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
 #region References
 using System;
 using FSEGame.Engine;
@@ -34,6 +35,9 @@ namespace FSEGameEditorEngine
         #endregion 
 
         #region Properties
+        /// <summary>
+        /// Gets or sets the tileset to display.
+        /// </summary>
         public Tileset ActiveTileset
         {
             get
@@ -182,20 +186,46 @@ namespace FSEGameEditorEngine
 
         public Tile GetTileAtPosition(int x, int y)
         {
-            Int32 column = (Int32)Math.Ceiling(x / 69.0f);
-            Int32 row = (Int32)Math.Ceiling(y / 69.0f);
-
-            if (column == 0) column = 1;
-            if (row == 0) row = 1;
-
-            Int32 rowCells = (row - 1) * this.ComputeTilesPerRow();
-            Int32 cell = rowCells + column;
+            CellPosition position = this.ControlPositionToActual(x, y);
+           
+            Int32 rowCells = (position.Y - 1) * this.ComputeTilesPerRow();
+            Int32 cell = rowCells + position.X;
 
             if (cell <= this.tiles.Count)
                 return this.tiles[cell - 1];
 
             return null;
         }
+
+        #region ControlPositionToActual
+        /// <summary>
+        /// Converts control space coordinates into actual tile
+        /// coordinates.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        public CellPosition ControlPositionToActual(int x, int y)
+        {
+            // :: Firstly, calculate the column. This is easy because
+            // :: we can't scroll horizontally.
+            Int32 column = (Int32)Math.Ceiling(x / 69.0f);
+
+            if (column == 0) column = 1;
+
+            // :: Next, calculate the row. This is a bit more difficult
+            // :: because we have to consider the scroll offset;
+            y = y - (int)this.offset;
+
+            Int32 row = (Int32)Math.Ceiling(y / 69.0f);
+
+            if (row == 0) row = 1;
+
+            // :: Not all control space coordinates map to tile
+            // :: coordinates.
+            return new CellPosition(column, row);
+        }
+        #endregion
     }
 }
 

@@ -114,7 +114,7 @@
     <Compile Include="Engine\Level.cs" />
     <Compile Include="Engine\LevelCell.cs" />
     <Compile Include="Engine\LevelEntryPoint.cs" />
-    <Compile Include="Engine\LevelLoadException.cs" />
+    <Compile Include="Engine\Levels\LevelLoadException.cs" />
     <Compile Include="Engine\PersistentStorage.cs" />
     <Compile Include="Engine\PersistentStorageItem.cs" />
     <Compile Include="Engine\PersistentStorageItemType.cs" />

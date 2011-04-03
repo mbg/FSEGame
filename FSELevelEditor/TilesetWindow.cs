@@ -13,14 +13,17 @@ namespace FSELevelEditor
 {
     public partial class TilesetWindow : Form
     {
-        private TilesetManager tilesetManager;
+        private MainWindow mainWindow;
 
-        public TilesetWindow()
+        #region Events
+        public event EventHandler<TilesetChangedEventArgs> TilesetChanged;
+        #endregion
+
+        public TilesetWindow(MainWindow mainWindow)
         {
             InitializeComponent();
 
-            this.tilesetExplorer1.ContentManager.RootDirectory = "FSEGame";
-            this.tilesetManager = new TilesetManager(this.tilesetExplorer1.ContentManager);
+            this.mainWindow = mainWindow;
         }
 
         private void TilesetWindow_FormClosing(object sender, FormClosingEventArgs e)
@@ -34,15 +37,15 @@ namespace FSELevelEditor
 
         private void TilesetWindow_Load(object sender, EventArgs e)
         {
-            this.tilesetManager.LoadTilesets();
+            
 
-            foreach (Tileset t in this.tilesetManager.Tilesets)
+            foreach (Tileset t in this.mainWindow.TilesetManager.Tilesets)
             {
                 this.tilesetComboBox.Items.Add(String.Format(
                     "{0} [{1}]", t.Name, t.Resource));
             }
 
-            if (this.tilesetManager.Tilesets.Count > 0)
+            if (this.mainWindow.TilesetManager.Tilesets.Count > 0)
             {
                 this.tilesetComboBox.SelectedIndex = 0;
             }
@@ -59,8 +62,11 @@ namespace FSELevelEditor
         private void tilsetComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.tilesetExplorer1.ActiveTileset =
-                this.tilesetManager.Tilesets[this.tilesetComboBox.SelectedIndex];
+                this.mainWindow.TilesetManager.Tilesets[this.tilesetComboBox.SelectedIndex];
             this.tilesetExplorer1.Invalidate();
+
+            if (this.TilesetChanged != null)
+                this.TilesetChanged(this, new TilesetChangedEventArgs(this.tilesetExplorer1.ActiveTileset));
         }
     }
 }

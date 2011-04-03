@@ -67,6 +67,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TilesetChangedEventArgs.cs" />
     <Compile Include="TilesetWindow.cs">
       <SubType>Form</SubType>
     </Compile>

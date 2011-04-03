@@ -82,6 +82,32 @@ namespace FSEGameEditorEngine
             base.OnCreateControl();
         }
 
+        private void Reset()
+        {
+            Boolean needsReset = false;
+
+            switch (this.GraphicsDevice.GraphicsDeviceStatus)
+            {
+                case GraphicsDeviceStatus.Lost:
+                    throw new Exception("Device lost.");
+                case GraphicsDeviceStatus.NotReset:
+                    needsReset = true;
+                    break;
+                default:
+                    PresentationParameters pp = this.GraphicsDevice.PresentationParameters;
+
+                    needsReset = (this.ClientSize.Width > pp.BackBufferWidth) ||
+                        (this.ClientSize.Height > pp.BackBufferHeight);
+                    break;
+            }
+
+            if (needsReset)
+            {
+                this.service.ResetDevice(
+                    this.ClientSize.Width, this.ClientSize.Height);
+            }
+        }
+
         protected abstract void Initialise();
 
         #region OnPaintBackground
@@ -118,6 +144,8 @@ namespace FSEGameEditorEngine
             if (this.service == null)
                 throw new Exception("Service is null.");
 
+            this.Reset();
+
             Viewport viewport = new Viewport();
 
             viewport.X = 0;
@@ -130,6 +158,8 @@ namespace FSEGameEditorEngine
             viewport.MaxDepth = 1;
 
             this.GraphicsDevice.Viewport = viewport;
+
+            this.GraphicsDevice.Clear(Microsoft.Xna.Framework.Color.Black);
         }
 
         protected abstract void Draw();
