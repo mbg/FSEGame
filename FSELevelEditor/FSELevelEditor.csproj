@@ -59,6 +59,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LevelPropertiesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LevelPropertiesDialog.Designer.cs">
+      <DependentUpon>LevelPropertiesDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,6 +80,9 @@
     <Compile Include="TilesetWindow.Designer.cs">
       <DependentUpon>TilesetWindow.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="LevelPropertiesDialog.resx">
+      <DependentUpon>LevelPropertiesDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>

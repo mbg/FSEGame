@@ -26,6 +26,9 @@ namespace FSEGameEditorEngine
     public sealed class EditorLevel
     {
         #region Instance Members
+        private String name = "Untitled";
+        private String tilesetFilename;
+        private String scriptFilename;
         private List<LevelCell> cells;
         private Tileset tileset;
         #endregion
@@ -106,6 +109,21 @@ namespace FSEGameEditorEngine
             return false;
         }
 
+        private Vector2 GetDimensions()
+        {
+            Vector2 size = new Vector2(1, 1);
+
+            foreach (LevelCell cell in this.cells)
+            {
+                if (cell.X + 1 > size.X)
+                    size.X = cell.X + 1;
+                if (cell.Y + 1 > size.Y)
+                    size.Y = cell.Y + 1;
+            }
+
+            return size;
+        }
+
         #region Load
         /// <summary>
         /// 
@@ -130,6 +148,79 @@ namespace FSEGameEditorEngine
                 throw new LevelLoadException(
                     "Invalid XML", ex);
             }
+        }
+        #endregion
+
+        #region Save
+        /// <summary>
+        /// Saves the level to disk.
+        /// </summary>
+        /// <param name="filename"></param>
+        public void Save(String filename)
+        {
+            XmlDocument doc = new XmlDocument();
+            XmlElement root = doc.CreateElement("Level");
+
+            Vector2 dimensions = this.GetDimensions();
+
+            // :: Create the attributes for the root element.
+            XmlAttribute nameAttribute = doc.CreateAttribute("Name");
+            XmlAttribute tilesetAttribute = doc.CreateAttribute("Tileset");
+            XmlAttribute scriptAttribute = doc.CreateAttribute("Script");
+            XmlAttribute sizeXAttribute = doc.CreateAttribute("SizeX");
+            XmlAttribute sizeYAttribute = doc.CreateAttribute("SizeY");
+
+            nameAttribute.Value = this.name;
+            tilesetAttribute.Value = this.tilesetFilename;
+            scriptAttribute.Value = this.scriptFilename;
+            sizeXAttribute.Value = dimensions.X.ToString();
+            sizeYAttribute.Value = dimensions.Y.ToString();
+
+            root.Attributes.Append(nameAttribute);
+            root.Attributes.Append(tilesetAttribute);
+            root.Attributes.Append(scriptAttribute);
+            root.Attributes.Append(sizeXAttribute);
+            root.Attributes.Append(sizeYAttribute);
+
+            // :: Save all entry points to the file.
+
+            // :: Save all cells to the file.
+            XmlElement cellsElement = doc.CreateElement("Cells");
+
+            foreach (LevelCell cell in this.cells)
+            {
+                XmlElement cellElement = doc.CreateElement("Cell");
+                XmlAttribute xAttribute = doc.CreateAttribute("X");
+                XmlAttribute yAttribute = doc.CreateAttribute("Y");
+                XmlAttribute tileAttribute = doc.CreateAttribute("Tile");
+
+                xAttribute.Value = cell.X.ToString();
+                yAttribute.Value = cell.Y.ToString();
+                tileAttribute.Value = cell.Tile.Name;
+
+                cellElement.Attributes.Append(xAttribute);
+                cellElement.Attributes.Append(yAttribute);
+                cellElement.Attributes.Append(tileAttribute);
+
+                // :: Append an event element if required.
+                if (!String.IsNullOrWhiteSpace(cell.EventID))
+                {
+                    XmlAttribute eventAttribute = doc.CreateAttribute("Event");
+                    eventAttribute.Value = cell.EventID;
+
+                    cellElement.Attributes.Append(eventAttribute);
+                }
+
+                cellsElement.AppendChild(cellElement);
+            }
+
+            // :: Save all actors (TODO)
+
+            // :: End the XML document and save it to disk.
+            root.AppendChild(cellsElement);
+
+            doc.AppendChild(root);
+            doc.Save(filename);
         }
         #endregion
     }

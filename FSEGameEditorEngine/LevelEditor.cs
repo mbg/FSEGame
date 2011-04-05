@@ -30,6 +30,8 @@ namespace FSEGameEditorEngine
         private Int32 offsetY = 0;
         private Point restoreMousePosition;
         private Point lastMousePosition;
+        private Boolean edit = false;
+        private Tile selectedTile = null;
         #endregion
 
         #region Properties
@@ -38,6 +40,17 @@ namespace FSEGameEditorEngine
             get
             {
                 return this.level;
+            }
+        }
+        public Tile SelectedTile
+        {
+            get
+            {
+                return this.selectedTile;
+            }
+            set
+            {
+                this.selectedTile = value;
             }
         }
         #endregion
@@ -64,6 +77,17 @@ namespace FSEGameEditorEngine
                 this.restoreMousePosition = this.PointToScreen(this.lastMousePosition);
 
                 Cursor.Hide();
+            }
+            else if (e.Button == MouseButtons.Left)
+            {
+                if (selectedTile != null)
+                {
+                    // :: Calculate the row and column numbers of the cell.
+                    Point p = new Point(e.X, e.Y);
+                    CellPosition position = this.ControlPositionToActual(p.X, p.Y);
+
+                    this.PlaceTile(position, this.selectedTile);
+                }
             }
 
             this.Focus();
@@ -140,7 +164,7 @@ namespace FSEGameEditorEngine
 
                 CellPosition position = this.ControlPositionToActual(p.X, p.Y);
 
-                this.level.AddCell(position.X - 1, position.Y - 1, (Tile)drgevent.Data.GetData(typeof(Tile)));
+                this.PlaceTile(position, (Tile)drgevent.Data.GetData(typeof(Tile)));
 
                 return;
             }
@@ -169,6 +193,11 @@ namespace FSEGameEditorEngine
             this.level.Render(this.batch, this.offsetX, this.offsetY);
 
             this.batch.End();
+        }
+
+        private void PlaceTile(CellPosition position, Tile tile)
+        {
+            this.level.AddCell(position.X - 1, position.Y - 1, tile);
         }
 
         #region ControlPositionToActual

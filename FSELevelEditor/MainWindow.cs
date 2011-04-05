@@ -24,6 +24,14 @@ namespace FSELevelEditor
             }
         }
 
+        public LevelEditor LevelEditor
+        {
+            get
+            {
+                return this.levelEditor;
+            }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -85,6 +93,45 @@ namespace FSELevelEditor
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Error);
                 }
+            }
+        }
+
+        #region Save As
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog dia = new SaveFileDialog())
+            {
+                dia.Filter = "Level File (*.xml)|*.xml";
+
+                if (dia.ShowDialog() == DialogResult.Cancel)
+                    return;
+
+                try
+                {
+                    this.levelEditor.CurrentLevel.Save(dia.FileName);
+                    this.statusLabel.Text = String.Format("Saved level to {0}", dia.FileName);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Unable to save level:\n" + ex.Message,
+                        "Level Editor",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
+            }
+        }
+        #endregion
+
+        private void propertiesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (LevelPropertiesDialog dia = new LevelPropertiesDialog())
+            {
+                dia.ShowDialog();
             }
         }
     }

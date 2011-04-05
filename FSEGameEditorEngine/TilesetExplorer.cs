@@ -26,6 +26,7 @@ namespace FSEGameEditorEngine
     {
         #region Instance Members
         private Tileset activeTileset = null;
+        private Tile selectedTile = null;
         private SpriteBatch batch;
         private float offset = 0.0f;
         private List<Tile> tiles;
@@ -47,8 +48,12 @@ namespace FSEGameEditorEngine
             set
             {
                 this.activeTileset = value;
+                this.selectedTile = null;
                 this.offset = 0.0f;
                 this.tiles.Clear();
+
+                if (this.TileSelected != null)
+                    this.TileSelected(this, EventArgs.Empty);
 
                 if (this.activeTileset == null)
                     return;
@@ -57,7 +62,19 @@ namespace FSEGameEditorEngine
                     this.tiles.Add(t);
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        public Tile SelectedTile
+        {
+            get
+            {
+                return this.selectedTile;
+            }
+        }
         #endregion
+
+        public event EventHandler<EventArgs> TileSelected;
 
         #region Constructor
         /// <summary>
@@ -138,6 +155,11 @@ namespace FSEGameEditorEngine
 
                 if (t != null)
                 {
+                    this.selectedTile = t;
+
+                    if (this.TileSelected != null)
+                        this.TileSelected(this, EventArgs.Empty);
+
                     this.DoDragDrop(t, DragDropEffects.Link);
                 }
             }
