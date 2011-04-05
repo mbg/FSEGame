@@ -18,6 +18,8 @@ using System.Drawing;
 
 namespace FSEGameEditorEngine
 {
+    public delegate void ObjectSelectedDelegate(Object value);
+
     /// <summary>
     /// 
     /// </summary>
@@ -81,6 +83,8 @@ namespace FSEGameEditorEngine
         }
         #endregion
 
+        public event ObjectSelectedDelegate ObjectSelected;
+
         #region Constructor
         /// <summary>
         /// Initialises a new instance of this class.
@@ -104,13 +108,31 @@ namespace FSEGameEditorEngine
             }
             else if (e.Button == MouseButtons.Left)
             {
-                if (selectedTile != null)
-                {
-                    // :: Calculate the row and column numbers of the cell.
-                    Point p = new Point(e.X, e.Y);
-                    CellPosition position = this.ControlPositionToActual(p.X, p.Y);
+                // :: Calculate the row and column numbers of the cell.
+                Point p = new Point(e.X, e.Y);
+                CellPosition position = this.ControlPositionToActual(p.X, p.Y);
 
-                    this.PlaceTile(position, this.selectedTile);
+                if (this.edit)
+                {
+                    if (this.ObjectSelected != null)
+                    {
+                        position.X--;
+                        position.Y--;
+
+                        LevelCell cell = this.level.GetCellAtPosition(position);
+
+                        if(cell == null)
+                            this.ObjectSelected(null);
+                        else
+                            this.ObjectSelected(new CellProperties(cell));
+                    }
+                }
+                else
+                {
+                    if (selectedTile != null)
+                    {
+                        this.PlaceTile(position, this.selectedTile);
+                    }
                 }
             }
 

@@ -32,10 +32,16 @@ namespace FSEGameEditorEngine
         private String tilesetFilename;
         private String scriptFilename;
         private List<LevelCell> cells;
+        private List<LevelEntryPoint> entryPoints;
+        private List<ActorProperties> actors;
         private Tileset tileset;
+        private Texture2D actorsTexture;
+        private Texture2D entryPointTexture;
         private Texture2D eventTexture;
         private Texture2D passableTexture;
         private Texture2D impassableTexture;
+        private Boolean showActors = true;
+        private Boolean showEntryPoints = true;
         private Boolean showEvents = true;
         private Boolean showPassableRegions = false;
         private Boolean showImpassableRegions = false;
@@ -80,6 +86,34 @@ namespace FSEGameEditorEngine
             set
             {
                 this.tileset = value;
+            }
+        }
+        /// <summary>
+        /// Gets or sets whether actor overlays show be shown.
+        /// </summary>
+        public Boolean ShowActors
+        {
+            get
+            {
+                return this.showActors;
+            }
+            set
+            {
+                this.showActors = value;
+            }
+        }
+        /// <summary>
+        /// Gets or sets whether entry point overlays should be shown.
+        /// </summary>
+        public Boolean ShowEntryPoints
+        {
+            get
+            {
+                return this.showEntryPoints;
+            }
+            set
+            {
+                this.showEntryPoints = value;
             }
         }
         /// <summary>
@@ -129,10 +163,14 @@ namespace FSEGameEditorEngine
         {
             this.tilesetManager = tilesetManager;
             this.cells = new List<LevelCell>();
+            this.entryPoints = new List<LevelEntryPoint>();
+            this.actors = new List<ActorProperties>();
 
             this.eventTexture = contentManager.Load<Texture2D>(@"EditorContent\Event");
             this.passableTexture = contentManager.Load<Texture2D>(@"EditorContent\Passable");
             this.impassableTexture = contentManager.Load<Texture2D>(@"EditorContent\Impassable");
+            this.entryPointTexture = contentManager.Load<Texture2D>(@"EditorContent\EntryPoint");
+            this.actorsTexture = contentManager.Load<Texture2D>(@"EditorContent\Actor");
         }
         #endregion
 
@@ -163,6 +201,34 @@ namespace FSEGameEditorEngine
                 if (!String.IsNullOrWhiteSpace(c.EventID) && this.showEvents)
                 {
                     this.DrawOverlay(batch, absolutePosition, this.eventTexture, 1.0f);
+                }
+            }
+
+            if (this.showEntryPoints)
+            {
+                foreach (LevelEntryPoint ep in this.entryPoints)
+                {
+                    Vector2 absolutePosition =
+                        GridHelper.GridPositionToAbsolute(new Vector2(ep.X, ep.Y));
+
+                    absolutePosition.X -= offsetX;
+                    absolutePosition.Y -= offsetY;
+
+                    this.DrawOverlay(batch, absolutePosition, this.entryPointTexture, 1.0f);
+                }
+            }
+
+            if (this.showActors)
+            {
+                foreach (ActorProperties actor in this.actors)
+                {
+                    Vector2 absolutePosition =
+                        GridHelper.GridPositionToAbsolute(new Vector2(actor.X, actor.Y));
+
+                    absolutePosition.X -= offsetX;
+                    absolutePosition.Y -= offsetY;
+
+                    this.DrawOverlay(batch, absolutePosition, this.actorsTexture, 1.0f);
                 }
             }
         }
@@ -240,6 +306,8 @@ namespace FSEGameEditorEngine
                 throw new LevelLoadException("File not found");
 
             this.cells.Clear();
+            this.entryPoints.Clear();
+            this.actors.Clear();
 
             try
             {
@@ -265,11 +333,30 @@ namespace FSEGameEditorEngine
 
                     XmlElement childElement = (XmlElement)node;
 
-                    if (childElement.Name.Equals("Cells"))
+                    if (childElement.Name.Equals("EntryPoints"))
+                    {
+                        // :: Extract the names and positions of the entry points in this
+                        // :: level.
+                        foreach (XmlNode entryPointNode in childElement.ChildNodes)
+                        {
+                            if (entryPointNode.NodeType != XmlNodeType.Element)
+                                continue;
+
+                            XmlElement entryPointElement = (XmlElement)entryPointNode;
+
+                            LevelEntryPoint entryPoint = new LevelEntryPoint(
+                                entryPointElement.GetAttribute("Name"));
+                            entryPoint.X = Convert.ToUInt32(entryPointElement.GetAttribute("X"));
+                            entryPoint.Y = Convert.ToUInt32(entryPointElement.GetAttribute("Y"));
+
+                            this.entryPoints.Add(entryPoint);
+                        }
+                    }
+                    else if (childElement.Name.Equals("Cells"))
                     {
                         foreach (XmlNode cellNode in childElement.ChildNodes)
                         {
-                            if (node.NodeType != XmlNodeType.Element)
+                            if (cellNode.NodeType != XmlNodeType.Element)
                                 continue;
 
                             XmlElement cellElement = (XmlElement)cellNode;
@@ -285,6 +372,23 @@ namespace FSEGameEditorEngine
                             }
 
                             this.cells.Add(cell);
+                        }
+                    }
+                    else if (childElement.Name.Equals("Actors"))
+                    {
+                        foreach (XmlNode actorNode in childElement.ChildNodes)
+                        {
+                            if (actorNode.NodeType != XmlNodeType.Element)
+                                continue;
+
+                            XmlElement actorElement = (XmlElement)actorNode;
+
+                            ActorProperties actor = new ActorProperties(
+                                actorElement.GetAttribute("Type"),
+                                Convert.ToUInt32(actorElement.GetAttribute("X")),
+                                Convert.ToUInt32(actorElement.GetAttribute("Y")));
+
+                            this.actors.Add(actor);
                         }
                     }
                 }
@@ -369,6 +473,17 @@ namespace FSEGameEditorEngine
             doc.Save(filename);
         }
         #endregion
+
+        public LevelCell GetCellAtPosition(CellPosition position)
+        {
+            foreach (LevelCell cell in this.cells)
+            {
+                if (cell.X == position.X && cell.Y == position.Y)
+                    return cell;
+            }
+
+            return null;
+        }
     }
 }
 

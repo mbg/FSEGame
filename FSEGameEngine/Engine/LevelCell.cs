@@ -17,7 +17,7 @@ namespace FSEGame.Engine
     /// <summary>
     /// 
     /// </summary>
-    public struct LevelCell
+    public class LevelCell
     {
         public Tile Tile;
         public UInt32 X;

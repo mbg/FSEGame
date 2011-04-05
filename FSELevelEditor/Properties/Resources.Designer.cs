@@ -67,6 +67,13 @@ namespace FSELevelEditor.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap PlayHS {
+            get {
+                object obj = ResourceManager.GetObject("PlayHS", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Properties {
             get {
                 object obj = ResourceManager.GetObject("Properties", resourceCulture);

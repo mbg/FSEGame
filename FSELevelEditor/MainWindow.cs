@@ -8,6 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 using FSEGame;
 using FSEGameEditorEngine;
+using System.Diagnostics;
+using System.IO;
 
 namespace FSELevelEditor
 {
@@ -53,9 +55,15 @@ namespace FSELevelEditor
             InitializeComponent();
 
             this.levelEditor.ContentManager.RootDirectory = "FSEGame";
+            this.levelEditor.ObjectSelected += new ObjectSelectedDelegate(LevelObjectSelected);
 
             this.tilesetManager = new TilesetManager(this.levelEditor.ContentManager);
             this.levelEditor.TilesetManager = this.tilesetManager;
+        }
+
+        void LevelObjectSelected(object value)
+        {
+            this.propertyWindow.SelectedObject = value;
         }
 
         protected override void OnLoad(EventArgs e)
@@ -182,6 +190,16 @@ namespace FSELevelEditor
 
         #region Overlays
         /// <summary>
+        /// Toggles the visibility of the entry points overlay.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void entryPointsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.entryPointsToolStripMenuItem.Checked = !this.entryPointsToolStripMenuItem.Checked;
+            this.levelEditor.CurrentLevel.ShowEntryPoints = this.entryPointsToolStripMenuItem.Checked;
+        }
+        /// <summary>
         /// Toggles the visibility of the events overlay.
         /// </summary>
         /// <param name="sender"></param>
@@ -191,17 +209,48 @@ namespace FSELevelEditor
             this.eventsToolStripMenuItem.Checked = !this.eventsToolStripMenuItem.Checked;
             this.levelEditor.CurrentLevel.ShowEvents = this.eventsToolStripMenuItem.Checked;
         }
-
+        /// <summary>
+        /// Toggles the visibility of the passable regions overlay.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void passableRegionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.passableRegionsToolStripMenuItem.Checked = !this.passableRegionsToolStripMenuItem.Checked;
             this.levelEditor.CurrentLevel.ShowPassableRegions = this.passableRegionsToolStripMenuItem.Checked;
         }
-
+        /// <summary>
+        /// Toggles the visibility of the impassable regions overlay.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void impassableRegionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.impassableRegionsToolStripMenuItem.Checked = !this.impassableRegionsToolStripMenuItem.Checked;
             this.levelEditor.CurrentLevel.ShowImpassableRegions = this.impassableRegionsToolStripMenuItem.Checked;
+        }
+        #endregion
+
+        #region Run
+        /// <summary>
+        /// Starts the game.
+        /// </summary>
+        /// <param name="sender">Unused.</param>
+        /// <param name="e">Unused.</param>
+        private void runToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!File.Exists("FSEGame.exe"))
+            {
+                MessageBox.Show(
+                    "Unable to launch the game, because FSEGame.exe could not be found.",
+                    "Level Editor",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                return;
+            }
+
+            Process.Start("FSEGame.exe");
         }
         #endregion
     }
