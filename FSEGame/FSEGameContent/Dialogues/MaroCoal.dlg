@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<Dialogue ID="root">
+  <Speech ID="speech#1" TextVar="string#1" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="271" Top="78">
+    <Speech ID="speech#2" TextVar="string#2" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="495" Top="79">
+      <Speech ID="speech#3" TextVar="string#3" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="742" Top="77" />
+    </Speech>
+  </Speech>
+  <Orphans />
+  <Variables>
+    <StringVar Name="string#1" Export="False" Left="267" Top="212">Maro: You need some coal?</StringVar>
+    <StringVar Name="string#2" Export="False" Left="497" Top="215">Maro: Sure you can have some, I got more than enough.</StringVar>
+    <StringVar Name="string#3" Export="False" Left="750" Top="226">Lando has received a piece of coal!</StringVar>
+  </Variables>
+</Dialogue>

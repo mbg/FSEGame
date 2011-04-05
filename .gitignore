@@ -1,0 +1,14 @@
+*.dll
+*.exe
+!ComponentFactory.Krypton.Toolkit.dll
+*.zip
+/Debug
+/Release
+/tools
+obj/
+/TestResults
+*.vsmdi
+*.testsettings
+*.suo
+/FSEGameTest
+*.cachefile

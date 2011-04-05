@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<Dialogue ID="root">
+  <Speech ID="speech#1" TextVar="string#1" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="279" Top="72">
+    <Speech ID="speech#2" TextVar="string#2" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="503" Top="75">
+      <Speech ID="speech#3" TextVar="string#3" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="745" Top="74" />
+    </Speech>
+  </Speech>
+  <Orphans />
+  <Variables>
+    <StringVar Name="string#1" Export="False" Left="289" Top="237">Villager: You are looking for a torch?</StringVar>
+    <StringVar Name="string#2" Export="False" Left="518" Top="229">Villager: Good luck with that! If we had torches, we wouldn't all be stuck here!</StringVar>
+    <StringVar Name="string#3" Export="False" Left="738" Top="224">Villager: But try talking to Vernado. He will know more about torches than me!</StringVar>
+  </Variables>
+</Dialogue>

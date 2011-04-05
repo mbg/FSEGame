@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<Dialogue ID="root">
+  <Speech ID="speech#1" TextVar="string#1" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="266" Top="78">
+    <Speech ID="speech#2" TextVar="string#2" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="510" Top="76">
+      <Speech ID="speech#3" TextVar="string#3" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="735" Top="74" />
+    </Speech>
+  </Speech>
+  <Orphans />
+  <Variables>
+    <StringVar Name="string#1" Export="False" Left="263" Top="229">Vernado: Hmm, I don't know anyone in this village who has a torch.</StringVar>
+    <StringVar Name="string#2" Export="False" Left="507" Top="218">Vernado: However, you might be able to create one yourself.</StringVar>
+    <StringVar Name="string#3" Export="False" Left="735" Top="223">Vernado: Unfortunately there is no one left in our village who has the knowledge required to make one.</StringVar>
+  </Variables>
+</Dialogue>

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<Dialogue ID="root">
+  <Speech ID="speech#1" TextVar="string#1" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="275" Top="81">
+    <Speech ID="speech#2" TextVar="string#2" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="513" Top="78">
+      <Speech ID="speech#3" TextVar="string#3" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="770" Top="80">
+        <Speech ID="speech#4" TextVar="string#4" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="1042" Top="83">
+          <Speech ID="speech#5" TextVar="string#5" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="1305" Top="80">
+            <Speech ID="speech#6" TextVar="string#6" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="1560" Top="83">
+              <Speech ID="speech#7" TextVar="string#7" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="1834" Top="79" />
+            </Speech>
+          </Speech>
+        </Speech>
+      </Speech>
+    </Speech>
+  </Speech>
+  <Orphans />
+  <Variables>
+    <StringVar Name="string#1" Export="False" Left="278" Top="219">Markus: You want to make a torch?</StringVar>
+    <StringVar Name="string#2" Export="False" Left="504" Top="223">Markus: I doubt that will work. </StringVar>
+    <StringVar Name="string#3" Export="False" Left="764" Top="233">Markus: No one in this village knows how to do that!</StringVar>
+    <StringVar Name="string#4" Export="False" Left="1041" Top="233">Markus: But if you are serious about it, I have something that might help you.</StringVar>
+    <StringVar Name="string#5" Export="False" Left="1307" Top="226">Markus: This stick here looks useful, don't you think?</StringVar>
+    <StringVar Name="string#6" Export="False" Left="1571" Top="232">Markus: However, I am not just going to give you such a fine stick.</StringVar>
+    <StringVar Name="string#7" Export="False" Left="1842" Top="228">Markus: You must earn it.</StringVar>
+  </Variables>
+</Dialogue>

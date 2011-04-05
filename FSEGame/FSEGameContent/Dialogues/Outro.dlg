@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<Dialogue ID="root">
+  <Speech ID="speech#1" TextVar="string#1" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="313" Top="78">
+    <Speech ID="speech#2" TextVar="string#2" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="571" Top="77">
+      <Speech ID="speech#3" TextVar="string#3" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="806" Top="77">
+        <Speech ID="speech#4" TextVar="string#4" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="1094" Top="61" />
+      </Speech>
+    </Speech>
+  </Speech>
+  <Orphans />
+  <Variables>
+    <StringVar Name="string#1" Export="False" Left="316" Top="234">And thus was it that Landor began his journey away from his home...</StringVar>
+    <StringVar Name="string#2" Export="False" Left="574" Top="227">Unknowingly to him, this was only the beginning of his quest to free the land of bridges from the shadows which had occupied it for far too long.</StringVar>
+    <StringVar Name="string#3" Export="False" Left="782" Top="235">But that is a story for another time...</StringVar>
+    <StringVar Name="string#4" Export="False" Left="1123" Top="241">To be continued.</StringVar>
+  </Variables>
+</Dialogue>

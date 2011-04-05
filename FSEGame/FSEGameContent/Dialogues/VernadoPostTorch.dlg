@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<Dialogue ID="root">
+  <Speech ID="speech#1" TextVar="string#1" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="297" Top="86">
+    <Speech ID="speech#2" TextVar="string#2" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="570" Top="90" />
+  </Speech>
+  <Orphans />
+  <Variables>
+    <StringVar Name="string#1" Export="False" Left="316" Top="220">Vernado: You managed to construct a torch!</StringVar>
+    <StringVar Name="string#2" Export="False" Left="607" Top="227">Vernado: Now you should have no problem crossing the bridge!</StringVar>
+  </Variables>
+</Dialogue>
