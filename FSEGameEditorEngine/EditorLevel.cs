@@ -34,6 +34,11 @@ namespace FSEGameEditorEngine
         private List<LevelCell> cells;
         private Tileset tileset;
         private Texture2D eventTexture;
+        private Texture2D passableTexture;
+        private Texture2D impassableTexture;
+        private Boolean showEvents = true;
+        private Boolean showPassableRegions = false;
+        private Boolean showImpassableRegions = false;
         #endregion
 
         #region Properties
@@ -77,6 +82,43 @@ namespace FSEGameEditorEngine
                 this.tileset = value;
             }
         }
+        /// <summary>
+        /// Gets or sets whether event overlays should be shown.
+        /// </summary>
+        public Boolean ShowEvents
+        {
+            get
+            {
+                return this.showEvents;
+            }
+            set
+            {
+                this.showEvents = value;
+            }
+        }
+
+        public Boolean ShowPassableRegions
+        {
+            get
+            {
+                return this.showPassableRegions;
+            }
+            set
+            {
+                this.showPassableRegions = value;
+            }
+        }
+        public Boolean ShowImpassableRegions
+        {
+            get
+            {
+                return this.showImpassableRegions;
+            }
+            set
+            {
+                this.showImpassableRegions = value;
+            }
+        }
         #endregion
 
         #region Constructor
@@ -89,6 +131,8 @@ namespace FSEGameEditorEngine
             this.cells = new List<LevelCell>();
 
             this.eventTexture = contentManager.Load<Texture2D>(@"EditorContent\Event");
+            this.passableTexture = contentManager.Load<Texture2D>(@"EditorContent\Passable");
+            this.impassableTexture = contentManager.Load<Texture2D>(@"EditorContent\Impassable");
         }
         #endregion
 
@@ -107,18 +151,32 @@ namespace FSEGameEditorEngine
                     c.Tile.ID,
                     absolutePosition);
 
-                if (!String.IsNullOrWhiteSpace(c.EventID))
+                if (c.Tile.Passable && this.showPassableRegions)
                 {
-                    batch.Draw(
-                        this.eventTexture,
-                        new Rectangle(
-                            (int)absolutePosition.X,
-                            (int)absolutePosition.Y,
-                            64,
-                            64),
-                        Color.White);
+                    this.DrawOverlay(batch, absolutePosition, this.passableTexture, 0.5f);
+                }
+                else if(!c.Tile.Passable && this.showImpassableRegions)
+                {
+                    this.DrawOverlay(batch, absolutePosition, this.impassableTexture, 0.5f);
+                }
+
+                if (!String.IsNullOrWhiteSpace(c.EventID) && this.showEvents)
+                {
+                    this.DrawOverlay(batch, absolutePosition, this.eventTexture, 1.0f);
                 }
             }
+        }
+
+        private void DrawOverlay(SpriteBatch batch, Vector2 position, Texture2D texture, float opacity)
+        {
+            batch.Draw(
+                texture,
+                new Rectangle(
+                    (int)position.X,
+                    (int)position.Y,
+                    64,
+                    64),
+                new Color(1.0f, 1.0f, 1.0f, opacity));
         }
 
         public void AddCell(Int32 x, Int32 y, Tile t)

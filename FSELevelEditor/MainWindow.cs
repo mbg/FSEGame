@@ -179,5 +179,30 @@ namespace FSELevelEditor
         {
             this.propertyWindow.Visible = !this.propertyWindow.Visible;
         }
+
+        #region Overlays
+        /// <summary>
+        /// Toggles the visibility of the events overlay.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void eventsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.eventsToolStripMenuItem.Checked = !this.eventsToolStripMenuItem.Checked;
+            this.levelEditor.CurrentLevel.ShowEvents = this.eventsToolStripMenuItem.Checked;
+        }
+
+        private void passableRegionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.passableRegionsToolStripMenuItem.Checked = !this.passableRegionsToolStripMenuItem.Checked;
+            this.levelEditor.CurrentLevel.ShowPassableRegions = this.passableRegionsToolStripMenuItem.Checked;
+        }
+
+        private void impassableRegionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.impassableRegionsToolStripMenuItem.Checked = !this.impassableRegionsToolStripMenuItem.Checked;
+            this.levelEditor.CurrentLevel.ShowImpassableRegions = this.impassableRegionsToolStripMenuItem.Checked;
+        }
+        #endregion
     }
 }
