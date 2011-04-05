@@ -16,6 +16,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System.IO;
 using System.Xml;
+using Microsoft.Xna.Framework.Content;
 #endregion
 
 namespace FSEGameEditorEngine
@@ -26,14 +27,45 @@ namespace FSEGameEditorEngine
     public sealed class EditorLevel
     {
         #region Instance Members
+        private TilesetManager tilesetManager;
         private String name = "Untitled";
         private String tilesetFilename;
         private String scriptFilename;
         private List<LevelCell> cells;
         private Tileset tileset;
+        private Texture2D eventTexture;
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Gets or sets the name of the level.
+        /// </summary>
+        public String Name
+        {
+            get
+            {
+                return this.name;
+            }
+            set
+            {
+                this.name = value;
+            }
+        }
+        /// <summary>
+        /// Gets or sets the filename of the script that is associated with
+        /// this level.
+        /// </summary>
+        public String ScriptFilename
+        {
+            get
+            {
+                return this.scriptFilename;
+            }
+            set
+            {
+                this.scriptFilename = value;
+            }
+        }
         public Tileset Tileset
         {
             get
@@ -51,9 +83,12 @@ namespace FSEGameEditorEngine
         /// <summary>
         /// Initialises a new instance of this class.
         /// </summary>
-        public EditorLevel()
+        public EditorLevel(ContentManager contentManager, TilesetManager tilesetManager)
         {
+            this.tilesetManager = tilesetManager;
             this.cells = new List<LevelCell>();
+
+            this.eventTexture = contentManager.Load<Texture2D>(@"EditorContent\Event");
         }
         #endregion
 
@@ -71,6 +106,18 @@ namespace FSEGameEditorEngine
                     batch,
                     c.Tile.ID,
                     absolutePosition);
+
+                if (!String.IsNullOrWhiteSpace(c.EventID))
+                {
+                    batch.Draw(
+                        this.eventTexture,
+                        new Rectangle(
+                            (int)absolutePosition.X,
+                            (int)absolutePosition.Y,
+                            64,
+                            64),
+                        Color.White);
+                }
             }
         }
 
@@ -134,6 +181,8 @@ namespace FSEGameEditorEngine
             if (!File.Exists(filename))
                 throw new LevelLoadException("File not found");
 
+            this.cells.Clear();
+
             try
             {
                 XmlDocument doc = new XmlDocument();
@@ -141,7 +190,46 @@ namespace FSEGameEditorEngine
 
                 XmlElement root = doc.DocumentElement;
 
-                this.cells.Clear();
+                this.name = root.GetAttribute("Name");
+                this.tilesetFilename = root.GetAttribute("Tileset");
+                this.scriptFilename = root.GetAttribute("Script");
+
+                // :: Find the tileset used by the level. 
+                this.tileset = this.tilesetManager.GetByFilename(this.tilesetFilename);
+
+                if (this.tileset == null)
+                    throw new LevelLoadException("Cannot load level because its tileset could not be found.");
+
+                foreach (XmlNode node in root.ChildNodes)
+                {
+                    if (node.NodeType != XmlNodeType.Element)
+                        continue;
+
+                    XmlElement childElement = (XmlElement)node;
+
+                    if (childElement.Name.Equals("Cells"))
+                    {
+                        foreach (XmlNode cellNode in childElement.ChildNodes)
+                        {
+                            if (node.NodeType != XmlNodeType.Element)
+                                continue;
+
+                            XmlElement cellElement = (XmlElement)cellNode;
+
+                            LevelCell cell = new LevelCell();
+                            cell.X = Convert.ToUInt32(cellElement.GetAttribute("X"));
+                            cell.Y = Convert.ToUInt32(cellElement.GetAttribute("Y"));
+                            cell.Tile = this.tileset.GetTile(cellElement.GetAttribute("Tile"));
+
+                            if (cellElement.HasAttribute("Event"))
+                            {
+                                cell.EventID = cellElement.GetAttribute("Event");
+                            }
+
+                            this.cells.Add(cell);
+                        }
+                    }
+                }
             }
             catch (XmlException ex)
             {

@@ -14,8 +14,13 @@ namespace FSELevelEditor
     public partial class MainWindow : Form
     {
         private TilesetWindow tilesetWindow;
+        private PropertyWindow propertyWindow;
         private TilesetManager tilesetManager;
 
+        #region Properties
+        /// <summary>
+        /// Gets the tileset manager instance.
+        /// </summary>
         public TilesetManager TilesetManager
         {
             get
@@ -23,7 +28,9 @@ namespace FSELevelEditor
                 return this.tilesetManager;
             }
         }
-
+        /// <summary>
+        /// Gets the level editor component.
+        /// </summary>
         public LevelEditor LevelEditor
         {
             get
@@ -32,12 +39,23 @@ namespace FSELevelEditor
             }
         }
 
+        public PropertyWindow PropertyWindow
+        {
+            get
+            {
+                return this.propertyWindow;
+            }
+        }
+        #endregion
+
         public MainWindow()
         {
             InitializeComponent();
 
             this.levelEditor.ContentManager.RootDirectory = "FSEGame";
+
             this.tilesetManager = new TilesetManager(this.levelEditor.ContentManager);
+            this.levelEditor.TilesetManager = this.tilesetManager;
         }
 
         protected override void OnLoad(EventArgs e)
@@ -48,6 +66,8 @@ namespace FSELevelEditor
 
             this.tilesetWindow = new TilesetWindow(this);
             this.tilesetWindow.TilesetChanged += new EventHandler<TilesetChangedEventArgs>(tilesetWindow_TilesetChanged);
+
+            this.propertyWindow = new PropertyWindow();
 
             Application.Idle += delegate
             {
@@ -71,6 +91,7 @@ namespace FSELevelEditor
         private void MainWindow_Shown(object sender, EventArgs e)
         {
             this.tilesetWindow.Show(this);
+            this.propertyWindow.Show(this);
         }
 
         private void openLevelToolStripMenuItem_Click(object sender, EventArgs e)
@@ -129,10 +150,34 @@ namespace FSELevelEditor
 
         private void propertiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (LevelPropertiesDialog dia = new LevelPropertiesDialog())
+            using (LevelPropertiesDialog dia = new LevelPropertiesDialog(this))
             {
                 dia.ShowDialog();
             }
+        }
+
+        private void editModeButton_Click(object sender, EventArgs e)
+        {
+            this.levelEditor.EditMode = true;
+            this.editModeButton.Checked = true;
+            this.createModeButton.Checked = false;
+        }
+
+        private void createModeButton_Click(object sender, EventArgs e)
+        {
+            this.levelEditor.EditMode = false;
+            this.editModeButton.Checked = false;
+            this.createModeButton.Checked = true;
+        }
+
+        private void tilesetExplorerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.tilesetWindow.Visible = !this.tilesetWindow.Visible;
+        }
+
+        private void propertiesToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            this.propertyWindow.Visible = !this.propertyWindow.Visible;
         }
     }
 }

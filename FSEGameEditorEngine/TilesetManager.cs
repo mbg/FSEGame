@@ -79,6 +79,17 @@ namespace FSEGameEditorEngine
             }
         }
         #endregion
+
+        public Tileset GetByFilename(String filename)
+        {
+            foreach (Tileset t in this.tilesets)
+            {
+                if (t.Filename.Equals(filename))
+                    return t;
+            }
+
+            return null;
+        }
     }
 }
 

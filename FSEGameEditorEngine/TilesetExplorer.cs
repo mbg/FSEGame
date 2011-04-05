@@ -99,6 +99,13 @@ namespace FSEGameEditorEngine
             this.batch = new SpriteBatch(this.GraphicsDevice);
         }
 
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+
+            this.offset = 0;
+        }
+
         protected override void Draw()
         {
             base.Draw();

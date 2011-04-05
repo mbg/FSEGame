@@ -12,19 +12,53 @@ namespace FSELevelEditor
 {
     public partial class LevelPropertiesDialog : Form
     {
-        public LevelPropertiesDialog()
+        #region Instance Members
+        private MainWindow mainWindow;
+        #endregion
+
+        #region Constructor
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mainWindow"></param>
+        public LevelPropertiesDialog(MainWindow mainWindow)
         {
             InitializeComponent();
+
+            this.mainWindow = mainWindow;
         }
+        #endregion
 
         private void LevelPropertiesDialog_Load(object sender, EventArgs e)
         {
+            this.nameTextBox.Text = this.mainWindow.LevelEditor.CurrentLevel.Name;
+            this.scriptComboBox.Text = this.mainWindow.LevelEditor.CurrentLevel.ScriptFilename;
+
+            // :: Load a list of scripts into the combobox's items.
             DirectoryInfo dir = new DirectoryInfo(@"FSEGame\Scripts\");
 
             foreach (FileInfo file in dir.GetFiles("*.lua"))
             {
-                this.kryptonComboBox1.Items.Add(file.Name);
+                this.scriptComboBox.Items.Add(file.Name);
             }
+        }
+
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void okButton_Click(object sender, EventArgs e)
+        {
+            this.mainWindow.LevelEditor.CurrentLevel.Name = this.nameTextBox.Text;
+            this.mainWindow.LevelEditor.CurrentLevel.ScriptFilename = this.scriptComboBox.Text;
+
+            this.Close();
+        }
+
+        private void nameTextBox_TextChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }

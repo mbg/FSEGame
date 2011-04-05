@@ -35,15 +35,15 @@
             this.okButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.cancelButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonLabel2 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonComboBox1 = new ComponentFactory.Krypton.Toolkit.KryptonComboBox();
+            this.scriptComboBox = new ComponentFactory.Krypton.Toolkit.KryptonComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.backgroundPanel)).BeginInit();
             this.backgroundPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonComboBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.scriptComboBox)).BeginInit();
             this.SuspendLayout();
             // 
             // backgroundPanel
             // 
-            this.backgroundPanel.Controls.Add(this.kryptonComboBox1);
+            this.backgroundPanel.Controls.Add(this.scriptComboBox);
             this.backgroundPanel.Controls.Add(this.kryptonLabel2);
             this.backgroundPanel.Controls.Add(this.cancelButton);
             this.backgroundPanel.Controls.Add(this.okButton);
@@ -69,8 +69,9 @@
             this.nameTextBox.Location = new System.Drawing.Point(64, 12);
             this.nameTextBox.Name = "nameTextBox";
             this.nameTextBox.Size = new System.Drawing.Size(441, 20);
-            this.nameTextBox.TabIndex = 1;
+            this.nameTextBox.TabIndex = 0;
             this.nameTextBox.Text = "Untitled";
+            this.nameTextBox.TextChanged += new System.EventHandler(this.nameTextBox_TextChanged);
             // 
             // kryptonBorderEdge1
             // 
@@ -85,16 +86,18 @@
             this.okButton.Location = new System.Drawing.Point(415, 157);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(90, 25);
-            this.okButton.TabIndex = 3;
+            this.okButton.TabIndex = 2;
             this.okButton.Values.Text = "OK";
+            this.okButton.Click += new System.EventHandler(this.okButton_Click);
             // 
             // cancelButton
             // 
             this.cancelButton.Location = new System.Drawing.Point(319, 157);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(90, 25);
-            this.cancelButton.TabIndex = 4;
+            this.cancelButton.TabIndex = 3;
             this.cancelButton.Values.Text = "Cancel";
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // kryptonLabel2
             // 
@@ -104,16 +107,16 @@
             this.kryptonLabel2.TabIndex = 5;
             this.kryptonLabel2.Values.Text = "Script:";
             // 
-            // kryptonComboBox1
+            // scriptComboBox
             // 
-            this.kryptonComboBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.kryptonComboBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.kryptonComboBox1.DropDownWidth = 441;
-            this.kryptonComboBox1.Location = new System.Drawing.Point(64, 45);
-            this.kryptonComboBox1.Name = "kryptonComboBox1";
-            this.kryptonComboBox1.Size = new System.Drawing.Size(441, 21);
-            this.kryptonComboBox1.TabIndex = 6;
-            this.kryptonComboBox1.Text = "Untitled.lua";
+            this.scriptComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.scriptComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.scriptComboBox.DropDownWidth = 441;
+            this.scriptComboBox.Location = new System.Drawing.Point(64, 45);
+            this.scriptComboBox.Name = "scriptComboBox";
+            this.scriptComboBox.Size = new System.Drawing.Size(441, 21);
+            this.scriptComboBox.TabIndex = 1;
+            this.scriptComboBox.Text = "Untitled.lua";
             // 
             // LevelPropertiesDialog
             // 
@@ -132,7 +135,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.backgroundPanel)).EndInit();
             this.backgroundPanel.ResumeLayout(false);
             this.backgroundPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonComboBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.scriptComboBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -140,7 +143,7 @@
         #endregion
 
         private ComponentFactory.Krypton.Toolkit.KryptonPanel backgroundPanel;
-        private ComponentFactory.Krypton.Toolkit.KryptonComboBox kryptonComboBox1;
+        private ComponentFactory.Krypton.Toolkit.KryptonComboBox scriptComboBox;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel2;
         private ComponentFactory.Krypton.Toolkit.KryptonButton cancelButton;
         private ComponentFactory.Krypton.Toolkit.KryptonButton okButton;

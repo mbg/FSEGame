@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSEGameEngine", "FSEGameEng
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSEGameEditorEngine", "FSEGameEditorEngine\FSEGameEditorEngine.csproj", "{93606CB1-3E13-4146-B447-B4EF95FFD6FF}"
 EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "FSEEditorContent", "FSEEditorContent\FSEEditorContent.contentproj", "{F9A4B252-5277-4494-AA8A-D4104F7A8ABD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +93,12 @@ Global
 		{93606CB1-3E13-4146-B447-B4EF95FFD6FF}.Release|Mixed Platforms.Build.0 = Release|x86
 		{93606CB1-3E13-4146-B447-B4EF95FFD6FF}.Release|x86.ActiveCfg = Release|x86
 		{93606CB1-3E13-4146-B447-B4EF95FFD6FF}.Release|x86.Build.0 = Release|x86
+		{F9A4B252-5277-4494-AA8A-D4104F7A8ABD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9A4B252-5277-4494-AA8A-D4104F7A8ABD}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F9A4B252-5277-4494-AA8A-D4104F7A8ABD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F9A4B252-5277-4494-AA8A-D4104F7A8ABD}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9A4B252-5277-4494-AA8A-D4104F7A8ABD}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F9A4B252-5277-4494-AA8A-D4104F7A8ABD}.Release|x86.ActiveCfg = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

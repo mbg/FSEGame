@@ -30,6 +30,10 @@ namespace FSEGame.Engine
         /// </summary>
         private String name;
         /// <summary>
+        /// The relative filename of the tileset.
+        /// </summary>
+        private String filename;
+        /// <summary>
         /// The filename of the tileset texture.
         /// </summary>
         private String resource;
@@ -76,6 +80,16 @@ namespace FSEGame.Engine
             get
             {
                 return this.name;
+            }
+        }
+        /// <summary>
+        /// Gets the relative filename of the tileset.
+        /// </summary>
+        public String Filename
+        {
+            get
+            {
+                return this.filename;
             }
         }
         /// <summary>
@@ -163,6 +177,7 @@ namespace FSEGame.Engine
                 throw new FileNotFoundException(null, path);
 
             this.tiles = new TileCollection();
+            this.filename = name;
 
             XmlDocument doc = new XmlDocument();
             doc.Load(path);

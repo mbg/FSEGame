@@ -45,24 +45,32 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.overlaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.actorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.entryPointsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.eventsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
+            this.tilesetExplorerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.levelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.propertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.editorToolStrip = new System.Windows.Forms.ToolStrip();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
+            this.createModeButton = new System.Windows.Forms.ToolStripButton();
+            this.editModeButton = new System.Windows.Forms.ToolStripButton();
             this.levelEditor = new FSEGameEditorEngine.LevelEditor();
-            this.propertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.propertiesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
+            this.editorToolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -103,6 +111,7 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.editToolStripMenuItem,
+            this.viewToolStripMenuItem,
             this.levelToolStripMenuItem,
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -174,6 +183,63 @@
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "Edit";
             // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.overlaysToolStripMenuItem,
+            this.toolStripMenuItem3,
+            this.tilesetExplorerToolStripMenuItem,
+            this.propertiesToolStripMenuItem1});
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.viewToolStripMenuItem.Text = "View";
+            // 
+            // overlaysToolStripMenuItem
+            // 
+            this.overlaysToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.actorsToolStripMenuItem,
+            this.entryPointsToolStripMenuItem,
+            this.eventsToolStripMenuItem});
+            this.overlaysToolStripMenuItem.Name = "overlaysToolStripMenuItem";
+            this.overlaysToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.overlaysToolStripMenuItem.Text = "Overlays";
+            // 
+            // actorsToolStripMenuItem
+            // 
+            this.actorsToolStripMenuItem.Checked = true;
+            this.actorsToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.actorsToolStripMenuItem.Name = "actorsToolStripMenuItem";
+            this.actorsToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.actorsToolStripMenuItem.Text = "Actors";
+            // 
+            // entryPointsToolStripMenuItem
+            // 
+            this.entryPointsToolStripMenuItem.Checked = true;
+            this.entryPointsToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.entryPointsToolStripMenuItem.Name = "entryPointsToolStripMenuItem";
+            this.entryPointsToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.entryPointsToolStripMenuItem.Text = "Entry Points";
+            // 
+            // eventsToolStripMenuItem
+            // 
+            this.eventsToolStripMenuItem.Checked = true;
+            this.eventsToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.eventsToolStripMenuItem.Name = "eventsToolStripMenuItem";
+            this.eventsToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.eventsToolStripMenuItem.Text = "Events";
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(150, 6);
+            // 
+            // tilesetExplorerToolStripMenuItem
+            // 
+            this.tilesetExplorerToolStripMenuItem.Name = "tilesetExplorerToolStripMenuItem";
+            this.tilesetExplorerToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.tilesetExplorerToolStripMenuItem.Text = "Tileset Explorer";
+            this.tilesetExplorerToolStripMenuItem.Click += new System.EventHandler(this.tilesetExplorerToolStripMenuItem_Click);
+            // 
             // levelToolStripMenuItem
             // 
             this.levelToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -181,6 +247,13 @@
             this.levelToolStripMenuItem.Name = "levelToolStripMenuItem";
             this.levelToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.levelToolStripMenuItem.Text = "Level";
+            // 
+            // propertiesToolStripMenuItem
+            // 
+            this.propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
+            this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.propertiesToolStripMenuItem.Text = "Properties";
+            this.propertiesToolStripMenuItem.Click += new System.EventHandler(this.propertiesToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -204,23 +277,28 @@
             // 
             // toolStripContainer1.TopToolStripPanel
             // 
-            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip1);
+            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.editorToolStrip);
             // 
-            // toolStrip1
+            // editorToolStrip
             // 
-            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
-            this.toolStrip1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editorToolStrip.Dock = System.Windows.Forms.DockStyle.None;
+            this.editorToolStrip.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.editorToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButton1,
             this.toolStripButton2,
             this.toolStripButton3,
             this.toolStripSeparator1,
-            this.toolStripButton4,
-            this.toolStripButton5});
-            this.toolStrip1.Location = new System.Drawing.Point(3, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(328, 25);
-            this.toolStrip1.TabIndex = 0;
+            this.createModeButton,
+            this.editModeButton});
+            this.editorToolStrip.Location = new System.Drawing.Point(3, 0);
+            this.editorToolStrip.Name = "editorToolStrip";
+            this.editorToolStrip.Size = new System.Drawing.Size(328, 25);
+            this.editorToolStrip.TabIndex = 0;
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // toolStripButton1
             // 
@@ -248,33 +326,31 @@
             this.toolStripButton3.Size = new System.Drawing.Size(90, 22);
             this.toolStripButton3.Text = "Entry Points";
             // 
-            // toolStripSeparator1
+            // createModeButton
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.createModeButton.Checked = true;
+            this.createModeButton.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.createModeButton.Image = global::FSELevelEditor.Properties.Resources.InsertPictureHS;
+            this.createModeButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.createModeButton.Name = "createModeButton";
+            this.createModeButton.Size = new System.Drawing.Size(61, 22);
+            this.createModeButton.Text = "Create";
+            this.createModeButton.Click += new System.EventHandler(this.createModeButton_Click);
             // 
-            // toolStripButton4
+            // editModeButton
             // 
-            this.toolStripButton4.Checked = true;
-            this.toolStripButton4.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
-            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton4.Name = "toolStripButton4";
-            this.toolStripButton4.Size = new System.Drawing.Size(61, 22);
-            this.toolStripButton4.Text = "Create";
-            // 
-            // toolStripButton5
-            // 
-            this.toolStripButton5.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton5.Image")));
-            this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton5.Name = "toolStripButton5";
-            this.toolStripButton5.Size = new System.Drawing.Size(47, 22);
-            this.toolStripButton5.Text = "Edit";
+            this.editModeButton.Image = ((System.Drawing.Image)(resources.GetObject("editModeButton.Image")));
+            this.editModeButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.editModeButton.Name = "editModeButton";
+            this.editModeButton.Size = new System.Drawing.Size(47, 22);
+            this.editModeButton.Text = "Edit";
+            this.editModeButton.Click += new System.EventHandler(this.editModeButton_Click);
             // 
             // levelEditor
             // 
             this.levelEditor.AllowDrop = true;
             this.levelEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.levelEditor.EditMode = false;
             this.levelEditor.Location = new System.Drawing.Point(0, 0);
             this.levelEditor.Name = "levelEditor";
             this.levelEditor.SelectedTile = null;
@@ -282,12 +358,13 @@
             this.levelEditor.TabIndex = 0;
             this.levelEditor.Text = "levelEditor1";
             // 
-            // propertiesToolStripMenuItem
+            // propertiesToolStripMenuItem1
             // 
-            this.propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
-            this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.propertiesToolStripMenuItem.Text = "Properties";
-            this.propertiesToolStripMenuItem.Click += new System.EventHandler(this.propertiesToolStripMenuItem_Click);
+            this.propertiesToolStripMenuItem1.Image = global::FSELevelEditor.Properties.Resources.Properties;
+            this.propertiesToolStripMenuItem1.Name = "propertiesToolStripMenuItem1";
+            this.propertiesToolStripMenuItem1.Size = new System.Drawing.Size(153, 22);
+            this.propertiesToolStripMenuItem1.Text = "Properties";
+            this.propertiesToolStripMenuItem1.Click += new System.EventHandler(this.propertiesToolStripMenuItem1_Click);
             // 
             // MainWindow
             // 
@@ -310,8 +387,8 @@
             this.toolStripContainer1.TopToolStripPanel.PerformLayout();
             this.toolStripContainer1.ResumeLayout(false);
             this.toolStripContainer1.PerformLayout();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
+            this.editorToolStrip.ResumeLayout(false);
+            this.editorToolStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -331,7 +408,7 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem levelToolStripMenuItem;
         private System.Windows.Forms.ToolStripContainer toolStripContainer1;
-        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStrip editorToolStrip;
         private FSEGameEditorEngine.LevelEditor levelEditor;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
         private System.Windows.Forms.ToolStripStatusLabel springLabel;
@@ -343,9 +420,17 @@
         private System.Windows.Forms.ToolStripButton toolStripButton2;
         private System.Windows.Forms.ToolStripButton toolStripButton3;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton toolStripButton4;
-        private System.Windows.Forms.ToolStripButton toolStripButton5;
+        private System.Windows.Forms.ToolStripButton createModeButton;
+        private System.Windows.Forms.ToolStripButton editModeButton;
         private System.Windows.Forms.ToolStripMenuItem propertiesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem overlaysToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem actorsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem entryPointsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem eventsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem tilesetExplorerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem propertiesToolStripMenuItem1;
     }
 }
 

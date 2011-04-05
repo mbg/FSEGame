@@ -24,6 +24,7 @@ namespace FSEGameEditorEngine
     public class LevelEditor : LevelEditorControl
     {
         #region Instance Members
+        private TilesetManager tilesetManager;
         private SpriteBatch batch;
         private EditorLevel level;
         private Int32 offsetX = 0;
@@ -35,6 +36,17 @@ namespace FSEGameEditorEngine
         #endregion
 
         #region Properties
+        public TilesetManager TilesetManager
+        {
+            get
+            {
+                return this.tilesetManager;
+            }
+            set
+            {
+                this.tilesetManager = value;
+            }
+        }
         public EditorLevel CurrentLevel
         {
             get
@@ -53,6 +65,20 @@ namespace FSEGameEditorEngine
                 this.selectedTile = value;
             }
         }
+        /// <summary>
+        /// Gets or sets whether the level editor is in edit mode.
+        /// </summary>
+        public Boolean EditMode
+        {
+            get
+            {
+                return this.edit;
+            }
+            set
+            {
+                this.edit = value;
+            }
+        }
         #endregion
 
         #region Constructor
@@ -62,8 +88,6 @@ namespace FSEGameEditorEngine
         public LevelEditor()
         {
             this.AllowDrop = true;
-
-            this.level = new EditorLevel();
         }
         #endregion
 
@@ -181,7 +205,10 @@ namespace FSEGameEditorEngine
         {
             base.Initialise();
 
+            this.ContentManager.RootDirectory = @"FSEGame\";
+
             this.batch = new SpriteBatch(this.GraphicsDevice);
+            this.level = new EditorLevel(this.ContentManager, this.tilesetManager);
         }
 
         protected override void Draw()

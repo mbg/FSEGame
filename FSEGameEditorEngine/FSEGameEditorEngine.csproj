@@ -113,6 +113,11 @@
     <Compile Include="TilesetManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FSEEditorContent\FSEEditorContent.contentproj">
+      <Project>{F9A4B252-5277-4494-AA8A-D4104F7A8ABD}</Project>
+      <Name>FSEEditorContent</Name>
+      <XnaReferenceType>Content</XnaReferenceType>
+    </ProjectReference>
     <ProjectReference Include="..\FSEGameEngine\FSEGameEngine.csproj">
       <Project>{5BE316B8-02EF-4A86-BF5E-F44A83A51D27}</Project>
       <Name>FSEGameEngine</Name>
