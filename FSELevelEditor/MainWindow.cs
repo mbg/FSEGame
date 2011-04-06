@@ -91,17 +91,30 @@ namespace FSELevelEditor
             this.levelEditor.CurrentLevel.Tileset = e.Tileset;
         }
 
-        private void newLevelToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void MainWindow_Shown(object sender, EventArgs e)
         {
             this.tilesetWindow.Show(this);
             this.propertyWindow.Show(this);
         }
 
+        #region New Level
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void newLevelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.levelEditor.New();
+        }
+        #endregion
+
+        #region Open Level
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void openLevelToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog dia = new OpenFileDialog())
@@ -114,6 +127,7 @@ namespace FSELevelEditor
                 try
                 {
                     this.levelEditor.CurrentLevel.Load(dia.FileName);
+                    this.levelEditor.ResetView();
                 }
                 catch (Exception ex)
                 {
@@ -124,6 +138,7 @@ namespace FSELevelEditor
                 }
             }
         }
+        #endregion
 
         #region Save As
         /// <summary>
@@ -164,29 +179,93 @@ namespace FSELevelEditor
             }
         }
 
+        #region Editor Modes
+        /// <summary>
+        /// Switches to the tile edit mode.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tilesEditModeButton_Click(object sender, EventArgs e)
+        {
+            this.levelEditor.Mode = EditorMode.Tiles;
+
+            this.tilesEditModeButton.Checked = true;
+            this.actorsEditModeButton.Checked = false;
+            this.entryPointsEditModeButton.Checked = false;
+        }
+        /// <summary>
+        /// Switches to the actor edit mode.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void actorsEditModeButton_Click(object sender, EventArgs e)
+        {
+            this.levelEditor.Mode = EditorMode.Actors;
+
+            this.tilesEditModeButton.Checked = false;
+            this.actorsEditModeButton.Checked = true;
+            this.entryPointsEditModeButton.Checked = false;
+        }
+        /// <summary>
+        /// Switches to the entry point edit mode.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void entryPointsEditModeButton_Click(object sender, EventArgs e)
+        {
+            this.levelEditor.Mode = EditorMode.EntryPoints;
+
+            this.tilesEditModeButton.Checked = false;
+            this.actorsEditModeButton.Checked = false;
+            this.entryPointsEditModeButton.Checked = true;
+        }
+        #endregion
+
+        #region Edit Modes
+        /// <summary>
+        /// Switches to the edit mode.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void editModeButton_Click(object sender, EventArgs e)
         {
             this.levelEditor.EditMode = true;
             this.editModeButton.Checked = true;
             this.createModeButton.Checked = false;
         }
-
+        /// <summary>
+        /// Switches to the create mode.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void createModeButton_Click(object sender, EventArgs e)
         {
             this.levelEditor.EditMode = false;
             this.editModeButton.Checked = false;
             this.createModeButton.Checked = true;
         }
+        #endregion
 
+        #region Tool Windows
+        /// <summary>
+        /// Toggles the visibility of the tileset explorer.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tilesetExplorerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.tilesetWindow.Visible = !this.tilesetWindow.Visible;
         }
-
+        /// <summary>
+        /// Toggles the visibility of the properties window.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void propertiesToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             this.propertyWindow.Visible = !this.propertyWindow.Visible;
         }
+        #endregion
 
         #region Overlays
         /// <summary>

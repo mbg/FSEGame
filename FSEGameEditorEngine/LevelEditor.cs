@@ -33,6 +33,7 @@ namespace FSEGameEditorEngine
         private Int32 offsetY = 0;
         private Point restoreMousePosition;
         private Point lastMousePosition;
+        private EditorMode mode = EditorMode.Tiles;
         private Boolean edit = false;
         private Tile selectedTile = null;
         #endregion
@@ -68,6 +69,20 @@ namespace FSEGameEditorEngine
             }
         }
         /// <summary>
+        /// Gets or sets the editor's mode.
+        /// </summary>
+        public EditorMode Mode
+        {
+            get
+            {
+                return this.mode;
+            }
+            set
+            {
+                this.mode = value;
+            }
+        }
+        /// <summary>
         /// Gets or sets whether the level editor is in edit mode.
         /// </summary>
         public Boolean EditMode
@@ -95,6 +110,18 @@ namespace FSEGameEditorEngine
         }
         #endregion
 
+        public void New()
+        {
+            this.CurrentLevel.New();
+            this.ResetView();
+        }
+
+        public void ResetView()
+        {
+            this.offsetX = 0;
+            this.offsetY = 0;
+        }
+
         protected override void OnMouseDown(MouseEventArgs e)
         {
             base.OnMouseDown(e);
@@ -119,12 +146,28 @@ namespace FSEGameEditorEngine
                         position.X--;
                         position.Y--;
 
-                        LevelCell cell = this.level.GetCellAtPosition(position);
+                        if (this.mode == EditorMode.Tiles)
+                        {
+                            LevelCell cell = this.level.GetCellAtPosition(position);
 
-                        if(cell == null)
-                            this.ObjectSelected(null);
+                            if (cell == null)
+                                this.ObjectSelected(null);
+                            else
+                                this.ObjectSelected(new CellProperties(cell));
+                        }
+                        else if (this.mode == EditorMode.Actors)
+                        {
+                            ActorProperties actor = this.level.GetActorAtPosition(position);
+
+                            if (actor == null)
+                                this.ObjectSelected(null);
+                            else
+                                this.ObjectSelected(new ActorEditorProperties(actor));
+                        }
                         else
-                            this.ObjectSelected(new CellProperties(cell));
+                        {
+                            LevelEntryPoint ep;
+                        }
                     }
                 }
                 else

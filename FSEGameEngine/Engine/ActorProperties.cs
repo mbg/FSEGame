@@ -29,13 +29,17 @@ namespace FSEGame.Engine
 
         #region Properties
         /// <summary>
-        /// Gets the type of the actor.
+        /// Gets or sets the type of the actor.
         /// </summary>
         public String Type
         {
             get
             {
                 return this.type;
+            }
+            set
+            {
+                this.type = value;
             }
         }
 

@@ -12,56 +12,54 @@
 using System;
 using FSEGame.Engine;
 using System.ComponentModel;
+using System.Collections.Generic;
+using System.Drawing.Design;
 #endregion
 
 namespace FSEGameEditorEngine
 {
     /// <summary>
-    /// A wrapper for level cells that exposes certain properties to the property
-    /// editor.
+    /// 
     /// </summary>
-    public class CellProperties
+    public class ActorEditorProperties
     {
         #region Instance Members
-        /// <summary>
-        /// The level cell represented by this wrapper.
-        /// </summary>
-        private LevelCell cell;
+        private ActorProperties properties;
         #endregion
 
         #region Properties
-        [Category("Cell")]
-        [DisplayName("Event")]
-        [Description("The ID of the event that should be associated with this cell.")]
-        public String Event
+        [Category("Actor")]
+        [DisplayName("Type")]
+        [Description("The name of the actor's class in the game.")]
+        public String Type
         {
             get
             {
-                return this.cell.EventID;
+                return this.properties.Type;
             }
             set
             {
-                this.cell.EventID = value;
+                this.properties.Type = value;
             }
         }
-        [Category("Tile")]
-        [DisplayName("Passable")]
-        [Description("Indicates whether the tile used by this cell is passable.")]
-        public Boolean Passable
+        [Category("Actor")]
+        [DisplayName("Attributes")]
+        [Description("The actor's properties.")]
+        [Editor(typeof(ActorPropertyEditor), typeof(UITypeEditor))]
+        public Dictionary<String, String> Properties
         {
             get
             {
-                return this.cell.Tile.Passable;
+                return this.properties.Properties;
             }
-        }
-        [Category("Tile")]
-        [DisplayName("Animated")]
-        [Description("Indicates whether the tile used by this cell is animated.")]
-        public Boolean Animated
-        {
-            get
+            set
             {
-                return this.cell.Tile.Animated;
+                this.properties.Properties.Clear();
+
+                foreach (KeyValuePair<String, String> kvp in value)
+                {
+                    this.properties.Properties.Add(kvp.Key, kvp.Value);
+                }
             }
         }
         #endregion
@@ -70,9 +68,9 @@ namespace FSEGameEditorEngine
         /// <summary>
         /// Initialises a new instance of this class.
         /// </summary>
-        public CellProperties(LevelCell cell)
+        public ActorEditorProperties(ActorProperties properties)
         {
-            this.cell = cell;
+            this.properties = properties;
         }
         #endregion
     }

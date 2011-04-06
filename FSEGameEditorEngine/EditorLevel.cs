@@ -174,6 +174,16 @@ namespace FSEGameEditorEngine
         }
         #endregion
 
+        public void New()
+        {
+            this.cells = new List<LevelCell>();
+            this.entryPoints = new List<LevelEntryPoint>();
+            this.actors = new List<ActorProperties>();
+            this.name = "Untitled";
+            this.scriptFilename = "";
+            this.tilesetFilename = "";
+        }
+
         public void Render(SpriteBatch batch, Int32 offsetX, Int32 offsetY)
         {
             foreach (LevelCell c in this.cells)
@@ -388,6 +398,18 @@ namespace FSEGameEditorEngine
                                 Convert.ToUInt32(actorElement.GetAttribute("X")),
                                 Convert.ToUInt32(actorElement.GetAttribute("Y")));
 
+                            foreach (XmlNode propertyNode in actorElement.ChildNodes)
+                            {
+                                if (propertyNode.NodeType != XmlNodeType.Element)
+                                    continue;
+
+                                XmlElement propertyElement = (XmlElement)propertyNode;
+
+                                actor.Properties.Add(
+                                    propertyElement.GetAttribute("Name"),
+                                    propertyElement.InnerText);
+                            }
+
                             this.actors.Add(actor);
                         }
                     }
@@ -433,6 +455,25 @@ namespace FSEGameEditorEngine
             root.Attributes.Append(sizeYAttribute);
 
             // :: Save all entry points to the file.
+            XmlElement entryPointsElement = doc.CreateElement("EntryPoints");
+
+            foreach (LevelEntryPoint ep in this.entryPoints)
+            {
+                XmlElement entryPointElement = doc.CreateElement("EntryPoint");
+                XmlAttribute epnAttribute = doc.CreateAttribute("Name");
+                XmlAttribute xAttribute = doc.CreateAttribute("X");
+                XmlAttribute yAttribute = doc.CreateAttribute("Y");
+
+                epnAttribute.Value = ep.Name;
+                xAttribute.Value = ep.X.ToString();
+                yAttribute.Value = ep.Y.ToString();
+
+                entryPointElement.Attributes.Append(epnAttribute);
+                entryPointElement.Attributes.Append(xAttribute);
+                entryPointElement.Attributes.Append(yAttribute);
+
+                entryPointsElement.AppendChild(entryPointElement);
+            }
 
             // :: Save all cells to the file.
             XmlElement cellsElement = doc.CreateElement("Cells");
@@ -464,22 +505,86 @@ namespace FSEGameEditorEngine
                 cellsElement.AppendChild(cellElement);
             }
 
-            // :: Save all actors (TODO)
+            // :: Save all actors
+            XmlElement actorsElement = doc.CreateElement("Actors");
+
+            foreach (ActorProperties actor in this.actors)
+            {
+                XmlElement actorElement = doc.CreateElement("Actor");
+                XmlAttribute xAttribute = doc.CreateAttribute("X");
+                XmlAttribute yAttribute = doc.CreateAttribute("Y");
+                XmlAttribute typeAttribute = doc.CreateAttribute("Type");
+
+                xAttribute.Value = actor.X.ToString();
+                yAttribute.Value = actor.Y.ToString();
+                typeAttribute.Value = actor.Type;
+
+                actorElement.Attributes.Append(xAttribute);
+                actorElement.Attributes.Append(yAttribute);
+                actorElement.Attributes.Append(typeAttribute);
+
+                foreach (String key in actor.Properties.Keys)
+                {
+                    XmlElement propertyElement = doc.CreateElement("Property");
+                    XmlAttribute keyAttribute = doc.CreateAttribute("Name");
+
+                    keyAttribute.Value = key;
+
+                    propertyElement.Attributes.Append(keyAttribute);
+                    propertyElement.InnerText = actor.Properties[key];
+
+                    actorElement.AppendChild(propertyElement);
+                }
+
+                actorsElement.AppendChild(actorElement);
+            }
 
             // :: End the XML document and save it to disk.
+            root.AppendChild(entryPointsElement);
             root.AppendChild(cellsElement);
+            root.AppendChild(actorsElement);
 
             doc.AppendChild(root);
             doc.Save(filename);
         }
         #endregion
 
+        #region GetCellAtPosition
+        /// <summary>
+        /// Gets the cell at the specified position or null if there is no
+        /// cell at the specified position.
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
         public LevelCell GetCellAtPosition(CellPosition position)
         {
             foreach (LevelCell cell in this.cells)
             {
                 if (cell.X == position.X && cell.Y == position.Y)
                     return cell;
+            }
+
+            return null;
+        }
+        #endregion
+
+        public ActorProperties GetActorAtPosition(CellPosition position)
+        {
+            foreach (ActorProperties actor in this.actors)
+            {
+                if (actor.X == position.X && actor.Y == position.Y)
+                    return actor;
+            }
+
+            return null;
+        }
+
+        public LevelEntryPoint GetEntryPointAtPosition(CellPosition position)
+        {
+            foreach (LevelEntryPoint ep in this.entryPoints)
+            {
+                if (ep.X == position.X && ep.Y == position.Y)
+                    return ep;
             }
 
             return null;
