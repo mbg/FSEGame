@@ -172,7 +172,7 @@ namespace FSEGameEditorEngine
                 }
                 else
                 {
-                    if (selectedTile != null)
+                    if (this.selectedTile != null)
                     {
                         this.PlaceTile(position, this.selectedTile);
                     }
@@ -221,10 +221,15 @@ namespace FSEGameEditorEngine
             if (drgevent.Data.GetDataPresent(typeof(Tile)))
             {
                 drgevent.Effect = DragDropEffects.Link;
-                return;
             }
-
-            drgevent.Effect = DragDropEffects.None;
+            else if (drgevent.Data.GetDataPresent(typeof(String)))
+            {
+                drgevent.Effect = DragDropEffects.Link;
+            }
+            else
+            {
+                drgevent.Effect = DragDropEffects.None;
+            }
         }
 
         protected override void OnDragOver(DragEventArgs drgevent)
@@ -234,31 +239,42 @@ namespace FSEGameEditorEngine
             if (drgevent.Data.GetDataPresent(typeof(Tile)))
             {
                 drgevent.Effect = DragDropEffects.Link;
-                return;
             }
-
-            drgevent.Effect = DragDropEffects.None;
+            else if (drgevent.Data.GetDataPresent(typeof(String)))
+            {
+                drgevent.Effect = DragDropEffects.Link;
+            }
+            else
+            {
+                drgevent.Effect = DragDropEffects.None;
+            }
         }
 
         protected override void OnDragDrop(DragEventArgs drgevent)
         {
             base.OnDragDrop(drgevent);
 
+            Point p = this.PointToClient(new Point(
+                    drgevent.X, drgevent.Y));
+
+            CellPosition position = this.ControlPositionToActual(p.X, p.Y);
+
             if (drgevent.Data.GetDataPresent(typeof(Tile)))
             {
                 drgevent.Effect = DragDropEffects.Link;
 
-                Point p = this.PointToClient(new Point(
-                    drgevent.X, drgevent.Y));
-
-                CellPosition position = this.ControlPositionToActual(p.X, p.Y);
-
                 this.PlaceTile(position, (Tile)drgevent.Data.GetData(typeof(Tile)));
-
-                return;
             }
+            else if (drgevent.Data.GetDataPresent(typeof(String)))
+            {
+                drgevent.Effect = DragDropEffects.Link;
 
-            drgevent.Effect = DragDropEffects.None;
+                this.PlaceActor(position, (String)drgevent.Data.GetData(typeof(String)));
+            }
+            else
+            {
+                drgevent.Effect = DragDropEffects.None;
+            }
         }
 
         protected override void OnQueryContinueDrag(QueryContinueDragEventArgs qcdevent)
@@ -290,6 +306,11 @@ namespace FSEGameEditorEngine
         private void PlaceTile(CellPosition position, Tile tile)
         {
             this.level.AddCell(position.X - 1, position.Y - 1, tile);
+        }
+
+        private void PlaceActor(CellPosition position, String type)
+        {
+            this.level.AddActor(position.X - 1, position.Y - 1, type);
         }
 
         #region ControlPositionToActual

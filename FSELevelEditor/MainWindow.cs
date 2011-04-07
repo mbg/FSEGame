@@ -10,6 +10,7 @@ using FSEGame;
 using FSEGameEditorEngine;
 using System.Diagnostics;
 using System.IO;
+using System.Xml;
 
 namespace FSELevelEditor
 {
@@ -17,6 +18,7 @@ namespace FSELevelEditor
     {
         private TilesetWindow tilesetWindow;
         private PropertyWindow propertyWindow;
+        private ActorBrowserWindow actorBrowserWindow;
         private TilesetManager tilesetManager;
 
         #region Properties
@@ -76,6 +78,7 @@ namespace FSELevelEditor
             this.tilesetWindow.TilesetChanged += new EventHandler<TilesetChangedEventArgs>(tilesetWindow_TilesetChanged);
 
             this.propertyWindow = new PropertyWindow();
+            this.actorBrowserWindow = new ActorBrowserWindow();
 
             Application.Idle += delegate
             {
@@ -95,6 +98,9 @@ namespace FSELevelEditor
         {
             this.tilesetWindow.Show(this);
             this.propertyWindow.Show(this);
+            this.actorBrowserWindow.Show(this);
+
+            this.RestoreWindowLayout();
         }
 
         #region New Level
@@ -269,6 +275,16 @@ namespace FSELevelEditor
 
         #region Overlays
         /// <summary>
+        /// Toggles the visibility of the actors overlay.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void actorsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.actorsToolStripMenuItem.Checked = !this.actorsToolStripMenuItem.Checked;
+            this.levelEditor.CurrentLevel.ShowActors = this.actorsToolStripMenuItem.Checked;
+        }
+        /// <summary>
         /// Toggles the visibility of the entry points overlay.
         /// </summary>
         /// <param name="sender"></param>
@@ -330,6 +346,126 @@ namespace FSELevelEditor
             }
 
             Process.Start("FSEGame.exe");
+        }
+        #endregion
+
+        private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.SaveWindowLayout();
+        }
+
+        private void RestoreWindowLayout()
+        {
+            String path = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                    @"FSEGame\Editor\WindowLayout.xml");
+
+            if (File.Exists(path))
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.Load(path);
+
+                XmlElement rootElement = doc.DocumentElement;
+
+                foreach (XmlNode node in rootElement.ChildNodes)
+                {
+                    if (node.NodeType != XmlNodeType.Element)
+                        continue;
+
+                    XmlElement childElement = (XmlElement)node;
+
+                    if (childElement.Name.Equals("MainWindow"))
+                    {
+                        this.RestoreWindowLayout(childElement, this);
+                    }
+                    else if (childElement.Name.Equals("TilesetWindow"))
+                    {
+                        this.RestoreWindowLayout(childElement, this.tilesetWindow);
+                    }
+                    else if (childElement.Name.Equals("PropertyWindow"))
+                    {
+                        this.RestoreWindowLayout(childElement, this.propertyWindow);
+                    }
+                    else if (childElement.Name.Equals("ActorBrowser"))
+                    {
+                        this.RestoreWindowLayout(childElement, this.actorBrowserWindow);
+                    }
+                }
+            }
+        }
+
+        private void RestoreWindowLayout(XmlElement element, Form window)
+        {
+            window.Left = Convert.ToInt32(element.GetAttribute("Left"));
+            window.Top = Convert.ToInt32(element.GetAttribute("Top"));
+            window.Width = Convert.ToInt32(element.GetAttribute("Width"));
+            window.Height = Convert.ToInt32(element.GetAttribute("Height"));
+            window.WindowState = (FormWindowState)Enum.Parse(typeof(FormWindowState), element.GetAttribute("State"));
+            window.Visible = Convert.ToBoolean(element.GetAttribute("Visible"));
+        }
+
+        #region SaveWindowLayout
+        /// <summary>
+        /// 
+        /// </summary>
+        private void SaveWindowLayout()
+        {
+            try
+            {
+                String path = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                    @"FSEGame\Editor");
+
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+
+                XmlDocument doc = new XmlDocument();
+                XmlElement rootElement = doc.CreateElement("WindowLayout");
+
+                rootElement.AppendChild(this.SaveWindowLayout(doc, this, "MainWindow"));
+                rootElement.AppendChild(this.SaveWindowLayout(doc, this.tilesetWindow, "TilesetWindow"));
+                rootElement.AppendChild(this.SaveWindowLayout(doc, this.propertyWindow, "PropertyWindow"));
+                rootElement.AppendChild(this.SaveWindowLayout(doc, this.actorBrowserWindow, "ActorBrowser"));
+
+                doc.AppendChild(rootElement);
+                doc.Save(File.Open(Path.Combine(path, "WindowLayout.xml"), FileMode.Create));
+            }
+            catch (Exception)
+            {
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="doc"></param>
+        /// <param name="window"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        private XmlElement SaveWindowLayout(XmlDocument doc, Form window, String name)
+        {
+            XmlElement windowElement = doc.CreateElement(name);
+            XmlAttribute leftAttribute = doc.CreateAttribute("Left");
+            XmlAttribute topAttribute = doc.CreateAttribute("Top");
+            XmlAttribute widthAttribute = doc.CreateAttribute("Width");
+            XmlAttribute heightAttribute = doc.CreateAttribute("Height");
+            XmlAttribute stateAttribute = doc.CreateAttribute("State");
+            XmlAttribute visibleAttribute = doc.CreateAttribute("Visible");
+
+            leftAttribute.Value = window.Left.ToString();
+            topAttribute.Value = window.Top.ToString();
+            widthAttribute.Value = window.Width.ToString();
+            heightAttribute.Value = window.Height.ToString();
+            stateAttribute.Value = window.WindowState.ToString();
+            visibleAttribute.Value = window.Visible.ToString();
+
+            windowElement.Attributes.Append(leftAttribute);
+            windowElement.Attributes.Append(topAttribute);
+            windowElement.Attributes.Append(widthAttribute);
+            windowElement.Attributes.Append(heightAttribute);
+            windowElement.Attributes.Append(stateAttribute);
+            windowElement.Attributes.Append(visibleAttribute);
+
+            return windowElement;
         }
         #endregion
     }

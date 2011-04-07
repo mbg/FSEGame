@@ -60,6 +60,27 @@ namespace FSELevelEditor.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap _037_Colorize_16x16_72 {
+            get {
+                object obj = ResourceManager.GetObject("037_Colorize_16x16_72", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap _1532_Flag_system_Blue {
+            get {
+                object obj = ResourceManager.GetObject("1532_Flag_system_Blue", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap _1683_Lightbulb_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("1683_Lightbulb_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap InsertPictureHS {
             get {
                 object obj = ResourceManager.GetObject("InsertPictureHS", resourceCulture);

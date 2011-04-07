@@ -268,6 +268,13 @@ namespace FSEGameEditorEngine
             this.cells.Add(cell);
         }
 
+        public void AddActor(Int32 x, Int32 y, String type)
+        {
+            ActorProperties actor = new ActorProperties(type, (UInt32)x, (UInt32)y);
+
+            this.actors.Add(actor);
+        }
+
         public LevelCell GetCellAtPosition(Int32 x, Int32 y)
         {
             foreach (LevelCell cell in this.cells)
@@ -284,6 +291,17 @@ namespace FSEGameEditorEngine
             foreach (LevelCell cell in this.cells)
             {
                 if ((cell.X == x) && (cell.Y == y))
+                    return true;
+            }
+
+            return false;
+        }
+
+        public Boolean HasActorAtPosition(Int32 x, Int32 y)
+        {
+            foreach (ActorProperties actor in this.actors)
+            {
+                if ((actor.X == x) && (actor.Y == y))
                     return true;
             }
 
@@ -443,7 +461,7 @@ namespace FSEGameEditorEngine
             XmlAttribute sizeYAttribute = doc.CreateAttribute("SizeY");
 
             nameAttribute.Value = this.name;
-            tilesetAttribute.Value = this.tilesetFilename;
+            tilesetAttribute.Value = this.tileset.Filename;
             scriptAttribute.Value = this.scriptFilename;
             sizeXAttribute.Value = dimensions.X.ToString();
             sizeYAttribute.Value = dimensions.Y.ToString();
