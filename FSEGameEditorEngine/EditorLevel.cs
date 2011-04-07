@@ -89,6 +89,16 @@ namespace FSEGameEditorEngine
             }
         }
         /// <summary>
+        /// Gets a list of entry points in the current level.
+        /// </summary>
+        public List<LevelEntryPoint> EntryPoints
+        {
+            get
+            {
+                return this.entryPoints;
+            }
+        }
+        /// <summary>
         /// Gets or sets whether actor overlays show be shown.
         /// </summary>
         public Boolean ShowActors
@@ -273,6 +283,15 @@ namespace FSEGameEditorEngine
             ActorProperties actor = new ActorProperties(type, (UInt32)x, (UInt32)y);
 
             this.actors.Add(actor);
+        }
+
+        public void AddEntryPoint(Int32 x, Int32 y, String name)
+        {
+            LevelEntryPoint entryPoint = new LevelEntryPoint(name);
+            entryPoint.X = (UInt32)x;
+            entryPoint.Y = (UInt32)y;
+
+            this.entryPoints.Add(entryPoint);
         }
 
         public LevelCell GetCellAtPosition(Int32 x, Int32 y)

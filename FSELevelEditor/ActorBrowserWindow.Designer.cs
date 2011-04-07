@@ -48,6 +48,7 @@
             this.Controls.Add(this.treeView1);
             this.Name = "ActorBrowserWindow";
             this.Text = "Actor Browser";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ActorBrowserWindow_FormClosing);
             this.Load += new System.EventHandler(this.ActorBrowserWindow_Load);
             this.ResumeLayout(false);
 

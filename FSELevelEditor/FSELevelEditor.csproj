@@ -66,6 +66,12 @@
     <Compile Include="ActorBrowserWindow.Designer.cs">
       <DependentUpon>ActorBrowserWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="EntryPointDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EntryPointDialog.Designer.cs">
+      <DependentUpon>EntryPointDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="LevelPropertiesDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,6 +101,9 @@
     </Compile>
     <EmbeddedResource Include="ActorBrowserWindow.resx">
       <DependentUpon>ActorBrowserWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EntryPointDialog.resx">
+      <DependentUpon>EntryPointDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LevelPropertiesDialog.resx">
       <DependentUpon>LevelPropertiesDialog.cs</DependentUpon>

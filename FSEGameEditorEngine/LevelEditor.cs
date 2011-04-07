@@ -36,6 +36,7 @@ namespace FSEGameEditorEngine
         private EditorMode mode = EditorMode.Tiles;
         private Boolean edit = false;
         private Tile selectedTile = null;
+        private Boolean lockTiles = false;
         #endregion
 
         #region Properties
@@ -94,6 +95,18 @@ namespace FSEGameEditorEngine
             set
             {
                 this.edit = value;
+            }
+        }
+
+        public Boolean LockTiles
+        {
+            get
+            {
+                return this.lockTiles;
+            }
+            set
+            {
+                this.lockTiles = value;
             }
         }
         #endregion
@@ -172,9 +185,19 @@ namespace FSEGameEditorEngine
                 }
                 else
                 {
-                    if (this.selectedTile != null)
+                    if (this.selectedTile != null && !this.lockTiles && this.mode == EditorMode.Tiles)
                     {
                         this.PlaceTile(position, this.selectedTile);
+                    }
+                    else if (this.mode == EditorMode.EntryPoints)
+                    {
+                        using (EntryPointNameDialog dia = new EntryPointNameDialog(this.level))
+                        {
+                            if (dia.ShowDialog() == DialogResult.Cancel)
+                                return;
+
+                            this.PlaceEntryPoint(position, dia.SelectedName);
+                        }
                     }
                 }
             }
@@ -218,7 +241,7 @@ namespace FSEGameEditorEngine
         {
             base.OnDragEnter(drgevent);
 
-            if (drgevent.Data.GetDataPresent(typeof(Tile)))
+            if (drgevent.Data.GetDataPresent(typeof(Tile)) && !this.lockTiles)
             {
                 drgevent.Effect = DragDropEffects.Link;
             }
@@ -236,7 +259,7 @@ namespace FSEGameEditorEngine
         {
             base.OnDragOver(drgevent);
 
-            if (drgevent.Data.GetDataPresent(typeof(Tile)))
+            if (drgevent.Data.GetDataPresent(typeof(Tile)) && !this.lockTiles)
             {
                 drgevent.Effect = DragDropEffects.Link;
             }
@@ -259,7 +282,7 @@ namespace FSEGameEditorEngine
 
             CellPosition position = this.ControlPositionToActual(p.X, p.Y);
 
-            if (drgevent.Data.GetDataPresent(typeof(Tile)))
+            if (drgevent.Data.GetDataPresent(typeof(Tile)) && !this.lockTiles)
             {
                 drgevent.Effect = DragDropEffects.Link;
 
@@ -311,6 +334,11 @@ namespace FSEGameEditorEngine
         private void PlaceActor(CellPosition position, String type)
         {
             this.level.AddActor(position.X - 1, position.Y - 1, type);
+        }
+
+        private void PlaceEntryPoint(CellPosition position, String name)
+        {
+            this.level.AddEntryPoint(position.X - 1, position.Y - 1, name);
         }
 
         #region ControlPositionToActual

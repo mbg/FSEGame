@@ -82,5 +82,14 @@ namespace FSELevelEditor
                 this.DoDragDrop(t.Name, DragDropEffects.Link);
             }
         }
+
+        private void ActorBrowserWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                e.Cancel = true;
+                this.Hide();
+            }
+        }
     }
 }

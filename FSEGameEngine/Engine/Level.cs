@@ -140,8 +140,13 @@ namespace FSEGame.Engine
             // :: Load and store the script which is associated with the level (if available).
             if (rootElement.HasAttribute("Script"))
             {
-                this.levelScript = GameBase.Singleton.LuaState.LoadFile(
-                    Path.Combine(GameBase.Singleton.Content.RootDirectory, rootElement.GetAttribute("Script")));
+                String scriptPath = Path.Combine(
+                    GameBase.Singleton.Content.RootDirectory, rootElement.GetAttribute("Script"));
+
+                if (File.Exists(scriptPath))
+                {
+                    this.levelScript = GameBase.Singleton.LuaState.LoadFile(scriptPath);
+                }
             }
 
             // :: Verify that the size attributes are available and then initialise the cell array
@@ -378,6 +383,9 @@ namespace FSEGame.Engine
             {
                 for (x = 0; x < this.width; x++)
                 {
+                    if (this.cells[y, x] == null)
+                        continue;
+
                     Vector2 position = new Vector2(x, y);
 
                     if (this.IsVisible(position))

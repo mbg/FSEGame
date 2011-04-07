@@ -127,6 +127,10 @@ namespace FSEGame
         }
         #endregion
 
+        #region Events
+        public event GameEventDelegate ContentLoaded;
+        #endregion
+
         #region Constructor
         /// <summary>
         /// Initialises a new instance of this class.
@@ -165,6 +169,9 @@ namespace FSEGame
             this.dialogueEndDelegate = new DialogueEventDelegate(DialogueEnd);
 
             this.RegisterDefaultDialogueHandlers();
+
+            if (this.ContentLoaded != null)
+                this.ContentLoaded(this);
         }
         #endregion
 
@@ -385,6 +392,33 @@ namespace FSEGame
             this.EnableBlur = false;
             this.state = GameState.Exploring;
         }
+
+        #region NewGameWithLevel
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="level"></param>
+        /// <param name="entryPoint"></param>
+        public void NewGameWithLevel(String level, String entryPoint)
+        {
+            this.mainMenu.Hide();
+
+            // :: Initialise a new player character.
+            CharacterAttributes playerAttributes = new CharacterAttributes();
+            playerAttributes.Health = 100;
+            playerAttributes.Defence = 2;
+            playerAttributes.Strength = 15;
+            playerAttributes.Magic = 50;
+
+            this.playerCharacter = new PlayerCharacter(playerAttributes);
+            this.playerCharacter.Moves.Add(new MeleeAttack());
+
+            this.LoadLevel(level, entryPoint, false);
+
+            this.character.Enabled = true;
+            this.state = GameState.Exploring;
+        }
+        #endregion
 
         #region NewGame
         /// <summary>

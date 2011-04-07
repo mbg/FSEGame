@@ -119,6 +119,12 @@
     <Compile Include="CellProperties.cs" />
     <Compile Include="EditorLevel.cs" />
     <Compile Include="EditorMode.cs" />
+    <Compile Include="EntryPointNameDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EntryPointNameDialog.Designer.cs">
+      <DependentUpon>EntryPointNameDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="GraphicsDeviceControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -152,6 +158,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AddPropertyForm.resx">
       <DependentUpon>AddPropertyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EntryPointNameDialog.resx">
+      <DependentUpon>EntryPointNameDialog.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

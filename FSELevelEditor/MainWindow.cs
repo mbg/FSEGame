@@ -254,6 +254,15 @@ namespace FSELevelEditor
 
         #region Tool Windows
         /// <summary>
+        /// Toggles the visibility of the actors browser.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void actorBrowserToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.actorBrowserWindow.Visible = !this.actorBrowserWindow.Visible;
+        }
+        /// <summary>
         /// Toggles the visibility of the tileset explorer.
         /// </summary>
         /// <param name="sender"></param>
@@ -327,12 +336,7 @@ namespace FSELevelEditor
         #endregion
 
         #region Run
-        /// <summary>
-        /// Starts the game.
-        /// </summary>
-        /// <param name="sender">Unused.</param>
-        /// <param name="e">Unused.</param>
-        private void runToolStripMenuItem_Click(object sender, EventArgs e)
+        private Boolean VerifyGameExecutableExists()
         {
             if (!File.Exists("FSEGame.exe"))
             {
@@ -342,8 +346,64 @@ namespace FSELevelEditor
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
 
+                return false;
+            }
+
+            return true;
+        }
+
+        private void runLevelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!this.VerifyGameExecutableExists())
+                return;
+
+            if(this.levelEditor.CurrentLevel.EntryPoints.Count == 0)
+            {
+                MessageBox.Show(
+                    "The level needs to contain at least one entry point.",
+                    "Level Editor",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
                 return;
             }
+
+            this.levelEditor.CurrentLevel.Save(@"FSEGame\Levels\_EditorTemp.xml");
+
+            String entryPoint = this.levelEditor.CurrentLevel.EntryPoints[0].Name;
+
+            if (this.levelEditor.CurrentLevel.EntryPoints.Count > 1)
+            {
+                using (EntryPointDialog dia = new EntryPointDialog(this))
+                {
+                    dia.ShowDialog();
+                    entryPoint = dia.SelectedEntryPoint;
+                }
+            }
+
+            Process p = new Process();
+            p.EnableRaisingEvents = true;
+            p.StartInfo.FileName = "FSEGame.exe";
+            p.StartInfo.Arguments = String.Format(@"-l Levels\_EditorTemp.xml -e {0}", entryPoint);
+            p.Exited += new EventHandler(RemoveTemporaryLevel);
+
+            p.Start();
+        }
+
+        void RemoveTemporaryLevel(object sender, EventArgs e)
+        {
+            if(File.Exists(@"FSEGame\Levels\_EditorTemp.xml"))
+                File.Delete(@"FSEGame\Levels\_EditorTemp.xml");
+        }
+        /// <summary>
+        /// Starts the game.
+        /// </summary>
+        /// <param name="sender">Unused.</param>
+        /// <param name="e">Unused.</param>
+        private void runToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!this.VerifyGameExecutableExists())
+                return;
 
             Process.Start("FSEGame.exe");
         }
@@ -401,6 +461,10 @@ namespace FSELevelEditor
             window.Width = Convert.ToInt32(element.GetAttribute("Width"));
             window.Height = Convert.ToInt32(element.GetAttribute("Height"));
             window.WindowState = (FormWindowState)Enum.Parse(typeof(FormWindowState), element.GetAttribute("State"));
+
+            if (window.WindowState == FormWindowState.Minimized)
+                window.WindowState = FormWindowState.Normal;
+
             window.Visible = Convert.ToBoolean(element.GetAttribute("Visible"));
         }
 
@@ -450,11 +514,22 @@ namespace FSELevelEditor
             XmlAttribute heightAttribute = doc.CreateAttribute("Height");
             XmlAttribute stateAttribute = doc.CreateAttribute("State");
             XmlAttribute visibleAttribute = doc.CreateAttribute("Visible");
+            
+            if (window.WindowState == FormWindowState.Normal)
+            {
+                leftAttribute.Value = window.Left.ToString();
+                topAttribute.Value = window.Top.ToString();
+                widthAttribute.Value = window.Width.ToString();
+                heightAttribute.Value = window.Height.ToString();
+            }
+            else
+            {
+                leftAttribute.Value = window.RestoreBounds.Left.ToString();
+                topAttribute.Value = window.RestoreBounds.Top.ToString();
+                widthAttribute.Value = window.RestoreBounds.Width.ToString();
+                heightAttribute.Value = window.RestoreBounds.Height.ToString();
+            }
 
-            leftAttribute.Value = window.Left.ToString();
-            topAttribute.Value = window.Top.ToString();
-            widthAttribute.Value = window.Width.ToString();
-            heightAttribute.Value = window.Height.ToString();
             stateAttribute.Value = window.WindowState.ToString();
             visibleAttribute.Value = window.Visible.ToString();
 
@@ -468,5 +543,14 @@ namespace FSELevelEditor
             return windowElement;
         }
         #endregion
+
+        private void lockTilesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.lockTilesToolStripMenuItem.Checked = !this.lockTilesToolStripMenuItem.Checked;
+            this.levelEditor.LockTiles = this.lockTilesToolStripMenuItem.Checked;
+        }
+
+        
+        
     }
 }

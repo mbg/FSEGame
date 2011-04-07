@@ -13,6 +13,7 @@ using System;
 using FSEGame.Engine;
 using Microsoft.Xna.Framework;
 using FSEGame.Actors;
+using System.Windows.Forms;
 #endregion
 
 namespace FSEGame
@@ -20,10 +21,19 @@ namespace FSEGame
 #if WINDOWS || XBOX
     public class Program
     {
+        #region Instance Members
+        private CommandLineParser commandLineParser;
+        #endregion
+
+        #region Constructor
+        /// <summary>
+        /// Initialises a new instance of this class.
+        /// </summary>
         public Program()
         {
             
         }
+        #endregion
 
         #region Entry Point
         /// <summary>
@@ -34,25 +44,58 @@ namespace FSEGame
             Program app = null;
 
             app = new Program();
-            app.Run();
+            app.Run(args);
         }
 
         
         #endregion
 
-        private void Run()
+        #region Run
+        /// <summary>
+        /// Runs the game.
+        /// </summary>
+        /// <param name="arguments"></param>
+        private void Run(String[] arguments)
         {
-            
-            FSEGame.Singleton.OnInitialise += new GameEventDelegate(game_OnInitialise);
-            FSEGame.Singleton.Run();
-            
+            try
+            {
+                this.commandLineParser = new CommandLineParser(arguments);
+
+                FSEGame.Singleton.OnInitialise += new GameEventDelegate(game_OnInitialise);
+                FSEGame.Singleton.Run();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "An unhandled exception was caught:\n" +
+                    ex.Message,
+                    "FSEGame",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
         }
-        
+        #endregion
+
         private void game_OnInitialise(Game sender)
         {
             FSEGame game = (FSEGame)sender;
 
+            game.ContentLoaded += new GameEventDelegate(game_ContentLoaded);
             game.CurrentLevel.OnCreateActor += new CreateActorDelegate(CurrentLevel_OnCreateActor);
+
+        }
+
+        void game_ContentLoaded(Game sender)
+        {
+            FSEGame game = (FSEGame)sender;
+
+            if ((!String.IsNullOrWhiteSpace(this.commandLineParser.LevelToLoad)) &&
+                (!String.IsNullOrWhiteSpace(this.commandLineParser.EntryPoint)))
+            {
+                game.NewGameWithLevel(
+                    this.commandLineParser.LevelToLoad,
+                    this.commandLineParser.EntryPoint);
+            }
         }
         
         private Actor CurrentLevel_OnCreateActor(ActorProperties properties)
