@@ -120,6 +120,7 @@
     <Compile Include="Actors\Maro.cs" />
     <Compile Include="Actors\OpponentNPC.cs" />
     <Compile Include="Actors\GenericNPC.cs" />
+    <Compile Include="Actors\ShopNPC.cs" />
     <Compile Include="Actors\Vernado.cs" />
     <Compile Include="BattleSystem\Battle.cs" />
     <Compile Include="BattleSystem\BattleManager.cs" />

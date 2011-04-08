@@ -95,6 +95,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Editor\SuggestedPropertyAttribute.cs" />
     <Compile Include="Engine\Actor.cs" />
     <Compile Include="Engine\ActorProperties.cs" />
     <Compile Include="Engine\CellEventType.cs" />

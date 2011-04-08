@@ -265,7 +265,7 @@ namespace FSEGameEditorEngine
                 new Color(1.0f, 1.0f, 1.0f, opacity));
         }
 
-        public void AddCell(Int32 x, Int32 y, Tile t)
+        public LevelCell AddCell(Int32 x, Int32 y, Tile t)
         {
             LevelCell cell = new LevelCell();
             cell.Tile = t;
@@ -276,22 +276,28 @@ namespace FSEGameEditorEngine
                 this.cells.Remove(this.GetCellAtPosition(x, y));
 
             this.cells.Add(cell);
+
+            return cell;
         }
 
-        public void AddActor(Int32 x, Int32 y, String type)
+        public ActorProperties AddActor(Int32 x, Int32 y, String type)
         {
             ActorProperties actor = new ActorProperties(type, (UInt32)x, (UInt32)y);
 
             this.actors.Add(actor);
+
+            return actor;
         }
 
-        public void AddEntryPoint(Int32 x, Int32 y, String name)
+        public LevelEntryPoint AddEntryPoint(Int32 x, Int32 y, String name)
         {
             LevelEntryPoint entryPoint = new LevelEntryPoint(name);
             entryPoint.X = (UInt32)x;
             entryPoint.Y = (UInt32)y;
 
             this.entryPoints.Add(entryPoint);
+
+            return entryPoint;
         }
 
         public LevelCell GetCellAtPosition(Int32 x, Int32 y)

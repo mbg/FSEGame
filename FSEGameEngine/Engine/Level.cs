@@ -512,7 +512,12 @@ namespace FSEGame.Engine
 
             // :: If the tile type is not passable, one cannot move to
             // :: a cell of that tile type.
-            Tile t = this.cells[(int)position.Y, (int)position.X].Tile;
+            LevelCell c = this.cells[(int)position.Y, (int)position.X];
+
+            if (c == null)
+                return false;
+
+            Tile t = c.Tile;
 
             if (!t.Passable)
                 return false;

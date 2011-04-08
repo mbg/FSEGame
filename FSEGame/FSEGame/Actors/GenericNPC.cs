@@ -14,6 +14,8 @@ using FSEGame.Engine;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
+using FSEGame.Editor;
 #endregion
 
 namespace FSEGame.Actors
@@ -22,6 +24,9 @@ namespace FSEGame.Actors
     /// Represents a generic NPC with a basic animation with which the player
     /// may interact.
     /// </summary>
+    [SuggestedProperty("States", "2")]
+    [SuggestedProperty("Tileset", "Tilesets\\GenericNPC.xml")]
+    [SuggestedProperty("Dialogue", "FSEGame\\Dialogues\\TestDialogue.xml")]
     public class GenericNPC : Actor
     {
         #region Instance Members

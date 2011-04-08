@@ -245,7 +245,7 @@ namespace FSEGameEditorEngine
             {
                 drgevent.Effect = DragDropEffects.Link;
             }
-            else if (drgevent.Data.GetDataPresent(typeof(String)))
+            else if (drgevent.Data.GetDataPresent(typeof(ActorCreationInfo)))
             {
                 drgevent.Effect = DragDropEffects.Link;
             }
@@ -263,7 +263,7 @@ namespace FSEGameEditorEngine
             {
                 drgevent.Effect = DragDropEffects.Link;
             }
-            else if (drgevent.Data.GetDataPresent(typeof(String)))
+            else if (drgevent.Data.GetDataPresent(typeof(ActorCreationInfo)))
             {
                 drgevent.Effect = DragDropEffects.Link;
             }
@@ -288,11 +288,19 @@ namespace FSEGameEditorEngine
 
                 this.PlaceTile(position, (Tile)drgevent.Data.GetData(typeof(Tile)));
             }
-            else if (drgevent.Data.GetDataPresent(typeof(String)))
+            else if (drgevent.Data.GetDataPresent(typeof(ActorCreationInfo)))
             {
                 drgevent.Effect = DragDropEffects.Link;
 
-                this.PlaceActor(position, (String)drgevent.Data.GetData(typeof(String)));
+                ActorCreationInfo info = 
+                    (ActorCreationInfo)drgevent.Data.GetData(typeof(ActorCreationInfo));
+
+                ActorProperties actor = this.PlaceActor(position, info.Type);
+
+                foreach (String key in info.Properties.Keys)
+                {
+                    actor.Properties.Add(key, info.Properties[key]);
+                }
             }
             else
             {
@@ -331,9 +339,9 @@ namespace FSEGameEditorEngine
             this.level.AddCell(position.X - 1, position.Y - 1, tile);
         }
 
-        private void PlaceActor(CellPosition position, String type)
+        private ActorProperties PlaceActor(CellPosition position, String type)
         {
-            this.level.AddActor(position.X - 1, position.Y - 1, type);
+            return this.level.AddActor(position.X - 1, position.Y - 1, type);
         }
 
         private void PlaceEntryPoint(CellPosition position, String name)

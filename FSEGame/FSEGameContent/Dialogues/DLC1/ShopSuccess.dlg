@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<Dialogue ID="root">
+  <Speech ID="speech#1" TextVar="string#1" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="317" Top="78" />
+  <Orphans />
+  <Variables>
+    <StringVar Name="string#1" Export="False" Left="311" Top="248">Merchant: You won't regret purchasing this!</StringVar>
+  </Variables>
+</Dialogue>

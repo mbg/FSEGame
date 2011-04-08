@@ -50,6 +50,16 @@
   <Tile ID="55" Passable="True">BridgeLeft</Tile>
   <Tile ID="61" Passable="True">BridgeLR</Tile>
   <Tile ID="67" Passable="True">BridgeRight</Tile>
+  
+  <Tile ID="102" Passable="False">ShopRoofLeftFar</Tile>
+  <Tile ID="103" Passable="False">ShopRoofLeft</Tile>
+  <Tile ID="104" Passable="False">ShopWallLeft</Tile>
+  <Tile ID="108" Passable="False">ShopRoofCentreFar</Tile>
+  <Tile ID="109" Passable="False">ShopRoofCentre</Tile>
+  <Tile ID="110" Passable="True">ShopDoor</Tile>
+  <Tile ID="114" Passable="False">ShopRoofRightFar</Tile>
+  <Tile ID="115" Passable="False">ShopRoofRight</Tile>
+  <Tile ID="116" Passable="False">ShopWallRight</Tile>
 
   <AnimatedTile Name="BridgeLeftTop" Passable="False" Speed="0.5">
     <Frame ID="54" />

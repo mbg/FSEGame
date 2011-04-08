@@ -101,6 +101,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActorCreationInfo.cs" />
     <Compile Include="ActorEditorProperties.cs" />
     <Compile Include="ActorPropertyEditor.cs" />
     <Compile Include="ActorPropertyEditorForm.cs">

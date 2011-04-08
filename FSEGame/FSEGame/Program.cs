@@ -132,6 +132,12 @@ namespace FSEGame
                         markus.CellPosition = new Vector2(properties.X, properties.Y);
                         return markus;
                     }
+                case "ShopNPC":
+                    {
+                        ShopNPC shop = new ShopNPC(properties);
+                        shop.CellPosition = new Vector2(properties.X, properties.Y);
+                        return shop;
+                    }
             }
 
             return null;

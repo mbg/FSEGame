@@ -125,6 +125,30 @@
       <Processor>PassThroughProcessor</Processor>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Dialogues\DLC1\ShopFailure.xml">
+      <Name>ShopFailure</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dialogues\DLC1\ShopIntro1.xml">
+      <Name>ShopIntro1</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dialogues\DLC1\ShopIntro2.xml">
+      <Name>ShopIntro2</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dialogues\DLC1\ShopSuccess.xml">
+      <Name>ShopSuccess</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Dialogues\Intro.xml">
       <Name>Intro</Name>
       <Importer>XmlImporter</Importer>
@@ -344,6 +368,12 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+    <Content Include="Levels\Village2.xml">
+      <Name>Village2</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Tilesets\Character.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -472,9 +502,14 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Dialogues\DLC1\" />
     <Folder Include="Levels\DLC1\" />
     <Folder Include="Scripts\DLC1\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\Village2.lua">
+      <Name>Village2</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 

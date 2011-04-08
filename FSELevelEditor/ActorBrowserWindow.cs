@@ -8,6 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 using System.Reflection;
 using FSEGame.Engine;
+using FSEGameEditorEngine;
+using FSEGame.Editor;
 
 namespace FSELevelEditor
 {
@@ -79,7 +81,14 @@ namespace FSELevelEditor
 
             if (!t.IsAbstract)
             {
-                this.DoDragDrop(t.Name, DragDropEffects.Link);
+                ActorCreationInfo info = new ActorCreationInfo(t.Name);
+
+                foreach (SuggestedPropertyAttribute attr in t.GetCustomAttributes(false))
+                {
+                    info.Properties.Add(attr.Key, attr.Value);
+                }
+
+                this.DoDragDrop(info, DragDropEffects.Link);
             }
         }
 
