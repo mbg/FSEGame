@@ -1,2 +1,0 @@
-E:\University\G51FSE\Coursework\FSEGame\FSEGameContent\obj\x86\Debug\ResolveAssemblyReference.cache
-C:\Users\Warren\Documents\University\FSEGame\FSEGame\FSEGameContent\obj\x86\Debug\ResolveAssemblyReference.cache
