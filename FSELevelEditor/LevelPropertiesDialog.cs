@@ -39,7 +39,7 @@ namespace FSELevelEditor
 
             foreach (FileInfo file in dir.GetFiles("*.lua"))
             {
-                this.scriptComboBox.Items.Add(file.Name);
+                this.scriptComboBox.Items.Add(Path.Combine(@"Scripts\", file.Name));
             }
         }
 
