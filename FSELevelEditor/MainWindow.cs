@@ -52,6 +52,10 @@ namespace FSELevelEditor
         }
         #endregion
 
+        #region Constructor
+        /// <summary>
+        /// 
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
@@ -62,6 +66,7 @@ namespace FSELevelEditor
             this.tilesetManager = new TilesetManager(this.levelEditor.ContentManager);
             this.levelEditor.TilesetManager = this.tilesetManager;
         }
+        #endregion
 
         void LevelObjectSelected(object value)
         {
@@ -77,7 +82,7 @@ namespace FSELevelEditor
             this.tilesetWindow = new TilesetWindow(this);
             this.tilesetWindow.TilesetChanged += new EventHandler<TilesetChangedEventArgs>(tilesetWindow_TilesetChanged);
 
-            this.propertyWindow = new PropertyWindow();
+            this.propertyWindow = new PropertyWindow(this);
             this.actorBrowserWindow = new ActorBrowserWindow();
 
             Application.Idle += delegate
@@ -146,6 +151,28 @@ namespace FSELevelEditor
         }
         #endregion
 
+        #region Save
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (String.IsNullOrWhiteSpace(this.levelEditor.CurrentLevel.Filename))
+            {
+                this.saveAsToolStripMenuItem_Click(sender, e);
+            }
+            else
+            {
+                this.levelEditor.CurrentLevel.Save(
+                    this.levelEditor.CurrentLevel.Filename, true);
+                this.statusLabel.Text = String.Format("Saved level to {0}", 
+                    this.levelEditor.CurrentLevel.Filename);
+            }
+        }
+        #endregion
+
         #region Save As
         /// <summary>
         /// 
@@ -163,7 +190,7 @@ namespace FSELevelEditor
 
                 try
                 {
-                    this.levelEditor.CurrentLevel.Save(dia.FileName);
+                    this.levelEditor.CurrentLevel.Save(dia.FileName, true);
                     this.statusLabel.Text = String.Format("Saved level to {0}", dia.FileName);
                 }
                 catch (Exception ex)
@@ -238,6 +265,7 @@ namespace FSELevelEditor
             this.levelEditor.EditMode = true;
             this.editModeButton.Checked = true;
             this.createModeButton.Checked = false;
+            this.removeModeButton.Checked = false;
         }
         /// <summary>
         /// Switches to the create mode.
@@ -249,6 +277,19 @@ namespace FSELevelEditor
             this.levelEditor.EditMode = false;
             this.editModeButton.Checked = false;
             this.createModeButton.Checked = true;
+            this.removeModeButton.Checked = false;
+        }
+        /// <summary>
+        /// Switches to the remove mode.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            this.levelEditor.EditMode = false;
+            this.editModeButton.Checked = false;
+            this.createModeButton.Checked = false;
+            this.removeModeButton.Checked = true;
         }
         #endregion
 
@@ -368,7 +409,7 @@ namespace FSELevelEditor
                 return;
             }
 
-            this.levelEditor.CurrentLevel.Save(@"FSEGame\Levels\_EditorTemp.xml");
+            this.levelEditor.CurrentLevel.Save(@"FSEGame\Levels\_EditorTemp.xml", false);
 
             String entryPoint = this.levelEditor.CurrentLevel.EntryPoints[0].Name;
 
@@ -548,9 +589,6 @@ namespace FSELevelEditor
         {
             this.lockTilesToolStripMenuItem.Checked = !this.lockTilesToolStripMenuItem.Checked;
             this.levelEditor.LockTiles = this.lockTilesToolStripMenuItem.Checked;
-        }
-
-        
-        
+        }        
     }
 }

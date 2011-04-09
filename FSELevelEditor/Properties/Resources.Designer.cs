@@ -81,6 +81,13 @@ namespace FSELevelEditor.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap DeleteHS {
+            get {
+                object obj = ResourceManager.GetObject("DeleteHS", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap InsertPictureHS {
             get {
                 object obj = ResourceManager.GetObject("InsertPictureHS", resourceCulture);

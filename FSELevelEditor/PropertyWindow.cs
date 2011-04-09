@@ -11,6 +11,8 @@ namespace FSELevelEditor
 {
     public partial class PropertyWindow : Form
     {
+        private MainWindow mainWindow;
+
         #region Properties
         /// <summary>
         /// Gets or sets the object whose properties should be displayed.
@@ -28,7 +30,7 @@ namespace FSELevelEditor
         }
         #endregion
 
-        public PropertyWindow()
+        public PropertyWindow(MainWindow mainWindow)
         {
             InitializeComponent();
         }
@@ -40,6 +42,11 @@ namespace FSELevelEditor
                 this.Hide();
                 e.Cancel = true;
             }
+        }
+
+        private void propertyGrid1_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+        {
+            this.mainWindow.LevelEditor.CurrentLevel.ForceChange();
         }
     }
 }

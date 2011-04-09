@@ -37,7 +37,6 @@ namespace FSEGameEditorEngine
         private Boolean edit = false;
         private Tile selectedTile = null;
         private Boolean lockTiles = false;
-        private Boolean changed = false;
         #endregion
 
         #region Properties
@@ -110,17 +109,6 @@ namespace FSEGameEditorEngine
                 this.lockTiles = value;
             }
         }
-        /// <summary>
-        /// Gets a value indicating whether the level was changed 
-        /// since it was last saved.
-        /// </summary>
-        public Boolean Changed
-        {
-            get
-            {
-                return this.changed;
-            }
-        }
         #endregion
 
         #region Events
@@ -144,7 +132,6 @@ namespace FSEGameEditorEngine
         {
             this.CurrentLevel.New();
             this.ResetView();
-            this.changed = false;
         }
 
         public void ResetView()

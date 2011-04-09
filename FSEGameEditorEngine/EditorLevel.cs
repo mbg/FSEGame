@@ -29,6 +29,7 @@ namespace FSEGameEditorEngine
         #region Instance Members
         private TilesetManager tilesetManager;
         private String name = "Untitled";
+        private String filename = null;
         private String tilesetFilename;
         private String scriptFilename;
         private List<LevelCell> cells;
@@ -45,6 +46,7 @@ namespace FSEGameEditorEngine
         private Boolean showEvents = true;
         private Boolean showPassableRegions = false;
         private Boolean showImpassableRegions = false;
+        private Boolean changed = false;
         #endregion
 
         #region Properties
@@ -60,6 +62,16 @@ namespace FSEGameEditorEngine
             set
             {
                 this.name = value;
+            }
+        }
+        /// <summary>
+        /// Gets the filename of the level.
+        /// </summary>
+        public String Filename
+        {
+            get
+            {
+                return this.filename;
             }
         }
         /// <summary>
@@ -163,6 +175,18 @@ namespace FSEGameEditorEngine
                 this.showImpassableRegions = value;
             }
         }
+
+        /// <summary>
+        /// Gets a value indicating whether the level was changed 
+        /// since it was last saved.
+        /// </summary>
+        public Boolean Changed
+        {
+            get
+            {
+                return this.changed;
+            }
+        }
         #endregion
 
         #region Constructor
@@ -190,10 +214,19 @@ namespace FSEGameEditorEngine
             this.entryPoints = new List<LevelEntryPoint>();
             this.actors = new List<ActorProperties>();
             this.name = "Untitled";
+            this.filename = null;
             this.scriptFilename = "";
             this.tilesetFilename = "";
+            this.changed = false;
         }
 
+        #region Render
+        /// <summary>
+        /// Renders the level.
+        /// </summary>
+        /// <param name="batch"></param>
+        /// <param name="offsetX"></param>
+        /// <param name="offsetY"></param>
         public void Render(SpriteBatch batch, Int32 offsetX, Int32 offsetY)
         {
             foreach (LevelCell c in this.cells)
@@ -252,6 +285,7 @@ namespace FSEGameEditorEngine
                 }
             }
         }
+        #endregion
 
         private void DrawOverlay(SpriteBatch batch, Vector2 position, Texture2D texture, float opacity)
         {
@@ -276,6 +310,7 @@ namespace FSEGameEditorEngine
                 this.cells.Remove(this.GetCellAtPosition(x, y));
 
             this.cells.Add(cell);
+            this.changed = true;
 
             return cell;
         }
@@ -285,6 +320,7 @@ namespace FSEGameEditorEngine
             ActorProperties actor = new ActorProperties(type, (UInt32)x, (UInt32)y);
 
             this.actors.Add(actor);
+            this.changed = true;
 
             return actor;
         }
@@ -296,6 +332,7 @@ namespace FSEGameEditorEngine
             entryPoint.Y = (UInt32)y;
 
             this.entryPoints.Add(entryPoint);
+            this.changed = true;
 
             return entryPoint;
         }
@@ -457,6 +494,9 @@ namespace FSEGameEditorEngine
                         }
                     }
                 }
+
+                this.changed = false;
+                this.filename = filename;
             }
             catch (XmlException ex)
             {
@@ -471,7 +511,7 @@ namespace FSEGameEditorEngine
         /// Saves the level to disk.
         /// </summary>
         /// <param name="filename"></param>
-        public void Save(String filename)
+        public void Save(String filename, Boolean rememberFilename)
         {
             XmlDocument doc = new XmlDocument();
             XmlElement root = doc.CreateElement("Level");
@@ -589,6 +629,12 @@ namespace FSEGameEditorEngine
 
             doc.AppendChild(root);
             doc.Save(filename);
+
+            if (rememberFilename)
+            {
+                this.filename = filename;
+                this.changed = false;
+            }
         }
         #endregion
 
@@ -631,6 +677,11 @@ namespace FSEGameEditorEngine
             }
 
             return null;
+        }
+
+        public void ForceChange()
+        {
+            this.changed = true;
         }
     }
 }
