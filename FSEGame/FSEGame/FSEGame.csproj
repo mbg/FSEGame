@@ -63,8 +63,9 @@
     <StartupObject>FSEGame.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LuaInterface">
-      <HintPath>D:\SDKs\LUA\LuaInterface\LuaInterface.dll</HintPath>
+    <Reference Include="LuaInterface, Version=2.0.0.16708, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\LuaInterface.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <Private>False</Private>
