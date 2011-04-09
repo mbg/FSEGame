@@ -1,4 +1,4 @@
-<Level Name="Village2" Tileset="Tilesets\Outdoor.xml" Script="Scripts\Village2.lua" SizeX="32" SizeY="26">
+<Level Name="Village2" Tileset="Tilesets\Outdoor.xml" Script="Scripts\Village2.lua" SizeX="34" SizeY="26">
   <EntryPoints>
     <EntryPoint Name="FromVillage1" X="6" Y="9" />
   </EntryPoints>
@@ -732,6 +732,66 @@
     <Cell X="10" Y="25" Tile="TreeTopRight" />
     <Cell X="12" Y="25" Tile="TreeTopRight" />
     <Cell X="14" Y="25" Tile="TreeTopRight" />
+    <Cell X="32" Y="1" Tile="CastleWallBL" />
+    <Cell X="32" Y="0" Tile="CastleWallBL" />
+    <Cell X="32" Y="2" Tile="CastleWallBL" />
+    <Cell X="32" Y="3" Tile="CastleWallBL" />
+    <Cell X="32" Y="14" Tile="CastleDoorL" />
+    <Cell X="32" Y="4" Tile="CastleWallBL" />
+    <Cell X="32" Y="5" Tile="CastleWallBL" />
+    <Cell X="32" Y="6" Tile="CastleWallBL" />
+    <Cell X="32" Y="7" Tile="CastleWallBL" />
+    <Cell X="32" Y="8" Tile="CastleWallBL" />
+    <Cell X="32" Y="9" Tile="CastleWallBL" />
+    <Cell X="32" Y="10" Tile="CastleWallBL" />
+    <Cell X="32" Y="11" Tile="CastleWallBL" />
+    <Cell X="33" Y="2" Tile="CastleDoorTL" />
+    <Cell X="33" Y="0" Tile="CastleDoorTL" />
+    <Cell X="33" Y="1" Tile="CastleDoorTL" />
+    <Cell X="33" Y="3" Tile="CastleDoorTL" />
+    <Cell X="33" Y="4" Tile="CastleDoorTL" />
+    <Cell X="33" Y="5" Tile="CastleDoorTL" />
+    <Cell X="33" Y="6" Tile="CastleDoorTL" />
+    <Cell X="33" Y="7" Tile="CastleDoorTL" />
+    <Cell X="33" Y="8" Tile="CastleDoorTL" />
+    <Cell X="33" Y="9" Tile="CastleDoorTL" />
+    <Cell X="33" Y="10" Tile="CastleDoorTL" />
+    <Cell X="33" Y="11" Tile="CastleDoorTL" />
+    <Cell X="33" Y="12" Tile="CastleDoorTL" />
+    <Cell X="33" Y="14" Tile="CastleDoorTL" />
+    <Cell X="33" Y="13" Tile="CastleDoorTL" />
+    <Cell X="32" Y="12" Tile="CastleWallBL" />
+    <Cell X="32" Y="13" Tile="CastleWallBL" />
+    <Cell X="32" Y="15" Tile="CastleWallBL" />
+    <Cell X="32" Y="16" Tile="CastleWallBL" />
+    <Cell X="32" Y="17" Tile="CastleWallBL" />
+    <Cell X="32" Y="18" Tile="CastleWallBL" />
+    <Cell X="32" Y="19" Tile="CastleWallBL" />
+    <Cell X="32" Y="20" Tile="CastleWallBL" />
+    <Cell X="33" Y="15" Tile="CastleDoorTL" />
+    <Cell X="33" Y="16" Tile="CastleDoorTL" />
+    <Cell X="33" Y="17" Tile="CastleDoorTL" />
+    <Cell X="33" Y="18" Tile="CastleDoorTL" />
+    <Cell X="33" Y="19" Tile="CastleDoorTL" />
+    <Cell X="33" Y="20" Tile="CastleDoorTL" />
+    <Cell X="29" Y="16" Tile="Dirt" />
+    <Cell X="30" Y="15" Tile="Dirt" />
+    <Cell X="31" Y="15" Tile="Dirt" />
+    <Cell X="31" Y="16" Tile="Dirt" />
+    <Cell X="30" Y="16" Tile="Dirt" />
+    <Cell X="29" Y="15" Tile="Dirt" />
+    <Cell X="29" Y="17" Tile="Dirt" />
+    <Cell X="30" Y="17" Tile="Dirt" />
+    <Cell X="31" Y="17" Tile="Dirt" />
+    <Cell X="31" Y="18" Tile="Dirt" />
+    <Cell X="30" Y="18" Tile="Dirt" />
+    <Cell X="29" Y="18" Tile="Dirt" />
+    <Cell X="31" Y="19" Tile="Dirt" />
+    <Cell X="30" Y="19" Tile="Dirt" />
+    <Cell X="29" Y="19" Tile="Dirt" />
+    <Cell X="29" Y="20" Tile="Dirt" />
+    <Cell X="30" Y="20" Tile="Dirt" />
+    <Cell X="31" Y="20" Tile="Dirt" />
   </Cells>
   <Actors>
     <Actor X="10" Y="7" Type="ShopNPC">
