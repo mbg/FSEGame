@@ -51,11 +51,11 @@
   <Tile ID="61" Passable="True">BridgeLR</Tile>
   <Tile ID="67" Passable="True">BridgeRight</Tile>
   
-  <Tile ID="93" Passable="False">CastleDoorL</Tile>
+  <Tile ID="93" Passable="True">CastleDoorL</Tile>
   <Tile ID="94" Passable="False">CastleWallBL</Tile>
   <Tile ID="95" Passable="False">CastleWallTR</Tile>
   <Tile ID="99" Passable="False">CastleDoorR</Tile>
-  <Tile ID="100" Passable="False">CastleDoorTL</Tile>
+  <Tile ID="100" Passable="True">CastleDoorTL</Tile>
   <Tile ID="101" Passable="False">CastleWallBR</Tile>
   
   <Tile ID="102" Passable="False">ShopRoofLeftFar</Tile>
