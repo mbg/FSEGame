@@ -14,6 +14,7 @@ using FSEGame.Engine;
 using Microsoft.Xna.Framework;
 using FSEGame.Actors;
 using System.Windows.Forms;
+using System.Collections.Generic;
 #endregion
 
 namespace FSEGame
@@ -23,6 +24,7 @@ namespace FSEGame
     {
         #region Instance Members
         private CommandLineParser commandLineParser;
+        private Dictionary<String, Type> actorClasses;
         #endregion
 
         #region Constructor
@@ -80,6 +82,15 @@ namespace FSEGame
         {
             FSEGame game = (FSEGame)sender;
 
+            this.actorClasses = new Dictionary<String, Type>();
+            this.actorClasses.Add("GenericNPC", typeof(GenericNPC));
+            this.actorClasses.Add("BridgeNPC", typeof(BridgeNPC));
+            this.actorClasses.Add("Vernado", typeof(Vernado));
+            this.actorClasses.Add("Markus", typeof(Markus));
+            this.actorClasses.Add("Maro", typeof(Maro));
+            this.actorClasses.Add("ShopNPC", typeof(ShopNPC));
+            this.actorClasses.Add("ChestActor", typeof(ChestActor));
+
             game.ContentLoaded += new GameEventDelegate(game_ContentLoaded);
             game.CurrentLevel.OnCreateActor += new CreateActorDelegate(CurrentLevel_OnCreateActor);
 
@@ -100,44 +111,13 @@ namespace FSEGame
         
         private Actor CurrentLevel_OnCreateActor(ActorProperties properties)
         {
-            switch (properties.Type)
+            if (this.actorClasses.ContainsKey(properties.Type))
             {
-                case "GenericNPC":
-                    {
-                        GenericNPC genericNPC = new GenericNPC(properties);
-                        genericNPC.CellPosition = new Vector2(properties.X, properties.Y);
-                        return genericNPC;
-                    }
-                case "BridgeNPC":
-                    {
-                        BridgeNPC bridgeNPC = new BridgeNPC(properties);
-                        bridgeNPC.CellPosition = new Vector2(properties.X, properties.Y);
-                        return bridgeNPC;
-                    }
-                case "Vernado":
-                    {
-                        Vernado vernado = new Vernado(properties);
-                        vernado.CellPosition = new Vector2(properties.X, properties.Y);
-                        return vernado;
-                    }
-                case "Markus":
-                    {
-                        Markus markus = new Markus(properties);
-                        markus.CellPosition = new Vector2(properties.X, properties.Y);
-                        return markus;
-                    }
-                case "Maro":
-                    {
-                        Maro markus = new Maro(properties);
-                        markus.CellPosition = new Vector2(properties.X, properties.Y);
-                        return markus;
-                    }
-                case "ShopNPC":
-                    {
-                        ShopNPC shop = new ShopNPC(properties);
-                        shop.CellPosition = new Vector2(properties.X, properties.Y);
-                        return shop;
-                    }
+                Actor result = (Actor)Activator.CreateInstance(
+                    this.actorClasses[properties.Type], properties);
+                result.CellPosition = new Vector2(properties.X, properties.Y);
+
+                return result;
             }
 
             return null;

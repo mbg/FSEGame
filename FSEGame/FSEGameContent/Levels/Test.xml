@@ -1,9 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<Level Name="TestLevel" Tileset="Tilesets\Test.xml" Script="Scripts\Test.lua" SizeX="25" SizeY="10">
+<Level Name="TestLevel" Tileset="Tilesets\Test.xml" Script="Scripts\Test.lua" SizeX="25" SizeY="10" RandomEncounters="False">
   <EntryPoints>
-    <EntryPoint Name="Default" X="3" Y="4" />
-    <EntryPoint Name="House1Exit" X="8" Y="4" />
-    <EntryPoint Name="House2Exit" X="14" Y="6" />
+    <EntryPoint Name="Default" X="3" Y="4" Orientation="180" />
+    <EntryPoint Name="House1Exit" X="8" Y="4" Orientation="180" />
+    <EntryPoint Name="House2Exit" X="14" Y="6" Orientation="180" />
   </EntryPoints>
   <Cells>
     <Cell X="0" Y="0" Tile="GrassCornerNW" />
@@ -15,8 +14,7 @@
     <Cell X="0" Y="6" Tile="Dirt" />
     <Cell X="0" Y="7" Tile="Fence" />
     <Cell X="0" Y="8" Tile="Dirt" />
-    <Cell X="0" Y="9" Tile="PathLR_MISTYPED" />
-
+    <Cell X="0" Y="9" Tile="CharacterRight" />
     <Cell X="1" Y="0" Tile="GrassCornerN" />
     <Cell X="1" Y="1" Tile="Grass" />
     <Cell X="1" Y="2" Tile="Grass" />
@@ -27,7 +25,6 @@
     <Cell X="1" Y="7" Tile="Fence" />
     <Cell X="1" Y="8" Tile="Dirt" />
     <Cell X="1" Y="9" Tile="PathLR" />
-
     <Cell X="2" Y="0" Tile="GrassCornerN" />
     <Cell X="2" Y="1" Tile="Grass" />
     <Cell X="2" Y="2" Tile="Grass" />
@@ -38,7 +35,6 @@
     <Cell X="2" Y="7" Tile="Fence" />
     <Cell X="2" Y="8" Tile="Dirt" />
     <Cell X="2" Y="9" Tile="PathLR" />
-
     <Cell X="3" Y="0" Tile="GrassCornerN" />
     <Cell X="3" Y="1" Tile="Grass" />
     <Cell X="3" Y="2" Tile="Grass" />
@@ -49,7 +45,6 @@
     <Cell X="3" Y="7" Tile="PathUD" />
     <Cell X="3" Y="8" Tile="PathUD" />
     <Cell X="3" Y="9" Tile="PathLUR" />
-
     <Cell X="4" Y="0" Tile="GrassCornerN" />
     <Cell X="4" Y="1" Tile="Grass" />
     <Cell X="4" Y="2" Tile="Grass" />
@@ -60,7 +55,6 @@
     <Cell X="4" Y="7" Tile="Fence" />
     <Cell X="4" Y="8" Tile="Dirt" />
     <Cell X="4" Y="9" Tile="PathLR" />
-
     <Cell X="5" Y="0" Tile="GrassCornerN" />
     <Cell X="5" Y="1" Tile="Grass" />
     <Cell X="5" Y="2" Tile="Grass" />
@@ -71,7 +65,6 @@
     <Cell X="5" Y="7" Tile="Fence" />
     <Cell X="5" Y="8" Tile="Dirt" />
     <Cell X="5" Y="9" Tile="PathLR" />
-
     <Cell X="6" Y="0" Tile="GrassCornerNE" />
     <Cell X="6" Y="1" Tile="GrassCornerE" />
     <Cell X="6" Y="2" Tile="GrassCornerE" />
@@ -82,7 +75,6 @@
     <Cell X="6" Y="7" Tile="Fence" />
     <Cell X="6" Y="8" Tile="Dirt" />
     <Cell X="6" Y="9" Tile="PathLR" />
-
     <Cell X="7" Y="0" Tile="Dirt" />
     <Cell X="7" Y="1" Tile="GenericHouseRoofLeftFar" />
     <Cell X="7" Y="2" Tile="GenericHouseRoofLeft" />
@@ -93,18 +85,16 @@
     <Cell X="7" Y="7" Tile="Fence" />
     <Cell X="7" Y="8" Tile="Dirt" />
     <Cell X="7" Y="9" Tile="PathLR" />
-
     <Cell X="8" Y="0" Tile="Dirt" />
     <Cell X="8" Y="1" Tile="GenericHouseRoofCentreFar" />
     <Cell X="8" Y="2" Tile="GenericHouseRoofCentre" />
-    <Cell X="8" Y="3" Event="TestHouseDoor" Tile="GenericHouseDoor" />
+    <Cell X="8" Y="3" Tile="GenericHouseDoor" Event="TestHouseDoor" />
     <Cell X="8" Y="4" Tile="PathUD" />
     <Cell X="8" Y="5" Tile="PathUD" />
     <Cell X="8" Y="6" Tile="PathURD" />
     <Cell X="8" Y="7" Tile="PathUD" />
     <Cell X="8" Y="8" Tile="PathUD" />
     <Cell X="8" Y="9" Tile="PathLU" />
-
     <Cell X="9" Y="0" Tile="Dirt" />
     <Cell X="9" Y="1" Tile="GenericHouseRoofRightFar" />
     <Cell X="9" Y="2" Tile="GenericHouseRoofRight" />
@@ -115,7 +105,6 @@
     <Cell X="9" Y="7" Tile="Dirt" />
     <Cell X="9" Y="8" Tile="Dirt" />
     <Cell X="9" Y="9" Tile="Dirt" />
-
     <Cell X="10" Y="0" Tile="Dirt" />
     <Cell X="10" Y="1" Tile="Dirt" />
     <Cell X="10" Y="2" Tile="TreeTopLeft" />
@@ -126,7 +115,6 @@
     <Cell X="10" Y="7" Tile="Dirt" />
     <Cell X="10" Y="8" Tile="Dirt" />
     <Cell X="10" Y="9" Tile="Dirt" />
-
     <Cell X="11" Y="0" Tile="Dirt" />
     <Cell X="11" Y="1" Tile="Dirt" />
     <Cell X="11" Y="2" Tile="TreeTopRight" />
@@ -137,7 +125,6 @@
     <Cell X="11" Y="7" Tile="Dirt" />
     <Cell X="11" Y="8" Tile="Dirt" />
     <Cell X="11" Y="9" Tile="Dirt" />
-
     <Cell X="12" Y="0" Tile="Dirt" />
     <Cell X="12" Y="1" Tile="Dirt" />
     <Cell X="12" Y="2" Tile="Dirt" />
@@ -148,7 +135,6 @@
     <Cell X="12" Y="7" Tile="Dirt" />
     <Cell X="12" Y="8" Tile="Dirt" />
     <Cell X="12" Y="9" Tile="Dirt" />
-
     <Cell X="13" Y="0" Tile="Dirt" />
     <Cell X="13" Y="1" Tile="Dirt" />
     <Cell X="13" Y="2" Tile="Dirt" />
@@ -159,18 +145,16 @@
     <Cell X="13" Y="7" Tile="Dirt" />
     <Cell X="13" Y="8" Tile="Dirt" />
     <Cell X="13" Y="9" Tile="Dirt" />
-
     <Cell X="14" Y="0" Tile="Dirt" />
     <Cell X="14" Y="1" Tile="Dirt" />
     <Cell X="14" Y="2" Tile="Dirt" />
     <Cell X="14" Y="3" Tile="GenericHouseRoofCentreFar" />
     <Cell X="14" Y="4" Tile="GenericHouseRoofCentre" />
-    <Cell X="14" Y="5" Event="TestHouseDoor2" Tile="GenericHouseDoor" />
+    <Cell X="14" Y="5" Tile="GenericHouseDoor" Event="TestHouseDoor2" />
     <Cell X="14" Y="6" Tile="PathLURD" />
     <Cell X="14" Y="7" Tile="PathUD" />
     <Cell X="14" Y="8" Tile="PathUD" />
     <Cell X="14" Y="9" Tile="PathUR" />
-
     <Cell X="15" Y="0" Tile="Dirt" />
     <Cell X="15" Y="1" Tile="Dirt" />
     <Cell X="15" Y="2" Tile="Dirt" />
@@ -181,7 +165,6 @@
     <Cell X="15" Y="7" Tile="Dirt" />
     <Cell X="15" Y="8" Tile="Dirt" />
     <Cell X="15" Y="9" Tile="PathLR" />
-
     <Cell X="16" Y="0" Tile="Dirt" />
     <Cell X="16" Y="1" Tile="Dirt" />
     <Cell X="16" Y="2" Tile="Dirt" />
@@ -192,7 +175,6 @@
     <Cell X="16" Y="7" Tile="Dirt" />
     <Cell X="16" Y="8" Tile="Dirt" />
     <Cell X="16" Y="9" Tile="PathLR" />
-
     <Cell X="17" Y="0" Tile="Dirt" />
     <Cell X="17" Y="1" Tile="Dirt" />
     <Cell X="17" Y="2" Tile="Dirt" />
@@ -203,7 +185,6 @@
     <Cell X="17" Y="7" Tile="Dirt" />
     <Cell X="17" Y="8" Tile="Dirt" />
     <Cell X="17" Y="9" Tile="PathLR" />
-
     <Cell X="18" Y="0" Tile="Dirt" />
     <Cell X="18" Y="1" Tile="Dirt" />
     <Cell X="18" Y="2" Tile="Dirt" />
@@ -214,18 +195,16 @@
     <Cell X="18" Y="7" Tile="Dirt" />
     <Cell X="18" Y="8" Tile="Dirt" />
     <Cell X="18" Y="9" Tile="PathLR" />
-
     <Cell X="19" Y="0" Tile="Dirt" />
     <Cell X="19" Y="1" Tile="Dirt" />
     <Cell X="19" Y="2" Tile="Dirt" />
     <Cell X="19" Y="3" Tile="WaterCornerNW" />
     <Cell X="19" Y="4" Tile="WaterCornerW" />
     <Cell X="19" Y="5" Tile="BridgeLeftTop" />
-    <Cell X="19" Y="6" Event="BridgeBattle" Tile="BridgeLeft" />
+    <Cell X="19" Y="6" Tile="BridgeLeft" Event="BridgeBattle" />
     <Cell X="19" Y="7" Tile="BridgeLeftBottom" />
     <Cell X="19" Y="8" Tile="WaterCornerSW" />
     <Cell X="19" Y="9" Tile="PathLR" />
-
     <Cell X="20" Y="0" Tile="Dirt" />
     <Cell X="20" Y="1" Tile="Dirt" />
     <Cell X="20" Y="2" Tile="Dirt" />
@@ -236,7 +215,6 @@
     <Cell X="20" Y="7" Tile="BridgeBottom" />
     <Cell X="20" Y="8" Tile="WaterCornerS" />
     <Cell X="20" Y="9" Tile="PathLR" />
-
     <Cell X="21" Y="0" Tile="Dirt" />
     <Cell X="21" Y="1" Tile="Dirt" />
     <Cell X="21" Y="2" Tile="Dirt" />
@@ -247,7 +225,6 @@
     <Cell X="21" Y="7" Tile="BridgeBottom" />
     <Cell X="21" Y="8" Tile="WaterCornerS" />
     <Cell X="21" Y="9" Tile="PathLR" />
-
     <Cell X="22" Y="0" Tile="Dirt" />
     <Cell X="22" Y="1" Tile="Dirt" />
     <Cell X="22" Y="2" Tile="Dirt" />
@@ -258,7 +235,6 @@
     <Cell X="22" Y="7" Tile="BridgeBottom" />
     <Cell X="22" Y="8" Tile="WaterCornerS" />
     <Cell X="22" Y="9" Tile="PathLR" />
-
     <Cell X="23" Y="0" Tile="Dirt" />
     <Cell X="23" Y="1" Tile="Dirt" />
     <Cell X="23" Y="2" Tile="Dirt" />
@@ -269,7 +245,6 @@
     <Cell X="23" Y="7" Tile="BridgeRightBottom" />
     <Cell X="23" Y="8" Tile="WaterCornerSE" />
     <Cell X="23" Y="9" Tile="PathLR" />
-
     <Cell X="24" Y="0" Tile="Dirt" />
     <Cell X="24" Y="1" Tile="Dirt" />
     <Cell X="24" Y="2" Tile="Dirt" />
@@ -287,5 +262,7 @@
       <Property Name="Tileset">Tilesets\GenericNPC.xml</Property>
       <Property Name="States">2</Property>
     </Actor>
+    <Actor X="11" Y="5" Type="ChestActor" />
   </Actors>
+  <RandomEncounters />
 </Level>

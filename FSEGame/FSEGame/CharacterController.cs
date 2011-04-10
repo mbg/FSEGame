@@ -14,6 +14,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using FSEGame.Engine;
 using Microsoft.Xna.Framework.Input;
+using System.IO;
 #endregion
 
 namespace FSEGame
@@ -69,10 +70,6 @@ namespace FSEGame
         /// The time it takes for the character to rotate by 90 degrees.
         /// </summary>
         private const double ROTATE_DURATION = 0.1d;
-        /// <summary>
-        /// The time it takes for the character to move by one tile.
-        /// </summary>
-        private const double MOVE_DURATION = 0.3d; // used to be 0.3
 
         private const UInt32 SPRITE_RIGHT = 0;
         private const UInt32 SPRITE_LEFT = 1;
@@ -192,7 +189,6 @@ namespace FSEGame
                     if (this.orientation == 0.0f)
                     {
                         newPosition.Y -= 1;
-                        this.block = MOVE_DURATION;
                     }
                     else
                     {
@@ -208,7 +204,6 @@ namespace FSEGame
                     if (this.orientation == 180.0f)
                     {
                         newPosition.Y += 1;
-                        this.block = MOVE_DURATION;
                     }
                     else
                     {
@@ -224,7 +219,6 @@ namespace FSEGame
                     if (this.orientation == 90.0f)
                     {
                         newPosition.X += 1;
-                        this.block = MOVE_DURATION;
                     }
                     else
                     {
@@ -240,7 +234,6 @@ namespace FSEGame
                     if (this.orientation == 270.0f)
                     {
                         newPosition.X -= 1;
-                        this.block = MOVE_DURATION;
                     }
                     else
                     {
@@ -260,14 +253,18 @@ namespace FSEGame
             }
             else if(this.moving)
             {
-                // :: Decrease the remaining block duration by the
-                // :: total number of seconds which have elapsed since
-                // :: the last frame.
-                this.block -= time.ElapsedGameTime.TotalSeconds;
+                StreamWriter sw = new StreamWriter("Movement.log", true);
 
-                if (this.block <= 0.0d)
+                Vector2 absoluteEndPosition = GridHelper.GridPositionToAbsolute(this.targetPosition);
+
+                sw.WriteLine();
+                sw.WriteLine("Entering frame: Moving from {0},{1} to {2},{3}",
+                    this.absolutePosition.X, this.absolutePosition.Y,
+                    absoluteEndPosition.X, absoluteEndPosition.Y);
+                sw.WriteLine("Time elapsed: {0}", time.ElapsedGameTime.TotalSeconds);
+
+                if (this.absolutePosition == absoluteEndPosition)
                 {
-                    this.block = 0.0d;
                     this.moving = false;
 
                     this.CellPosition = this.targetPosition;
@@ -286,42 +283,59 @@ namespace FSEGame
                         }
                     }
                 }
-                else if (this.cellPosition != this.targetPosition)
+                else if (this.absolutePosition != absoluteEndPosition)
                 {
-                    Vector2 absoluteEndPosition = GridHelper.GridPositionToAbsolute(this.targetPosition);
                     Vector2 difference = absoluteEndPosition - this.absolutePosition;
 
-                    float movement = 213.3f * (float)time.ElapsedGameTime.TotalSeconds;
+                    float movement = 4.0f;
 
                     if (difference.Y < 0)
                     {
                         if (this.absolutePosition.Y - movement < this.targetPosition.Y)
+                        {
                             this.absolutePosition.Y = this.targetPosition.Y;
+                        }
                         else
+                        {
                             this.absolutePosition.Y -= movement;
+                        }
                     }
                     else if (difference.Y > 0)
                     {
+                        // remove this if things go weird
                         /*if (this.absolutePosition.Y + movement > this.targetPosition.Y)
+                        {
                             this.absolutePosition.Y = this.targetPosition.Y;
+                            this.block = 0.0f;
+                        }
                         else*/
                             this.absolutePosition.Y += movement;
                     }
                     else if (difference.X < 0)
                     {
                         if (this.absolutePosition.X - movement < this.targetPosition.X)
+                        {
                             this.absolutePosition.X = this.targetPosition.X;
+                        }
                         else
+                        {
                             this.absolutePosition.X -= movement;
+                        }
                     }
                     else if (difference.X > 0)
                     {
+                        // remove this if things go weird
                         /*if (this.absolutePosition.X + movement > this.targetPosition.X)
+                        {
                             this.absolutePosition.X = this.targetPosition.X;
+                            this.block = 0.0f;
+                        }
                         else*/
                             this.absolutePosition.X += movement;
                     }
                 }
+
+                sw.Close();
             }
         }
         #endregion

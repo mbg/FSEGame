@@ -283,9 +283,14 @@ namespace FSEGame
             if (this.state == GameState.Exploring)
                 this.character.Update(gameTime);
 
-            this.debugText.Text = String.Format("X: {0}\nY: {1}\nLevel: {2}\nTileset: {3}\nFPS: {4}",
-                    this.character.CellPosition.X, this.character.CellPosition.Y,
-                    this.CurrentLevel.Name, (this.CurrentTileset == null) ? "" : this.CurrentTileset.Name, this.FPSCounter.FPS);
+            this.debugText.Text = String.Format("X: {0}\nY: {1}\nLevel: {2}\nTileset: {3}\nFPS: {4}\nAbsolute: {5},{6}",
+                    this.character.CellPosition.X, 
+                    this.character.CellPosition.Y,
+                    this.CurrentLevel.Name, 
+                    (this.CurrentTileset == null) ? "" : this.CurrentTileset.Name, 
+                    this.FPSCounter.FPS,
+                    this.character.AbsolutePosition.X,
+                    this.character.AbsolutePosition.Y);
 
             
         }
