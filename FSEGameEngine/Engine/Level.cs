@@ -230,6 +230,9 @@ namespace FSEGame.Engine
                     entryPoint.X = Convert.ToUInt32(childElement.GetAttribute("X"));
                     entryPoint.Y = Convert.ToUInt32(childElement.GetAttribute("Y"));
 
+                    if (childElement.HasAttribute("Orientation"))
+                        entryPoint.Orientation = Convert.ToSingle(childElement.GetAttribute("Orientation"));
+
                     this.entryPoints.Add(entryPoint);
                 }
             }

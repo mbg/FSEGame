@@ -182,9 +182,14 @@ namespace FSEGameEditorEngine
                             else
                                 this.ObjectSelected(new ActorEditorProperties(actor));
                         }
-                        else
+                        else if(this.mode == EditorMode.EntryPoints)
                         {
-                            LevelEntryPoint ep;
+                            LevelEntryPoint ep = this.level.GetEntryPointAtPosition(position);
+
+                            if (ep == null)
+                                this.ObjectSelected(null);
+                            else
+                                this.ObjectSelected(new EntryPointProperties(ep));
                         }
                     }
                 }

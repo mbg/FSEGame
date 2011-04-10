@@ -89,6 +89,9 @@ namespace FSEGameEditorEngine
                 this.scriptFilename = value;
             }
         }
+        /// <summary>
+        /// Gets or sets the tileset which is currently being used by the level.
+        /// </summary>
         public Tileset Tileset
         {
             get
@@ -152,7 +155,10 @@ namespace FSEGameEditorEngine
                 this.showEvents = value;
             }
         }
-
+        /// <summary>
+        /// Gets ir sets a value indicating whether passable regions should be
+        /// highlighted.
+        /// </summary>
         public Boolean ShowPassableRegions
         {
             get
@@ -164,6 +170,10 @@ namespace FSEGameEditorEngine
                 this.showPassableRegions = value;
             }
         }
+        /// <summary>
+        /// Gets or sets a value indicating whether impassable regions should be
+        /// highlighted.
+        /// </summary>
         public Boolean ShowImpassableRegions
         {
             get
@@ -175,7 +185,6 @@ namespace FSEGameEditorEngine
                 this.showImpassableRegions = value;
             }
         }
-
         /// <summary>
         /// Gets a value indicating whether the level was changed 
         /// since it was last saved.
@@ -208,6 +217,10 @@ namespace FSEGameEditorEngine
         }
         #endregion
 
+        #region New
+        /// <summary>
+        /// Resets all level properties to their default values.
+        /// </summary>
         public void New()
         {
             this.cells = new List<LevelCell>();
@@ -219,6 +232,7 @@ namespace FSEGameEditorEngine
             this.tilesetFilename = "";
             this.changed = false;
         }
+        #endregion
 
         #region Render
         /// <summary>
@@ -287,6 +301,14 @@ namespace FSEGameEditorEngine
         }
         #endregion
 
+        #region DrawOverlay
+        /// <summary>
+        /// Draws a texture at the specified position with the specified opacity.
+        /// </summary>
+        /// <param name="batch"></param>
+        /// <param name="position"></param>
+        /// <param name="texture"></param>
+        /// <param name="opacity"></param>
         private void DrawOverlay(SpriteBatch batch, Vector2 position, Texture2D texture, float opacity)
         {
             batch.Draw(
@@ -298,6 +320,7 @@ namespace FSEGameEditorEngine
                     64),
                 new Color(1.0f, 1.0f, 1.0f, opacity));
         }
+        #endregion
 
         public LevelCell AddCell(Int32 x, Int32 y, Tile t)
         {
@@ -387,7 +410,7 @@ namespace FSEGameEditorEngine
 
         #region Load
         /// <summary>
-        /// 
+        /// Loads a level from a file.
         /// </summary>
         /// <param name="filename"></param>
         public void Load(String filename)
@@ -438,6 +461,12 @@ namespace FSEGameEditorEngine
                                 entryPointElement.GetAttribute("Name"));
                             entryPoint.X = Convert.ToUInt32(entryPointElement.GetAttribute("X"));
                             entryPoint.Y = Convert.ToUInt32(entryPointElement.GetAttribute("Y"));
+
+                            if (entryPointElement.HasAttribute("Orientation"))
+                            {
+                                entryPoint.Orientation = Convert.ToSingle(
+                                    entryPointElement.GetAttribute("Orientation"));
+                            }
 
                             this.entryPoints.Add(entryPoint);
                         }
@@ -546,14 +575,17 @@ namespace FSEGameEditorEngine
                 XmlAttribute epnAttribute = doc.CreateAttribute("Name");
                 XmlAttribute xAttribute = doc.CreateAttribute("X");
                 XmlAttribute yAttribute = doc.CreateAttribute("Y");
+                XmlAttribute orientationAttribute = doc.CreateAttribute("Orientation");
 
                 epnAttribute.Value = ep.Name;
                 xAttribute.Value = ep.X.ToString();
                 yAttribute.Value = ep.Y.ToString();
+                orientationAttribute.Value = ep.Orientation.ToString();
 
                 entryPointElement.Attributes.Append(epnAttribute);
                 entryPointElement.Attributes.Append(xAttribute);
                 entryPointElement.Attributes.Append(yAttribute);
+                entryPointElement.Attributes.Append(orientationAttribute);
 
                 entryPointsElement.AppendChild(entryPointElement);
             }

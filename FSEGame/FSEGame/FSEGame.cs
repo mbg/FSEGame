@@ -325,6 +325,7 @@ namespace FSEGame
 
                     LevelEntryPoint ep = this.CurrentLevel.GetEntryPoint(entryPoint);
                     this.character.CellPosition = new Vector2(ep.X, ep.Y);
+                    this.character.Orientation = ep.Orientation;
 
                     this.fadeScreen.Finished -= loadDelegate;
                     this.fadeScreen.Finished += cleanupDelegate;
@@ -342,6 +343,7 @@ namespace FSEGame
 
                 LevelEntryPoint ep = this.CurrentLevel.GetEntryPoint(entryPoint);
                 this.character.CellPosition = new Vector2(ep.X, ep.Y);
+                this.character.Orientation = ep.Orientation;
 
                 this.character.Enabled = true;
             }

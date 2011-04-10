@@ -32,6 +32,10 @@ namespace FSEGame.Engine
         /// The y coordinate of the entry point.
         /// </summary>
         private UInt32 y;
+        /// <summary>
+        /// The orientation of the entry point.
+        /// </summary>
+        private float orientation = 180.0f;
         #endregion
 
         #region Properties
@@ -71,6 +75,20 @@ namespace FSEGame.Engine
             set
             {
                 this.y = value;
+            }
+        }
+        /// <summary>
+        /// Gets or sets the orientation of this entry point.
+        /// </summary>
+        public float Orientation
+        {
+            get
+            {
+                return this.orientation;
+            }
+            set
+            {
+                this.orientation = value;
             }
         }
         #endregion

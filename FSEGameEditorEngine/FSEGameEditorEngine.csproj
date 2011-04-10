@@ -126,6 +126,7 @@
     <Compile Include="EntryPointNameDialog.Designer.cs">
       <DependentUpon>EntryPointNameDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="EntryPointProperties.cs" />
     <Compile Include="GraphicsDeviceControl.cs">
       <SubType>Component</SubType>
     </Compile>
