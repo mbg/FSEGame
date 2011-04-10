@@ -257,6 +257,12 @@
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
     </Content>
+    <Content Include="Levels\Battle\Forest.xml">
+      <Name>Forest</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Levels\Battle\House.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -396,6 +402,17 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+    <Compile Include="Tilesets\Chest.png">
+      <Name>Chest</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Content Include="Tilesets\Chest.xml">
+      <Name>Chest</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Tilesets\Outdoor.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -502,6 +519,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="BattleData\RandomEncounters\" />
     <Folder Include="Levels\DLC1\" />
     <Folder Include="Scripts\DLC1\" />
   </ItemGroup>

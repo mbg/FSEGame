@@ -29,13 +29,15 @@
         private void InitializeComponent()
         {
             this.backgroundPanel = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
-            this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.nameTextBox = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
-            this.kryptonBorderEdge1 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
-            this.okButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.cancelButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.kryptonLabel2 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.scriptComboBox = new ComponentFactory.Krypton.Toolkit.KryptonComboBox();
+            this.kryptonLabel2 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.cancelButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.okButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.kryptonBorderEdge1 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
+            this.nameTextBox = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.randomEncountersCheckBox = new ComponentFactory.Krypton.Toolkit.KryptonCheckBox();
+            this.randomEncountersButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             ((System.ComponentModel.ISupportInitialize)(this.backgroundPanel)).BeginInit();
             this.backgroundPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scriptComboBox)).BeginInit();
@@ -43,6 +45,8 @@
             // 
             // backgroundPanel
             // 
+            this.backgroundPanel.Controls.Add(this.randomEncountersButton);
+            this.backgroundPanel.Controls.Add(this.randomEncountersCheckBox);
             this.backgroundPanel.Controls.Add(this.scriptComboBox);
             this.backgroundPanel.Controls.Add(this.kryptonLabel2);
             this.backgroundPanel.Controls.Add(this.cancelButton);
@@ -56,57 +60,6 @@
             this.backgroundPanel.Size = new System.Drawing.Size(517, 194);
             this.backgroundPanel.TabIndex = 0;
             // 
-            // kryptonLabel1
-            // 
-            this.kryptonLabel1.Location = new System.Drawing.Point(12, 12);
-            this.kryptonLabel1.Name = "kryptonLabel1";
-            this.kryptonLabel1.Size = new System.Drawing.Size(46, 20);
-            this.kryptonLabel1.TabIndex = 0;
-            this.kryptonLabel1.Values.Text = "Name:";
-            // 
-            // nameTextBox
-            // 
-            this.nameTextBox.Location = new System.Drawing.Point(64, 12);
-            this.nameTextBox.Name = "nameTextBox";
-            this.nameTextBox.Size = new System.Drawing.Size(441, 20);
-            this.nameTextBox.TabIndex = 0;
-            this.nameTextBox.Text = "Untitled";
-            this.nameTextBox.TextChanged += new System.EventHandler(this.nameTextBox_TextChanged);
-            // 
-            // kryptonBorderEdge1
-            // 
-            this.kryptonBorderEdge1.AutoSize = false;
-            this.kryptonBorderEdge1.Location = new System.Drawing.Point(12, 38);
-            this.kryptonBorderEdge1.Name = "kryptonBorderEdge1";
-            this.kryptonBorderEdge1.Size = new System.Drawing.Size(493, 1);
-            this.kryptonBorderEdge1.Text = "kryptonBorderEdge1";
-            // 
-            // okButton
-            // 
-            this.okButton.Location = new System.Drawing.Point(415, 157);
-            this.okButton.Name = "okButton";
-            this.okButton.Size = new System.Drawing.Size(90, 25);
-            this.okButton.TabIndex = 2;
-            this.okButton.Values.Text = "OK";
-            this.okButton.Click += new System.EventHandler(this.okButton_Click);
-            // 
-            // cancelButton
-            // 
-            this.cancelButton.Location = new System.Drawing.Point(319, 157);
-            this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(90, 25);
-            this.cancelButton.TabIndex = 3;
-            this.cancelButton.Values.Text = "Cancel";
-            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
-            // 
-            // kryptonLabel2
-            // 
-            this.kryptonLabel2.Location = new System.Drawing.Point(12, 45);
-            this.kryptonLabel2.Name = "kryptonLabel2";
-            this.kryptonLabel2.Size = new System.Drawing.Size(44, 20);
-            this.kryptonLabel2.TabIndex = 5;
-            this.kryptonLabel2.Values.Text = "Script:";
-            // 
             // scriptComboBox
             // 
             this.scriptComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
@@ -117,6 +70,76 @@
             this.scriptComboBox.Size = new System.Drawing.Size(441, 21);
             this.scriptComboBox.TabIndex = 1;
             this.scriptComboBox.Text = "Untitled.lua";
+            // 
+            // kryptonLabel2
+            // 
+            this.kryptonLabel2.Location = new System.Drawing.Point(12, 45);
+            this.kryptonLabel2.Name = "kryptonLabel2";
+            this.kryptonLabel2.Size = new System.Drawing.Size(44, 20);
+            this.kryptonLabel2.TabIndex = 5;
+            this.kryptonLabel2.Values.Text = "Script:";
+            // 
+            // cancelButton
+            // 
+            this.cancelButton.Location = new System.Drawing.Point(319, 157);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(90, 25);
+            this.cancelButton.TabIndex = 3;
+            this.cancelButton.Values.Text = "Cancel";
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
+            // 
+            // okButton
+            // 
+            this.okButton.Location = new System.Drawing.Point(415, 157);
+            this.okButton.Name = "okButton";
+            this.okButton.Size = new System.Drawing.Size(90, 25);
+            this.okButton.TabIndex = 2;
+            this.okButton.Values.Text = "OK";
+            this.okButton.Click += new System.EventHandler(this.okButton_Click);
+            // 
+            // kryptonBorderEdge1
+            // 
+            this.kryptonBorderEdge1.AutoSize = false;
+            this.kryptonBorderEdge1.Location = new System.Drawing.Point(12, 38);
+            this.kryptonBorderEdge1.Name = "kryptonBorderEdge1";
+            this.kryptonBorderEdge1.Size = new System.Drawing.Size(493, 1);
+            this.kryptonBorderEdge1.Text = "kryptonBorderEdge1";
+            // 
+            // nameTextBox
+            // 
+            this.nameTextBox.Location = new System.Drawing.Point(64, 12);
+            this.nameTextBox.Name = "nameTextBox";
+            this.nameTextBox.Size = new System.Drawing.Size(441, 20);
+            this.nameTextBox.TabIndex = 0;
+            this.nameTextBox.Text = "Untitled";
+            this.nameTextBox.TextChanged += new System.EventHandler(this.nameTextBox_TextChanged);
+            // 
+            // kryptonLabel1
+            // 
+            this.kryptonLabel1.Location = new System.Drawing.Point(12, 12);
+            this.kryptonLabel1.Name = "kryptonLabel1";
+            this.kryptonLabel1.Size = new System.Drawing.Size(46, 20);
+            this.kryptonLabel1.TabIndex = 0;
+            this.kryptonLabel1.Values.Text = "Name:";
+            // 
+            // randomEncountersCheckBox
+            // 
+            this.randomEncountersCheckBox.Location = new System.Drawing.Point(64, 72);
+            this.randomEncountersCheckBox.Name = "randomEncountersCheckBox";
+            this.randomEncountersCheckBox.Size = new System.Drawing.Size(133, 20);
+            this.randomEncountersCheckBox.TabIndex = 7;
+            this.randomEncountersCheckBox.Values.Text = "Random Encounters";
+            this.randomEncountersCheckBox.CheckedChanged += new System.EventHandler(this.randomEncountersCheckBox_CheckedChanged);
+            // 
+            // randomEncountersButton
+            // 
+            this.randomEncountersButton.Enabled = false;
+            this.randomEncountersButton.Location = new System.Drawing.Point(415, 72);
+            this.randomEncountersButton.Name = "randomEncountersButton";
+            this.randomEncountersButton.Size = new System.Drawing.Size(90, 25);
+            this.randomEncountersButton.TabIndex = 8;
+            this.randomEncountersButton.Values.Text = "Enemies...";
+            this.randomEncountersButton.Click += new System.EventHandler(this.randomEncountersButton_Click);
             // 
             // LevelPropertiesDialog
             // 
@@ -150,5 +173,7 @@
         private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge1;
         private ComponentFactory.Krypton.Toolkit.KryptonTextBox nameTextBox;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel1;
+        private ComponentFactory.Krypton.Toolkit.KryptonCheckBox randomEncountersCheckBox;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton randomEncountersButton;
     }
 }

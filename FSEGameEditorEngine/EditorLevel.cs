@@ -32,9 +32,11 @@ namespace FSEGameEditorEngine
         private String filename = null;
         private String tilesetFilename;
         private String scriptFilename;
+        private Boolean randomEncounters = false;
         private List<LevelCell> cells;
         private List<LevelEntryPoint> entryPoints;
         private List<ActorProperties> actors;
+        private List<String> randomEncountersFiles;
         private Tileset tileset;
         private Texture2D actorsTexture;
         private Texture2D entryPointTexture;
@@ -90,6 +92,20 @@ namespace FSEGameEditorEngine
             }
         }
         /// <summary>
+        /// Gets or sets whether random encounters are enabled.
+        /// </summary>
+        public Boolean RandomEncounters
+        {
+            get
+            {
+                return this.randomEncounters;
+            }
+            set
+            {
+                this.randomEncounters = value;
+            }
+        }
+        /// <summary>
         /// Gets or sets the tileset which is currently being used by the level.
         /// </summary>
         public Tileset Tileset
@@ -111,6 +127,16 @@ namespace FSEGameEditorEngine
             get
             {
                 return this.entryPoints;
+            }
+        }
+        /// <summary>
+        /// Gets a list of random encounters battle data files.
+        /// </summary>
+        public List<String> RandomEncountersFiles
+        {
+            get
+            {
+                return this.randomEncountersFiles;
             }
         }
         /// <summary>
@@ -208,6 +234,7 @@ namespace FSEGameEditorEngine
             this.cells = new List<LevelCell>();
             this.entryPoints = new List<LevelEntryPoint>();
             this.actors = new List<ActorProperties>();
+            this.randomEncountersFiles = new List<String>();
 
             this.eventTexture = contentManager.Load<Texture2D>(@"EditorContent\Event");
             this.passableTexture = contentManager.Load<Texture2D>(@"EditorContent\Passable");
@@ -226,10 +253,12 @@ namespace FSEGameEditorEngine
             this.cells = new List<LevelCell>();
             this.entryPoints = new List<LevelEntryPoint>();
             this.actors = new List<ActorProperties>();
+            this.randomEncountersFiles = new List<String>();
             this.name = "Untitled";
             this.filename = null;
             this.scriptFilename = "";
             this.tilesetFilename = "";
+            this.randomEncounters = false;
             this.changed = false;
         }
         #endregion
@@ -421,6 +450,8 @@ namespace FSEGameEditorEngine
             this.cells.Clear();
             this.entryPoints.Clear();
             this.actors.Clear();
+            this.randomEncountersFiles.Clear();
+            this.randomEncounters = false;
 
             try
             {
@@ -432,6 +463,9 @@ namespace FSEGameEditorEngine
                 this.name = root.GetAttribute("Name");
                 this.tilesetFilename = root.GetAttribute("Tileset");
                 this.scriptFilename = root.GetAttribute("Script");
+
+                if (root.HasAttribute("RandomEncounters"))
+                    this.randomEncounters = Convert.ToBoolean(root.GetAttribute("RandomEncounters"));
 
                 // :: Find the tileset used by the level. 
                 this.tileset = this.tilesetManager.GetByFilename(this.tilesetFilename);
@@ -522,6 +556,10 @@ namespace FSEGameEditorEngine
                             this.actors.Add(actor);
                         }
                     }
+                    else if (childElement.Name.Equals("RandomEncounters"))
+                    {
+                        // todo:
+                    }
                 }
 
                 this.changed = false;
@@ -553,18 +591,21 @@ namespace FSEGameEditorEngine
             XmlAttribute scriptAttribute = doc.CreateAttribute("Script");
             XmlAttribute sizeXAttribute = doc.CreateAttribute("SizeX");
             XmlAttribute sizeYAttribute = doc.CreateAttribute("SizeY");
+            XmlAttribute reAttribute = doc.CreateAttribute("RandomEncounters");
 
             nameAttribute.Value = this.name;
             tilesetAttribute.Value = this.tileset.Filename;
             scriptAttribute.Value = this.scriptFilename;
             sizeXAttribute.Value = dimensions.X.ToString();
             sizeYAttribute.Value = dimensions.Y.ToString();
+            reAttribute.Value = this.randomEncounters.ToString();
 
             root.Attributes.Append(nameAttribute);
             root.Attributes.Append(tilesetAttribute);
             root.Attributes.Append(scriptAttribute);
             root.Attributes.Append(sizeXAttribute);
             root.Attributes.Append(sizeYAttribute);
+            root.Attributes.Append(reAttribute);
 
             // :: Save all entry points to the file.
             XmlElement entryPointsElement = doc.CreateElement("EntryPoints");
@@ -654,10 +695,22 @@ namespace FSEGameEditorEngine
                 actorsElement.AppendChild(actorElement);
             }
 
+            // :: Save all random encounters.
+            XmlElement reElement = doc.CreateElement("RandomEncounters");
+
+            foreach (String reFilename in this.randomEncountersFiles)
+            {
+                XmlElement battleDataElement = doc.CreateElement("BattleData");
+                battleDataElement.InnerText = reFilename;
+
+                reElement.AppendChild(battleDataElement);
+            }
+
             // :: End the XML document and save it to disk.
             root.AppendChild(entryPointsElement);
             root.AppendChild(cellsElement);
             root.AppendChild(actorsElement);
+            root.AppendChild(reElement);
 
             doc.AppendChild(root);
             doc.Save(filename);

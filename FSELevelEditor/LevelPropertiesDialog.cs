@@ -33,6 +33,7 @@ namespace FSELevelEditor
         {
             this.nameTextBox.Text = this.mainWindow.LevelEditor.CurrentLevel.Name;
             this.scriptComboBox.Text = this.mainWindow.LevelEditor.CurrentLevel.ScriptFilename;
+            this.randomEncountersCheckBox.Checked = this.mainWindow.LevelEditor.CurrentLevel.RandomEncounters;
 
             // :: Load a list of scripts into the combobox's items.
             DirectoryInfo dir = new DirectoryInfo(@"FSEGame\Scripts\");
@@ -52,6 +53,7 @@ namespace FSELevelEditor
         {
             this.mainWindow.LevelEditor.CurrentLevel.Name = this.nameTextBox.Text;
             this.mainWindow.LevelEditor.CurrentLevel.ScriptFilename = this.scriptComboBox.Text;
+            this.mainWindow.LevelEditor.CurrentLevel.RandomEncounters = this.randomEncountersCheckBox.Checked;
 
             this.Close();
         }
@@ -59,6 +61,20 @@ namespace FSELevelEditor
         private void nameTextBox_TextChanged(object sender, EventArgs e)
         {
             
+        }
+
+        private void randomEncountersCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            this.randomEncountersButton.Enabled =
+                this.randomEncountersCheckBox.Checked;
+        }
+
+        private void randomEncountersButton_Click(object sender, EventArgs e)
+        {
+            using (RandomEncountersDialog dia = new RandomEncountersDialog(this.mainWindow))
+            {
+                dia.ShowDialog();
+            }
         }
     }
 }

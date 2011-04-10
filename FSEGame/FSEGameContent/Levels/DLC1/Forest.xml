@@ -1,0 +1,11 @@
+<Level Name="Forest" Tileset="Tilesets\Outdoor.xml" Script="Scripts\DLC1Forest.lua" SizeX="13" SizeY="10" RandomEncounters="True">
+  <EntryPoints />
+  <Cells>
+    <Cell X="9" Y="9" Tile="PathLR" />
+    <Cell X="10" Y="9" Tile="PathLR" />
+    <Cell X="12" Y="9" Tile="PathLR" />
+    <Cell X="11" Y="9" Tile="PathLR" />
+  </Cells>
+  <Actors />
+  <RandomEncounters />
+</Level>
