@@ -110,24 +110,36 @@ namespace FSELevelEditor
 
         #region New Level
         /// <summary>
-        /// 
+        /// Creates a new level.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void newLevelToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // :: Check whether the current level contains unsaved changes and
+            // :: prompt the user to decide how to proceed. If this method returns
+            // :: false, the user decided to cancel the operation.
+            if (!this.HandleUnsavedData())
+                return;
+
             this.levelEditor.New();
         }
         #endregion
 
         #region Open Level
         /// <summary>
-        /// 
+        /// Opens an existing level from a file.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void openLevelToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // :: Check whether the current level contains unsaved changes and
+            // :: prompt the user to decide how to proceed. If this method returns
+            // :: false, the user decided to cancel the operation.
+            if (!this.HandleUnsavedData())
+                return;
+
             using (OpenFileDialog dia = new OpenFileDialog())
             {
                 dia.Filter = "Level File (*.xml)|*.xml";
@@ -153,7 +165,7 @@ namespace FSELevelEditor
 
         #region Save
         /// <summary>
-        /// 
+        /// Saves the current level.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -175,7 +187,7 @@ namespace FSELevelEditor
 
         #region Save As
         /// <summary>
-        /// 
+        /// Saves the current level after prompting the user for a filename.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -204,6 +216,12 @@ namespace FSELevelEditor
         }
         #endregion
 
+        #region Level Properties
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void propertiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (LevelPropertiesDialog dia = new LevelPropertiesDialog(this))
@@ -211,6 +229,7 @@ namespace FSELevelEditor
                 dia.ShowDialog();
             }
         }
+        #endregion
 
         #region Editor Modes
         /// <summary>
@@ -377,6 +396,10 @@ namespace FSELevelEditor
         #endregion
 
         #region Run
+        /// <summary>
+        /// Verifies that the game executable exists.
+        /// </summary>
+        /// <returns>Returns true if the game executable exists or false if not.</returns>
         private Boolean VerifyGameExecutableExists()
         {
             if (!File.Exists("FSEGame.exe"))
@@ -392,7 +415,11 @@ namespace FSELevelEditor
 
             return true;
         }
-
+        /// <summary>
+        /// Runs the level that is currently being edited.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void runLevelToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!this.VerifyGameExecutableExists())
@@ -430,8 +457,12 @@ namespace FSELevelEditor
 
             p.Start();
         }
-
-        void RemoveTemporaryLevel(object sender, EventArgs e)
+        /// <summary>
+        /// Removes the temporary level file after the game has finished executing.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RemoveTemporaryLevel(object sender, EventArgs e)
         {
             if(File.Exists(@"FSEGame\Levels\_EditorTemp.xml"))
                 File.Delete(@"FSEGame\Levels\_EditorTemp.xml");
@@ -450,11 +481,28 @@ namespace FSELevelEditor
         }
         #endregion
 
+        #region OnClosing
+        /// <summary>
+        /// Triggered when the form is being closed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (!this.HandleUnsavedData())
+            {
+                e.Cancel = true;
+                return;
+            }
+            
             this.SaveWindowLayout();
         }
+        #endregion
 
+        #region RestoreWindowLayout
+        /// <summary>
+        /// Restores the window layout from a file.
+        /// </summary>
         private void RestoreWindowLayout()
         {
             String path = Path.Combine(
@@ -494,7 +542,11 @@ namespace FSELevelEditor
                 }
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="element"></param>
+        /// <param name="window"></param>
         private void RestoreWindowLayout(XmlElement element, Form window)
         {
             window.Left = Convert.ToInt32(element.GetAttribute("Left"));
@@ -508,10 +560,11 @@ namespace FSELevelEditor
 
             window.Visible = Convert.ToBoolean(element.GetAttribute("Visible"));
         }
+        #endregion
 
         #region SaveWindowLayout
         /// <summary>
-        /// 
+        /// Saves the current window layout.
         /// </summary>
         private void SaveWindowLayout()
         {
@@ -585,10 +638,40 @@ namespace FSELevelEditor
         }
         #endregion
 
+        #region Lock Tiles
+        /// <summary>
+        /// Toggles whether the tiles in the current level should be locked or not.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void lockTilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.lockTilesToolStripMenuItem.Checked = !this.lockTilesToolStripMenuItem.Checked;
             this.levelEditor.LockTiles = this.lockTilesToolStripMenuItem.Checked;
-        }        
+        }
+        #endregion
+
+        private Boolean HandleUnsavedData()
+        {
+            if (this.levelEditor.CurrentLevel.Changed)
+            {
+                DialogResult result = MessageBox.Show(
+                    "The current level contains unsaved changes. Would you like to save now?",
+                    "Level Editor",
+                    MessageBoxButtons.YesNoCancel,
+                    MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    this.saveToolStripMenuItem_Click(null, EventArgs.Empty);
+                }
+                else if (result == DialogResult.Cancel)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }

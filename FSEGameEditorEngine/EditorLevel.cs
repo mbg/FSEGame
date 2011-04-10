@@ -711,10 +711,15 @@ namespace FSEGameEditorEngine
             return null;
         }
 
+        #region ForceChange
+        /// <summary>
+        /// Forces the level to be marked as changed.
+        /// </summary>
         public void ForceChange()
         {
             this.changed = true;
         }
+        #endregion
     }
 }
 
