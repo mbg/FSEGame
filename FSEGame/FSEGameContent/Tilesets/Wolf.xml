@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Tileset Name="Wolf" Resource="Tilesets\Wolf">
+  <Tile ID="0" Passable="False">Wolf</Tile>
+</Tileset>

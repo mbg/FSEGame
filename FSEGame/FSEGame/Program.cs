@@ -90,6 +90,7 @@ namespace FSEGame
             this.actorClasses.Add("Maro", typeof(Maro));
             this.actorClasses.Add("ShopNPC", typeof(ShopNPC));
             this.actorClasses.Add("ChestActor", typeof(ChestActor));
+            this.actorClasses.Add("ScriptedActor", typeof(ScriptedActor));
 
             game.ContentLoaded += new GameEventDelegate(game_ContentLoaded);
             game.CurrentLevel.OnCreateActor += new CreateActorDelegate(CurrentLevel_OnCreateActor);

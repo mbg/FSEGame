@@ -148,7 +148,7 @@ namespace FSEGame
 
             this.battleManager = new BattleManager();
 
-            this.RegisterClass(this);
+            this.ScriptManager.RegisterTypeInstance(this);
         }
         #endregion
 

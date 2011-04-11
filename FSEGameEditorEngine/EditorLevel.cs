@@ -764,6 +764,39 @@ namespace FSEGameEditorEngine
             return null;
         }
 
+        public void RemoveCellAtPosition(CellPosition position)
+        {
+            LevelCell cell = this.GetCellAtPosition(position);
+
+            if (cell != null)
+            {
+                this.cells.Remove(cell);
+                this.changed = true;
+            }
+        }
+
+        public void RemoveActorAtPosition(CellPosition position)
+        {
+            ActorProperties actor = this.GetActorAtPosition(position);
+
+            if (actor != null)
+            {
+                this.actors.Remove(actor);
+                this.changed = true;
+            }
+        }
+
+        public void RemoveEntryPointAtPosition(CellPosition position)
+        {
+            LevelEntryPoint ep = this.GetEntryPointAtPosition(position);
+
+            if (ep != null)
+            {
+                this.entryPoints.Remove(ep);
+                this.changed = true;
+            }
+        }
+
         #region ForceChange
         /// <summary>
         /// Forces the level to be marked as changed.

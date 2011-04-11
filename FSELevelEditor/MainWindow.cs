@@ -281,6 +281,7 @@ namespace FSELevelEditor
         /// <param name="e"></param>
         private void editModeButton_Click(object sender, EventArgs e)
         {
+            this.levelEditor.RemoveMode = false;
             this.levelEditor.EditMode = true;
             this.editModeButton.Checked = true;
             this.createModeButton.Checked = false;
@@ -306,6 +307,7 @@ namespace FSELevelEditor
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
             this.levelEditor.EditMode = false;
+            this.levelEditor.RemoveMode = true;
             this.editModeButton.Checked = false;
             this.createModeButton.Checked = false;
             this.removeModeButton.Checked = true;

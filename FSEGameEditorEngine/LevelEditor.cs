@@ -35,6 +35,7 @@ namespace FSEGameEditorEngine
         private Point lastMousePosition;
         private EditorMode mode = EditorMode.Tiles;
         private Boolean edit = false;
+        private Boolean remove = false;
         private Tile selectedTile = null;
         private Boolean lockTiles = false;
         #endregion
@@ -95,9 +96,31 @@ namespace FSEGameEditorEngine
             set
             {
                 this.edit = value;
+
+                if (value)
+                    this.remove = false;
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        public Boolean RemoveMode
+        {
+            get
+            {
+                return this.remove;
+            }
+            set
+            {
+                this.remove = value;
 
+                if (value)
+                    this.edit = false;
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
         public Boolean LockTiles
         {
             get
@@ -192,6 +215,18 @@ namespace FSEGameEditorEngine
                                 this.ObjectSelected(new EntryPointProperties(ep));
                         }
                     }
+                }
+                else if (this.remove)
+                {
+                    position.X--;
+                    position.Y--;
+
+                    if (this.mode == EditorMode.Tiles)
+                        this.level.RemoveCellAtPosition(position);
+                    else if (this.mode == EditorMode.Actors)
+                        this.level.RemoveActorAtPosition(position);
+                    else if (this.mode == EditorMode.EntryPoints)
+                        this.level.RemoveEntryPointAtPosition(position);
                 }
                 else
                 {

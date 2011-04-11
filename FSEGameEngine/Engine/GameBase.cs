@@ -51,7 +51,7 @@ namespace FSEGame.Engine
         /// </summary>
         private GraphicsDeviceManager graphics;
 
-        private Lua luaState;
+        private ScriptManager scriptManager;
 
         private DialogueManager dialogueManager;
 
@@ -101,6 +101,16 @@ namespace FSEGame.Engine
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Gets the script manager for this game.
+        /// </summary>
+        public ScriptManager ScriptManager
+        {
+            get
+            {
+                return this.scriptManager;
+            }
+        }
         /// <summary>
         /// Gets the dialogue manager for this game.
         /// </summary>
@@ -176,14 +186,6 @@ namespace FSEGame.Engine
             get
             {
                 return this.fpsCounter;
-            }
-        }
-
-        public Lua LuaState
-        {
-            get
-            {
-                return this.luaState;
             }
         }
 
@@ -283,8 +285,8 @@ namespace FSEGame.Engine
             this.persistentStorage = new PersistentStorage();
 
             // :: Initialise Lua and register the Engine's functions.
-            this.luaState = new Lua();
-            this.RegisterClass(this);
+            this.scriptManager = new ScriptManager(@"FSEGame\Scripts\");
+            this.scriptManager.RegisterTypeInstance(this);
 
             // :: Initialise the graphics device manager and register some events.
             this.graphics = new GraphicsDeviceManager(this);
@@ -518,42 +520,6 @@ namespace FSEGame.Engine
                 !this.lastKeyboardState.IsKeyDown(key);
 
             return pressed;
-        }
-        #endregion
-
-        #region RegisterClass
-        /// <summary>
-        /// Registers methods which have been marked with the ScriptFunction
-        /// attribute with the Lua state.
-        /// </summary>
-        /// <param name="obj">
-        /// An instance of the type whose methods should be registered with the 
-        /// Lua state. Note that the specified instance will be used to call
-        /// the functions.
-        /// </param>
-        public void RegisterClass(Object obj)
-        {
-            // :: Iterate through all methods in the type of the specified
-            // :: object, then iterate through all attributes to find the
-            // :: ScriptFunction attribute and register methods where
-            // :: appropriate.
-            foreach (MethodBase method in obj.GetType().GetMethods())
-            {
-                foreach (Attribute attribute in method.GetCustomAttributes(true))
-                {
-                    if (attribute.GetType() == typeof(ScriptFunctionAttribute))
-                    {
-                        ScriptFunctionAttribute scriptFunctionAttribute =
-                            (ScriptFunctionAttribute)attribute;
-
-                        this.luaState.RegisterFunction(
-                            scriptFunctionAttribute.Name,
-                            obj,
-                            method);
-
-                    }
-                }
-            }
         }
         #endregion
     }

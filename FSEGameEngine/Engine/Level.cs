@@ -38,6 +38,8 @@ namespace FSEGame.Engine
         private List<Actor> actors;
         private LevelCell[,] cells;
         private Boolean levelLoaded = false;
+        private Boolean randomEncounters = false;
+        private List<String> randomEncounterFiles;
         private LuaFunction levelScript = null;
         #endregion
 
@@ -107,6 +109,7 @@ namespace FSEGame.Engine
                 throw new ArgumentNullException("contentManager");
 
             this.levelFilename = filename;
+            this.randomEncounters = false;
 
             // :: Generate the full pathname and verify that a file
             // :: with the specified name exists.
@@ -145,8 +148,14 @@ namespace FSEGame.Engine
 
                 if (File.Exists(scriptPath))
                 {
-                    this.levelScript = GameBase.Singleton.LuaState.LoadFile(scriptPath);
+                    this.levelScript = GameBase.Singleton.ScriptManager.State.LoadFile(scriptPath);
                 }
+            }
+
+            if (rootElement.HasAttribute("RandomEncounters"))
+            {
+                this.randomEncounters = Convert.ToBoolean(
+                    rootElement.GetAttribute("RandomEncounters"));
             }
 
             // :: Verify that the size attributes are available and then initialise the cell array
@@ -547,7 +556,7 @@ namespace FSEGame.Engine
             if (this.levelScript == null || !this.levelLoaded)
                 return;
 
-            GameBase.Singleton.LuaState["id"] = name;
+            GameBase.Singleton.ScriptManager.State["id"] = name;
 
             this.levelScript.Call();
         }

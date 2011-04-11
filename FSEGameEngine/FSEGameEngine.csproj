@@ -121,6 +121,7 @@
     <Compile Include="Engine\PersistentStorageItem.cs" />
     <Compile Include="Engine\PersistentStorageItemType.cs" />
     <Compile Include="Engine\ScriptFunctionAttribute.cs" />
+    <Compile Include="Engine\ScriptManager.cs" />
     <Compile Include="Engine\Tile.cs" />
     <Compile Include="Engine\TileCollection.cs" />
     <Compile Include="Engine\Tileset.cs" />

@@ -467,6 +467,17 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Name>Test</Name>
     </Content>
+    <Compile Include="Tilesets\Wolf.png">
+      <Name>Wolf</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Content Include="Tilesets\Wolf.xml">
+      <Name>Wolf</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arial.spritefont">
@@ -526,6 +537,24 @@
   <ItemGroup>
     <Content Include="Scripts\Village2.lua">
       <Name>Village2</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\Actors\TestActors.lua">
+      <Name>TestActors</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\Core.ini">
+      <Name>Core</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\DLC1Forest.lua">
+      <Name>DLC1Forest</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
