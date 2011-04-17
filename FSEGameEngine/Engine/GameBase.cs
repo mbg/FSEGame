@@ -301,6 +301,7 @@ namespace FSEGame.Engine
             // :: Initialise Lua and register the Engine's functions.
             this.scriptManager = new ScriptManager(@"FSEGame\Scripts\");
             this.scriptManager.RegisterTypeInstance(this);
+            this.scriptManager.RegisterTypeInstance(this.persistentStorage);
 
             // :: Initialise the graphics device manager and register some events.
             this.graphics = new GraphicsDeviceManager(this);
@@ -308,6 +309,7 @@ namespace FSEGame.Engine
                 new EventHandler<PreparingDeviceSettingsEventArgs>(PrepareGraphicsSettings);
 
             this.dialogueManager = new DialogueManager();
+            this.scriptManager.RegisterTypeInstance(this.dialogueManager);
             
             this.Content.RootDirectory = "FSEGame";
         }

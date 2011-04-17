@@ -167,6 +167,7 @@ namespace FSEGame.Engine
         /// 
         /// </summary>
         /// <param name="filename"></param>
+        [ScriptFunction("PlayDialogue")]
         public void PlayDialogue(String filename)
         {
             if (this.isPlaying)

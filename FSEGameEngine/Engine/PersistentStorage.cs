@@ -99,6 +99,58 @@ namespace FSEGame.Engine
             }
         }
         #endregion
+
+        [ScriptFunction("PSHasKey")]
+        public Boolean HasKey(String name)
+        {
+            return base.ContainsKey(name);
+        }
+
+        [ScriptFunction("PSIsNumber")]
+        public Boolean IsKeyNumber(String name)
+        {
+            if (!this.ContainsKey(name))
+                return false;
+
+            PersistentStorageItem item = this[name];
+
+            return item.ItemType == PersistentStorageItemType.Number;
+        }
+
+        [ScriptFunction("PSIsString")]
+        public Boolean IsKeyString(String name)
+        {
+            if (!this.ContainsKey(name))
+                return false;
+
+            PersistentStorageItem item = this[name];
+
+            return item.ItemType == PersistentStorageItemType.String;
+        }
+
+        [ScriptFunction("PSGetNumber")]
+        public UInt32 GetKeyNumber(String name)
+        {
+            return (UInt32)this[name].Item;
+        }
+
+        [ScriptFunction("PSGetString")]
+        public String GetKeyString(String name)
+        {
+            return (String)this[name].Item;
+        }
+
+        [ScriptFunction("PSSetNumber")]
+        public void SetKeyNumber(String name, UInt32 value)
+        {
+            this[name] = new PersistentStorageItem(value);
+        }
+
+        [ScriptFunction("PSSetString")]
+        public void SetKeyString(String name, String value)
+        {
+            this[name] = new PersistentStorageItem(value);
+        }
     }
 }
 

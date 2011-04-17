@@ -83,6 +83,7 @@ namespace FSEGame.Actors
         {
             if (this.updateFunction != null)
             {
+                GameBase.Singleton.ScriptManager.State["Me"] = this;
                 this.updateFunction.Call();
             }
 
@@ -93,8 +94,14 @@ namespace FSEGame.Actors
         {
             if (this.eventFunction != null)
             {
+                GameBase.Singleton.ScriptManager.State["Me"] = this;
                 this.eventFunction.Call();
             }
+        }
+
+        public String GetProperty(String key)
+        {
+            return this.Properties.Properties[key];
         }
     }
 }

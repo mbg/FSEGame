@@ -688,8 +688,10 @@
     <Actor X="13" Y="32" Type="ScriptedActor">
       <Property Name="States">2</Property>
       <Property Name="Dialogue">FSEGame\Dialogues\TestDialogue.xml</Property>
-      <Property Name="Function">DummyActor</Property>
+      <Property Name="Function">ScriptedVernado</Property>
       <Property Name="Tileset">Tilesets\GenericNPC.xml</Property>
+      <Property Name="DefaultDialogue">FSEGame\Dialogues\Vernado.xml</Property>
+      <Property Name="PostTorchDialogue">FSEGame\Dialogues\TestDialogue.xml</Property>
     </Actor>
   </Actors>
   <RandomEncounters />
