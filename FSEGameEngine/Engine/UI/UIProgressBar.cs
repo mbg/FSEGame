@@ -89,7 +89,7 @@ namespace FSEGame.Engine.UI
 
         #region Draw
         /// <summary>
-        /// 
+        /// Draws the progress bar.
         /// </summary>
         /// <param name="batch"></param>
         public override void Draw(SpriteBatch batch)
@@ -129,10 +129,18 @@ namespace FSEGame.Engine.UI
         }
         #endregion
 
+        #region GetForegroundTexture
+        /// <summary>
+        /// Gets the foreground texture for the progress bar. May be overriden
+        /// by deriving classes to return a different texture depending on some
+        /// variable.
+        /// </summary>
+        /// <returns></returns>
         protected virtual Texture2D GetForegroundTexture()
         {
             return this.foregroundTexture;
         }
+        #endregion
     }
 }
 

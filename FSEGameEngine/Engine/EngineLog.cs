@@ -58,6 +58,11 @@ namespace FSEGame.Engine
             this.log.Flush();
         }
 
+        public void WriteLine(String source, String message, params Object[] args)
+        {
+            this.WriteLine(source, String.Format(message, args));
+        }
+
         #region Dispose
         /// <summary>
         /// 

@@ -23,54 +23,78 @@ namespace FSEGame.Actors
     /// 
     /// </summary>
     [SuggestedProperty("Function", @"DummyActor")]
-    public class ScriptedActor : Actor
+    [SuggestedProperty("States", "2")]
+    [SuggestedProperty("Tileset", "Tilesets\\GenericNPC.xml")]
+    [SuggestedProperty("Dialogue", "FSEGame\\Dialogues\\TestDialogue.xml")]
+    public class ScriptedActor : GenericNPC
     {
         #region Instance Members
-        private LuaFunction function;
+        private LuaFunction actorFunction = null;
+        private LuaFunction updateFunction = null;
+        private LuaFunction eventFunction = null;
         #endregion
 
         #region Properties
-        public override bool Passable
+        public LuaFunction UpdateEvent
         {
             get
             {
-                return false;
+                return this.updateFunction;
             }
             set
             {
-
+                this.updateFunction = value;
             }
         }
-        #endregion
-
-        #region Constructor
-        /// <summary>
-        /// Initialises a new instance of this class.
-        /// </summary>
-        public ScriptedActor(ActorProperties properties)
+        public LuaFunction Event
         {
-            try
+            get
             {
-                this.function = FSEGame.Singleton.ScriptManager.State.GetFunction(
-                    properties.Properties["Function"]);
-
-                this.function.Call(new Object[] { });
+                return this.eventFunction;
             }
-            catch (Exception ex)
+            set
             {
-                GameBase.Singleton.Log.WriteLine("ScriptedActor", ex.ToString());
+                this.eventFunction = value;
             }
         }
         #endregion
+
+        public ScriptedActor(ActorProperties properties)
+            : base(properties)
+        {
+            this.actorFunction = 
+                GameBase.Singleton.ScriptManager.State.GetFunction(properties.Properties["Function"]);
+
+            if (this.actorFunction != null)
+            {
+                GameBase.Singleton.ScriptManager.State["Me"] = this;
+
+                this.actorFunction.Call();
+            }
+            else
+            {
+                GameBase.Singleton.Log.WriteLine(
+                    "ScriptedActor",
+                    "WARNING: Could not find function {0}", properties.Properties["Function"]);
+            }
+        }
 
         public override void Update(GameTime gameTime)
         {
-            
+            if (this.updateFunction != null)
+            {
+                this.updateFunction.Call();
+            }
+
+            base.Update(gameTime);
         }
 
-        public override void Draw(SpriteBatch batch)
+        protected override void PerformAction()
         {
-            base.Draw(batch);
+            if (this.eventFunction != null)
+            {
+                this.eventFunction.Call();
+            }
         }
     }
 }

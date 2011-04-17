@@ -15,6 +15,7 @@ using Microsoft.Xna.Framework;
 using FSEGame.Actors;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using System.Reflection;
 #endregion
 
 namespace FSEGame
@@ -109,20 +110,52 @@ namespace FSEGame
                     this.commandLineParser.EntryPoint);
             }
         }
-        
+
+        #region OnCreateActor
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="properties"></param>
+        /// <returns></returns>
         private Actor CurrentLevel_OnCreateActor(ActorProperties properties)
         {
+            GameBase.Singleton.Log.WriteLine("Game", "Attempting to create actor of type {0}", properties.Type);
+
             if (this.actorClasses.ContainsKey(properties.Type))
             {
-                Actor result = (Actor)Activator.CreateInstance(
-                    this.actorClasses[properties.Type], properties);
-                result.CellPosition = new Vector2(properties.X, properties.Y);
+                GameBase.Singleton.Log.WriteLine("Game", "Actor type found.");
 
-                return result;
+                try
+                {
+                    Actor result = (Actor)Activator.CreateInstance(
+                        this.actorClasses[properties.Type], properties);
+                    result.CellPosition = new Vector2(properties.X, properties.Y);
+
+                    return result;
+                }
+                catch (TargetInvocationException ex)
+                {
+                    GameBase.Singleton.Log.WriteLine(
+                        "Game",
+                        "Failed to create actor instance of type {0}: {1}",
+                        properties.Type,
+                        ex.InnerException.Message);
+                }
+                catch (Exception ex)
+                {
+                    GameBase.Singleton.Log.WriteLine(
+                        "Game",
+                        "Failed to create actor instance of type {0}: {1}",
+                        properties.Type,
+                        ex.Message);
+                }
             }
+
+            GameBase.Singleton.Log.WriteLine("Game", "Couldn't find actor type {0}", properties.Type);
 
             return null;
         }
+        #endregion
     }
 #endif
 }

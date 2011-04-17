@@ -71,7 +71,7 @@ namespace FSEGame.Engine
                 {
                     String scriptFilename = reader.ReadLine();
 
-                    this.state.LoadFile(scriptFilename);
+                    this.state.DoFile(scriptFilename);
                 }
             }
         }
