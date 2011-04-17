@@ -145,6 +145,7 @@
     <Compile Include="Engine\UI\UIElement.cs" />
     <Compile Include="Engine\UI\UIElementCollection.cs" />
     <Compile Include="Engine\UI\UIGridButton.cs" />
+    <Compile Include="Engine\UI\UIHealthBar.cs" />
     <Compile Include="Engine\UI\UIProgressBar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

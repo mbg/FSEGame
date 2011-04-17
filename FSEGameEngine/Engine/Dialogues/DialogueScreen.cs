@@ -240,7 +240,7 @@ namespace FSEGame.Engine.Dialogues
 
             if (this.timeElapsed >= this.updateInterval || 
                 ((GameBase.Singleton.IsKeyPressed(Keys.Enter) || GameBase.Singleton.IsKeyPressed(Keys.Space)) 
-                && this.totalTimeElapsed >= 0.01f))
+                /*&& this.totalTimeElapsed >= 0.01f*/))
             {
                 this.DisplayNextWord();
                 this.timeElapsed = 0.0f;

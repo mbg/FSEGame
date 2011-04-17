@@ -113,7 +113,7 @@ namespace FSEGame.Engine.UI
                 0.0f);
 
             batch.Draw(
-                this.foregroundTexture,
+                this.GetForegroundTexture(),
                 base.Position,
                 new Rectangle(
                     0,
@@ -128,6 +128,11 @@ namespace FSEGame.Engine.UI
                 0.0f);
         }
         #endregion
+
+        protected virtual Texture2D GetForegroundTexture()
+        {
+            return this.foregroundTexture;
+        }
     }
 }
 

@@ -25,9 +25,9 @@ namespace FSEGame
         #region Instance Members
         private StaticText opponentName;
         private StaticImage bossIcon;
-        private UIProgressBar opponentHealthBar;
+        private UIHealthBar opponentHealthBar;
         private StaticText playerName;
-        private UIProgressBar playerHealthBar;
+        private UIHealthBar playerHealthBar;
         private UIButtonGrid mainBattleMenu;
         private UIButtonGrid attackMenu;
         private UIButtonGrid magicMenu;
@@ -146,12 +146,12 @@ namespace FSEGame
             this.bossIcon.Position = new Vector2(350, 20);
             this.bossIcon.Visible = false;
 
-            this.opponentHealthBar = new UIProgressBar("ProgressBar", "ProgressBarFilled");
+            this.opponentHealthBar = new UIHealthBar("ProgressBar", "ProgressBarFilled", "ProgressBarFilledYellow", "ProgressBarFilledRed");
             this.opponentHealthBar.Position = new Vector2(35, 50);
             this.opponentHealthBar.Maximum = 100;
             this.opponentHealthBar.Value = 100;
 
-            this.playerHealthBar = new UIProgressBar("ProgressBar", "ProgressBarFilled");
+            this.playerHealthBar = new UIHealthBar("ProgressBar", "ProgressBarFilled", "ProgressBarFilledYellow", "ProgressBarFilledRed");
             this.playerHealthBar.Position = new Vector2(430, 415);
             this.playerHealthBar.Maximum = 100;
             this.playerHealthBar.Value = 100;

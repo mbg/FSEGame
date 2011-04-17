@@ -121,6 +121,16 @@
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
     </Content>
+    <Compile Include="ProgressBarFilledRed.png">
+      <Name>ProgressBarFilledRed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ProgressBarFilledYellow.png">
+      <Name>ProgressBarFilledYellow</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <Content Include="Dialogues\BridgeExplanation.xml">
       <Name>BridgeExplanation</Name>
       <Importer>XmlImporter</Importer>
