@@ -58,6 +58,11 @@ namespace FSEGame.BattleSystem.Moves
             // :: powerful, but a good fallback with few conditions.
             UInt16 score = 1;
 
+            if (origin.CurrentAttributes.Health < target.CurrentAttributes.Health - (target.BaseAttributes.Health / 4))
+            {
+                score += 5;
+            }
+
             // :: If this move deals enough damage to kill the opponent,
             // :: then this move is slightly more favourable. 
             if (this.CalculateBaseDamage(origin, target)

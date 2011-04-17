@@ -22,7 +22,33 @@ namespace FSEGame.BattleSystem.Moves
         #region Instance Members
         #endregion
 
+        #region Constants
+        /// <summary>
+        /// The amount of mana required to cast this spell.
+        /// </summary>
+        private const UInt16 MANA_USAGE = 20; // used to be 10
+        /// <summary>
+        /// The amount of health that is restored each time this spell is cast.
+        /// </summary>
+        private const UInt16 HEALTH_RESTORED = 30; // used to be 30
+        #endregion
+
         #region Properties
+        public string Name
+        {
+            get
+            {
+                return "Heal";
+            }
+        }
+
+        public string DisplayName
+        {
+            get
+            {
+                return "Heal";
+            }
+        }
         #endregion
 
         #region Constructor
@@ -37,29 +63,13 @@ namespace FSEGame.BattleSystem.Moves
 
         #region IMove Members
 
-        public string Name
-        {
-            get 
-            {
-                return "Heal"; 
-            }
-        }
-
-        public string DisplayName
-        {
-            get 
-            {
-                return "Heal"; 
-            }
-        }
-
         public UInt16 Score(Opponent origin, Opponent target)
         {
             UInt16 score = 0;
 
             if ((origin.CurrentAttributes.Health <
                 target.CurrentAttributes.Health) &&
-                (origin.CurrentAttributes.Magic >= 10) &&
+                (origin.CurrentAttributes.Magic >= MANA_USAGE) &&
                 (origin.CurrentAttributes.Health <
                 origin.BaseAttributes.Health / 2))
             {
@@ -71,12 +81,12 @@ namespace FSEGame.BattleSystem.Moves
 
         public void Perform(Opponent origin, Opponent target)
         {
-            if (origin.CurrentAttributes.Magic >= 10 &&
+            if (origin.CurrentAttributes.Magic >= MANA_USAGE &&
                 origin.CurrentAttributes.Health <
                 origin.BaseAttributes.Health)
             {
-                origin.CurrentAttributes.Magic -= 10;
-                origin.CurrentAttributes.Health += 30;
+                origin.CurrentAttributes.Magic -= MANA_USAGE;
+                origin.CurrentAttributes.Health += HEALTH_RESTORED;
             }
             else
             {

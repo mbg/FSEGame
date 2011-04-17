@@ -72,7 +72,7 @@ namespace FSEGame.Engine.Dialogues
         /// The text display speed.
         /// </summary>
 #if DISPLAY_BY_CHARACTER
-        private const float DISPLAY_SPEED = 0.05f;
+        private const float DISPLAY_SPEED = 0.03f;
 #else
         private const float DISPLAY_SPEED = 0.2f;
 #endif
@@ -240,7 +240,7 @@ namespace FSEGame.Engine.Dialogues
 
             if (this.timeElapsed >= this.updateInterval || 
                 ((GameBase.Singleton.IsKeyPressed(Keys.Enter) || GameBase.Singleton.IsKeyPressed(Keys.Space)) 
-                && this.totalTimeElapsed >= 1.0f))
+                && this.totalTimeElapsed >= 0.01f))
             {
                 this.DisplayNextWord();
                 this.timeElapsed = 0.0f;

@@ -10,68 +10,63 @@
 
 #region References
 using System;
-using FSEGame.Engine;
-using LuaInterface;
-using Microsoft.Xna.Framework;
-using FSEGame.Editor;
-using Microsoft.Xna.Framework.Graphics;
+using System.IO;
 #endregion
 
-namespace FSEGame.Actors
+namespace FSEGame.Engine
 {
     /// <summary>
     /// 
     /// </summary>
-    [SuggestedProperty("Function", @"DummyActor")]
-    public class ScriptedActor : Actor
+    public sealed class EngineLog : IDisposable
     {
         #region Instance Members
-        private LuaFunction function;
+        private StreamWriter log;
         #endregion
 
         #region Properties
-        public override bool Passable
-        {
-            get
-            {
-                return false;
-            }
-            set
-            {
-
-            }
-        }
         #endregion
 
         #region Constructor
         /// <summary>
         /// Initialises a new instance of this class.
         /// </summary>
-        public ScriptedActor(ActorProperties properties)
+        public EngineLog()
         {
-            try
-            {
-                this.function = FSEGame.Singleton.ScriptManager.State.GetFunction(
-                    properties.Properties["Function"]);
+            String directory = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                @"FSEGame\Logs\");
 
-                this.function.Call(new Object[] { });
-            }
-            catch (Exception ex)
-            {
-                GameBase.Singleton.Log.WriteLine("ScriptedActor", ex.ToString());
-            }
+            String filename = Path.Combine(
+                directory,
+                @"Engine.log");
+
+            if (!Directory.Exists(directory))
+                Directory.CreateDirectory(directory);
+
+            this.log = new StreamWriter(filename);
+            this.log.AutoFlush = true;
         }
         #endregion
 
-        public override void Update(GameTime gameTime)
+        public void WriteLine(String source, String message)
         {
-            
+            this.log.WriteLine("[{0}] {1}: {2}",
+                DateTime.Now.ToLongTimeString(),
+                source,
+                message);
+            this.log.Flush();
         }
 
-        public override void Draw(SpriteBatch batch)
+        #region Dispose
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Dispose()
         {
-            base.Draw(batch);
+            this.log.Close();
         }
+        #endregion
     }
 }
 

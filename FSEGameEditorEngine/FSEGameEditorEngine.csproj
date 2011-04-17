@@ -17,6 +17,14 @@
     <XnaProfile>HiDef</XnaProfile>
     <XnaCrossPlatformGroupID>60a77e28-7deb-4ef5-ad1d-efa3e6da0b6b</XnaCrossPlatformGroupID>
     <XnaOutputType>Library</XnaOutputType>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>

@@ -13,3 +13,5 @@ obj/
 /FSEGameTest
 *.cachefile
 bin/
+*.vspscc
+*.vssscc

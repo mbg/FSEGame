@@ -51,6 +51,8 @@ namespace FSEGame.Engine
         /// </summary>
         private GraphicsDeviceManager graphics;
 
+        private EngineLog log;
+
         private ScriptManager scriptManager;
 
         private DialogueManager dialogueManager;
@@ -101,6 +103,16 @@ namespace FSEGame.Engine
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Gets the engine log's handle.
+        /// </summary>
+        public EngineLog Log
+        {
+            get
+            {
+                return this.log;
+            }
+        }
         /// <summary>
         /// Gets the script manager for this game.
         /// </summary>
@@ -278,6 +290,8 @@ namespace FSEGame.Engine
         protected GameBase()
         {
             GameBase.singleton = this;
+
+            this.log = new EngineLog();
 
             this.uiElements = new UIElementCollection();
             this.fpsCounter = new FPSCounter();

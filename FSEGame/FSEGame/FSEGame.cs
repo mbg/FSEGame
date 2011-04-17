@@ -591,46 +591,26 @@ namespace FSEGame
 
         #region BeginBattle
         /// <summary>
-        /// Loads battle data from the specified configuration file and then
-        /// initiates a battle using the battle data from the configuration file.
+        /// 
         /// </summary>
+        /// <param name="configuration"></param>
+        /// <param name="function"></param>
         [ScriptFunction("BeginBattle")]
-        public void BeginBattle(String configuration)
+        public void BeginBattle(String configuration, LuaFunction function)
         {
-            DialogueEventDelegate outroDelegate = null;
-            outroDelegate = new DialogueEventDelegate(delegate
+            BattleEndedDelegate ended = null;
+            ended = new BattleEndedDelegate(delegate(Boolean victory)
             {
-                this.DialogueManager.OnEnd -= outroDelegate;
-                this.RegisterDefaultDialogueHandlers();
-                this.state = GameState.Menu;
-                this.OpenMainMenu();
+                function.Call(new Object[] { victory });
             });
 
-            BattleEndedDelegate battleDelegate = null;
-            battleDelegate = new BattleEndedDelegate(delegate(Boolean victory)
-            {
-                this.battleManager.Ended -= battleDelegate;
-
-                if (victory)
-                {
-                    this.CurrentLevel.Unload();
-
-                    this.character.Orientation = 180.0f;
-
-                    this.UnregisterDefaultDialogueHandlers();
-                    this.DialogueManager.OnEnd += outroDelegate;
-                    this.DialogueManager.PlayDialogue(@"FSEGame\Dialogues\Outro.xml");
-                }
-                else
-                {
-                    this.state = GameState.Menu;
-                    this.gameOverScreen.Show();
-                }
-            });
-
-            this.BeginBattle(configuration, battleDelegate);
+            this.BeginBattle(configuration, ended);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="configuration"></param>
+        /// <param name="ended"></param>
         public void BeginBattle(String configuration, BattleEndedDelegate ended)
         {
             this.state = GameState.Battle;
@@ -661,6 +641,38 @@ namespace FSEGame
             this.fadeScreen.Enabled = true;
             this.fadeScreen.Finished += fadeEndEvent;
             this.fadeScreen.FadeIn(1.0d);
+        }
+        #endregion
+
+        #region PlayOutro
+        [ScriptFunction("PlayOutro")]
+        public void PlayOutro()
+        {
+            DialogueEventDelegate outroDelegate = null;
+            outroDelegate = new DialogueEventDelegate(delegate
+            {
+                this.DialogueManager.OnEnd -= outroDelegate;
+                this.RegisterDefaultDialogueHandlers();
+                this.state = GameState.Menu;
+                this.OpenMainMenu();
+            });
+
+            this.CurrentLevel.Unload();
+
+            this.character.Orientation = 180.0f;
+
+            this.UnregisterDefaultDialogueHandlers();
+            this.DialogueManager.OnEnd += outroDelegate;
+            this.DialogueManager.PlayDialogue(@"FSEGame\Dialogues\Outro.xml");
+        }
+        #endregion
+
+        #region GameOver
+        [ScriptFunction("GameOver")]
+        public void GameOver()
+        {
+            this.state = GameState.Menu;
+            this.gameOverScreen.Show();
         }
         #endregion
     }

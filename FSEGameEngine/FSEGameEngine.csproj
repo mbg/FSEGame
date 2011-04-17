@@ -16,6 +16,14 @@
     <XnaProfile>Reach</XnaProfile>
     <XnaCrossPlatformGroupID>a6c2b28c-0db0-4d91-ba4f-f8eb147e90c2</XnaCrossPlatformGroupID>
     <XnaOutputType>Library</XnaOutputType>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -110,6 +118,7 @@
     <Compile Include="Engine\Dialogues\DialogueVariable.cs" />
     <Compile Include="Engine\Dialogues\DialogueVariableType.cs" />
     <Compile Include="Engine\Effects\Blur.cs" />
+    <Compile Include="Engine\EngineLog.cs" />
     <Compile Include="Engine\FPSCounter.cs" />
     <Compile Include="Engine\GameBase.cs" />
     <Compile Include="Engine\GridHelper.cs" />
