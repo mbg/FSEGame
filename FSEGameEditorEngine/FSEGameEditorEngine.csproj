@@ -124,7 +124,6 @@
     <Compile Include="AddPropertyForm.Designer.cs">
       <DependentUpon>AddPropertyForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="CellPosition.cs" />
     <Compile Include="CellProperties.cs" />
     <Compile Include="EditorLevel.cs" />
     <Compile Include="EditorMode.cs" />

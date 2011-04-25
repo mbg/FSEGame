@@ -20,6 +20,9 @@ using FSEGame.Engine.Effects;
 using FSEGame.Engine.UI;
 using FSEGame.BattleSystem;
 using FSEGame.BattleSystem.Moves;
+using FSEGame.Engine.Pathfinding;
+
+using Path = System.IO.Path;
 #endregion
 
 namespace FSEGame
@@ -189,6 +192,8 @@ namespace FSEGame
             this.DialogueManager.OnEnd -= this.dialogueEndDelegate;
         }
 
+        private Engine.Pathfinding.Path path = null;
+
         #region Draw
         /// <summary>
         /// Draws additional sprites after the level tiles and entities have been
@@ -199,6 +204,35 @@ namespace FSEGame
         {
             if(this.state != GameState.Intro)
                 this.character.Draw(batch);
+
+            if (this.CurrentLevel.LevelLoaded)
+            {
+                
+
+                    if (this.path != null)
+                    {
+                        CellPosition origin = new CellPosition(this.character.CellPosition);
+                        CellPosition[] positions = this.path.ToArray();
+
+                        for (Int32 i = positions.Length - 1; i >= 0; i--)
+                        {
+                            CellPosition position = positions[i];
+
+                            Vector2 start = GridHelper.GridPositionToAbsolute(origin.ToVector2()) + GameBase.Singleton.Offset;
+                            Vector2 end = GridHelper.GridPositionToAbsolute(position.ToVector2()) + GameBase.Singleton.Offset;
+                            start.X += 32;
+                            start.Y += 32;
+                            end.X += 32;
+                            end.Y += 32;
+
+                            this.DrawLine(batch, 2.0f, Color.Red,
+                                start, end);
+
+                            origin = position;
+                        }
+                    }
+                
+            }
         }
         #endregion
 
@@ -278,6 +312,19 @@ namespace FSEGame
                 this.debugText.Visible = !this.debugText.Visible;
             }
 #endif
+
+            if (this.IsKeyPressed(Keys.F3))
+            {
+                LevelEntryPoint exit = this.CurrentLevel.GetEntryPoint("Exit");
+
+                if (exit != null)
+                {
+                    GenericPathfinder pathfinder = new GenericPathfinder(this.CurrentLevel);
+                    CellPosition target = new CellPosition((int)exit.X, (int)exit.Y);
+
+                    this.path = pathfinder.FindPath(new CellPosition(this.character.CellPosition), target);
+                }
+            }
 
             if(this.camera != null && this.CurrentTileset != null)
                 this.camera.Update(this.GraphicsDevice.Viewport);

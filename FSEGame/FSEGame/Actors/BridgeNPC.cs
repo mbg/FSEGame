@@ -71,6 +71,12 @@ namespace FSEGame.Actors
         }
         #endregion
 
+        protected override void PerformAction()
+        {
+            if(!this.Passable)
+                base.PerformAction();
+        }
+
         #region Draw
         /// <summary>
         /// Draws the actor.

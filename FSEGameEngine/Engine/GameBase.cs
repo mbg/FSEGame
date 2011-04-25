@@ -81,6 +81,8 @@ namespace FSEGame.Engine
 
         private KeyboardState currentKeyboardState;
         private KeyboardState lastKeyboardState;
+
+        private Texture2D blank;
         #endregion
 
         #region Events
@@ -383,6 +385,9 @@ namespace FSEGame.Engine
             this.rt2 = new RenderTarget2D(this.GraphicsDevice, 200, 150, false, pp.BackBufferFormat, DepthFormat.None); // 400, 600
 
             this.blurEffect.ComputeOffsets(400, 300);
+
+            this.blank = new Texture2D(this.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
+            this.blank.SetData(new[] { Color.White });
         }
         #endregion
 
@@ -484,6 +489,16 @@ namespace FSEGame.Engine
             base.Draw(gameTime);
         }
         #endregion
+
+        public void DrawLine(SpriteBatch batch, float width, Color color, Vector2 point1, Vector2 point2)
+        {
+            float angle = (float)Math.Atan2(point2.Y - point1.Y, point2.X - point1.X);
+            float length = Vector2.Distance(point1, point2);
+
+            batch.Draw(this.blank, point1, null, color,
+                       angle, Vector2.Zero, new Vector2(length, width),
+                       SpriteEffects.None, 0);
+        }
 
         #region LoadTileset
         /// <summary>

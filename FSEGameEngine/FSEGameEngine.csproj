@@ -109,6 +109,7 @@
     <Compile Include="Engine\ActorProperties.cs" />
     <Compile Include="Engine\CellEventType.cs" />
     <Compile Include="Engine\CellInformation.cs" />
+    <Compile Include="Engine\CellPosition.cs" />
     <Compile Include="Engine\DialogueManager.cs" />
     <Compile Include="Engine\Dialogues\Dialogue.cs" />
     <Compile Include="Engine\Dialogues\DialogueNode.cs" />
@@ -126,6 +127,11 @@
     <Compile Include="Engine\LevelCell.cs" />
     <Compile Include="Engine\LevelEntryPoint.cs" />
     <Compile Include="Engine\Levels\LevelLoadException.cs" />
+    <Compile Include="Engine\Pathfinding\GenericPathfinder.cs" />
+    <Compile Include="Engine\Pathfinding\GenericPathfinderCellInformation.cs" />
+    <Compile Include="Engine\Pathfinding\GenericPathfinderQueue.cs" />
+    <Compile Include="Engine\Pathfinding\IPathfinder.cs" />
+    <Compile Include="Engine\Pathfinding\Path.cs" />
     <Compile Include="Engine\PersistentStorage.cs" />
     <Compile Include="Engine\PersistentStorageItem.cs" />
     <Compile Include="Engine\PersistentStorageItemType.cs" />

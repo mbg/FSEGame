@@ -71,6 +71,14 @@ namespace FSEGame.Engine
                 return this.actors;
             }
         }
+
+        public Boolean LevelLoaded
+        {
+            get
+            {
+                return this.levelLoaded;
+            }
+        }
         #endregion
 
         #region Event Properties
@@ -414,6 +422,8 @@ namespace FSEGame.Engine
             {
                 a.Draw(batch);
             }
+
+            
         }
         #endregion
 
@@ -442,6 +452,9 @@ namespace FSEGame.Engine
         {
             foreach (LevelCell cell in this.cells)
             {
+                if (cell == null)
+                    continue;
+
                 if ((cell.X == position.X) && (cell.Y == position.Y))
                     return cell.Tile.Passable;
             }
