@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<Dialogue ID="root">
+  <Speech ID="speech#1" TextVar="string#1" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="285" Top="82">
+    <Speech ID="speech#2" TextVar="string#2" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="534" Top="86">
+      <Speech ID="speech#3" TextVar="string#3" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="775" Top="86">
+        <Speech ID="speech#4" TextVar="string#4" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="1007" Top="86">
+          <Speech ID="speech#5" TextVar="string#5" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="1255" Top="88">
+            <Speech ID="speech#6" TextVar="string#6" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="1496" Top="86">
+              <Speech ID="speech#7" TextVar="string#7" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="1727" Top="87">
+                <Speech ID="speech#8" TextVar="string#8" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="1979" Top="92">
+                  <Speech ID="speech#9" TextVar="string#9" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="2221" Top="98" />
+                </Speech>
+              </Speech>
+            </Speech>
+          </Speech>
+        </Speech>
+      </Speech>
+    </Speech>
+  </Speech>
+  <Orphans />
+  <Variables>
+    <StringVar Name="string#1" Export="False" Left="278" Top="213">Vernado: You built a torch and crossed the bridge!</StringVar>
+    <StringVar Name="string#2" Export="False" Left="525" Top="221">Markus: And you even defeated one of those monsters that took control of the bridges.</StringVar>
+    <StringVar Name="string#3" Export="False" Left="769" Top="229">Vernado: Markus is right, that... thing you just saw was one of Malus' minions.</StringVar>
+    <StringVar Name="string#4" Export="False" Left="1001" Top="235">Vernado: I can't believe you defeated it on your own!</StringVar>
+    <StringVar Name="string#5" Export="False" Left="1252" Top="247">Maro: Maybe you should leave this village and help the others?</StringVar>
+    <StringVar Name="string#6" Export="False" Left="1496" Top="251">Vernado: That might be an excellent idea.</StringVar>
+    <StringVar Name="string#7" Export="False" Left="1738" Top="269">Vernado: Beyond this bridge lies a forest which you have to pass to get to the nearest market town.</StringVar>
+    <StringVar Name="string#8" Export="False" Left="1970" Top="248">Vernado: If you need any supplies, talk to us at any time!</StringVar>
+    <StringVar Name="string#9" Export="False" Left="2222" Top="243">Vernado: Good luck!</StringVar>
+  </Variables>
+</Dialogue>

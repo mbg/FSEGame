@@ -16,6 +16,7 @@ using FSEGame.Engine.Dialogues;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using LuaInterface;
 #endregion
 
 namespace FSEGame.Engine
@@ -175,6 +176,20 @@ namespace FSEGame.Engine
 
             this.LoadDialogue(filename);
             this.PlayDialogue();
+        }
+        [ScriptFunction("PlayDialogueAndRun")]
+        public void PlayDialogue(String filename, LuaFunction ended)
+        {
+            DialogueEventDelegate end = null;
+            end = new DialogueEventDelegate(delegate
+            {
+                this.onEnd -= end;
+
+                ended.Call();
+            });
+
+            this.onEnd += end;
+            this.PlayDialogue(filename);
         }
         /// <summary>
         /// 

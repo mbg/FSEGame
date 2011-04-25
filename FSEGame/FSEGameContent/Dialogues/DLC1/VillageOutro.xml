@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<Dialogue ID="root">
+  <Speech ID="speech#1" TextVar="string#1" Mode="Time" Time="0">
+    <Speech ID="speech#2" TextVar="string#2" Mode="Time" Time="0">
+      <Speech ID="speech#3" TextVar="string#3" Mode="Time" Time="0">
+        <Speech ID="speech#4" TextVar="string#4" Mode="Time" Time="0">
+          <Speech ID="speech#5" TextVar="string#5" Mode="Time" Time="0">
+            <Speech ID="speech#6" TextVar="string#6" Mode="Time" Time="0">
+              <Speech ID="speech#7" TextVar="string#7" Mode="Time" Time="0">
+                <Speech ID="speech#8" TextVar="string#8" Mode="Time" Time="0">
+                  <Speech ID="speech#9" TextVar="string#9" Mode="Time" Time="0" />
+                </Speech>
+              </Speech>
+            </Speech>
+          </Speech>
+        </Speech>
+      </Speech>
+    </Speech>
+  </Speech>
+  <Variables>
+    <StringVar Name="string#1" Export="False">Vernado: You built a torch and crossed the bridge!</StringVar>
+    <StringVar Name="string#2" Export="False">Markus: And you even defeated one of those monsters that took control of the bridges.</StringVar>
+    <StringVar Name="string#3" Export="False">Vernado: Markus is right, that... thing you just saw was one of Malus' minions.</StringVar>
+    <StringVar Name="string#4" Export="False">Vernado: I can't believe you defeated it on your own!</StringVar>
+    <StringVar Name="string#5" Export="False">Maro: Maybe you should leave this village and help the others?</StringVar>
+    <StringVar Name="string#6" Export="False">Vernado: That might be an excellent idea.</StringVar>
+    <StringVar Name="string#7" Export="False">Vernado: Beyond this bridge lies a forest which you have to pass to get to the nearest market town.</StringVar>
+    <StringVar Name="string#8" Export="False">Vernado: If you need any supplies, talk to us at any time!</StringVar>
+    <StringVar Name="string#9" Export="False">Vernado: Good luck!</StringVar>
+  </Variables>
+</Dialogue>

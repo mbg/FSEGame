@@ -13,6 +13,7 @@ using System;
 using System.Drawing.Design;
 using System.ComponentModel;
 using System.Collections.Generic;
+using System.Windows.Forms;
 #endregion
 
 namespace FSEGameEditorEngine
@@ -45,12 +46,21 @@ namespace FSEGameEditorEngine
 
         public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
         {
-            using (ActorPropertyEditorForm form = 
-                new ActorPropertyEditorForm((Dictionary<String, String>)value))
-            {
-                form.ShowDialog();
+            Dictionary<String, String> result = (Dictionary<String, String>)value;
 
-                return form.Properties;
+            using (ActorPropertyEditorForm form = new ActorPropertyEditorForm(result))
+            {
+                if (form.ShowDialog() == DialogResult.Cancel)
+                    return value;
+
+                result.Clear();
+
+                foreach (String key in form.Properties.Keys)
+                {
+                    result.Add(key, form.Properties[key]);
+                }
+
+                return result;
             }
         }
 

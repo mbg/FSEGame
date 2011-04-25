@@ -32,6 +32,7 @@ namespace FSEGame.Actors
         private LuaFunction actorFunction = null;
         private LuaFunction updateFunction = null;
         private LuaFunction eventFunction = null;
+        private Boolean visible = true;
         #endregion
 
         #region Properties
@@ -55,6 +56,17 @@ namespace FSEGame.Actors
             set
             {
                 this.eventFunction = value;
+            }
+        }
+        public Boolean Visible
+        {
+            get
+            {
+                return this.visible;
+            }
+            set
+            {
+                this.visible = value;
             }
         }
         #endregion
@@ -102,6 +114,12 @@ namespace FSEGame.Actors
         public String GetProperty(String key)
         {
             return this.Properties.Properties[key];
+        }
+
+        public override void Draw(SpriteBatch batch)
+        {
+            if(this.visible)
+                base.Draw(batch);
         }
     }
 }

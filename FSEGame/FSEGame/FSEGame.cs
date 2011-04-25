@@ -175,12 +175,14 @@ namespace FSEGame
         }
         #endregion
 
+        [ScriptFunction("RegisterDefaultDialogueHandlers")]
         public void RegisterDefaultDialogueHandlers()
         {
             this.DialogueManager.OnStart += this.dialogueStartDelegate;
             this.DialogueManager.OnEnd += this.dialogueEndDelegate;
         }
 
+        [ScriptFunction("UnregisterDefaultDialogueHandlers")]
         public void UnregisterDefaultDialogueHandlers()
         {
             this.DialogueManager.OnStart -= this.dialogueStartDelegate;
@@ -353,6 +355,42 @@ namespace FSEGame
                 this.character.Enabled = true;
             }
         }
+        [ScriptFunction("LoadLevelAndRun")]
+        public void LoadLevel(String name, String entryPoint, LuaFunction function)
+        {
+            this.character.Enabled = false;
+
+            FadeScreenEventDelegate cleanupDelegate = null;
+            cleanupDelegate = new FadeScreenEventDelegate(delegate
+            {
+                this.fadeScreen.Visible = false;
+                this.fadeScreen.Enabled = false;
+                this.fadeScreen.Finished -= cleanupDelegate;
+
+                this.character.Enabled = true;
+            });
+
+            FadeScreenEventDelegate loadDelegate = null;
+            loadDelegate = new FadeScreenEventDelegate(delegate
+            {
+                base.LoadLevel(name, entryPoint);
+
+                LevelEntryPoint ep = this.CurrentLevel.GetEntryPoint(entryPoint);
+                this.character.CellPosition = new Vector2(ep.X, ep.Y);
+                this.character.Orientation = ep.Orientation;
+
+                this.fadeScreen.Finished -= loadDelegate;
+                this.fadeScreen.Finished += cleanupDelegate;
+                this.fadeScreen.FadeOut(1.0d);
+
+                function.Call();
+            });
+
+            this.fadeScreen.Enabled = true;
+            this.fadeScreen.Visible = true;
+            this.fadeScreen.Finished += loadDelegate;
+            this.fadeScreen.FadeIn(1.0d);
+        }
         #endregion
 
         public void OpenMainMenu()
@@ -505,7 +543,9 @@ namespace FSEGame
             {
                 Byte version = br.ReadByte();
 
-                if (version != 0x01)
+                if (version == 0x01)
+                    throw new Exception("Save games from previous versions of the game are not supported.");
+                else if (version != 0x02)
                     throw new Exception("!!! Invalid save file");
 
                 String levelFilename = br.ReadString();
@@ -526,6 +566,7 @@ namespace FSEGame
                 // :: Initialise the player character using the attributes obtained
                 // :: previously.
                 this.playerCharacter = new PlayerCharacter(baseAttributes);
+                this.playerCharacter.LoadFromBinary(br);
                 this.playerCharacter.CurrentAttributes = currentAttributes;
 
                 // ::
@@ -567,7 +608,7 @@ namespace FSEGame
             using (FileStream fs = new FileStream(path, FileMode.Create, FileAccess.Write))
             using (BinaryWriter bw = new BinaryWriter(fs))
             {
-                bw.Write((Byte)0x01);
+                bw.Write((Byte)0x02);
                 bw.Write(this.CurrentLevel.LevelFilename);
                 bw.Write(this.character.CellPosition.X);
                 bw.Write(this.character.CellPosition.Y);
@@ -575,6 +616,7 @@ namespace FSEGame
 
                 this.playerCharacter.BaseAttributes.SaveToBinary(bw);
                 this.playerCharacter.CurrentAttributes.SaveToBinary(bw);
+                this.playerCharacter.SaveToBinary(bw);
 
                 // :: Save the player's moves.
                 bw.Write(this.playerCharacter.Moves.Count);
@@ -613,11 +655,13 @@ namespace FSEGame
         /// <param name="ended"></param>
         public void BeginBattle(String configuration, BattleEndedDelegate ended)
         {
+            GameState previousState = this.state;
             this.state = GameState.Battle;
 
             BattleEndedDelegate battleDelegate = null;
             battleDelegate = new BattleEndedDelegate(delegate(Boolean victory)
             {
+                this.state = previousState;
                 this.battleManager.Ended -= battleDelegate;
 
                 ended(victory);
@@ -643,6 +687,25 @@ namespace FSEGame
             this.fadeScreen.FadeIn(1.0d);
         }
         #endregion
+
+        #region SetGameState
+        /// <summary>
+        /// Sets the current state of the game. This method is intended to
+        /// be used by Lua. Everything else should use the GameState property.
+        /// </summary>
+        /// <param name="state"></param>
+        [ScriptFunction("SetGameState")]
+        public void SetGameState(GameState state)
+        {
+            this.state = state;
+        }
+        #endregion
+
+        [ScriptFunction("EnablePlayer")]
+        public void EnablePlayer()
+        {
+            this.character.Enabled = true;
+        }
 
         #region PlayOutro
         [ScriptFunction("PlayOutro")]

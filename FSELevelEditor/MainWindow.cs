@@ -295,6 +295,7 @@ namespace FSELevelEditor
         private void createModeButton_Click(object sender, EventArgs e)
         {
             this.levelEditor.EditMode = false;
+            this.levelEditor.RemoveMode = false;
             this.editModeButton.Checked = false;
             this.createModeButton.Checked = true;
             this.removeModeButton.Checked = false;
@@ -479,6 +480,12 @@ namespace FSELevelEditor
             if (!this.VerifyGameExecutableExists())
                 return;
 
+            if (!this.HandleUnsavedData())
+                return;
+
+            if (!this.HandleSynchronisation())
+                return;
+
             Process.Start("FSEGame.exe");
         }
         #endregion
@@ -650,15 +657,21 @@ namespace FSELevelEditor
         {
             this.lockTilesToolStripMenuItem.Checked = !this.lockTilesToolStripMenuItem.Checked;
             this.levelEditor.LockTiles = this.lockTilesToolStripMenuItem.Checked;
+            this.lockStatusLabel.Text = this.levelEditor.LockTiles ? "Locked" : "Unlocked";
         }
         #endregion
 
+        #region HandleUnsavedData
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private Boolean HandleUnsavedData()
         {
             if (this.levelEditor.CurrentLevel.Changed)
             {
                 DialogResult result = MessageBox.Show(
-                    "The current level contains unsaved changes. Would you like to save now?",
+                    "The current level contains unsaved changes. Would you like to save them now?",
                     "Level Editor",
                     MessageBoxButtons.YesNoCancel,
                     MessageBoxIcon.Question);
@@ -675,5 +688,88 @@ namespace FSELevelEditor
 
             return true;
         }
+        #endregion
+
+        #region HandleSynchronisation
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private Boolean HandleSynchronisation()
+        {
+            DialogResult result = MessageBox.Show(
+                "Would you like to synchronise updated game files before continuing?",
+                "Level Editor",
+                MessageBoxButtons.YesNoCancel,
+                MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                this.synchroniseToolStripMenuItem_Click(null, EventArgs.Empty);
+            }
+            else if (result == DialogResult.Cancel)
+            {
+                return false;
+            }
+
+            return true;
+        }
+        #endregion
+
+        #region Synchronise
+        /// <summary>
+        /// Synchronises files from the release/debug folder (the one containing the level editor binary) to the
+        /// game content project.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void synchroniseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show(
+                "This will copy files from the release/debug folder to the game content project.\n\nAre you sure you wish to continue?",
+                "Level Editor",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                using (SynchronisationResultsDialog dia = new SynchronisationResultsDialog())
+                {
+                    List<FileSynchroniser> syncTasks = new List<FileSynchroniser>();
+                    UInt32 errors = 0;
+
+                    // :: Add synchronisation tasks.
+                    syncTasks.Add(new FileSynchroniser(@".\FSEGame\Scripts\Core.ini", @".\..\FSEGame\FSEGameContent\Scripts\Core.ini"));
+                    syncTasks.Add(new FileSynchroniser(@".\FSEGame\Scripts\Moves.ini", @".\..\FSEGame\FSEGameContent\Scripts\Moves.ini"));
+
+                    DirectoryInfo info = new DirectoryInfo(@".\FSEGame\Levels\");
+
+                    foreach(FileInfo fileInfo in info.GetFiles("*.xml", SearchOption.AllDirectories))
+                    {
+                        String relativePath = fileInfo.FullName.Replace(info.FullName, String.Empty);
+
+                        syncTasks.Add(new FileSynchroniser(
+                            Path.Combine(fileInfo.FullName),
+                            Path.Combine(@".\..\FSEGame\FSEGameContent\Levels\", relativePath)));
+                    }
+
+                    // :: Run the synchronisation tasks.
+                    foreach (FileSynchroniser sync in syncTasks)
+                    {
+                        sync.Synchronise();
+
+                        if (sync.Error)
+                            errors++;
+
+                        dia.AddMessage(sync.StatusMessage);
+                    }
+
+                    // :: Show the results window.
+                    dia.SetErrorCount(errors);
+                    dia.ShowDialog();
+                }
+            }
+        }
+        #endregion
     }
 }

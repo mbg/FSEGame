@@ -28,6 +28,7 @@ namespace FSEGame
         private UIHealthBar opponentHealthBar;
         private StaticText playerName;
         private UIHealthBar playerHealthBar;
+        private UIProgressBar playerExperienceBar;
         private UIButtonGrid mainBattleMenu;
         private UIButtonGrid attackMenu;
         private UIButtonGrid magicMenu;
@@ -156,6 +157,11 @@ namespace FSEGame
             this.playerHealthBar.Maximum = 100;
             this.playerHealthBar.Value = 100;
 
+            this.playerExperienceBar = new UIProgressBar("ProgressBarSmall", "ProgressBarSmallFilled");
+            this.playerExperienceBar.Position = new Vector2(430, 457);
+            this.playerExperienceBar.Maximum = 100;
+            this.playerExperienceBar.Value = 50;
+
             this.mainBattleMenu = new UIButtonGrid(2, 2);
             this.mainBattleMenu.Visible = false;
             this.mainBattleMenu.Buttons[0, 0] = new UIGridButton("Attack", new Vector2(70, 500));
@@ -177,6 +183,7 @@ namespace FSEGame
             base.Children.Add(this.playerHealthBar);
             base.Children.Add(this.mainBattleMenu);
             base.Children.Add(this.attackMenu);
+            base.Children.Add(this.playerExperienceBar);
         }
         #endregion
     }

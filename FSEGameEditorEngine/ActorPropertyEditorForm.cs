@@ -50,12 +50,14 @@ namespace FSEGameEditorEngine
 
         private void kryptonButton1_Click(object sender, EventArgs e)
         {
+            this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
 
         private void okButton_Click(object sender, EventArgs e)
         {
             this.properties = this.tempProperties;
+            this.DialogResult = DialogResult.OK;
             this.Close();
         }
 

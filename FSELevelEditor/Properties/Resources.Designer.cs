@@ -67,6 +67,13 @@ namespace FSELevelEditor.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap _112_RefreshArrow_Green_16x16_72 {
+            get {
+                object obj = ResourceManager.GetObject("112_RefreshArrow_Green_16x16_72", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap _1532_Flag_system_Blue {
             get {
                 object obj = ResourceManager.GetObject("1532_Flag_system_Blue", resourceCulture);

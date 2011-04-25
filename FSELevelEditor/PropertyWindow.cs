@@ -33,6 +33,8 @@ namespace FSELevelEditor
         public PropertyWindow(MainWindow mainWindow)
         {
             InitializeComponent();
+
+            this.mainWindow = mainWindow;
         }
 
         private void PropertyWindow_FormClosing(object sender, FormClosingEventArgs e)

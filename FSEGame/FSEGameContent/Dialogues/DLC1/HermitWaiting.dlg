@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<Dialogue ID="root">
+  <Speech ID="speech#1" TextVar="string#1" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="289" Top="81" />
+  <Orphans />
+  <Variables>
+    <StringVar Name="string#1" Export="False" Left="288" Top="238">Hermit: What are you waiting for?</StringVar>
+  </Variables>
+</Dialogue>

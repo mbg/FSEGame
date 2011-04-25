@@ -538,7 +538,6 @@
     <Cell X="11" Y="29" Tile="TreeTopLeft" />
     <Cell X="10" Y="27" Tile="TreeTopRight" />
     <Cell X="12" Y="27" Tile="TreeTopRight" />
-    <Cell X="12" Y="29" Tile="TreeTopRight" />
     <Cell X="10" Y="29" Tile="TreeTopRight" />
     <Cell X="10" Y="28" Tile="TreeBottomRight" />
     <Cell X="12" Y="28" Tile="TreeBottomRight" />
@@ -682,16 +681,73 @@
     <Cell X="16" Y="22" Tile="TreeBottomRight" />
     <Cell X="16" Y="20" Tile="TreeBottomRight" />
     <Cell X="18" Y="20" Tile="TreeBottomRight" />
+    <Cell X="15" Y="35" Tile="TreeTopLeft" />
+    <Cell X="16" Y="35" Tile="TreeTopRight" />
+    <Cell X="15" Y="36" Tile="TreeBottomLeft" />
+    <Cell X="16" Y="36" Tile="TreeBottomRight" />
+    <Cell X="17" Y="35" Tile="TreeTopLeft" />
+    <Cell X="18" Y="35" Tile="TreeTopRight" />
+    <Cell X="17" Y="36" Tile="TreeBottomLeft" />
+    <Cell X="18" Y="36" Tile="TreeBottomRight" />
+    <Cell X="12" Y="29" Tile="TreeTopRight" />
+    <Cell X="19" Y="28" Tile="TreeBottomLeft" />
+    <Cell X="19" Y="27" Tile="TreeTopLeft" />
+    <Cell X="19" Y="26" Tile="TreeBottomLeft" />
+    <Cell X="19" Y="24" Tile="TreeBottomLeft" />
+    <Cell X="19" Y="22" Tile="TreeBottomLeft" />
+    <Cell X="19" Y="20" Tile="TreeBottomLeft" />
+    <Cell X="21" Y="30" Tile="TreeBottomLeft" />
+    <Cell X="21" Y="28" Tile="TreeBottomLeft" />
+    <Cell X="21" Y="26" Tile="TreeBottomLeft" />
+    <Cell X="21" Y="24" Tile="TreeBottomLeft" />
+    <Cell X="21" Y="22" Tile="TreeBottomLeft" />
+    <Cell X="21" Y="20" Tile="TreeBottomLeft" />
+    <Cell X="19" Y="25" Tile="TreeTopLeft" />
+    <Cell X="19" Y="23" Tile="TreeTopLeft" />
+    <Cell X="19" Y="19" Tile="TreeTopLeft" />
+    <Cell X="19" Y="21" Tile="TreeTopLeft" />
+    <Cell X="21" Y="19" Tile="TreeTopLeft" />
+    <Cell X="21" Y="21" Tile="TreeTopLeft" />
+    <Cell X="21" Y="23" Tile="TreeTopLeft" />
+    <Cell X="21" Y="25" Tile="TreeTopLeft" />
+    <Cell X="21" Y="27" Tile="TreeTopLeft" />
+    <Cell X="21" Y="29" Tile="TreeTopLeft" />
+    <Cell X="22" Y="30" Tile="TreeBottomRight" />
+    <Cell X="22" Y="28" Tile="TreeBottomRight" />
+    <Cell X="22" Y="26" Tile="TreeBottomRight" />
+    <Cell X="20" Y="26" Tile="TreeBottomRight" />
+    <Cell X="20" Y="28" Tile="TreeBottomRight" />
+    <Cell X="20" Y="24" Tile="TreeBottomRight" />
+    <Cell X="22" Y="24" Tile="TreeBottomRight" />
+    <Cell X="22" Y="22" Tile="TreeBottomRight" />
+    <Cell X="20" Y="22" Tile="TreeBottomRight" />
+    <Cell X="20" Y="20" Tile="TreeBottomRight" />
+    <Cell X="22" Y="20" Tile="TreeBottomRight" />
+    <Cell X="20" Y="19" Tile="TreeTopRight" />
+    <Cell X="20" Y="21" Tile="TreeTopRight" />
+    <Cell X="20" Y="23" Tile="TreeTopRight" />
+    <Cell X="20" Y="25" Tile="TreeTopRight" />
+    <Cell X="20" Y="27" Tile="TreeTopRight" />
+    <Cell X="22" Y="29" Tile="TreeTopRight" />
+    <Cell X="22" Y="27" Tile="TreeTopRight" />
+    <Cell X="22" Y="25" Tile="TreeTopRight" />
+    <Cell X="22" Y="23" Tile="TreeTopRight" />
+    <Cell X="22" Y="21" Tile="TreeTopRight" />
+    <Cell X="22" Y="19" Tile="TreeTopRight" />
+    <Cell X="21" Y="31" Tile="Dirt" />
+    <Cell X="22" Y="31" Tile="Dirt" />
+    <Cell X="19" Y="34" Tile="Dirt" />
+    <Cell X="20" Y="34" Tile="Dirt" />
+    <Cell X="21" Y="34" Tile="Dirt" />
+    <Cell X="22" Y="34" Tile="Dirt" />
   </Cells>
   <Actors>
     <Actor X="8" Y="7" Type="ChestActor" />
-    <Actor X="13" Y="32" Type="ScriptedActor">
-      <Property Name="States">2</Property>
-      <Property Name="Dialogue">FSEGame\Dialogues\TestDialogue.xml</Property>
-      <Property Name="Function">ScriptedVernado</Property>
+    <Actor X="16" Y="30" Type="ScriptedActor">
+      <Property Name="Function">Hermit</Property>
       <Property Name="Tileset">Tilesets\GenericNPC.xml</Property>
-      <Property Name="DefaultDialogue">FSEGame\Dialogues\Vernado.xml</Property>
-      <Property Name="PostTorchDialogue">FSEGame\Dialogues\TestDialogue.xml</Property>
+      <Property Name="Dialogue">FSEGame\Dialogues\TestDialogue.xml</Property>
+      <Property Name="States">2</Property>
     </Actor>
   </Actors>
   <RandomEncounters />

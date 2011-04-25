@@ -143,6 +143,18 @@
       <Processor>PassThroughProcessor</Processor>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Dialogues\DLC1\MarkusPostBattle.xml">
+      <Name>MarkusPostBattle</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dialogues\DLC1\MaroPostBattle.xml">
+      <Name>MaroPostBattle</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Dialogues\DLC1\ShopFailure.xml">
       <Name>ShopFailure</Name>
       <Importer>XmlImporter</Importer>
@@ -163,6 +175,18 @@
     </Content>
     <Content Include="Dialogues\DLC1\ShopSuccess.xml">
       <Name>ShopSuccess</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dialogues\DLC1\VernadoPostBattle.xml">
+      <Name>VernadoPostBattle</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dialogues\DLC1\VillageOutro.xml">
+      <Name>VillageOutro</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -288,6 +312,12 @@
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
     </Content>
+    <Content Include="Levels\DLC1\Forest.xml">
+      <Name>Forest</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Levels\House4.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -398,6 +428,16 @@
       <Processor>PassThroughProcessor</Processor>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Compile Include="ProgressBarSmall.png">
+      <Name>ProgressBarSmall</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ProgressBarSmallFilled.png">
+      <Name>ProgressBarSmallFilled</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <Content Include="Tilesets\Character.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -549,7 +589,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="BattleData\RandomEncounters\" />
-    <Folder Include="Levels\DLC1\" />
     <Folder Include="Scripts\DLC1\" />
   </ItemGroup>
   <ItemGroup>
@@ -573,6 +612,18 @@
   <ItemGroup>
     <Content Include="Scripts\DLC1Forest.lua">
       <Name>DLC1Forest</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\Actors\VillageActors.lua">
+      <Name>VillageActors</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\Actors\ForestActors.lua">
+      <Name>ForestActors</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

@@ -60,12 +60,15 @@ namespace FSEGame
         /// <param name="arguments"></param>
         private void Run(String[] arguments)
         {
+#if !DEBUG
             try
             {
+#endif
                 this.commandLineParser = new CommandLineParser(arguments);
 
                 FSEGame.Singleton.OnInitialise += new GameEventDelegate(game_OnInitialise);
                 FSEGame.Singleton.Run();
+#if !DEBUG
             }
             catch (Exception ex)
             {
@@ -76,6 +79,7 @@ namespace FSEGame
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
+#endif
         }
         #endregion
 

@@ -80,6 +80,7 @@
     <Compile Include="EntryPointDialog.Designer.cs">
       <DependentUpon>EntryPointDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="FileSynchroniser.cs" />
     <Compile Include="LevelPropertiesDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -105,6 +106,12 @@
     </Compile>
     <Compile Include="RandomEncountersDialog.Designer.cs">
       <DependentUpon>RandomEncountersDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SynchronisationResultsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SynchronisationResultsDialog.Designer.cs">
+      <DependentUpon>SynchronisationResultsDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="TilesetChangedEventArgs.cs" />
     <Compile Include="TilesetWindow.cs">
@@ -140,6 +147,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RandomEncountersDialog.resx">
       <DependentUpon>RandomEncountersDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SynchronisationResultsDialog.resx">
+      <DependentUpon>SynchronisationResultsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TilesetWindow.resx">
       <DependentUpon>TilesetWindow.cs</DependentUpon>
@@ -188,6 +198,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\DeleteHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\112_RefreshArrow_Green_16x16_72.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

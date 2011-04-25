@@ -1,7 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<Level Name="House4" Tileset="Tilesets\Indoor.xml" Script="Scripts\House4.lua" SizeX="7" SizeY="7">
+<Level Name="House4" Tileset="Tilesets\Indoor.xml" Script="Scripts\House4.lua" SizeX="7" SizeY="7" RandomEncounters="False">
   <EntryPoints>
-    <EntryPoint Name="Entrance" X="3" Y="5" />
+    <EntryPoint Name="Entrance" X="3" Y="5" Orientation="0" />
   </EntryPoints>
   <Cells>
     <Cell X="0" Y="0" Tile="WoodWallLtoT" />
@@ -11,7 +10,6 @@
     <Cell X="0" Y="4" Tile="WoodWallLeft" />
     <Cell X="0" Y="5" Tile="WoodWallLeft" />
     <Cell X="0" Y="6" Tile="WoodWallLtoB" />
-
     <Cell X="1" Y="0" Tile="WoodWallTop" />
     <Cell X="1" Y="1" Tile="WoodFloor1" />
     <Cell X="1" Y="2" Tile="WoodFloor1" />
@@ -19,7 +17,6 @@
     <Cell X="1" Y="4" Tile="WoodFloor1" />
     <Cell X="1" Y="5" Tile="WoodFloor1" />
     <Cell X="1" Y="6" Tile="WoodWallBottom" />
-
     <Cell X="2" Y="0" Tile="WoodWallTop" />
     <Cell X="2" Y="1" Tile="WoodFloor1" />
     <Cell X="2" Y="2" Tile="WoodFloor1" />
@@ -27,15 +24,13 @@
     <Cell X="2" Y="4" Tile="WoodFloor1" />
     <Cell X="2" Y="5" Tile="WoodFloor1" />
     <Cell X="2" Y="6" Tile="WoodDoorBottomLeft" />
-
     <Cell X="3" Y="0" Tile="WoodWallTop" />
     <Cell X="3" Y="1" Tile="WoodFloor1" />
     <Cell X="3" Y="2" Tile="WoodFloor1" />
     <Cell X="3" Y="3" Tile="WoodFloor1" />
     <Cell X="3" Y="4" Tile="WoodFloor1" />
     <Cell X="3" Y="5" Tile="WoodFloor1" />
-    <Cell X="3" Y="6" Event="Exit" Tile="WoodFloor1" />
-
+    <Cell X="3" Y="6" Tile="WoodFloor1" Event="Exit" />
     <Cell X="4" Y="0" Tile="WoodWallTop" />
     <Cell X="4" Y="1" Tile="WoodFloor1" />
     <Cell X="4" Y="2" Tile="WoodFloor1" />
@@ -43,7 +38,6 @@
     <Cell X="4" Y="4" Tile="WoodFloor1" />
     <Cell X="4" Y="5" Tile="WoodFloor1" />
     <Cell X="4" Y="6" Tile="WoodDoorBottomRight" />
-
     <Cell X="5" Y="0" Tile="WoodWallTop" />
     <Cell X="5" Y="1" Tile="WoodFloor1" />
     <Cell X="5" Y="2" Tile="WoodFloor1" />
@@ -51,7 +45,6 @@
     <Cell X="5" Y="4" Tile="BedTop" />
     <Cell X="5" Y="5" Tile="BedBottom" />
     <Cell X="5" Y="6" Tile="WoodWallBottom" />
-
     <Cell X="6" Y="0" Tile="WoodWallTtoR" />
     <Cell X="6" Y="1" Tile="WoodWallRight" />
     <Cell X="6" Y="2" Tile="WoodWallRight" />
@@ -61,9 +54,11 @@
     <Cell X="6" Y="6" Tile="WoodWallRtoB" />
   </Cells>
   <Actors>
-    <Actor X="4" Y="2" Type="Maro">
+    <Actor X="4" Y="2" Type="ScriptedActor">
       <Property Name="Tileset">Tilesets\GenericNPC.xml</Property>
       <Property Name="States">2</Property>
+      <Property Name="Function">Maro</Property>
     </Actor>
   </Actors>
+  <RandomEncounters />
 </Level>

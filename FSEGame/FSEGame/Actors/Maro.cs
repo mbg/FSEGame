@@ -143,7 +143,7 @@ namespace FSEGame.Actors
         }
         #endregion
 
-        #region GiveStick
+        #region GiveCoal
         /// <summary>
         /// Sets the I_Coal game state variable to 10 (indicating its availability) and
         /// verifies whether the player owns both the coal and stick.

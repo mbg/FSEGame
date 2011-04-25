@@ -1,11 +1,11 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<Level Name="Village" Tileset="Tilesets\Outdoor.xml" Script="Scripts\Village.lua" SizeX="32" SizeY="32">
+<Level Name="Village" Tileset="Tilesets\Outdoor.xml" Script="Scripts\Village.lua" SizeX="34" SizeY="32" RandomEncounters="False">
   <EntryPoints>
-    <EntryPoint Name="PlayerHouseExit" X="7" Y="7" />
-    <EntryPoint Name="House1Exit" X="17" Y="8" />
-    <EntryPoint Name="House2Exit" X="21" Y="8" />
-    <EntryPoint Name="House3Exit" X="17" Y="14" />
-    <EntryPoint Name="House4Exit" X="21" Y="14" />
+    <EntryPoint Name="PlayerHouseExit" X="7" Y="7" Orientation="180" />
+    <EntryPoint Name="House1Exit" X="17" Y="8" Orientation="180" />
+    <EntryPoint Name="House2Exit" X="21" Y="8" Orientation="180" />
+    <EntryPoint Name="House3Exit" X="17" Y="14" Orientation="180" />
+    <EntryPoint Name="House4Exit" X="21" Y="14" Orientation="180" />
+    <EntryPoint Name="FromBridgeBattle" X="25" Y="25" Orientation="270" />
   </EntryPoints>
   <Cells>
     <Cell X="0" Y="0" Tile="TreeTopLeft" />
@@ -40,7 +40,6 @@
     <Cell X="0" Y="29" Tile="TreeBottomLeft" />
     <Cell X="0" Y="30" Tile="TreeTopLeft" />
     <Cell X="0" Y="31" Tile="TreeBottomLeft" />
-
     <Cell X="1" Y="0" Tile="TreeTopRight" />
     <Cell X="1" Y="1" Tile="TreeBottomRight" />
     <Cell X="1" Y="2" Tile="WaterCornerN" />
@@ -73,7 +72,6 @@
     <Cell X="1" Y="29" Tile="TreeBottomRight" />
     <Cell X="1" Y="30" Tile="TreeTopRight" />
     <Cell X="1" Y="31" Tile="TreeBottomRight" />
-
     <Cell X="2" Y="0" Tile="TreeTopLeft" />
     <Cell X="2" Y="1" Tile="TreeBottomLeft" />
     <Cell X="2" Y="2" Tile="WaterCornerN" />
@@ -106,7 +104,6 @@
     <Cell X="2" Y="29" Tile="TreeBottomLeft" />
     <Cell X="2" Y="30" Tile="TreeTopLeft" />
     <Cell X="2" Y="31" Tile="TreeBottomLeft" />
-
     <Cell X="3" Y="0" Tile="TreeTopRight" />
     <Cell X="3" Y="1" Tile="TreeBottomRight" />
     <Cell X="3" Y="2" Tile="WaterCornerN" />
@@ -139,7 +136,6 @@
     <Cell X="3" Y="29" Tile="TreeBottomRight" />
     <Cell X="3" Y="30" Tile="TreeTopRight" />
     <Cell X="3" Y="31" Tile="TreeBottomRight" />
-
     <Cell X="4" Y="0" Tile="TreeTopLeft" />
     <Cell X="4" Y="1" Tile="TreeBottomLeft" />
     <Cell X="4" Y="2" Tile="WaterCornerN" />
@@ -172,7 +168,6 @@
     <Cell X="4" Y="29" Tile="TreeBottomLeft" />
     <Cell X="4" Y="30" Tile="TreeTopLeft" />
     <Cell X="4" Y="31" Tile="TreeBottomLeft" />
-
     <Cell X="5" Y="0" Tile="TreeTopRight" />
     <Cell X="5" Y="1" Tile="TreeBottomRight" />
     <Cell X="5" Y="2" Tile="WaterCornerN" />
@@ -205,7 +200,6 @@
     <Cell X="5" Y="29" Tile="TreeBottomRight" />
     <Cell X="5" Y="30" Tile="TreeTopRight" />
     <Cell X="5" Y="31" Tile="TreeBottomRight" />
-
     <Cell X="6" Y="0" Tile="TreeTopLeft" />
     <Cell X="6" Y="1" Tile="TreeBottomLeft" />
     <Cell X="6" Y="2" Tile="WaterCornerN" />
@@ -238,14 +232,13 @@
     <Cell X="6" Y="29" Tile="TreeBottomLeft" />
     <Cell X="6" Y="30" Tile="TreeTopLeft" />
     <Cell X="6" Y="31" Tile="TreeBottomLeft" />
-
     <Cell X="7" Y="0" Tile="TreeTopRight" />
     <Cell X="7" Y="1" Tile="TreeBottomRight" />
     <Cell X="7" Y="2" Tile="WaterCornerN" />
     <Cell X="7" Y="3" Tile="WaterCornerS" />
     <Cell X="7" Y="4" Tile="GenericHouseRoofCentreFar" />
     <Cell X="7" Y="5" Tile="GenericHouseRoofCentre" />
-    <Cell X="7" Y="6" Event="EnterPlayerHouse" Tile="GenericHouseDoor" />
+    <Cell X="7" Y="6" Tile="GenericHouseDoor" Event="EnterPlayerHouse" />
     <Cell X="7" Y="7" Tile="PathUD" />
     <Cell X="7" Y="8" Tile="PathUD" />
     <Cell X="7" Y="9" Tile="PathUR" />
@@ -271,7 +264,6 @@
     <Cell X="7" Y="29" Tile="TreeBottomRight" />
     <Cell X="7" Y="30" Tile="TreeTopRight" />
     <Cell X="7" Y="31" Tile="TreeBottomRight" />
-
     <Cell X="8" Y="0" Tile="TreeTopLeft" />
     <Cell X="8" Y="1" Tile="TreeBottomLeft" />
     <Cell X="8" Y="2" Tile="WaterCornerN" />
@@ -304,7 +296,6 @@
     <Cell X="8" Y="29" Tile="TreeBottomLeft" />
     <Cell X="8" Y="30" Tile="TreeTopLeft" />
     <Cell X="8" Y="31" Tile="TreeBottomLeft" />
-
     <Cell X="9" Y="0" Tile="TreeTopRight" />
     <Cell X="9" Y="1" Tile="TreeBottomRight" />
     <Cell X="9" Y="2" Tile="WaterCornerN" />
@@ -337,7 +328,6 @@
     <Cell X="9" Y="29" Tile="TreeBottomRight" />
     <Cell X="9" Y="30" Tile="TreeTopRight" />
     <Cell X="9" Y="31" Tile="TreeBottomRight" />
-
     <Cell X="10" Y="0" Tile="TreeTopLeft" />
     <Cell X="10" Y="1" Tile="TreeBottomLeft" />
     <Cell X="10" Y="2" Tile="WaterCornerN" />
@@ -370,7 +360,6 @@
     <Cell X="10" Y="29" Tile="TreeBottomLeft" />
     <Cell X="10" Y="30" Tile="TreeTopLeft" />
     <Cell X="10" Y="31" Tile="TreeBottomLeft" />
-
     <Cell X="11" Y="0" Tile="TreeTopRight" />
     <Cell X="11" Y="1" Tile="TreeBottomRight" />
     <Cell X="11" Y="2" Tile="WaterCornerN" />
@@ -403,7 +392,6 @@
     <Cell X="11" Y="29" Tile="TreeBottomRight" />
     <Cell X="11" Y="30" Tile="TreeTopRight" />
     <Cell X="11" Y="31" Tile="TreeBottomRight" />
-
     <Cell X="12" Y="0" Tile="TreeTopLeft" />
     <Cell X="12" Y="1" Tile="TreeBottomLeft" />
     <Cell X="12" Y="2" Tile="WaterCornerN" />
@@ -436,7 +424,6 @@
     <Cell X="12" Y="29" Tile="TreeBottomLeft" />
     <Cell X="12" Y="30" Tile="TreeTopLeft" />
     <Cell X="12" Y="31" Tile="TreeBottomLeft" />
-
     <Cell X="13" Y="0" Tile="TreeTopRight" />
     <Cell X="13" Y="1" Tile="TreeBottomRight" />
     <Cell X="13" Y="2" Tile="WaterCornerN" />
@@ -469,7 +456,6 @@
     <Cell X="13" Y="29" Tile="TreeBottomRight" />
     <Cell X="13" Y="30" Tile="TreeTopRight" />
     <Cell X="13" Y="31" Tile="TreeBottomRight" />
-
     <Cell X="14" Y="0" Tile="TreeTopLeft" />
     <Cell X="14" Y="1" Tile="TreeBottomLeft" />
     <Cell X="14" Y="2" Tile="WaterCornerN" />
@@ -502,7 +488,6 @@
     <Cell X="14" Y="29" Tile="TreeBottomLeft" />
     <Cell X="14" Y="30" Tile="TreeTopLeft" />
     <Cell X="14" Y="31" Tile="TreeBottomLeft" />
-
     <Cell X="15" Y="0" Tile="TreeTopRight" />
     <Cell X="15" Y="1" Tile="TreeBottomRight" />
     <Cell X="15" Y="2" Tile="WaterCornerN" />
@@ -535,7 +520,6 @@
     <Cell X="15" Y="29" Tile="TreeBottomRight" />
     <Cell X="15" Y="30" Tile="TreeTopRight" />
     <Cell X="15" Y="31" Tile="TreeBottomRight" />
-
     <Cell X="16" Y="0" Tile="TreeTopLeft" />
     <Cell X="16" Y="1" Tile="TreeBottomLeft" />
     <Cell X="16" Y="2" Tile="WaterCornerN" />
@@ -568,7 +552,6 @@
     <Cell X="16" Y="29" Tile="TreeBottomLeft" />
     <Cell X="16" Y="30" Tile="TreeTopLeft" />
     <Cell X="16" Y="31" Tile="TreeBottomLeft" />
-
     <Cell X="17" Y="0" Tile="TreeTopRight" />
     <Cell X="17" Y="1" Tile="TreeBottomRight" />
     <Cell X="17" Y="2" Tile="WaterCornerN" />
@@ -576,13 +559,13 @@
     <Cell X="17" Y="4" Tile="Dirt" />
     <Cell X="17" Y="5" Tile="GenericHouseRoofCentreFar" />
     <Cell X="17" Y="6" Tile="GenericHouseRoofCentre" />
-    <Cell X="17" Y="7" Event="EnterHouse1" Tile="GenericHouseDoor" />
+    <Cell X="17" Y="7" Tile="GenericHouseDoor" Event="EnterHouse1" />
     <Cell X="17" Y="8" Tile="PathUD" />
     <Cell X="17" Y="9" Tile="PathLUR" />
     <Cell X="17" Y="10" Tile="Dirt" />
     <Cell X="17" Y="11" Tile="GenericHouseRoofCentreFar" />
     <Cell X="17" Y="12" Tile="GenericHouseRoofCentre" />
-    <Cell X="17" Y="13" Event="EnterHouse3" Tile="GenericHouseDoor" />
+    <Cell X="17" Y="13" Tile="GenericHouseDoor" Event="EnterHouse3" />
     <Cell X="17" Y="14" Tile="PathUD" />
     <Cell X="17" Y="15" Tile="PathLUR" />
     <Cell X="17" Y="16" Tile="Dirt" />
@@ -601,7 +584,6 @@
     <Cell X="17" Y="29" Tile="TreeBottomRight" />
     <Cell X="17" Y="30" Tile="TreeTopRight" />
     <Cell X="17" Y="31" Tile="TreeBottomRight" />
-
     <Cell X="18" Y="0" Tile="TreeTopLeft" />
     <Cell X="18" Y="1" Tile="TreeBottomLeft" />
     <Cell X="18" Y="2" Tile="WaterCornerN" />
@@ -634,7 +616,6 @@
     <Cell X="18" Y="29" Tile="TreeBottomLeft" />
     <Cell X="18" Y="30" Tile="TreeTopLeft" />
     <Cell X="18" Y="31" Tile="TreeBottomLeft" />
-
     <Cell X="19" Y="0" Tile="TreeTopRight" />
     <Cell X="19" Y="1" Tile="TreeBottomRight" />
     <Cell X="19" Y="2" Tile="WaterCornerN" />
@@ -667,7 +648,6 @@
     <Cell X="19" Y="29" Tile="TreeBottomRight" />
     <Cell X="19" Y="30" Tile="TreeTopRight" />
     <Cell X="19" Y="31" Tile="TreeBottomRight" />
-
     <Cell X="20" Y="0" Tile="TreeTopLeft" />
     <Cell X="20" Y="1" Tile="TreeBottomLeft" />
     <Cell X="20" Y="2" Tile="WaterCornerN" />
@@ -700,7 +680,6 @@
     <Cell X="20" Y="29" Tile="TreeBottomLeft" />
     <Cell X="20" Y="30" Tile="TreeTopLeft" />
     <Cell X="20" Y="31" Tile="TreeBottomLeft" />
-
     <Cell X="21" Y="0" Tile="TreeTopRight" />
     <Cell X="21" Y="1" Tile="TreeBottomRight" />
     <Cell X="21" Y="2" Tile="WaterCornerN" />
@@ -708,13 +687,13 @@
     <Cell X="21" Y="4" Tile="Dirt" />
     <Cell X="21" Y="5" Tile="GenericHouseRoofCentreFar" />
     <Cell X="21" Y="6" Tile="GenericHouseRoofCentre" />
-    <Cell X="21" Y="7" Event="EnterHouse2" Tile="GenericHouseDoor" />
+    <Cell X="21" Y="7" Tile="GenericHouseDoor" Event="EnterHouse2" />
     <Cell X="21" Y="8" Tile="PathUD" />
     <Cell X="21" Y="9" Tile="PathLUR" />
     <Cell X="21" Y="10" Tile="Dirt" />
     <Cell X="21" Y="11" Tile="GenericHouseRoofCentreFar" />
     <Cell X="21" Y="12" Tile="GenericHouseRoofCentre" />
-    <Cell X="21" Y="13" Event="EnterHouse4" Tile="GenericHouseDoor" />
+    <Cell X="21" Y="13" Tile="GenericHouseDoor" Event="EnterHouse4" />
     <Cell X="21" Y="14" Tile="PathUD" />
     <Cell X="21" Y="15" Tile="PathLUR" />
     <Cell X="21" Y="16" Tile="Dirt" />
@@ -733,7 +712,6 @@
     <Cell X="21" Y="29" Tile="TreeBottomRight" />
     <Cell X="21" Y="30" Tile="TreeTopRight" />
     <Cell X="21" Y="31" Tile="TreeBottomRight" />
-
     <Cell X="22" Y="0" Tile="TreeTopLeft" />
     <Cell X="22" Y="1" Tile="TreeBottomLeft" />
     <Cell X="22" Y="2" Tile="WaterCornerN" />
@@ -766,7 +744,6 @@
     <Cell X="22" Y="29" Tile="TreeBottomLeft" />
     <Cell X="22" Y="30" Tile="TreeTopLeft" />
     <Cell X="22" Y="31" Tile="TreeBottomLeft" />
-
     <Cell X="23" Y="0" Tile="TreeTopRight" />
     <Cell X="23" Y="1" Tile="TreeBottomRight" />
     <Cell X="23" Y="2" Tile="WaterCornerN" />
@@ -799,7 +776,6 @@
     <Cell X="23" Y="29" Tile="TreeBottomRight" />
     <Cell X="23" Y="30" Tile="TreeTopRight" />
     <Cell X="23" Y="31" Tile="TreeBottomRight" />
-
     <Cell X="24" Y="0" Tile="TreeTopLeft" />
     <Cell X="24" Y="1" Tile="TreeBottomLeft" />
     <Cell X="24" Y="2" Tile="WaterCornerN" />
@@ -832,7 +808,6 @@
     <Cell X="24" Y="29" Tile="WaterCornerW" />
     <Cell X="24" Y="30" Tile="WaterCornerW" />
     <Cell X="24" Y="31" Tile="WaterCornerW" />
-
     <Cell X="25" Y="0" Tile="TreeTopRight" />
     <Cell X="25" Y="1" Tile="TreeBottomRight" />
     <Cell X="25" Y="2" Tile="WaterCornerN" />
@@ -858,14 +833,13 @@
     <Cell X="25" Y="22" Tile="Water" />
     <Cell X="25" Y="23" Tile="Water" />
     <Cell X="25" Y="24" Tile="BridgeTop" />
-    <Cell X="25" Y="25" Event="BridgeBattle" Tile="BridgeLR" />
+    <Cell X="25" Y="25" Tile="BridgeLR" Event="BridgeBattle" />
     <Cell X="25" Y="26" Tile="BridgeBottom" />
     <Cell X="25" Y="27" Tile="Water" />
     <Cell X="25" Y="28" Tile="Water" />
     <Cell X="25" Y="29" Tile="Water" />
     <Cell X="25" Y="30" Tile="Water" />
     <Cell X="25" Y="31" Tile="Water" />
-
     <Cell X="26" Y="0" Tile="TreeTopLeft" />
     <Cell X="26" Y="1" Tile="TreeBottomLeft" />
     <Cell X="26" Y="2" Tile="WaterCornerN" />
@@ -891,14 +865,13 @@
     <Cell X="26" Y="22" Tile="Water" />
     <Cell X="26" Y="23" Tile="Water" />
     <Cell X="26" Y="24" Tile="BridgeTop" />
-    <Cell X="26" Y="25" Tile="BridgeLR" />
+    <Cell X="26" Y="25" Tile="BridgeLR" Event="ToForest" />
     <Cell X="26" Y="26" Tile="BridgeBottom" />
     <Cell X="26" Y="27" Tile="Water" />
     <Cell X="26" Y="28" Tile="Water" />
     <Cell X="26" Y="29" Tile="Water" />
     <Cell X="26" Y="30" Tile="Water" />
     <Cell X="26" Y="31" Tile="Water" />
-
     <Cell X="27" Y="0" Tile="TreeTopRight" />
     <Cell X="27" Y="1" Tile="TreeBottomRight" />
     <Cell X="27" Y="2" Tile="WaterCornerN" />
@@ -931,7 +904,6 @@
     <Cell X="27" Y="29" Tile="Water" />
     <Cell X="27" Y="30" Tile="Water" />
     <Cell X="27" Y="31" Tile="Water" />
-
     <Cell X="28" Y="0" Tile="TreeTopLeft" />
     <Cell X="28" Y="1" Tile="TreeBottomLeft" />
     <Cell X="28" Y="2" Tile="WaterCornerN" />
@@ -964,7 +936,6 @@
     <Cell X="28" Y="29" Tile="Water" />
     <Cell X="28" Y="30" Tile="Water" />
     <Cell X="28" Y="31" Tile="Water" />
-
     <Cell X="29" Y="0" Tile="TreeTopRight" />
     <Cell X="29" Y="1" Tile="TreeBottomRight" />
     <Cell X="29" Y="2" Tile="WaterCornerNE" />
@@ -997,7 +968,6 @@
     <Cell X="29" Y="29" Tile="WaterCornerE" />
     <Cell X="29" Y="30" Tile="WaterCornerE" />
     <Cell X="29" Y="31" Tile="WaterCornerE" />
-
     <Cell X="30" Y="0" Tile="TreeTopLeft" />
     <Cell X="30" Y="1" Tile="TreeBottomLeft" />
     <Cell X="30" Y="2" Tile="TreeTopLeft" />
@@ -1030,7 +1000,6 @@
     <Cell X="30" Y="29" Tile="TreeBottomLeft" />
     <Cell X="30" Y="30" Tile="TreeTopLeft" />
     <Cell X="30" Y="31" Tile="TreeBottomLeft" />
-
     <Cell X="31" Y="0" Tile="TreeTopRight" />
     <Cell X="31" Y="1" Tile="TreeBottomRight" />
     <Cell X="31" Y="2" Tile="TreeTopRight" />
@@ -1063,6 +1032,34 @@
     <Cell X="31" Y="29" Tile="TreeBottomRight" />
     <Cell X="31" Y="30" Tile="TreeTopRight" />
     <Cell X="31" Y="31" Tile="TreeBottomRight" />
+    <Cell X="32" Y="25" Tile="PathLR" />
+    <Cell X="33" Y="25" Tile="PathLR" />
+    <Cell X="32" Y="24" Tile="Dirt" />
+    <Cell X="33" Y="24" Tile="Dirt" />
+    <Cell X="32" Y="26" Tile="Dirt" />
+    <Cell X="33" Y="26" Tile="Dirt" />
+    <Cell X="33" Y="27" Tile="Dirt" />
+    <Cell X="32" Y="27" Tile="Dirt" />
+    <Cell X="32" Y="23" Tile="TreeBottomLeft" />
+    <Cell X="32" Y="29" Tile="TreeBottomLeft" />
+    <Cell X="32" Y="31" Tile="TreeBottomLeft" />
+    <Cell X="33" Y="28" Tile="TreeTopRight" />
+    <Cell X="33" Y="30" Tile="TreeTopRight" />
+    <Cell X="33" Y="31" Tile="TreeBottomRight" />
+    <Cell X="33" Y="29" Tile="TreeBottomRight" />
+    <Cell X="32" Y="28" Tile="TreeTopLeft" />
+    <Cell X="32" Y="30" Tile="TreeTopLeft" />
+    <Cell X="32" Y="22" Tile="TreeTopLeft" />
+    <Cell X="32" Y="20" Tile="TreeTopLeft" />
+    <Cell X="32" Y="18" Tile="TreeTopLeft" />
+    <Cell X="32" Y="19" Tile="TreeBottomLeft" />
+    <Cell X="32" Y="21" Tile="TreeBottomLeft" />
+    <Cell X="33" Y="18" Tile="TreeTopRight" />
+    <Cell X="33" Y="20" Tile="TreeTopRight" />
+    <Cell X="33" Y="22" Tile="TreeTopRight" />
+    <Cell X="33" Y="19" Tile="TreeBottomRight" />
+    <Cell X="33" Y="21" Tile="TreeBottomRight" />
+    <Cell X="33" Y="23" Tile="TreeBottomRight" />
   </Cells>
   <Actors>
     <Actor X="24" Y="25" Type="BridgeNPC">
@@ -1071,5 +1068,24 @@
       <Property Name="States">2</Property>
       <Property Name="TorchID">T_Village</Property>
     </Actor>
+    <Actor X="23" Y="24" Type="ScriptedActor">
+      <Property Name="States">1</Property>
+      <Property Name="Tileset">Tilesets\GenericNPC.xml</Property>
+      <Property Name="Dialogue">FSEGame\Dialogues\DLC1\MaroPostBattle.xml</Property>
+      <Property Name="Function">Village_PostBattleActor</Property>
+    </Actor>
+    <Actor X="22" Y="25" Type="ScriptedActor">
+      <Property Name="States">1</Property>
+      <Property Name="Tileset">Tilesets\GenericNPC.xml</Property>
+      <Property Name="Dialogue">FSEGame\Dialogues\DLC1\VernadoPostBattle.xml</Property>
+      <Property Name="Function">Village_PostBattleActor</Property>
+    </Actor>
+    <Actor X="23" Y="26" Type="ScriptedActor">
+      <Property Name="States">1</Property>
+      <Property Name="Tileset">Tilesets\GenericNPC.xml</Property>
+      <Property Name="Dialogue">FSEGame\Dialogues\DLC1\MarkusPostBattle.xml</Property>
+      <Property Name="Function">Village_PostBattleActor</Property>
+    </Actor>
   </Actors>
+  <RandomEncounters />
 </Level>

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<Dialogue ID="root">
+  <Speech ID="speech#1" TextVar="string#1" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="276" Top="82">
+    <Speech ID="speech#2" TextVar="string#2" Text="[MISSING TEXT]" Mode="Time" Time="0" Audio="" Left="545" Top="82" />
+  </Speech>
+  <Orphans />
+  <Variables>
+    <StringVar Name="string#1" Export="False" Left="282" Top="227">Maro: Thanks to you, I will be able to re-open my shop soon!</StringVar>
+    <StringVar Name="string#2" Export="False" Left="530" Top="230">Maro: If you need any items, I will give you a good discount on them.</StringVar>
+  </Variables>
+</Dialogue>
