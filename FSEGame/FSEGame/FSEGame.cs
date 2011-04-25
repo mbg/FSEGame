@@ -368,6 +368,8 @@ namespace FSEGame
                 this.fadeScreen.Finished -= cleanupDelegate;
 
                 this.character.Enabled = true;
+
+                function.Call();
             });
 
             FadeScreenEventDelegate loadDelegate = null;
@@ -382,8 +384,6 @@ namespace FSEGame
                 this.fadeScreen.Finished -= loadDelegate;
                 this.fadeScreen.Finished += cleanupDelegate;
                 this.fadeScreen.FadeOut(1.0d);
-
-                function.Call();
             });
 
             this.fadeScreen.Enabled = true;
@@ -738,6 +738,19 @@ namespace FSEGame
             this.gameOverScreen.Show();
         }
         #endregion
+
+        [ScriptFunction("HealPlayer")]
+        public void HealPlayer()
+        {
+            this.playerCharacter.CurrentAttributes.Health =
+                this.playerCharacter.BaseAttributes.Health;
+        }
+
+        [ScriptFunction("LearnMove")]
+        public void LearnMove(String name)
+        {
+            this.playerCharacter.Moves.Add(MoveHelper.CreateFromName(name));
+        }
     }
 }
 

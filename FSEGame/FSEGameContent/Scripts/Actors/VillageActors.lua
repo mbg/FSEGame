@@ -68,7 +68,7 @@ end
 
 function Village_GiveTorch()
 	PSSetNumber('T_Village', 10)
-	-- TODO: Give BasicAttack move
+	LearnMove('BasicAttack')
 	
 	PlayDialogue('FSEGame\\Dialogues\\TorchObtained.xml')
 end
@@ -108,7 +108,7 @@ function Markus_GiveStick()
 end
 
 function Markus_LevelLoaded()
-	-- TODO: Restore health
+	HealPlayer()
 	
 	if Markus_Victory then
 		UnregisterDefaultDialogueHandlers()

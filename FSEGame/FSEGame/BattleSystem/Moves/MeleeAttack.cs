@@ -113,7 +113,7 @@ namespace FSEGame.BattleSystem.Moves
         {
             // :: The base damage inflicted by this move is the performing
             // :: actor's current strength minus the target's defence value.
-            Int32 damage = origin.CurrentAttributes.Strength -
+            Int32 damage = (int)Math.Floor(((double)origin.CurrentAttributes.Strength * 1.5d)) -
                 target.CurrentAttributes.Defence;
 
             // :: But always at least 1 health point.
