@@ -11,6 +11,7 @@
 #region References
 using System;
 using FSEGame.Engine;
+using FSEGame.Engine.Actors;
 #endregion
 
 namespace FSEGame.Actors

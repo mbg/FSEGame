@@ -14,6 +14,7 @@ using FSEGame.Engine;
 using System.ComponentModel;
 using System.Collections.Generic;
 using System.Drawing.Design;
+using FSEGame.Engine.Actors;
 #endregion
 
 namespace FSEGameEditorEngine

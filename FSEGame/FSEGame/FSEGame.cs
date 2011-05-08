@@ -313,6 +313,7 @@ namespace FSEGame
             }
 #endif
 
+            // :: Debug code for pathfinding.
             if (this.IsKeyPressed(Keys.F3))
             {
                 LevelEntryPoint exit = this.CurrentLevel.GetEntryPoint("Exit");

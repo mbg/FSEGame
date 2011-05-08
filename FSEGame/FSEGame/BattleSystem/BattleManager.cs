@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using FSEGame.Actors;
 using FSEGame.Engine.UI;
+using FSEGame.Engine.Actors;
 #endregion
 
 namespace FSEGame.BattleSystem

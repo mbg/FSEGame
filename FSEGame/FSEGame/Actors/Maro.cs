@@ -13,6 +13,7 @@ using System;
 using FSEGame.Engine;
 using FSEGame.BattleSystem;
 using FSEGame.BattleSystem.Moves;
+using FSEGame.Engine.Actors;
 #endregion
 
 namespace FSEGame.Actors

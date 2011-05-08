@@ -105,8 +105,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Editor\SuggestedPropertyAttribute.cs" />
-    <Compile Include="Engine\Actor.cs" />
-    <Compile Include="Engine\ActorProperties.cs" />
+    <Compile Include="Engine\Actors\Actor.cs" />
+    <Compile Include="Engine\Actors\ActorProperties.cs" />
+    <Compile Include="Engine\Actors\Controller.cs" />
+    <Compile Include="Engine\Actors\Pawn.cs" />
     <Compile Include="Engine\CellEventType.cs" />
     <Compile Include="Engine\CellInformation.cs" />
     <Compile Include="Engine\CellPosition.cs" />
@@ -122,6 +124,7 @@
     <Compile Include="Engine\EngineLog.cs" />
     <Compile Include="Engine\FPSCounter.cs" />
     <Compile Include="Engine\GameBase.cs" />
+    <Compile Include="Engine\GameInfo.cs" />
     <Compile Include="Engine\GridHelper.cs" />
     <Compile Include="Engine\Level.cs" />
     <Compile Include="Engine\LevelCell.cs" />
@@ -129,7 +132,7 @@
     <Compile Include="Engine\Levels\LevelLoadException.cs" />
     <Compile Include="Engine\Pathfinding\GenericPathfinder.cs" />
     <Compile Include="Engine\Pathfinding\GenericPathfinderCellInformation.cs" />
-    <Compile Include="Engine\Pathfinding\GenericPathfinderQueue.cs" />
+    <Compile Include="Engine\Pathfinding\PriorityQueue.cs" />
     <Compile Include="Engine\Pathfinding\IPathfinder.cs" />
     <Compile Include="Engine\Pathfinding\Path.cs" />
     <Compile Include="Engine\PersistentStorage.cs" />
@@ -140,6 +143,7 @@
     <Compile Include="Engine\Tile.cs" />
     <Compile Include="Engine\TileCollection.cs" />
     <Compile Include="Engine\Tileset.cs" />
+    <Compile Include="Engine\TilesetManager.cs" />
     <Compile Include="Engine\UI\IUIElement.cs" />
     <Compile Include="Engine\UI\MenuScreen.cs" />
     <Compile Include="Engine\UI\StaticImage.cs" />

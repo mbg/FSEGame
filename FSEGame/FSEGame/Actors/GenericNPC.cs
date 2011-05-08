@@ -16,6 +16,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using FSEGame.Editor;
+using FSEGame.Engine.Actors;
 #endregion
 
 namespace FSEGame.Actors

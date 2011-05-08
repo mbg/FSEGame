@@ -11,6 +11,15 @@
     <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
     <OutputPath>bin\$(Platform)\$(Configuration)</OutputPath>
     <ContentRootDirectory>FSEGame</ContentRootDirectory>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -23,17 +32,8 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <SccProjectName>
-    </SccProjectName>
-    <SccLocalPath>
-    </SccLocalPath>
-    <SccAuxPath>
-    </SccAuxPath>
-    <SccProvider>
-    </SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <PlatformTarget>x86</PlatformTarget>
@@ -444,6 +444,12 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+    <Content Include="Tilesets.xml">
+      <Name>Tilesets</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Tilesets\Character.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -596,6 +602,7 @@
   <ItemGroup>
     <Folder Include="BattleData\RandomEncounters\" />
     <Folder Include="Scripts\DLC1\" />
+    <Folder Include="Textures\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\Village2.lua">
@@ -619,6 +626,8 @@
     <Content Include="Scripts\DLC1Forest.lua">
       <Name>DLC1Forest</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Importer>LuaImporter</Importer>
+      <Processor>LuaProcessor</Processor>
     </Content>
   </ItemGroup>
   <ItemGroup>

@@ -15,6 +15,7 @@ using LuaInterface;
 using Microsoft.Xna.Framework;
 using FSEGame.Editor;
 using Microsoft.Xna.Framework.Graphics;
+using FSEGame.Engine.Actors;
 #endregion
 
 namespace FSEGame.Actors

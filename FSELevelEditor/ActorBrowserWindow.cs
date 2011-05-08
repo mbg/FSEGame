@@ -10,6 +10,7 @@ using System.Reflection;
 using FSEGame.Engine;
 using FSEGameEditorEngine;
 using FSEGame.Editor;
+using FSEGame.Engine.Actors;
 
 namespace FSELevelEditor
 {

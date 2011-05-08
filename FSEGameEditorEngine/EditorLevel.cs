@@ -17,6 +17,7 @@ using Microsoft.Xna.Framework;
 using System.IO;
 using System.Xml;
 using Microsoft.Xna.Framework.Content;
+using FSEGame.Engine.Actors;
 #endregion
 
 namespace FSEGameEditorEngine

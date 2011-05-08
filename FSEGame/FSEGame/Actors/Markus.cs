@@ -15,6 +15,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using FSEGame.BattleSystem;
 using FSEGame.BattleSystem.Moves;
+using FSEGame.Engine.Actors;
 #endregion
 
 namespace FSEGame.Actors

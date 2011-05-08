@@ -16,6 +16,7 @@ using FSEGame.Actors;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Reflection;
+using FSEGame.Engine.Actors;
 #endregion
 
 namespace FSEGame

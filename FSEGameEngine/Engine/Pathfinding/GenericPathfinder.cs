@@ -41,21 +41,25 @@ namespace FSEGame.Engine.Pathfinding
 
         #region FindPath
         /// <summary>
-        /// 
+        /// Finds a path from the origin position to the target position or returns
+        /// null if there is no path connecting the two points.
         /// </summary>
         /// <param name="origin"></param>
         /// <param name="target"></param>
         /// <returns></returns>
         public Path FindPath(CellPosition origin, CellPosition target)
         {
+#if DEBUG
             GameBase.Singleton.Log.WriteLine("A*", String.Format("Trying to find path from {0} to {1}", origin, target));
 
-            Path result = new Path();
+            DateTime startTime = DateTime.Now;
+#endif
+           
             Double cost = 0;
 
             this.explored = new List<CellPosition>();
 
-            GenericPathfinderQueue searchQueue = new GenericPathfinderQueue();
+            PriorityQueue<GenericPathfinderCellInformation> searchQueue = new PriorityQueue<GenericPathfinderCellInformation>(new ComparisonDelegate<GenericPathfinderCellInformation>(this.Compare));
             searchQueue.Enqueue(new GenericPathfinderCellInformation(cost, origin, target));
 
             while (true)
@@ -71,6 +75,9 @@ namespace FSEGame.Engine.Pathfinding
                 // :: to the specified target cell.
                 if (info == null)
                 {
+#if DEBUG
+                    GameBase.Singleton.Log.WriteLine("A*", String.Format("Found no path from {0} to {1} in {2}.", origin, target, DateTime.Now.Subtract(startTime).ToString()));
+#endif
                     return null;
                 }
 
@@ -78,7 +85,12 @@ namespace FSEGame.Engine.Pathfinding
                 // :: the path to it and return.
                 if (info.Position.Equals(target))
                 {
-                    return this.ReconstructPath(info);
+                    Path resultPath = this.ReconstructPath(info);
+#if DEBUG
+                    GameBase.Singleton.Log.WriteLine("A*", String.Format("Found a path from {0} to {1} with cost {2} and {3} steps in {4}.",
+                        origin, target, info.F, resultPath.Count, DateTime.Now.Subtract(startTime).ToString()));
+#endif
+                    return resultPath;
                 }
 
                 this.explored.Add(info.Position);
@@ -96,6 +108,12 @@ namespace FSEGame.Engine.Pathfinding
         }
         #endregion
 
+        #region ReconstructPath
+        /// <summary>
+        /// Reconstructs the path to the goal state after it was discovered.
+        /// </summary>
+        /// <param name="to"></param>
+        /// <returns></returns>
         private Path ReconstructPath(GenericPathfinderCellInformation to)
         {
             Path result = new Path();
@@ -110,10 +128,11 @@ namespace FSEGame.Engine.Pathfinding
 
             return result;
         }
+        #endregion
 
         #region GetAdjacentNodes
         /// <summary>
-        /// 
+        /// Gets 
         /// </summary>
         /// <param name="position"></param>
         /// <returns></returns>
@@ -126,20 +145,30 @@ namespace FSEGame.Engine.Pathfinding
             CellPosition right = new CellPosition(position.X + 1, position.Y);
             CellPosition bottom = new CellPosition(position.X, position.Y + 1);
 
-            if (this.level.IsValidPosition(left.ToVector2()) && !this.IsAlreadyExplored(left, parent))
+            if (this.level.IsValidPosition(left.ToVector2()) && !this.IsAlreadyExplored(left))
                 positions.Add(left);
-            if (this.level.IsValidPosition(top.ToVector2()) && !this.IsAlreadyExplored(top, parent))
+            if (this.level.IsValidPosition(top.ToVector2()) && !this.IsAlreadyExplored(top))
                 positions.Add(top);
-            if (this.level.IsValidPosition(right.ToVector2()) && !this.IsAlreadyExplored(right, parent))
+            if (this.level.IsValidPosition(right.ToVector2()) && !this.IsAlreadyExplored(right))
                 positions.Add(right);
-            if (this.level.IsValidPosition(bottom.ToVector2()) && !this.IsAlreadyExplored(bottom, parent))
+            if (this.level.IsValidPosition(bottom.ToVector2()) && !this.IsAlreadyExplored(bottom))
                 positions.Add(bottom);
 
             return positions.ToArray();
         }
         #endregion
 
-        private Boolean IsAlreadyExplored(CellPosition position, GenericPathfinderCellInformation parent)
+        #region IsAlreadyExplored
+        /// <summary>
+        /// Gets a value indicating whether the specified position has already been explored. 
+        /// </summary>
+        /// <param name="position">
+        /// The position for which to determine whether it has already
+        /// been explored or not.</param>
+        /// <returns>
+        /// Returns true if the position has already been explored or false if not.
+        /// </returns>
+        private Boolean IsAlreadyExplored(CellPosition position)
         {
             // TODO: Optimise this.
             foreach (CellPosition pos in this.explored)
@@ -150,6 +179,24 @@ namespace FSEGame.Engine.Pathfinding
 
             return false;
         }
+        #endregion
+
+        #region Compare
+        /// <summary>
+        /// Compares two cells and decides which should be explored first.
+        /// </summary>
+        /// <param name="a">The first cell to compare.</param>
+        /// <param name="b">The second cell to compare.</param>
+        /// <returns>
+        /// Returns true if the first cell has priority over the second cell or 
+        /// false if not.
+        /// </returns>
+        private Boolean Compare
+            (GenericPathfinderCellInformation a, GenericPathfinderCellInformation b)
+        {
+            return a.F < b.F;
+        }
+        #endregion
     }
 }
 

@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using FSEGame.Engine;
 using Microsoft.Xna.Framework.Graphics;
 using System.Drawing;
+using FSEGame.Engine.Actors;
 #endregion
 
 namespace FSEGameEditorEngine

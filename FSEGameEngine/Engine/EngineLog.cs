@@ -21,6 +21,9 @@ namespace FSEGame.Engine
     public sealed class EngineLog : IDisposable
     {
         #region Instance Members
+        /// <summary>
+        /// 
+        /// </summary>
         private StreamWriter log;
         #endregion
 
@@ -51,10 +54,11 @@ namespace FSEGame.Engine
 
         public void WriteLine(String source, String message)
         {
-            this.log.WriteLine("[{0}] {1}: {2}",
+            this.log.WriteLine("[{0}.{3}] {1}: {2}",
                 DateTime.Now.ToLongTimeString(),
                 source,
-                message);
+                message,
+                DateTime.Now.Millisecond);
             this.log.Flush();
         }
 
